@@ -1,0 +1,22 @@
+{
+  "name": "@qoq/root",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "format": "npm run format:check -- --write",
+    "format:check": "prettier --check \"./src/**/*.+(ts)\" \"./packages/**/*.+(ts)\" --ignore-unknown"
+  },
+  "dependencies": {
+    "@qoq/eslint": "file:./packages/eslint",
+    "@qoq/eslint-browser": "file:./packages/eslint-browser",
+    "@qoq/eslint-common": "file:./packages/eslint-common"
+  },
+  "devDependencies": {
+    "prettier": "3.0.3",
+    "typescript": "5.2.2"
+  }
+}

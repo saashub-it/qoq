@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "incremental": false,
+    "declaration": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "files": [
+    "./src/index.ts"
+  ],
+  "references": [
+    {
+      "path": "./packages/eslint"
+    },
+    {
+      "path": "./packages/eslint-browser"
+    },
+    {
+      "path": "./packages/eslint-common"
+    }
+  ]
+}
