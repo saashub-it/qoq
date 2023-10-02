@@ -2,7 +2,7 @@
   "name": "@qoq/cli",
   "version": "0.1.0",
   "bin": {
-    "qoq": "./bin/qoq.js"
+    "qoq": "bin/qoq.js"
   },
   "publishConfig": {
     "access": "public"
