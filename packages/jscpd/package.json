@@ -7,6 +7,9 @@
     "./package.json": "./package.json",
     ".": "./src/config.json"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "jscpd": "3.5.10"
   }
