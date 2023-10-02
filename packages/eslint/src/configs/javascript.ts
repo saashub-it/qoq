@@ -1,3 +1,4 @@
+// @ts-ignore
 import jsRules from '@eslint/js';
 import * as compatPlugin from 'eslint-plugin-compat';
 import * as importPlugin from 'eslint-plugin-import';

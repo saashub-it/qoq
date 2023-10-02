@@ -1,5 +1,9 @@
 {
   "extends": "./tsconfig.common.json",
+  "compilerOptions": {
+    "rootDir": "./packages",
+    "outDir": "./build"
+  },
   "references": [
     {
       "path": "./packages/cli"
