@@ -1,0 +1,13 @@
+{
+  "name": "@qoq/jscpd",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/config.json",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./src/config.json"
+  },
+  "dependencies": {
+    "jscpd": "3.5.10"
+  }
+}

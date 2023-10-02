@@ -1,34 +1,7 @@
-import merge from 'lodash/merge';
+import { javaScriptConfig } from './configs/javascript';
+import { typeScriptConfig } from './configs/typescript';
 
-type TRules = Record<string, any>;
-
-interface IEslintConfigOverrides {
-  files: string[];
-  rules: TRules;
-}
-
-export interface IEslintConfig {
-  root: boolean;
-  plugins: string[];
-  extends: string[];
-  rules: TRules;
-  overrides: IEslintConfigOverrides[];
-}
-
-export const emptyEslintConfig: IEslintConfig = {
-  root: true,
-  plugins: [],
-  extends: [],
-  rules: {},
-  overrides: [],
+export default {
+  javaScriptConfig,
+  typeScriptConfig,
 };
-
-export abstract class AbstractEslintConfigProvider {
-  getProviderConfig() {
-    return this.providerConfig;
-  }
-
-  protected providerConfig: Partial<IEslintConfig> = merge({}, emptyEslintConfig);
-
-  abstract getConfig(config: IEslintConfig): IEslintConfig;
-}

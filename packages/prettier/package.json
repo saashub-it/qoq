@@ -1,0 +1,19 @@
+{
+  "name": "@qoq/prettier",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./build/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "prettier": "3.0.3"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

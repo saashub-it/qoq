@@ -1,29 +1,16 @@
 {
+  "extends": "./tsconfig.common.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "incremental": false,
-    "declaration": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./bin"
   },
-  "files": [
-    "./src/index.ts"
-  ],
+  "files": ["src/qoq.ts"],
   "references": [
     {
+      "path": "./packages/prettier"
+    },
+    {
       "path": "./packages/eslint"
-    },
-    {
-      "path": "./packages/eslint-browser"
-    },
-    {
-      "path": "./packages/eslint-common"
     }
   ]
 }
