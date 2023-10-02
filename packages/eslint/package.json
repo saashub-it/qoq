@@ -28,5 +28,6 @@
     "@types/lodash": "4.14.199",
     "typescript": "5.2.2"
   },
+  "repository": "git@github.com:saashub-it/qoq.git",
   "gitHead": "a7d1fdd114ca56e8c22bb785011132bd2ca4267c"
 }
