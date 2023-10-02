@@ -1,10 +1,13 @@
 {
+  "name": "qoq",
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
   ],
+  "private": true,
   "scripts": {
     "build": "tsc --build --verbose",
+    "prepack": "npm run build",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },

@@ -1,6 +1,7 @@
 {
   "name": "@qoq/cli",
   "version": "0.0.0",
+  "type": "module",
   "bin": {
     "qoq": "bin/qoq.js"
   },
@@ -8,7 +9,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "@qoq/eslint": "file:./packages/eslint",
@@ -26,5 +28,6 @@
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/cli"
-  }
+  },
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/cli"
 }
