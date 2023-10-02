@@ -26,6 +26,5 @@
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/cli"
-  },
-  "gitHead": "a7d1fdd114ca56e8c22bb785011132bd2ca4267c"
+  }
 }
