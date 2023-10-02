@@ -1,6 +1,6 @@
 {
   "name": "@qoq/jscpd",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "main": "./src/config.json",
   "exports": {
     "./package.json": "./package.json",
