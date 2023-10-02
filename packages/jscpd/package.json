@@ -12,6 +12,10 @@
   "dependencies": {
     "jscpd": "3.5.10"
   },
-  "repository": "git@github.com:saashub-it/qoq.git",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:saashub-it/qoq.git",
+    "directory": "packages/jscpd"
+  },
   "gitHead": "a7d1fdd114ca56e8c22bb785011132bd2ca4267c"
 }
