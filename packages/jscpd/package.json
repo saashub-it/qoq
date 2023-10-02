@@ -1,6 +1,6 @@
 {
   "name": "@qoq/jscpd",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "main": "./src/config.json",
   "exports": {
     "./package.json": "./package.json",
@@ -11,5 +11,6 @@
   },
   "dependencies": {
     "jscpd": "3.5.10"
-  }
+  },
+  "gitHead": "a7d1fdd114ca56e8c22bb785011132bd2ca4267c"
 }

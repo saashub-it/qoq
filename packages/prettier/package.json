@@ -1,6 +1,6 @@
 {
   "name": "@qoq/prettier",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "main": "./build/index.js",
   "exports": {
     "./package.json": "./package.json",
@@ -17,5 +17,6 @@
   },
   "devDependencies": {
     "typescript": "5.2.2"
-  }
+  },
+  "gitHead": "a7d1fdd114ca56e8c22bb785011132bd2ca4267c"
 }
