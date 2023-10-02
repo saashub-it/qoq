@@ -1,30 +1,16 @@
 {
   "name": "root",
   "version": "0.0.0",
-  "private": true,
-  "bin": {
-    "qoq": "./bin/qoq.js"
-  },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build": "tsc --build --verbose",
-    "start": "ts-node ./src/qoq.ts install",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
-  "dependencies": {
-    "@qoq/eslint": "file:./packages/eslint",
-    "@qoq/jscpd": "file:./packages/jscpd",
-    "@qoq/prettier": "file:./packages/prettier",
-    "npm-run-all": "4.1.5",
-    "unimported": "1.30.0"
-  },
   "devDependencies": {
-    "@types/node": "20.8.0",
     "prettier": "3.0.3",
-    "ts-node": "10.9.1",
     "typescript": "5.2.2"
   }
 }

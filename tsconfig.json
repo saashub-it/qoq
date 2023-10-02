@@ -1,11 +1,9 @@
 {
   "extends": "./tsconfig.common.json",
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./bin"
-  },
-  "files": ["src/qoq.ts"],
   "references": [
+    {
+      "path": "./packages/cli"
+    },
     {
       "path": "./packages/prettier"
     },
