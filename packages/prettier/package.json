@@ -1,7 +1,6 @@
 {
   "name": "@qoq/prettier",
   "version": "0.0.0",
-  "private": true,
   "main": "./build/index.js",
   "exports": {
     "./package.json": "./package.json",
