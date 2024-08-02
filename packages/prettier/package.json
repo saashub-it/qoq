@@ -1,6 +1,6 @@
 {
-  "name": "@qoq/prettier",
-  "version": "0.1.0",
+  "name": "@saashub-qoq/prettier",
+  "version": "0.0.0",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
@@ -17,9 +17,10 @@
     "prettier": "3.3.3"
   },
   "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/prettier"
-  },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier"
+  "type": "git",
+  "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+  "directory": "packages/prettier"
+},
+"homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier"
 }
+

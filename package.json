@@ -1,9 +1,9 @@
 {
-  "name": "quality-over-quantity",
+  "name": "saashub-qoq",
   "license": "MIT",
-  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "publish": "lerna run tsc && lerna publish",
+    "publish": "lerna run tsc && lerna publish --no-private",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
