@@ -1,9 +1,9 @@
 {
   "name": "@saashub-qoq/cli",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "bin": {
-    "qoq": "lib/qoq.js"
+    "qoq": "bin/qoq.js"
   },
   "publishConfig": {
     "access": "public"
@@ -12,7 +12,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@saashub-qoq/prettier": "^0.0.1",
+    "@saashub-qoq/prettier": "*",
     "npm-run-all": "4.1.5"
   },
   "repository": {
