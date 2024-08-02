@@ -1,9 +1,15 @@
 {
   "name": "@saashub/qoq-cli",
+  "license": "MIT",
   "version": "0.0.1",
   "type": "module",
   "bin": {
     "qoq": "bin/qoq.js"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./README": "./README",
+    "./LICENSE": "./LICENSE"
   },
   "publishConfig": {
     "access": "public"
