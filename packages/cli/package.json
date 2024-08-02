@@ -1,28 +1,19 @@
 {
   "name": "@qoq/cli",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
   "bin": {
-    "qoq": "bin/qoq.js"
+    "qoq": "lib/qoq.js"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --build",
-    "prepack": "npm run build"
+    "tsc": "tsc"
   },
   "dependencies": {
-    "@qoq/eslint": "file:./packages/eslint",
-    "@qoq/jscpd": "file:./packages/jscpd",
-    "@qoq/prettier": "file:./packages/prettier",
-    "npm-run-all": "4.1.5",
-    "unimported": "1.30.0"
-  },
-  "devDependencies": {
-    "@types/node": "20.8.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.2.2"
+    "@qoq/prettier": "*",
+    "npm-run-all": "4.1.5"
   },
   "repository": {
     "type": "git",

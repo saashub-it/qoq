@@ -1,18 +1,15 @@
 {
-  "extends": "./tsconfig.common.json",
   "compilerOptions": {
-    "rootDir": "./packages",
-    "outDir": "./build"
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": false,
+    "lib": ["es6"]
   },
-  "references": [
-    {
-      "path": "./packages/cli"
-    },
-    {
-      "path": "./packages/prettier"
-    },
-    {
-      "path": "./packages/eslint"
-    }
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

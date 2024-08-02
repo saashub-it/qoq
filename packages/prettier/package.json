@@ -1,29 +1,26 @@
 {
   "name": "@qoq/prettier",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
-  "main": "./build/index.js",
+  "main": "./lib/index.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./build/index.js"
+    ".": "./lib/index.js"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --build",
-    "prepack": "npm run build"
+    "tsc": "tsc"
   },
   "dependencies": {
-    "prettier": "3.0.3"
-  },
-  "devDependencies": {
-    "typescript": "5.2.2"
+    "prettier": "3.3.3"
   },
   "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/prettier"
-  },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier"
+  "type": "git",
+  "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+  "directory": "packages/prettier"
+},
+"homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier"
 }
+

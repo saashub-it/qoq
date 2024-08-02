@@ -1,11 +1,7 @@
 {
-  "extends": "../../tsconfig.common.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "incremental": true,
-    "declaration": true,
-    "rootDir": "./src",
     "outDir": "./bin"
   },
-  "files": ["src/qoq.ts"]
+  "include": ["./src"]
 }

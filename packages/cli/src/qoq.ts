@@ -24,24 +24,24 @@ if (cmd !== 'install') {
     const packageJsonObject = JSON.parse(data);
     const { scripts } = packageJsonObject;
 
-    scripts['qoq:check'] = 'run-p qoq:check:*';
-    scripts['qoq:fix'] = 'run-s qoq:fix:*';
+    // scripts['qoq:check'] = 'run-p qoq:check:*';
+    // scripts['qoq:fix'] = 'run-s qoq:fix:*';
 
     // prettier
     scripts['qoq:check:prettier'] = 'prettier --check . --ignore-unknown';
     scripts['qoq:staged:prettier'] = 'prettier --check --ignore-unknown';
-    scripts['qoq:fix:1prettier'] = 'npm run qoq:check:prettier -- --write';
+    scripts['qoq:fix:prettier'] = 'npm run qoq:check:prettier -- --write';
 
     // eslint
-    scripts['qoq:check:eslint'] = 'eslint "./src/**/*.+(js|jsx|ts|tsx)" --cache';
-    scripts['qoq:staged:eslint'] = 'eslint --cache';
-    scripts['qoq:fix:2eslint'] = 'npm run qoq:check:eslint-- --fix';
+    // scripts['qoq:check:eslint'] = 'eslint "./src/**/*.+(js|jsx|ts|tsx)" --cache';
+    // scripts['qoq:staged:eslint'] = 'eslint --cache';
+    // scripts['qoq:fix:2eslint'] = 'npm run qoq:check:eslint-- --fix';
 
     // jscpd
-    scripts['qoq:check:jscpd'] = 'jscpd ./src/';
+    // scripts['qoq:check:jscpd'] = 'jscpd ./src/';
 
     // unimported
-    scripts['qoq:check:unimported'] = 'unimported';
+    // scripts['qoq:check:unimported'] = 'unimported';
 
     writeFile(
       packageJsonPath,

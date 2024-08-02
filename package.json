@@ -1,18 +1,19 @@
 {
-  "name": "qoq",
-  "version": "0.0.0",
-  "workspaces": [
-    "packages/*"
-  ],
   "private": true,
+  "name": "qoq",
+  "license": "MIT",
   "scripts": {
-    "build": "tsc --build --verbose",
-    "prepack": "npm run build",
+    "publish": "lerna run tsc && lerna publish",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
   "devDependencies": {
-    "prettier": "3.0.3",
-    "typescript": "5.2.2"
-  }
+    "@types/node": "^20",
+    "lerna": "8.1.7",
+    "prettier": "3.3.3",
+    "typescript": "5.5.4"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

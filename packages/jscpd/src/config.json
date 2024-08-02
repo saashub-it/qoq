@@ -1,6 +1,0 @@
-{
-  "absolute": true,
-  "format": "javascript,jsx,typescript,tsx",
-  "ignore": ["**/*.spec.js", "**/*.spec.jsx", "**/*.spec.ts", "**/*.spec.tsx"],
-  "threshold": "1"
-}

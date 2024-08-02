@@ -9,7 +9,7 @@
 
 # builds
 **/bin
-**/build
+**/lib
 
 # Logs
 logs
