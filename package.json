@@ -1,5 +1,5 @@
 {
-  "name": "saashub-qoq",
+  "name": "@saashub/qoq",
   "license": "MIT",
   "private": true,
   "scripts": {
