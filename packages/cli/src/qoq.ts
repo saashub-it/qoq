@@ -3,21 +3,22 @@
 import { execSync } from 'child_process';
 import { kebabCase } from 'lodash';
 
-const [, , ...args] = process.argv;
+let src = '.';
+const configuredSources = new RegExp(/--src (.*) --|--src (.*)$/, 'gs').exec(
+  process.argv.join(' ')
+);
+
+if (configuredSources) {
+  src = configuredSources[1];
+}
 
 enum EOptions {
   'FIX' = '--fix',
 }
 
 const avaliableOptions: Record<EOptions, boolean> = {
-  [EOptions.FIX]: false,
+  [EOptions.FIX]: !!process.argv.join(' ').match(new RegExp(/--fix/, 'gs')),
 };
-
-args
-  .filter((option) => Object.values(EOptions).map((enumValue) => String(enumValue) === option))
-  .forEach((option) => {
-    avaliableOptions[option] = true;
-  });
 
 enum EModules {
   'PRETTIER' = '@saashub/qoq-prettier',
@@ -70,7 +71,7 @@ try {
         prettierOptions
       );
 
-      execSync(`prettier --check . --ignore-unknown ${prettierOptions.join(' ')}`);
+      execSync(`prettier --check ${src} --ignore-unknown ${prettierOptions.join(' ')}`);
     } catch {
       console.error('Errors found!');
     }
