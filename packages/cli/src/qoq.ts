@@ -56,12 +56,12 @@ try {
 
       const moduleConfig = await import(EModules.PRETTIER);
 
-      prettierOptions = Object.keys(moduleConfig.default).reduce(
+      prettierOptions = Object.keys(moduleConfig).reduce(
         (acc: string[], option: string) => {
           const prettierOption = [`--${kebabCase(option)}`];
 
-          if (moduleConfig.default[option] !== true) {
-            prettierOption.push(moduleConfig.default[option]);
+          if (moduleConfig[option] !== true) {
+            prettierOption.push(moduleConfig[option]);
           }
 
           return acc.concat(prettierOption);
