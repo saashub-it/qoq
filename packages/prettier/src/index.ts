@@ -6,4 +6,4 @@ const config: Config = {
   singleQuote: true,
 };
 
-export default config;
+module.exports = config;

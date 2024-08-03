@@ -3,12 +3,7 @@
   "license": "MIT",
   "version": "0.0.6",
   "main": "./lib/index.js",
-  "exports": {
-    "./package.json": "./package.json",
-    "./README": "./README",
-    "./LICENSE": "./LICENSE",
-    ".": "./lib/index.js"
-  },
+  "types": "./lib/index.d.js",
   "publishConfig": {
     "access": "public"
   },
