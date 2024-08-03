@@ -4,12 +4,10 @@ import { execSync } from 'child_process';
 import { kebabCase } from 'lodash';
 
 let src = '.';
-const configuredSources = new RegExp(/--src (.*) --|--src (.*)$/, 'gs').exec(
-  process.argv.join(' ')
-);
+const configuredSources = process.argv.join(' ').match(new RegExp(/(?<=--src\s+)([^-]+)/, 'gs'));
 
 if (configuredSources) {
-  src = configuredSources[1];
+  src = configuredSources.pop().trim();
 }
 
 enum EOptions {
