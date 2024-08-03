@@ -1,11 +1,42 @@
-import { resolve } from 'path';
-import { writeFile, readFile } from 'fs';
+import { execSync } from 'child_process';
+import { kebabCase } from 'lodash';
 
-const [, , cmd, ...args] = process.argv;
+const [, , ...args] = process.argv;
 
-if (cmd !== 'install') {
-  console.log(`Usage:
-  qoq install`);
+enum EOptions {
+  'FIX' = '--fix',
+}
+
+const avaliableOptions: Record<EOptions, boolean> = {
+  [EOptions.FIX]: false,
+};
+
+args
+  .filter((option) => Object.values(EOptions).map((enumValue) => String(enumValue) === option))
+  .forEach((option) => {
+    avaliableOptions[option] = true;
+  });
+
+enum EModules {
+  'PRETTIER' = '@saashub/qoq-prettier',
+}
+
+const avaliableModules: Record<EModules, boolean> = {
+  [EModules.PRETTIER]: false,
+};
+
+try {
+  const stdout = execSync('npm list');
+
+  avaliableModules[EModules.PRETTIER] = stdout.includes('@saashub/qoq-prettier');
+
+  if (!Object.values(avaliableModules).some((value) => !!value)) {
+    console.error('No packages installed for qoq!');
+    console.info(`Consider adding any of: ${Object.keys(avaliableModules).join(', ')}`);
+    process.exit(2);
+  }
+} catch {
+  console.error('Unable to list npm packages');
   process.exit(2);
 }
 
@@ -14,46 +45,34 @@ if (cmd !== 'install') {
 //------------------------------------------------------------------------------
 
 (async function main() {
-  const packageJsonPath = resolve(__dirname, '../package.json');
+  if (avaliableModules[EModules.PRETTIER]) {
+    try {
+      let prettierOptions: string[] = [];
 
-  readFile(packageJsonPath, 'utf8', (readError, data) => {
-    if (readError) {
-      throw readError;
+      if (avaliableOptions[EOptions.FIX]) {
+        prettierOptions.push('--write');
+      }
+
+      const moduleConfig = await import(EModules.PRETTIER);
+
+      prettierOptions = Object.keys(moduleConfig.default).reduce(
+        (acc: string[], option: string) => {
+          const prettierOption = [`--${kebabCase(option)}`];
+
+          if (moduleConfig.default[option] !== true) {
+            prettierOption.push(moduleConfig.default[option]);
+          }
+
+          return acc.concat(prettierOption);
+        },
+        prettierOptions
+      );
+
+      execSync(`prettier --check . --ignore-unknown ${prettierOptions.join(' ')}`);
+    } catch {
+      console.error('Errors found!');
     }
-
-    const packageJsonObject = JSON.parse(data);
-    const { scripts } = packageJsonObject;
-
-    // scripts['qoq:check'] = 'run-p qoq:check:*';
-    // scripts['qoq:fix'] = 'run-s qoq:fix:*';
-
-    // prettier
-    scripts['qoq:check:prettier'] = 'prettier --check . --ignore-unknown';
-    scripts['qoq:staged:prettier'] = 'prettier --check --ignore-unknown';
-    scripts['qoq:fix:prettier'] = 'npm run qoq:check:prettier -- --write';
-
-    // eslint
-    // scripts['qoq:check:eslint'] = 'eslint "./src/**/*.+(js|jsx|ts|tsx)" --cache';
-    // scripts['qoq:staged:eslint'] = 'eslint --cache';
-    // scripts['qoq:fix:2eslint'] = 'npm run qoq:check:eslint-- --fix';
-
-    // jscpd
-    // scripts['qoq:check:jscpd'] = 'jscpd ./src/';
-
-    // unimported
-    // scripts['qoq:check:unimported'] = 'unimported';
-
-    writeFile(
-      packageJsonPath,
-      JSON.stringify(packageJsonObject, undefined, 2),
-      { flag: 'w+' },
-      (writeError) => {
-        if (writeError) {
-          throw writeError;
-        }
-      },
-    );
-  });
+  }
 })().catch((error) => {
   console.log(error);
   process.exit(2);

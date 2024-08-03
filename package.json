@@ -2,15 +2,17 @@
   "name": "@saashub/qoq",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
-    "publish": "lerna run tsc && lerna publish --no-private",
+    "build": "lerna run tsc",
+    "publish": "npm run build && lerna publish --no-private",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
   "devDependencies": {
+    "@saashub/qoq-prettier": "*",
     "@types/node": "^20",
     "lerna": "8.1.7",
-    "prettier": "3.3.3",
     "typescript": "5.5.4"
   },
   "workspaces": [
