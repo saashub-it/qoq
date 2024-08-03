@@ -10,6 +10,7 @@
 # builds
 **/bin
 **/lib
+lerna.json
 
 # Logs
 logs
