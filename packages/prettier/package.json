@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-prettier",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./lib/index.js",
   "exports": {
     "./package.json": "./package.json",
