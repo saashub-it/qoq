@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
+import { existsSync } from 'fs';
+import { resolve } from 'path';
 import { execSync } from 'child_process';
 import { kebabCase } from 'lodash';
 
-let src = '.';
 const configuredSources = process.argv.join(' ').match(new RegExp(/(?<=--src\s+)([^-]+)/, 'gs'));
+const src = configuredSources ? configuredSources.pop().trim() : '.';
 
-if (configuredSources) {
-  src = configuredSources.pop().trim();
-}
+const configuredPrettierSources = process.argv
+  .join(' ')
+  .match(new RegExp(/(?<=--prettierSrc\s+)([^-]+)/, 'gs'));
+const prettierSrc = configuredPrettierSources ? configuredPrettierSources.pop().trim() : src;
 
 enum EOptions {
   'FIX' = '--fix',
@@ -20,16 +23,19 @@ const avaliableOptions: Record<EOptions, boolean> = {
 
 enum EModules {
   'PRETTIER' = '@saashub/qoq-prettier',
+  'JSCPD' = '@saashub/qoq-jscpd',
 }
 
 const avaliableModules: Record<EModules, boolean> = {
   [EModules.PRETTIER]: false,
+  [EModules.JSCPD]: false,
 };
 
 try {
   const stdout = execSync('npm list');
 
-  avaliableModules[EModules.PRETTIER] = stdout.includes('@saashub/qoq-prettier');
+  avaliableModules[EModules.PRETTIER] = stdout.includes(EModules.PRETTIER);
+  avaliableModules[EModules.JSCPD] = stdout.includes(EModules.JSCPD);
 
   if (!Object.values(avaliableModules).some((value) => !!value)) {
     console.error('No packages installed for qoq!');
@@ -56,8 +62,9 @@ try {
 
       const moduleConfig = await import(EModules.PRETTIER);
 
-      prettierOptions = Object.keys(moduleConfig).reduce(
-        (acc: string[], option: string) => {
+      prettierOptions = Object.keys(moduleConfig)
+        .filter((option) => option !== 'default')
+        .reduce((acc: string[], option: string) => {
           const prettierOption = [`--${kebabCase(option)}`];
 
           if (moduleConfig[option] !== true) {
@@ -65,14 +72,22 @@ try {
           }
 
           return acc.concat(prettierOption);
-        },
-        prettierOptions
-      );
+        }, prettierOptions);
 
-      execSync(`prettier --check ${src} --ignore-unknown ${prettierOptions.join(' ')}`);
+      execSync(`prettier --check ${prettierSrc} --ignore-unknown ${prettierOptions.join(' ')}`);
     } catch {
       console.error('Errors found!');
     }
+  }
+
+  if (avaliableModules[EModules.JSCPD]) {
+    const configOverridePath = resolve(`${process.cwd()}/.jscpd.json`);
+    const configPath = existsSync(configOverridePath)
+      ? configOverridePath
+      : resolve(`${process.cwd()}/node_modules/@saashub/qoq-jscpd/index.json`);
+
+    const a = execSync(`jscpd ${src} -c ${configPath}`);
+    console.log(a);
   }
 })().catch((error) => {
   console.log(error);

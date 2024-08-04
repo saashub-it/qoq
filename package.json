@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@saashub/qoq-prettier": "*",
+    "@saashub/qoq-jscpd": "*",
     "@types/node": "^20",
     "lerna": "8.1.7",
     "typescript": "5.5.4"
