@@ -74,7 +74,11 @@ try {
           return acc.concat(prettierOption);
         }, prettierOptions);
 
-      execSync(`prettier --check ${prettierSrc} --ignore-unknown ${prettierOptions.join(' ')}`);
+      const stdout = execSync(
+        `prettier --check ${prettierSrc} --ignore-unknown ${prettierOptions.join(' ')}`
+      );
+
+      console.log(stdout.toString());
     } catch {
       console.error('Errors found!');
     }
