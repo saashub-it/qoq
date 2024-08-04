@@ -81,13 +81,18 @@ try {
   }
 
   if (avaliableModules[EModules.JSCPD]) {
-    const configOverridePath = resolve(`${process.cwd()}/.jscpd.json`);
-    const configPath = existsSync(configOverridePath)
-      ? configOverridePath
-      : resolve(`${process.cwd()}/node_modules/@saashub/qoq-jscpd/index.json`);
+    try {
+      const configOverridePath = resolve(`${process.cwd()}/.jscpd.json`);
+      const configPath = existsSync(configOverridePath)
+        ? configOverridePath
+        : resolve(`${process.cwd()}/node_modules/@saashub/qoq-jscpd/index.json`);
 
-    const a = execSync(`jscpd ${src} -c ${configPath}`);
-    console.log(a);
+      const stdout = execSync(`jscpd ${src} -c ${configPath}`);
+
+      console.log(stdout.toString());
+    } catch {
+      console.error('Errors found!');
+    }
   }
 })().catch((error) => {
   console.log(error);
