@@ -26,11 +26,11 @@
     "@types/lodash": "4.17.7"
   },
   "peerDependencies": {
-    "eslint": "^9.8.0"
+    "eslint": "^9"
   },
   "overrides": {
     "eslint-plugin-import": {
-      "eslint": "^9"
+      "eslint": "$eslint"
     }
   },
   "repository": {

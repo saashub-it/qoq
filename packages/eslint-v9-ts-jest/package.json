@@ -18,6 +18,9 @@
   "devDependencies": {
     "@types/lodash": "4.17.7"
   },
+  "peerDependencies": {
+    "eslint": "^9"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
