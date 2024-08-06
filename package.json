@@ -12,9 +12,15 @@
   "devDependencies": {
     "@saashub/qoq-prettier": "*",
     "@saashub/qoq-jscpd": "*",
+    "@saashub/qoq-eslint-v9-ts": "*",
     "@types/node": "^20",
     "lerna": "8.1.7",
     "typescript": "5.5.4"
+  },
+  "overrides": {
+    "eslint-plugin-import": {
+      "eslint": "^9"
+    }
   },
   "workspaces": [
     "packages/*"

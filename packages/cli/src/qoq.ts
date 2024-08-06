@@ -24,18 +24,23 @@ const avaliableOptions: Record<EOptions, boolean> = {
 enum EModules {
   'PRETTIER' = '@saashub/qoq-prettier',
   'JSCPD' = '@saashub/qoq-jscpd',
+  'ESLINT_V9_JS' = '@saashub/qoq-eslint-v9-js',
+  'ESLINT_V9_TS' = '@saashub/qoq-eslint-v9-ts',
 }
 
 const avaliableModules: Record<EModules, boolean> = {
   [EModules.PRETTIER]: false,
   [EModules.JSCPD]: false,
+  [EModules.ESLINT_V9_JS]: false,
+  [EModules.ESLINT_V9_TS]: false,
 };
 
 try {
   const stdout = execSync('npm list');
 
-  avaliableModules[EModules.PRETTIER] = stdout.includes(EModules.PRETTIER);
-  avaliableModules[EModules.JSCPD] = stdout.includes(EModules.JSCPD);
+  for (const module in EModules) {
+    avaliableModules[EModules[module]] = stdout.includes(`${EModules[module]}@`);
+  }
 
   if (!Object.values(avaliableModules).some((value) => !!value)) {
     console.error('No packages installed for qoq!');
@@ -79,6 +84,20 @@ try {
       );
 
       console.log(stdout.toString());
+    } catch {
+      console.error('Errors found!');
+    }
+  }
+
+  if (avaliableModules[EModules.ESLINT_V9_TS]) {
+    try {
+      console.log(EModules.ESLINT_V9_TS);
+    } catch {
+      console.error('Errors found!');
+    }
+  } else if (avaliableModules[EModules.ESLINT_V9_JS]) {
+    try {
+      console.log(EModules.ESLINT_V9_JS);
     } catch {
       console.error('Errors found!');
     }

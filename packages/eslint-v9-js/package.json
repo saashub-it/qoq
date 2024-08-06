@@ -1,0 +1,39 @@
+{
+  "name": "@saashub/qoq-eslint-v9-js",
+  "license": "MIT",
+  "version": "0.2.1",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@eslint/compat": "1.1.1",
+    "@eslint/js": "9.8.0",
+    "@typescript-eslint/utils": "8.0.1",
+    "eslint": "9.8.0",
+    "eslint-plugin-compat": "6.0.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-sonarjs": "1.0.4",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/eslint": "8.56.11",
+    "@types/lodash": "4.17.7"
+  },
+  "overrides": {
+    "eslint-plugin-import": {
+      "eslint": "^9"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/eslint-v9-js"
+  },
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js"
+}
