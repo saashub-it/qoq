@@ -1,6 +1,6 @@
 import { baseConfig } from '@saashub/qoq-eslint-v9-js';
 import * as importPlugin from 'eslint-plugin-import';
-import typeScriptParser from '@typescript-eslint/parser';
+import * as typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
 
 import merge from 'lodash/merge';
@@ -16,6 +16,7 @@ javaScriptConfigWithoutImportRules.rules = omit(
 );
 
 const config: FlatConfig.Config = merge({}, javaScriptConfigWithoutImportRules, {
+  name: '@saashub/qoq-eslint-v9-ts',
   languageOptions: {
     parser: typeScriptParser,
     parserOptions: {
@@ -26,6 +27,7 @@ const config: FlatConfig.Config = merge({}, javaScriptConfigWithoutImportRules, 
     '@typescript-eslint': typeScriptPlugin,
   },
   rules: {
+    ...importPlugin.configs.typescript.rules,
     ...typeScriptPlugin.configs.recommended.rules,
     ...typeScriptPlugin.configs['recommended-requiring-type-checking'].rules,
     '@typescript-eslint/no-unsafe-assignment': 0, // strange rule, turned off for now

@@ -7,6 +7,7 @@ import merge from 'lodash/merge';
 import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
 
 const config: FlatConfig.Config = merge({}, baseConfig, {
+  name: '@saashub/qoq-eslint-v9-js-jest',
   languageOptions: {
     globals: {
       ...globals.jest,

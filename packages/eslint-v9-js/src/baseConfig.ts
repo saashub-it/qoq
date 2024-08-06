@@ -8,6 +8,7 @@ import globals from 'globals';
 import type { FlatConfig, LooseRuleDefinition } from '@typescript-eslint/utils/ts-eslint';
 
 const baseConfig: FlatConfig.Config = {
+  name: '@saashub/qoq-eslint-v9-js',
   linterOptions: {
     reportUnusedDisableDirectives: true,
   },

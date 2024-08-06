@@ -1,4 +1,4 @@
-import { eslintConfig as jsEslintConfig } from '@saashub/qoq-eslint-v9-ts';
+import { eslintConfig as tsEslintConfig } from '@saashub/qoq-eslint-v9-ts';
 
 import merge from 'lodash/merge';
 
@@ -8,7 +8,7 @@ import baseConfig from './baseConfig';
 const filesExtensions = ['js', 'ts'];
 
 const eslintConfig: FlatConfig.Config[] = [
-  ...jsEslintConfig,
+  ...tsEslintConfig,
   merge({}, baseConfig, {
     files: [`src/**/*.spec.{${filesExtensions.join(',')}}`],
   }),
