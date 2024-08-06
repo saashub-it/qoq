@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-jest",
   "license": "MIT",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "./lib/index.js",
   "types": "./lib/index.d.js",
   "publishConfig": {
@@ -11,8 +11,8 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "*",
-    "@saashub/qoq-eslint-v9-ts": "*",
+    "@saashub/qoq-eslint-v9-js-jest": "^0.2.3",
+    "@saashub/qoq-eslint-v9-ts": "^0.2.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
