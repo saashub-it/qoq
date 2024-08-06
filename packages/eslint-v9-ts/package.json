@@ -11,14 +11,20 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.2.3",
+    "@saashub/qoq-eslint-v9-js": "latest",
     "@typescript-eslint/eslint-plugin": "8.0.0",
     "@typescript-eslint/parser": "8.0.0",
     "@typescript-eslint/utils": "8.0.0",
+    "eslint-plugin-import": "2.29.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "4.17.7"
+  },
+  "overrides": {
+    "eslint-plugin-import": {
+      "eslint": "^9"
+    }
   },
   "repository": {
     "type": "git",

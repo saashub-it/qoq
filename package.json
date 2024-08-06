@@ -10,9 +10,9 @@
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
   "devDependencies": {
-    "@saashub/qoq-prettier": "*",
-    "@saashub/qoq-jscpd": "*",
-    "@saashub/qoq-eslint-v9-ts": "*",
+    "@saashub/qoq-prettier": "latest",
+    "@saashub/qoq-jscpd": "latest",
+    "@saashub/qoq-eslint-v9-ts": "latest",
     "@types/node": "^20",
     "lerna": "8.1.7",
     "typescript": "5.5.4"

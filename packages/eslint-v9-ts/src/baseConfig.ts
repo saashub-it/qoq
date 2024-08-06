@@ -1,12 +1,21 @@
 import { baseConfig } from '@saashub/qoq-eslint-v9-js';
+import importPlugin from 'eslint-plugin-import';
 import typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
 
 import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 
 import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
 
-const config: FlatConfig.Config = merge({}, baseConfig, {
+const javaScriptConfigWithoutImportRules = merge({}, baseConfig);
+
+javaScriptConfigWithoutImportRules.rules = omit(
+  javaScriptConfigWithoutImportRules.rules,
+  Object.keys(importPlugin.configs.recommended.rules)
+);
+
+const config: FlatConfig.Config = merge({}, javaScriptConfigWithoutImportRules, {
   languageOptions: {
     parser: typeScriptParser,
     parserOptions: {

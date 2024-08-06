@@ -11,8 +11,8 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "^0.2.3",
-    "@saashub/qoq-eslint-v9-ts": "^0.2.3",
+    "@saashub/qoq-eslint-v9-js-jest": "latest",
+    "@saashub/qoq-eslint-v9-ts": "latest",
     "lodash": "4.17.21"
   },
   "devDependencies": {
