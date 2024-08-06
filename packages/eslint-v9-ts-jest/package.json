@@ -1,5 +1,5 @@
 {
-  "name": "@saashub/qoq-eslint-v9-ts",
+  "name": "@saashub/qoq-eslint-v9-ts-jest",
   "license": "MIT",
   "version": "0.2.2",
   "main": "./lib/index.js",
@@ -11,10 +11,8 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "*",
-    "@typescript-eslint/eslint-plugin": "8.0.0",
-    "@typescript-eslint/parser": "8.0.0",
-    "@typescript-eslint/utils": "8.0.0",
+    "@saashub/qoq-eslint-v9-js-jest": "*",
+    "@saashub/qoq-eslint-v9-ts": "*",
     "lodash": "4.17.21"
   },
   "devDependencies": {
