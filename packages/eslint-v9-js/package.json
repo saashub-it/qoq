@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-js",
   "license": "MIT",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "./lib/index.js",
   "types": "./lib/index.d.js",
   "publishConfig": {
