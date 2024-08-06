@@ -1,6 +1,6 @@
 import { fixupPluginRules } from '@eslint/compat';
 import jsRules from '@eslint/js';
-import importPlugin from 'eslint-plugin-import';
+import * as importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
 import globals from 'globals';

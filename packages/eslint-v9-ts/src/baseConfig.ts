@@ -1,5 +1,5 @@
 import { baseConfig } from '@saashub/qoq-eslint-v9-js';
-import importPlugin from 'eslint-plugin-import';
+import * as importPlugin from 'eslint-plugin-import';
 import typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
 
