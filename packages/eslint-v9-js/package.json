@@ -3,18 +3,34 @@
   "license": "MIT",
   "version": "0.2.8",
   "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
+  "exports": {
+		"./baseConfig": {
+			"types": "./lib/baseConfig.d.ts",
+			"module": "./lib/baseConfig.mjs",
+			"import": "./lib/baseConfig.mjs",
+			"require": "./lib/baseConfig.js",
+			"default": "./lib/baseConfig.mjs"
+		},
+    "./eslintConfig": {
+			"types": "./lib/eslintConfig.d.ts",
+			"module": "./lib/eslintConfig.mjs",
+			"import": "./lib/eslintConfig.mjs",
+			"require": "./lib/eslintConfig.js",
+			"default": "./lib/eslintConfig.mjs"
+		}
+	},
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "tsc": "tsc"
+    "build": "rollup -c --silent"
   },
   "dependencies": {
     "@eslint/compat": "1.1.1",
     "@eslint/js": "9.8.0",
-    "@typescript-eslint/utils": "8.0.1",
-    "eslint": "9.8.0",
+    "eslint": "^9",
     "eslint-plugin-compat": "6.0.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-prettier": "5.2.1",
@@ -22,8 +38,11 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/eslint": "8.56.11",
-    "@types/lodash": "4.17.7"
+    "@rollup/plugin-typescript": "11.1.6",
+    "@types/eslint": "^9",
+    "@types/lodash": "4.17.7",
+    "rollup": "4.20.0",
+    "typescript": "5.5.4"
   },
   "peerDependencies": {
     "eslint": "^9"

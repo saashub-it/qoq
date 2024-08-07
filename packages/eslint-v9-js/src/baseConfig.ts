@@ -5,9 +5,9 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
 import globals from 'globals';
 
-import type { FlatConfig, LooseRuleDefinition } from '@typescript-eslint/utils/ts-eslint';
+import type { ESLint, Linter } from 'eslint';
 
-const baseConfig: FlatConfig.Config = {
+const baseConfig: Linter.Config = {
   name: '@saashub/qoq-eslint-v9-js',
   linterOptions: {
     reportUnusedDisableDirectives: true,
@@ -18,15 +18,15 @@ const baseConfig: FlatConfig.Config = {
     },
   },
   plugins: {
-    import: fixupPluginRules(importPlugin),
-    prettier: prettierPlugin,
-    sonarjs: sonarJsPlugin,
+    import: fixupPluginRules(importPlugin) as unknown as ESLint.Plugin,
+    prettier: prettierPlugin as unknown as ESLint.Plugin,
+    sonarjs: sonarJsPlugin as unknown as ESLint.Plugin,
   },
   rules: {
     ...jsRules.configs.recommended.rules,
     ...importPlugin.configs.recommended.rules,
     ...sonarJsPlugin.configs.recommended.rules,
-    ...(prettierPlugin.configs?.recommended as Record<string, LooseRuleDefinition>).rules,
+    ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'import/no-cycle': 'warn',
     'import/no-duplicates': 'warn',
     'import/no-named-default': 'warn',
@@ -56,7 +56,6 @@ const baseConfig: FlatConfig.Config = {
     'max-lines-per-function': ['warn', { max: 200, skipBlankLines: true, skipComments: true }],
     'no-console': ['warn', { allow: ['error', 'warn'] }],
     'no-debugger': 'warn',
-    'no-multiple-empty-lines': 'warn',
     'no-param-reassign': ['warn', { props: false }],
     'no-plusplus': 'warn',
     'no-restricted-imports': [
@@ -85,11 +84,6 @@ const baseConfig: FlatConfig.Config = {
       },
     ],
     'no-useless-return': 'warn',
-    'padding-line-between-statements': [
-      'warn',
-      { blankLine: 'always', prev: '*', next: 'return' },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-    ],
   },
 };
 

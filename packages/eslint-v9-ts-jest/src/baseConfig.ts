@@ -1,17 +1,17 @@
-import { baseConfig as jsJestBaseComfig } from '@saashub/qoq-eslint-v9-js-jest';
-import { baseConfig as tsBaseConfig } from '@saashub/qoq-eslint-v9-ts';
+import jsJestBaseComfig from '@saashub/qoq-eslint-v9-js-jest/baseConfig';
+import tsBaseConfig from '@saashub/qoq-eslint-v9-ts/baseConfig';
 
 import merge from 'lodash/merge';
 
-import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+import type { Linter } from 'eslint';
 
-const config: FlatConfig.Config = merge({}, jsJestBaseComfig, tsBaseConfig, {
+const config = merge({}, jsJestBaseComfig, tsBaseConfig, {
   name: '@saashub/qoq-eslint-v9-ts-jest',
   rules: {
     '@typescript-eslint/no-unsafe-argument': 0,
     '@typescript-eslint/no-unsafe-assignment': 0,
     '@typescript-eslint/no-unsafe-member-access': 0,
   },
-});
+}) as unknown as Linter.Config;
 
 export default config;

@@ -1,12 +1,12 @@
-import { baseConfig } from '@saashub/qoq-eslint-v9-js';
+import jsEslint from '@saashub/qoq-eslint-v9-js';
 import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 
 import merge from 'lodash/merge';
 
-import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+import type { Linter } from 'eslint';
 
-const config: FlatConfig.Config = merge({}, baseConfig, {
+const config = merge({}, jsEslint.baseConfig, {
   name: '@saashub/qoq-eslint-v9-js-jest',
   languageOptions: {
     globals: {
@@ -20,6 +20,6 @@ const config: FlatConfig.Config = merge({}, baseConfig, {
     ...jestPlugin.configs.recommended.rules,
     'sonarjs/no-duplicate-string': 0,
   },
-});
+}) as unknown as Linter.Config;
 
 export default config;

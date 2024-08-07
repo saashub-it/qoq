@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "lerna run tsc",
+    "build": "lerna run build",
     "publish": "npm run build && lerna publish --no-private",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
@@ -14,8 +14,7 @@
     "@saashub/qoq-jscpd": "latest",
     "@saashub/qoq-eslint-v9-ts": "latest",
     "@types/node": "^20",
-    "lerna": "8.1.7",
-    "typescript": "5.5.4"
+    "lerna": "8.1.7"
   },
   "overrides": {
     "eslint-plugin-import": {

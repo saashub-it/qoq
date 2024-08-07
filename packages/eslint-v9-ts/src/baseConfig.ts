@@ -1,4 +1,4 @@
-import { baseConfig } from '@saashub/qoq-eslint-v9-js';
+import {baseConfig} from '@saashub/qoq-eslint-v9-js';
 import * as importPlugin from 'eslint-plugin-import';
 import * as typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
@@ -6,7 +6,7 @@ import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 
-import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+import type { Linter } from 'eslint';
 
 const javaScriptConfigWithoutImportRules = merge({}, baseConfig);
 
@@ -15,7 +15,7 @@ javaScriptConfigWithoutImportRules.rules = omit(
   Object.keys(importPlugin.configs.recommended.rules)
 );
 
-const config: FlatConfig.Config = merge({}, javaScriptConfigWithoutImportRules, {
+const config = merge({}, javaScriptConfigWithoutImportRules, {
   name: '@saashub/qoq-eslint-v9-ts',
   languageOptions: {
     parser: typeScriptParser,
@@ -86,6 +86,6 @@ const config: FlatConfig.Config = merge({}, javaScriptConfigWithoutImportRules, 
       typescript: {},
     },
   },
-});
+}) as unknown as Linter.Config;
 
 export default config;

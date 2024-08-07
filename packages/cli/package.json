@@ -9,14 +9,15 @@
     "access": "public"
   },
   "scripts": {
-    "tsc": "tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "child_process": "1.0.2",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.7"
+    "@types/lodash": "4.17.7",
+    "typescript": "5.5.4"
   },
   "repository": {
     "type": "git",

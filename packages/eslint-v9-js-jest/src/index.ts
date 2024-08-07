@@ -1,4 +1,4 @@
 import baseConfig from './baseConfig';
 import eslintConfig from './eslintConfig';
 
-export { baseConfig, eslintConfig };
+export default { baseConfig, eslintConfig };

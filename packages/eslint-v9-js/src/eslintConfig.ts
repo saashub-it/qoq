@@ -1,12 +1,12 @@
 import baseConfig from './baseConfig';
 
-import merge from 'lodash/merge';
+import merge from 'lodash/merge.js';
 
-import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+import type { Linter } from 'eslint';
 
 const filesExtensions = ['js'];
 
-const eslintConfig: FlatConfig.Config[] = [
+const eslintConfig: Linter.Config[] = [
   merge({}, baseConfig, {
     files: [`src/**/*.{${filesExtensions.join(',')}}`],
     ignores: [`**/*.spec.{${filesExtensions.join(',')}}`],

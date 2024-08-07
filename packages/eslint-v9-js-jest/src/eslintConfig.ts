@@ -1,17 +1,18 @@
-import { eslintConfig as jsEslintConfig } from '@saashub/qoq-eslint-v9-js';
+import jsEslint from '@saashub/qoq-eslint-v9-js';
 
 import merge from 'lodash/merge';
 
-import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
 import baseConfig from './baseConfig';
+
+import type { Linter } from 'eslint';
 
 const filesExtensions = ['js'];
 
-const eslintConfig: FlatConfig.Config[] = [
-  ...jsEslintConfig,
+const eslintConfig = [
+  ...jsEslint.eslintConfig,
   merge({}, baseConfig, {
     files: [`src/**/*.spec.{${filesExtensions.join(',')}}`],
   }),
-];
+] as unknown as Linter.Config[];
 
 export default eslintConfig;

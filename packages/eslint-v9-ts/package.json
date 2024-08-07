@@ -3,12 +3,29 @@
   "license": "MIT",
   "version": "0.2.8",
   "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
+  "exports": {
+		"./baseConfig": {
+			"types": "./lib/baseConfig.d.ts",
+			"module": "./lib/baseConfig.mjs",
+			"import": "./lib/baseConfig.mjs",
+			"require": "./lib/baseConfig.js",
+			"default": "./lib/baseConfig.mjs"
+		},
+    "./eslintConfig": {
+			"types": "./lib/eslintConfig.d.ts",
+			"module": "./lib/eslintConfig.mjs",
+			"import": "./lib/eslintConfig.mjs",
+			"require": "./lib/eslintConfig.js",
+			"default": "./lib/eslintConfig.mjs"
+		}
+	},
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "tsc": "tsc"
+    "build": "rollup -c --silent"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "latest",
@@ -19,7 +36,11 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.7"
+    "@rollup/plugin-typescript": "11.1.6",
+    "@types/eslint": "^9",
+    "@types/lodash": "4.17.7",
+    "rollup": "4.20.0",
+    "typescript": "5.5.4"
   },
   "overrides": {
     "eslint-plugin-import": {
