@@ -1,26 +1,26 @@
 {
   "name": "@saashub/qoq-eslint-v9-js",
   "license": "MIT",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "exports": {
-		"./baseConfig": {
-			"types": "./lib/baseConfig.d.ts",
-			"module": "./lib/baseConfig.mjs",
-			"import": "./lib/baseConfig.mjs",
-			"require": "./lib/baseConfig.js",
-			"default": "./lib/baseConfig.mjs"
-		},
+    "./baseConfig": {
+      "types": "./lib/baseConfig.d.ts",
+      "module": "./lib/baseConfig.mjs",
+      "import": "./lib/baseConfig.mjs",
+      "require": "./lib/baseConfig.js",
+      "default": "./lib/baseConfig.mjs"
+    },
     "./eslintConfig": {
-			"types": "./lib/eslintConfig.d.ts",
-			"module": "./lib/eslintConfig.mjs",
-			"import": "./lib/eslintConfig.mjs",
-			"require": "./lib/eslintConfig.js",
-			"default": "./lib/eslintConfig.mjs"
-		}
-	},
+      "types": "./lib/eslintConfig.d.ts",
+      "module": "./lib/eslintConfig.mjs",
+      "import": "./lib/eslintConfig.mjs",
+      "require": "./lib/eslintConfig.js",
+      "default": "./lib/eslintConfig.mjs"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
