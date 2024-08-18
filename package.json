@@ -14,7 +14,7 @@
     "@saashub/qoq-jscpd": "latest",
     "@saashub/qoq-eslint-v9-ts": "latest",
     "@types/node": "^20",
-    "lerna": "8.1.7"
+    "lerna": "8.1.8"
   },
   "overrides": {
     "eslint-plugin-import": {

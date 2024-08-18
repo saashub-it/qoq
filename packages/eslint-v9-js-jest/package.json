@@ -29,14 +29,14 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "latest",
-    "eslint-plugin-jest": "28.7.0",
+    "eslint-plugin-jest": "28.8.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "11.1.6",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.7",
-    "rollup": "4.20.0",
+    "rollup": "4.21.0",
     "typescript": "5.5.4"
   },
   "peerDependencies": {
