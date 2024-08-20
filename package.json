@@ -10,7 +10,7 @@
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
   "devDependencies": {
-    "@saashub/qoq-prettier": "latest",
+    "@saashub/qoq-prettier": "0.2.12",
     "@saashub/qoq-jscpd": "latest",
     "@saashub/qoq-eslint-v9-ts": "latest",
     "@types/node": "^20",

@@ -2,7 +2,11 @@ const typescript = require('@rollup/plugin-typescript');
 
 const sourceDir = './src';
 const outputDir = './lib';
-const input = `${sourceDir}/index.ts`;
+const input = {
+  'index.ts': `${sourceDir}/index.ts`,
+  'baseConfig.ts': `${sourceDir}/baseConfig.ts`,
+  'eslintConfig.ts': `${sourceDir}/eslintConfig.ts`,
+};
 const plugins = [typescript()];
 
 module.exports = {

@@ -18,10 +18,13 @@
     "access": "public"
   },
   "scripts": {
-    "build": "node ./src/index.js"
+    "build": "rimraf ./index.json && node ./src/index.js"
   },
   "dependencies": {
     "prettier": "3.3.3"
+  },
+  "devDependencies": {
+    "rimraf": "6.0.1"
   },
   "repository": {
     "type": "git",
