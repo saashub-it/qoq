@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-jest",
   "license": "MIT",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -28,7 +28,7 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.4.2",
+    "@saashub/qoq-eslint-v9-js": "^0.4.3",
     "eslint-plugin-jest": "28.8.0",
     "lodash": "4.17.21"
   },

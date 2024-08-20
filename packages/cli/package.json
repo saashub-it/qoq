@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-cli",
   "license": "MIT",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "bin": {
     "qoq": "bin/qoq.js"
   },
