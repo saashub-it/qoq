@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "publish": "npm run build && lerna publish --no-private",
+    "publish": "npm run build && lerna publish --no-private --force-publish",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown"
   },
