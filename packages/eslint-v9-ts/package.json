@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts",
   "license": "MIT",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -28,7 +28,7 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.4.0",
+    "@saashub/qoq-eslint-v9-js": "^0.4.1",
     "@typescript-eslint/eslint-plugin": "8.1.0",
     "@typescript-eslint/parser": "8.1.0",
     "@typescript-eslint/utils": "8.1.0",
