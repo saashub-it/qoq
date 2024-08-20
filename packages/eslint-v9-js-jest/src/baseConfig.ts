@@ -1,4 +1,4 @@
-import jsEslint from '@saashub/qoq-eslint-v9-js';
+import baseConfig from '@saashub/qoq-eslint-v9-js/baseConfig';
 import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 
@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 
 import type { Linter } from 'eslint';
 
-const config = merge({}, jsEslint.baseConfig, {
+const config = merge({}, baseConfig, {
   name: '@saashub/qoq-eslint-v9-js-jest',
   languageOptions: {
     globals: {

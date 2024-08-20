@@ -1,4 +1,4 @@
-import jsEslint from '@saashub/qoq-eslint-v9-js';
+import jsEslintConfig from '@saashub/qoq-eslint-v9-js/eslintConfig';
 
 import merge from 'lodash/merge';
 
@@ -9,7 +9,7 @@ import type { Linter } from 'eslint';
 const filesExtensions = ['js'];
 
 const eslintConfig = [
-  ...jsEslint.eslintConfig,
+  ...jsEslintConfig,
   merge({}, baseConfig, {
     files: [`src/**/*.spec.{${filesExtensions.join(',')}}`],
   }),

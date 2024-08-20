@@ -28,8 +28,8 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "latest",
-    "@saashub/qoq-eslint-v9-ts": "latest",
+    "@saashub/qoq-eslint-v9-js-jest": "^0.3.0",
+    "@saashub/qoq-eslint-v9-ts": "^0.3.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
