@@ -15,3 +15,11 @@ export const omitRulesForConfigCollection = (
   sourceConfigs: Linter.Config[],
   rulesToOmit: string[]
 ): Linter.Config[] => sourceConfigs.map((sourceConfig) => omitRules(sourceConfig, rulesToOmit));
+
+export const addIgnoresToConfigCollection = (
+  sourceConfigs: Linter.Config[],
+  ignores: string[]
+): Linter.Config[] =>
+  sourceConfigs.map((sourceConfig) =>
+    merge({}, sourceConfig, { ignores: [...sourceConfig.ignores, ...ignores] })
+  );
