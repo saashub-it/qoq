@@ -70,6 +70,7 @@ try {
       const moduleConfig = avaliableModules[EModules.PRETTIER_WITH_JSON_SORT] ? await import(`${EModules.PRETTIER_WITH_JSON_SORT}/config`) : await import(`${EModules.PRETTIER}/config`);
 
       prettierOptions = Object.keys(moduleConfig)
+        .filter((option) => option !== 'default')
         .reduce((acc: string[], option: string) => {
           const prettierOption = [`--${kebabCase(option)}`];
 
