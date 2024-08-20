@@ -11,6 +11,7 @@ const config = merge({}, jsJestBaseComfig, tsBaseConfig, {
     '@typescript-eslint/no-unsafe-argument': 0,
     '@typescript-eslint/no-unsafe-assignment': 0,
     '@typescript-eslint/no-unsafe-member-access': 0,
+    'sonarjs/no-duplicate-string': 0,
   },
 }) as unknown as Linter.Config;
 
