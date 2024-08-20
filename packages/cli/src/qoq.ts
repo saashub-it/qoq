@@ -23,6 +23,7 @@ const avaliableOptions: Record<EOptions, boolean> = {
 
 enum EModules {
   'PRETTIER' = '@saashub/qoq-prettier',
+  'PRETTIER_WITH_JSON_SORT' = '@saashub/qoq-prettier-with-json-sort',
   'JSCPD' = '@saashub/qoq-jscpd',
   'ESLINT_V9_JS' = '@saashub/qoq-eslint-v9-js',
   'ESLINT_V9_TS' = '@saashub/qoq-eslint-v9-ts',
@@ -30,6 +31,7 @@ enum EModules {
 
 const avaliableModules: Record<EModules, boolean> = {
   [EModules.PRETTIER]: false,
+  [EModules.PRETTIER_WITH_JSON_SORT]: false,
   [EModules.JSCPD]: false,
   [EModules.ESLINT_V9_JS]: false,
   [EModules.ESLINT_V9_TS]: false,
@@ -57,7 +59,7 @@ try {
 //------------------------------------------------------------------------------
 
 (async function main() {
-  if (avaliableModules[EModules.PRETTIER]) {
+  if (avaliableModules[EModules.PRETTIER] || avaliableModules[EModules.PRETTIER_WITH_JSON_SORT]) {
     try {
       let prettierOptions: string[] = [];
 
@@ -65,10 +67,9 @@ try {
         prettierOptions.push('--write');
       }
 
-      const moduleConfig = await import(EModules.PRETTIER);
+      const moduleConfig = avaliableModules[EModules.PRETTIER_WITH_JSON_SORT] ? await import(`${EModules.PRETTIER_WITH_JSON_SORT}/config`) : await import(`${EModules.PRETTIER}/config`);
 
       prettierOptions = Object.keys(moduleConfig)
-        .filter((option) => option !== 'default')
         .reduce((acc: string[], option: string) => {
           const prettierOption = [`--${kebabCase(option)}`];
 
