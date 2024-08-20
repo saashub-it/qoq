@@ -8,3 +8,8 @@ export const omitRules = (sourceConfig: Linter.Config, rulesToOmit: string[]): L
 
   return omit(newConfig.rules, rulesToOmit);
 };
+
+export const omitRulesForConfigCollection = (
+  sourceConfigs: Linter.Config[],
+  rulesToOmit: string[]
+): Linter.Config[] => sourceConfigs.map((sourceConfig) => omitRules(sourceConfig, rulesToOmit));
