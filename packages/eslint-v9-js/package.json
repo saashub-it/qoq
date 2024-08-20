@@ -19,6 +19,13 @@
       "import": "./lib/eslintConfig.mjs",
       "require": "./lib/eslintConfig.js",
       "default": "./lib/eslintConfig.mjs"
+    },
+    "./tools": {
+      "types": "./lib/tools.d.ts",
+      "module": "./lib/tools.mjs",
+      "import": "./lib/tools.mjs",
+      "require": "./lib/tools.js",
+      "default": "./lib/tools.mjs"
     }
   },
   "publishConfig": {
