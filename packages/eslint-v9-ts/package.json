@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts",
   "license": "MIT",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.4.3",
+    "@saashub/qoq-eslint-v9-js": "^0.5.0",
     "@typescript-eslint/eslint-plugin": "8.2.0",
     "@typescript-eslint/parser": "8.2.0",
     "@typescript-eslint/utils": "8.2.0",
