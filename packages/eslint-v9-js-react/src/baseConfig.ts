@@ -10,9 +10,11 @@ import type { Linter } from 'eslint';
 
 const config = merge({}, baseConfig, {
   name: '@saashub/qoq-eslint-v9-js-react',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+  languageOptions: {
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
   plugins: {
