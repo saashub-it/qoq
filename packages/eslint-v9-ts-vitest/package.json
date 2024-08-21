@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-vitest",
   "license": "MIT",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -36,8 +36,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^0.6.0",
-    "@saashub/qoq-eslint-v9-ts": "^0.6.0",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.7.0",
+    "@saashub/qoq-eslint-v9-ts": "^0.7.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
