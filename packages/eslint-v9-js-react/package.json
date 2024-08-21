@@ -1,0 +1,71 @@
+{
+  "name": "@saashub/qoq-eslint-v9-js-react",
+  "license": "MIT",
+  "version": "0.6.0",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "module": "./lib/index.mjs",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/index.mjs"
+    },
+    "./baseConfig": {
+      "types": "./lib/baseConfig.d.ts",
+      "module": "./lib/baseConfig.mjs",
+      "import": "./lib/baseConfig.mjs",
+      "require": "./lib/baseConfig.js",
+      "default": "./lib/baseConfig.mjs"
+    },
+    "./eslintConfig": {
+      "types": "./lib/eslintConfig.d.ts",
+      "module": "./lib/eslintConfig.mjs",
+      "import": "./lib/eslintConfig.mjs",
+      "require": "./lib/eslintConfig.js",
+      "default": "./lib/eslintConfig.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf ./lib && rollup -c --silent",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@saashub/qoq-eslint-v9-js": "^0.6.0",
+    "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-jsx-a11y": "6.9.0",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "11.1.6",
+    "@types/eslint": "^9",
+    "@types/lodash": "4.17.7",
+    "rimraf": "6.0.1",
+    "rollup": "4.21.0",
+    "typescript": "5.5.4",
+    "vitest": "2.0.5"
+  },
+  "peerDependencies": {
+    "eslint": "^9"
+  },
+  "overrides": {
+    "eslint-plugin-react-hooks": {
+      "eslint": "$eslint"
+    },
+    "eslint-plugin-jsx-a11y": {
+      "eslint": "$eslint"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/eslint-v9-js-react"
+  },
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-react"
+}
