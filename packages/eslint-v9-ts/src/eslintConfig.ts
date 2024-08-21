@@ -1,6 +1,6 @@
 import baseConfig from './baseConfig';
 
-import merge from 'lodash/merge';
+import merge from 'lodash/merge.js';
 
 import type { Linter } from 'eslint';
 

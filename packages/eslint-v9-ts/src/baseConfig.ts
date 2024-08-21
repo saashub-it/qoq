@@ -4,7 +4,7 @@ import * as importPlugin from 'eslint-plugin-import';
 import * as typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
 
-import merge from 'lodash/merge';
+import merge from 'lodash/merge.js';
 
 import type { Linter } from 'eslint';
 

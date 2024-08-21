@@ -6,6 +6,13 @@
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "module": "./lib/index.mjs",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/index.mjs"
+    },
     "./baseConfig": {
       "types": "./lib/baseConfig.d.ts",
       "module": "./lib/baseConfig.mjs",
@@ -48,7 +55,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js"
+    "directory": "packages/eslint-v9-ts-jest"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js"
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-ts-jest"
 }

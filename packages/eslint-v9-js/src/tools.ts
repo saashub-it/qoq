@@ -1,5 +1,5 @@
-import merge from 'lodash/merge';
-import omit from 'lodash/omit';
+import merge from 'lodash/merge.js';
+import omit from 'lodash/omit.js';
 
 import type { Linter } from 'eslint';
 

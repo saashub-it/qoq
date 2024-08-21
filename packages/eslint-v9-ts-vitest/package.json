@@ -1,5 +1,5 @@
 {
-  "name": "@saashub/qoq-eslint-v9-js",
+  "name": "@saashub/qoq-eslint-v9-ts-vitest",
   "license": "MIT",
   "version": "0.5.0",
   "main": "./lib/index.js",
@@ -26,13 +26,6 @@
       "import": "./lib/eslintConfig.mjs",
       "require": "./lib/eslintConfig.js",
       "default": "./lib/eslintConfig.mjs"
-    },
-    "./tools": {
-      "types": "./lib/tools.d.ts",
-      "module": "./lib/tools.mjs",
-      "import": "./lib/tools.mjs",
-      "require": "./lib/tools.js",
-      "default": "./lib/tools.mjs"
     }
   },
   "publishConfig": {
@@ -43,13 +36,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@eslint/compat": "1.1.1",
-    "@eslint/js": "9.9.0",
-    "eslint": "^9",
-    "eslint-plugin-compat": "6.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-sonarjs": "1.0.4",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.5.0",
+    "@saashub/qoq-eslint-v9-ts": "^0.5.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
@@ -64,15 +52,10 @@
   "peerDependencies": {
     "eslint": "^9"
   },
-  "overrides": {
-    "eslint-plugin-import": {
-      "eslint": "$eslint"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js"
+    "directory": "packages/eslint-v9-ts-vitest"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js"
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-ts-vitest"
 }
