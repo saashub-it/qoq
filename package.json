@@ -7,14 +7,16 @@
     "publish": "lerna run test && npm run build && lerna publish --no-private --force-publish",
     "format": "npm run format:check -- --write",
     "format:check": "prettier --check \"./**/*\" --ignore-unknown",
-    "test": "lerna run test"
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
     "@saashub/qoq-eslint-v9-ts": "^0.3.0",
     "@saashub/qoq-jscpd": "^0.3.0",
     "@saashub/qoq-prettier": "^0.3.0",
     "@types/node": "^20",
-    "lerna": "8.1.8"
+    "@vitest/coverage-v8": "^2.0.5",
+    "lerna": "8.1.8",
+    "vitest": "2.0.5"
   },
   "overrides": {
     "eslint-plugin-import": {

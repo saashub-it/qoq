@@ -33,8 +33,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf ./lib && rollup -c --silent",
-    "test": "vitest run"
+    "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-vitest": "^0.7.2",
@@ -47,8 +46,7 @@
     "@types/lodash": "4.17.7",
     "rimraf": "6.0.1",
     "rollup": "4.21.0",
-    "typescript": "5.5.4",
-    "vitest": "2.0.5"
+    "typescript": "5.5.4"
   },
   "peerDependencies": {
     "eslint": "^9"
