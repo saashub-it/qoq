@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-ts-vitest",
   "description": "Eslint flat config template for TS + Vitest",
   "license": "MIT",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -36,8 +36,8 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^0.7.3",
-    "@saashub/qoq-eslint-v9-ts": "^0.7.3",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.7.4",
+    "@saashub/qoq-eslint-v9-ts": "^0.7.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {

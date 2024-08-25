@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-ts",
   "description": "Eslint flat config template for TS",
   "license": "MIT",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -36,7 +36,7 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.7.3",
+    "@saashub/qoq-eslint-v9-js": "^0.7.4",
     "@typescript-eslint/eslint-plugin": "8.2.0",
     "@typescript-eslint/parser": "8.2.0",
     "@typescript-eslint/utils": "8.2.0",
