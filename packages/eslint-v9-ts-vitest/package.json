@@ -1,5 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-vitest",
+  "description": "Eslint flat config template for TS + Vitest",
   "license": "MIT",
   "version": "0.7.1",
   "main": "./lib/index.js",
@@ -52,6 +53,13 @@
   "peerDependencies": {
     "eslint": "^9"
   },
+  "keywords": [
+    "eslint TypeScript + Vitest template",
+    "flat config",
+    "saashub",
+    "qoq",
+    "QualityOverQuantity"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",

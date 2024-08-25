@@ -1,5 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-react",
+  "description": "Eslint flat config template for JS + React",
   "license": "MIT",
   "version": "0.7.1",
   "main": "./lib/index.js",
@@ -62,6 +63,13 @@
       "eslint": "$eslint"
     }
   },
+  "keywords": [
+    "eslint JavaScript + React template",
+    "flat config",
+    "saashub",
+    "qoq",
+    "QualityOverQuantity"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
