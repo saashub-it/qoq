@@ -40,7 +40,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf ./lib && rollup -c --silent"
+    "build": "rimraf ./lib && rollup -c --silent",
+    "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
   },
   "dependencies": {
     "@eslint/compat": "1.1.1",
@@ -49,7 +50,7 @@
     "eslint-plugin-compat": "6.0.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-sonarjs": "2.0.1",
+    "eslint-plugin-sonarjs": "1.0.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
@@ -57,7 +58,7 @@
     "@types/eslint": "^9",
     "@types/lodash": "4.17.7",
     "rimraf": "6.0.1",
-    "rollup": "4.21.0",
+    "rollup": "4.21.1",
     "typescript": "5.5.4"
   },
   "peerDependencies": {
