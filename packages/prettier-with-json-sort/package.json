@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-prettier-with-json-sort",
   "license": "MIT",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "main": "./index.json",
   "type": "module",
   "exports": {
@@ -21,7 +21,7 @@
     "build": "rimraf ./index.json && node ./src/index.js"
   },
   "dependencies": {
-    "@saashub/qoq-prettier": "^0.7.4",
+    "@saashub/qoq-prettier": "^0.7.5",
     "prettier-plugin-sort-json": "4.0.0"
   },
   "devDependencies": {
