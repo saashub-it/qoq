@@ -14,11 +14,10 @@ jobs:
           node-version: '20.x'
       - run: npm ci
       - run: npm run test
-      - name: Archive code coverage results
+
+      - name: Upload eslint-v9-js coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
+          files: ./packages/eslint-v9-js/coverage/coverage-final.json
+          flags: eslint-v9-js
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags:
-            eslint-v9-js:
-              paths: 
-                - packages/eslint-v9-js/
