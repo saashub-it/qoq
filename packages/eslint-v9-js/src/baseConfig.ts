@@ -37,15 +37,6 @@ const baseConfig: Linter.Config = {
         distinctGroup: false,
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
         'newlines-between': 'always',
-        // pathGroups: [
-        //   {
-        //     pattern: '@nest*',
-        //     group: 'builtin',
-        //     position: 'before',
-        //   },
-        // ],
-        // 'newlines-between': 'always',
-        // pathGroupsExcludedImportTypes: ['@nest*'],
       },
     ],
     'prettier/prettier': 'warn',
@@ -78,7 +69,7 @@ const baseConfig: Linter.Config = {
         patterns: [
           {
             group: ['../../*'],
-            message: 'Agreed maximum one level back for relative imports.',
+            message: 'Maximum one level back for relative imports, please use path aliases.',
           },
         ],
       },

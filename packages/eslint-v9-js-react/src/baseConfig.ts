@@ -8,6 +8,39 @@ import merge from 'lodash/merge.js';
 
 import type { Linter } from 'eslint';
 
+const noRestrictedImportsRule = merge([], baseConfig.rules['no-restricted-imports'], [
+  'warn',
+  {
+    paths: [
+      ...baseConfig.rules['no-restricted-imports'][1].paths,
+      {
+        name: 'lodash/debounce',
+        message:
+          "Since this is a React project please use use-bebounce instead it's newer and tiny.",
+      },
+      {
+        name: 'lodash/fp/debounce',
+        message:
+          "Since this is a React project please use use-bebounce instead it's newer and tiny.",
+      },
+    ],
+  },
+]);
+
+const importOrderRule = merge([], baseConfig.rules['import/order'], [
+  'warn',
+  {
+    pathGroups: [
+      {
+        pattern: 'react*',
+        group: 'builtin',
+        position: 'before',
+      },
+    ],
+    pathGroupsExcludedImportTypes: ['react*'],
+  },
+]);
+
 const config = merge({}, baseConfig, {
   name: '@saashub/qoq-eslint-v9-js-react',
   languageOptions: {
@@ -27,6 +60,8 @@ const config = merge({}, baseConfig, {
     ...reactPlugin.configs['jsx-runtime'].rules,
     ...reactHooksPlugin.configs.recommended.rules,
     ...jsxA11yPlugin.configs.recommended.rules,
+    'import/order': importOrderRule,
+    'no-restricted-imports': noRestrictedImportsRule,
   },
   settings: {
     react: {
