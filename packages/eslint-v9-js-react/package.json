@@ -34,6 +34,7 @@
   },
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
+    "test": "vitest run --coverage",
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
   },
   "dependencies": {
@@ -49,7 +50,8 @@
     "@types/lodash": "4.17.7",
     "rimraf": "6.0.1",
     "rollup": "4.21.1",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vitest": "2.0.5"
   },
   "peerDependencies": {
     "eslint": "^9"

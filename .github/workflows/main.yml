@@ -22,3 +22,66 @@ jobs:
           files: ./packages/eslint-v9-js/coverage/coverage-final.json
           flags: eslint-v9-js
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-js-jest coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-js-jest/coverage/coverage-final.json
+          flags: eslint-v9-js-jest
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-js-react coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-js-react/coverage/coverage-final.json
+          flags: eslint-v9-js-react
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-js-vitest coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-js-vitest/coverage/coverage-final.json
+          flags: eslint-v9-js-vitest
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-ts coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-ts/coverage/coverage-final.json
+          flags: eslint-v9-ts
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-ts-jest coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-ts-jest/coverage/coverage-final.json
+          flags: eslint-v9-ts-jest
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-ts-react coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-ts-react/coverage/coverage-final.json
+          flags: eslint-v9-ts-react
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload eslint-v9-ts-vitest coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/eslint-v9-ts-vitest/coverage/coverage-final.json
+          flags: eslint-v9-ts-vitest
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload prettier coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/prettier/coverage/coverage-final.json
+          flags: prettier
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload prettier-with-json-sort coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/prettier-with-json-sort/coverage/coverage-final.json
+          flags: prettier-with-json-sort
+          token: ${{ secrets.CODECOV_TOKEN }}
