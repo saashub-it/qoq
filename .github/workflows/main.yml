@@ -19,6 +19,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags:
-            front-end:
-              eslint-v9-js: 
+            eslint-v9-js:
+              paths: 
                 - packages/eslint-v9-js/
