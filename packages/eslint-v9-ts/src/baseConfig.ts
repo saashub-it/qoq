@@ -23,11 +23,14 @@ const config = merge(
       '@typescript-eslint': typeScriptPlugin,
     },
     rules: {
+      'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
       ...importPlugin.configs.typescript.rules,
+      'import/no-cycle': 'warn',
+      'import/no-duplicates': 'warn',
+      'import/no-named-default': 'warn',
       ...typeScriptPlugin.configs.recommended.rules,
       ...typeScriptPlugin.configs['recommended-requiring-type-checking'].rules,
       '@typescript-eslint/no-unsafe-assignment': 0, // strange rule, turned off for now
-      'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
       '@typescript-eslint/naming-convention': [
         'warn',
         {

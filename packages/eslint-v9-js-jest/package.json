@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^0.7.7",
-    "eslint-plugin-jest": "28.8.0",
+    "eslint-plugin-jest": "28.8.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "@types/eslint": "^9",
     "@types/lodash": "4.17.7",
     "rimraf": "6.0.1",
-    "rollup": "4.21.1",
+    "rollup": "4.21.2",
     "typescript": "5.5.4",
     "vitest": "2.0.5"
   },
