@@ -1,6 +1,7 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-vitest",
   "description": "Eslint flat config template for TS + Vitest",
+  "type": "module",
   "license": "MIT",
   "version": "0.7.8",
   "main": "./lib/index.js",

@@ -1,9 +1,9 @@
 {
   "name": "@saashub/qoq-prettier-with-json-sort",
+  "type": "module",
   "license": "MIT",
   "version": "0.7.8",
   "main": "./index.json",
-  "type": "module",
   "exports": {
     ".": {
       "default": "./index.json"

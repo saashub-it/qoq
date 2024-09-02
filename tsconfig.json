@@ -5,14 +5,14 @@
     "allowUnusedLabels": false,
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["ES2022"],
-    "module": "Node16",
-    "moduleResolution": "Node16",
+    "target": "ESNext",
+    "lib": ["esnext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noImplicitReturns": true,
     "pretty": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "target": "ES2022"
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
