@@ -1,3 +1,3 @@
-const config = require('../../rollup.eslint.config');
+import config from '../../rollup.eslint.config.js';
 
-module.exports = config;
+export default config;

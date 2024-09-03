@@ -1,4 +1,4 @@
-const typescript = require('@rollup/plugin-typescript');
+import typescript from '@rollup/plugin-typescript';
 
 const sourceDir = './src';
 const outputDir = './bin';
@@ -7,7 +7,7 @@ const input = {
 };
 const plugins = [typescript()];
 
-module.exports = {
+export default {
   input,
   plugins,
   output: [

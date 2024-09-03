@@ -1,8 +1,8 @@
-import { EModules } from './types';
+import { EModules, TModulesWithConfig } from './types';
 
 export const CONFIG_FILE_PATH = `${process.cwd()}/qoq.config.js`;
 
-export const defaultModules = {
+export const defaultModules: TModulesWithConfig = {
   [EModules.PRETTIER]: true,
   [EModules.PRETTIER_WITH_JSON_SORT]: false,
   [EModules.JSCPD]: false,

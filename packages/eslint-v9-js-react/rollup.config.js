@@ -1,5 +1,3 @@
-const config = require('../../rollup.eslint.config');
+import config from '../../rollup.eslint.config.js';
 
-config.input.tools = './src/tools.ts';
-
-module.exports = config;
+export default config;

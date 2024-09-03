@@ -1,5 +1,6 @@
 {
   "name": "@saashub/qoq",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {

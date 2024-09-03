@@ -12,4 +12,5 @@ export enum EModules {
   ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
 }
 
-export type TModulesWithConfig = Promise<Record<EModules, boolean | object>>;
+export type TModulesWithConfig = Record<EModules, boolean | object>;
+export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;

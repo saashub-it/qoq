@@ -2,6 +2,7 @@
 
 import cac from 'cac';
 import { createConfig, getConfig } from './helpers/config';
+import { check } from './helpers/prettier';
 
 const cli = cac('qoq');
 
@@ -18,6 +19,8 @@ cli.command('init', 'Initialize QoQ cli config').action(async () => {
 
 cli.command('check', 'Perform QoQ quality checks').action(async () => {
   const config = await getConfig();
+
+  await check(config);
 
   console.log(config);
 

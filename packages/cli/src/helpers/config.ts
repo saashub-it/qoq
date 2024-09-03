@@ -2,10 +2,10 @@ import { existsSync } from 'fs';
 import prompts from 'prompts';
 import c from 'tinyrainbow';
 import { CONFIG_FILE_PATH, defaultModules } from './constants';
-import { EModules, TModulesWithConfig } from './types';
+import { EModules, TModulesWithConfig, TModulesWithConfigPromise } from './types';
 // import { installPackages } from './packages';
 
-export const createConfig = async (): Promise<TModulesWithConfig> => {
+export const createConfig = async (): TModulesWithConfigPromise => {
   const modulesConfig = Object.keys(defaultModules).reduce((acc, key) => {
     acc[key] = false;
 
@@ -98,7 +98,7 @@ export const createConfig = async (): Promise<TModulesWithConfig> => {
   return modulesConfig;
 };
 
-export const getConfig = async (): TModulesWithConfig => {
+export const getConfig = async (): TModulesWithConfigPromise => {
   if (!existsSync(CONFIG_FILE_PATH)) {
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -114,6 +114,8 @@ export const getConfig = async (): TModulesWithConfig => {
 
       return defaultModules;
     }
+
+    return createConfig();
   }
 
   try {
