@@ -14,3 +14,14 @@ export enum EModules {
 
 export type TModulesWithConfig = Record<EModules, boolean | object>;
 export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
+
+export interface qoqConfig {
+  srcPath?: string;
+  prettier?: {
+    config?: EModules.PRETTIER | EModules.PRETTIER_WITH_JSON_SORT;
+    sources?: string[];
+  };
+  eslint?: {};
+}
+
+export type TQoqConfigPromise = Promise<qoqConfig>;

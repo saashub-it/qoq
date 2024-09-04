@@ -2,13 +2,13 @@ import { existsSync, writeFileSync } from 'fs';
 import util from 'util';
 import prompts from 'prompts';
 import c from 'tinyrainbow';
-import { CONFIG_FILE_PATH, defaultModules } from './constants';
-import { EModules, TModulesWithConfig, TModulesWithConfigPromise } from './types';
+import { CONFIG_FILE_PATH, DEFAULT_SRC, defaultModules } from './constants';
+import { EModules, qoqConfig, TModulesWithConfig } from './types';
 import merge from 'lodash/merge';
 import isEmpty from 'lodash/isEmpty';
 // import { installPackages } from './packages';
 
-export const createConfig = async (): TModulesWithConfigPromise => {
+export const createConfig = async (): Promise<qoqConfig> => {
   const modulesConfig = Object.keys(defaultModules).reduce((acc, key) => {
     acc[key] = false;
 
@@ -19,7 +19,7 @@ export const createConfig = async (): TModulesWithConfigPromise => {
     type: 'text',
     name: 'srcPath',
     message: `What's your project source path (from project root dir)?`,
-    initial: './src',
+    initial: DEFAULT_SRC,
   });
 
   const prettierPrompts = [
@@ -59,7 +59,9 @@ export const createConfig = async (): TModulesWithConfigPromise => {
   const { prettierPackage, prettierSources } = await prompts.prompt(prettierPrompts);
 
   if (prettierPackage) {
-    modulesConfig[prettierPackage] = prettierSources ? { sources: prettierSources } : true;
+    modulesConfig[prettierPackage] = prettierSources
+      ? { config: prettierPackage, sources: prettierSources }
+      : { config: prettierPackage };
   }
 
   const eslintPrompts = [
@@ -110,13 +112,17 @@ export const createConfig = async (): TModulesWithConfigPromise => {
    */
   // await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]))
 
-  writeConfig(srcPath, modulesConfig);
+  prepareConfig(srcPath, modulesConfig, true);
 
-  return modulesConfig;
+  return prepareConfig(srcPath, modulesConfig);
 };
 
-const writeConfig = (srcPath: string, modulesConfig: TModulesWithConfig) => {
-  const content = Object.keys(modulesConfig)
+const prepareConfig = (
+  srcPath: string,
+  modulesConfig: TModulesWithConfig,
+  writeFile = false
+): qoqConfig => {
+  const config = Object.keys(modulesConfig)
     .filter((key) => !modulesConfig[key])
     .reduce(
       (acc, key) => {
@@ -124,7 +130,7 @@ const writeConfig = (srcPath: string, modulesConfig: TModulesWithConfig) => {
           case key.includes('prettier'): {
             const newValue = merge({}, acc['prettier'] || {}, modulesConfig[key]);
 
-            if (isEmpty(newValue)) {
+            if (writeFile && isEmpty(newValue)) {
               return acc;
             }
 
@@ -136,7 +142,7 @@ const writeConfig = (srcPath: string, modulesConfig: TModulesWithConfig) => {
           case key.includes('eslint'): {
             const newValue = merge({}, acc['eslint'] || {}, modulesConfig[key]);
 
-            if (isEmpty(newValue)) {
+            if (writeFile && isEmpty(newValue)) {
               return acc;
             }
 
@@ -149,14 +155,21 @@ const writeConfig = (srcPath: string, modulesConfig: TModulesWithConfig) => {
             return acc;
         }
       },
-      { srcPath }
+      writeFile && srcPath === DEFAULT_SRC ? {} : { srcPath }
     );
 
-  writeFileSync(CONFIG_FILE_PATH, `module.exports=${util.inspect(content, {showHidden: false, compact: false, depth: null})}`)
+  if (writeFile) {
+    writeFileSync(
+      CONFIG_FILE_PATH,
+      `module.exports=${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
+    );
+  }
+
+  return config;
 };
 
-export const getConfig = async (): TModulesWithConfigPromise => {
-  if (!existsSync(CONFIG_FILE_PATH)) {
+export const getConfig = async (skipInit: boolean): Promise<qoqConfig> => {
+  if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
     const { config } = await prompts.prompt({
       type: 'toggle',
       name: 'config',
@@ -169,17 +182,17 @@ export const getConfig = async (): TModulesWithConfigPromise => {
     if (!config) {
       process.stderr.write('Running with defaults\n');
 
-      return defaultModules;
+      return prepareConfig(DEFAULT_SRC, defaultModules);
     }
 
     return createConfig();
   }
 
   try {
-    const config = import(CONFIG_FILE_PATH);
-  } catch {
-    process.stderr.write(c.red('Error while processing config!, Running with defaults...\n'));
-  }
+    const config = await import(CONFIG_FILE_PATH);
 
-  return defaultModules;
+    return config;
+  } catch {
+    return prepareConfig(DEFAULT_SRC, defaultModules);
+  }
 };
