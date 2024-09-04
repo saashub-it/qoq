@@ -1,8 +1,11 @@
-import { existsSync } from 'fs';
+import { existsSync, writeFileSync } from 'fs';
+import util from 'util';
 import prompts from 'prompts';
 import c from 'tinyrainbow';
 import { CONFIG_FILE_PATH, defaultModules } from './constants';
 import { EModules, TModulesWithConfig, TModulesWithConfigPromise } from './types';
+import merge from 'lodash/merge';
+import isEmpty from 'lodash/isEmpty';
 // import { installPackages } from './packages';
 
 export const createConfig = async (): TModulesWithConfigPromise => {
@@ -11,6 +14,13 @@ export const createConfig = async (): TModulesWithConfigPromise => {
 
     return acc;
   }, {} as TModulesWithConfig);
+
+  const { srcPath } = await prompts.prompt({
+    type: 'text',
+    name: 'srcPath',
+    message: `What's your project source path (from project root dir)?`,
+    initial: './src',
+  });
 
   const prettierPrompts = [
     {
@@ -30,12 +40,26 @@ export const createConfig = async (): TModulesWithConfigPromise => {
         { title: 'Prettier with JSON sort', value: EModules.PRETTIER_WITH_JSON_SORT },
       ],
     },
+    {
+      type: 'toggle',
+      name: 'otherSources',
+      message: 'Should we format other paths than sources?',
+      initial: false,
+      active: c.green('yes'),
+      inactive: c.red('no'),
+    },
+    {
+      type: (prev) => (!!prev ? 'list' : null),
+      name: 'prettierSources',
+      message: 'Provide paths (from project root dir), space " " separated',
+      separator: ' ',
+    },
   ];
 
-  const { prettierPackage } = await prompts.prompt(prettierPrompts);
+  const { prettierPackage, prettierSources } = await prompts.prompt(prettierPrompts);
 
   if (prettierPackage) {
-    modulesConfig[prettierPackage] = true;
+    modulesConfig[prettierPackage] = prettierSources ? { sources: prettierSources } : true;
   }
 
   const eslintPrompts = [
@@ -86,16 +110,49 @@ export const createConfig = async (): TModulesWithConfigPromise => {
    */
   // await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]))
 
-  const { srcPath } = await prompts.prompt({
-    type: 'text',
-    name: 'srcPath',
-    message: `What's your project source path (from project root dir)?`,
-    initial: './src',
-  });
-
-  // console.log(srcPath)
+  writeConfig(srcPath, modulesConfig);
 
   return modulesConfig;
+};
+
+const writeConfig = (srcPath: string, modulesConfig: TModulesWithConfig) => {
+  const content = Object.keys(modulesConfig)
+    .filter((key) => !modulesConfig[key])
+    .reduce(
+      (acc, key) => {
+        switch (true) {
+          case key.includes('prettier'): {
+            const newValue = merge({}, acc['prettier'] || {}, modulesConfig[key]);
+
+            if (isEmpty(newValue)) {
+              return acc;
+            }
+
+            acc['prettier'] = newValue;
+
+            return acc;
+          }
+
+          case key.includes('eslint'): {
+            const newValue = merge({}, acc['eslint'] || {}, modulesConfig[key]);
+
+            if (isEmpty(newValue)) {
+              return acc;
+            }
+
+            acc['eslint'] = newValue;
+
+            return acc;
+          }
+
+          default:
+            return acc;
+        }
+      },
+      { srcPath }
+    );
+
+  writeFileSync(CONFIG_FILE_PATH, `module.exports=${util.inspect(content, {showHidden: false, compact: false, depth: null})}`)
 };
 
 export const getConfig = async (): TModulesWithConfigPromise => {
