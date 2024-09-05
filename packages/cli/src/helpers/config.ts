@@ -1,21 +1,23 @@
 import { existsSync, writeFileSync } from 'fs';
 import util from 'util';
+
+import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge';
 import prompts from 'prompts';
 import c from 'tinyrainbow';
-import { CONFIG_FILE_PATH, DEFAULT_SRC, defaultModules } from './constants';
-import { EModules, qoqConfig, TModulesWithConfig } from './types';
-import merge from 'lodash/merge';
-import isEmpty from 'lodash/isEmpty';
-// import { installPackages } from './packages';
 
-export const createConfig = async (): Promise<qoqConfig> => {
-  const modulesConfig = Object.keys(defaultModules).reduce((acc, key) => {
+import { allModules, CONFIG_FILE_PATH, DEFAULT_SRC, defaultModules } from './constants';
+import { EModulesEslint, EModulesPrettier, qoqConfig, TModulesWithConfig } from './types';
+import { installPackages } from './packages';
+
+export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConfig> => {
+  const modulesConfig = Object.keys(modules).reduce((acc, key) => {
     acc[key] = false;
 
     return acc;
   }, {} as TModulesWithConfig);
 
-  const { srcPath } = await prompts.prompt({
+  const { srcPath }: { srcPath: string } = await prompts.prompt({
     type: 'text',
     name: 'srcPath',
     message: `What's your project source path (from project root dir)?`,
@@ -32,12 +34,12 @@ export const createConfig = async (): Promise<qoqConfig> => {
       inactive: c.red('no'),
     },
     {
-      type: (prev) => (!!prev ? 'select' : null),
+      type: (prev) => (prev ? 'select' : null),
       name: 'prettierPackage',
       message: 'What options should we use?',
       choices: [
-        { title: 'Basic Prettier', value: EModules.PRETTIER },
-        { title: 'Prettier with JSON sort', value: EModules.PRETTIER_WITH_JSON_SORT },
+        { title: 'Basic Prettier', value: EModulesPrettier.PRETTIER },
+        { title: 'Prettier with JSON sort', value: EModulesPrettier.PRETTIER_WITH_JSON_SORT },
       ],
     },
     {
@@ -49,7 +51,7 @@ export const createConfig = async (): Promise<qoqConfig> => {
       inactive: c.red('no'),
     },
     {
-      type: (prev) => (!!prev ? 'list' : null),
+      type: (prev) => (prev ? 'list' : null),
       name: 'prettierSources',
       message: 'Provide paths (from project root dir), space " " separated',
       separator: ' ',
@@ -74,43 +76,112 @@ export const createConfig = async (): Promise<qoqConfig> => {
       inactive: c.red('no'),
     },
     {
-      type: (prev) => (!!prev ? 'multiselect' : null),
-      name: 'eslintPackage',
+      type: (prev) => (prev ? 'multiselect' : null),
+      name: 'eslintPackages',
       message: 'What options should we use?',
       choices: [
-        { title: 'Basic TypeScript only', value: EModules.ESLINT_V9_TS },
-        { title: 'TypeScript + React', value: EModules.ESLINT_V9_TS_REACT },
-        { title: 'TypeScript + Jest', value: EModules.ESLINT_V9_TS_JEST },
-        { title: 'TypeScript + Vitest', value: EModules.ESLINT_V9_TS_VITEST },
+        { title: 'Basic TypeScript only', value: EModulesEslint.ESLINT_V9_TS },
+        { title: 'TypeScript + React', value: EModulesEslint.ESLINT_V9_TS_REACT },
+        { title: 'TypeScript + Jest', value: EModulesEslint.ESLINT_V9_TS_JEST },
+        { title: 'TypeScript + Vitest', value: EModulesEslint.ESLINT_V9_TS_VITEST },
       ],
       min: 1,
     },
     {
       type: (prev) => (!prev ? 'multiselect' : null),
-      name: 'eslintPackage',
+      name: 'eslintPackages',
       message: 'What options should we use?',
       choices: [
-        { title: 'Basic JavaScript only', value: EModules.ESLINT_V9_JS },
-        { title: 'JavaScript + React', value: EModules.ESLINT_V9_JS_REACT },
-        { title: 'JavaScript + Jest', value: EModules.ESLINT_V9_JS_JEST },
-        { title: 'JavaScript + Vitest', value: EModules.ESLINT_V9_JS_VITEST },
+        { title: 'Basic JavaScript only', value: EModulesEslint.ESLINT_V9_JS },
+        { title: 'JavaScript + React', value: EModulesEslint.ESLINT_V9_JS_REACT },
+        { title: 'JavaScript + Jest', value: EModulesEslint.ESLINT_V9_JS_JEST },
+        { title: 'JavaScript + Vitest', value: EModulesEslint.ESLINT_V9_JS_VITEST },
       ],
       min: 1,
     },
   ];
 
-  const { eslintPackage } = await prompts.prompt(eslintPrompts);
+  const { eslintPackages }: { eslintPackages: EModulesEslint[] } =
+    await prompts.prompt(eslintPrompts);
 
-  if (eslintPrompts.length > 0) {
-    (eslintPackage as EModules[]).forEach((module) => {
-      modulesConfig[module] = true;
-    });
+  if (eslintPackages.length > 0) {
+    const eslintSrcPath = srcPath.startsWith('./') ? srcPath.replace('./', '') : srcPath;
+
+    for (const eslintPackage of eslintPackages) {
+      process.stderr.write(c.green(`\nProvide configuration for ${eslintPackage} checks:\n`));
+
+      let initialFiles: string;
+      let initialIgnores: string;
+
+      switch (true) {
+        case eslintPackage === EModulesEslint.ESLINT_V9_JS:
+          initialFiles = `${eslintSrcPath}/**/*.js`;
+          initialIgnores = '**/*.spec.js';
+          break;
+
+        case eslintPackage === EModulesEslint.ESLINT_V9_JS_REACT:
+          initialFiles = `${eslintSrcPath}/**/*.{js,jsx}`;
+          initialIgnores = '**/*.spec.js';
+          break;
+
+        case eslintPackage === EModulesEslint.ESLINT_V9_TS:
+          initialFiles = `${eslintSrcPath}/**/*.{js,ts}`;
+          initialIgnores = '**/*.spec.js';
+          break;
+
+        case eslintPackage === EModulesEslint.ESLINT_V9_TS_REACT:
+          initialFiles = `${eslintSrcPath}/**/*.{js,jsx,ts,tsx}`;
+          initialIgnores = '**/*.spec.js';
+          break;
+
+        case [EModulesEslint.ESLINT_V9_JS_JEST, EModulesEslint.ESLINT_V9_JS_VITEST].includes(
+          eslintPackage
+        ):
+          initialFiles = `${eslintSrcPath}/**/*.spec.js`;
+          initialIgnores = '';
+          break;
+
+        case [EModulesEslint.ESLINT_V9_TS_JEST, EModulesEslint.ESLINT_V9_TS_VITEST].includes(
+          eslintPackage
+        ):
+          initialFiles = `${eslintSrcPath}/**/*.spec.{js,ts}`;
+          initialIgnores = '';
+          break;
+
+        default:
+          initialFiles = '';
+          initialIgnores = '';
+          break;
+      }
+
+      const { files, ignores }: { files: string[]; ignores: string[] } = await prompts.prompt([
+        {
+          type: 'list',
+          name: 'files',
+          message: 'Provide files paths (from project root dir), space " " separated',
+          separator: ' ',
+          initial: initialFiles ?? false,
+        },
+        {
+          type: 'list',
+          name: 'ignores',
+          message: 'Provide files paths (from project root dir), space " " separated',
+          separator: ' ',
+          initial: initialIgnores ?? false,
+        },
+      ]);
+
+      modulesConfig[eslintPackage] = {
+        files: files.filter((entry) => !!entry),
+        ignores: ignores.filter((entry) => !!entry),
+      };
+    }
   }
 
   /**
    * @todo uncomment for final varsion
    */
-  // await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]))
+  await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]));
 
   prepareConfig(srcPath, modulesConfig, true);
 
@@ -123,7 +194,7 @@ const prepareConfig = (
   writeFile = false
 ): qoqConfig => {
   const config = Object.keys(modulesConfig)
-    .filter((key) => !modulesConfig[key])
+    .filter((key) => modulesConfig[key])
     .reduce(
       (acc, key) => {
         switch (true) {
@@ -140,13 +211,19 @@ const prepareConfig = (
           }
 
           case key.includes('eslint'): {
-            const newValue = merge({}, acc['eslint'] || {}, modulesConfig[key]);
+            const newValue = merge({}, acc['eslint'] || {}, { [key]: modulesConfig[key] });
 
             if (writeFile && isEmpty(newValue)) {
               return acc;
             }
 
             acc['eslint'] = newValue;
+
+            return acc;
+          }
+
+          case key.includes('jscpd'): {
+            acc['jscpd'] = {};
 
             return acc;
           }
@@ -159,10 +236,17 @@ const prepareConfig = (
     );
 
   if (writeFile) {
-    writeFileSync(
-      CONFIG_FILE_PATH,
-      `module.exports=${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
-    );
+    if (process.env.BUILD_ENV === 'CJS') {
+      writeFileSync(
+        CONFIG_FILE_PATH,
+        `module.exports=${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
+      );
+    } else {
+      writeFileSync(
+        CONFIG_FILE_PATH,
+        `export default ${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
+      );
+    }
   }
 
   return config;
@@ -185,11 +269,15 @@ export const getConfig = async (skipInit: boolean): Promise<qoqConfig> => {
       return prepareConfig(DEFAULT_SRC, defaultModules);
     }
 
-    return createConfig();
+    return createConfig(skipInit ? defaultModules : allModules);
   }
 
   try {
     const config = await import(CONFIG_FILE_PATH);
+
+    if (process.env.BUILD_ENV === 'CJS') {
+      return config.default;
+    }
 
     return config;
   } catch {

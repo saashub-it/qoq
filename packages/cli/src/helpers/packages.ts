@@ -1,5 +1,5 @@
-import { isPackageExists, getPackageInfoSync } from 'local-pkg';
 import { installPackage } from '@antfu/install-pkg';
+import { isPackageExists, getPackageInfoSync } from 'local-pkg';
 import c from 'tinyrainbow';
 
 export const isPackageInstalled = (name: string): boolean => isPackageExists(name);

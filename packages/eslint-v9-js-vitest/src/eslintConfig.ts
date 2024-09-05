@@ -1,4 +1,4 @@
-import jsEslintConfig from '@saashub/qoq-eslint-v9-js/eslintConfig';
+import { includeIgnoreFile } from '@eslint/compat';
 
 import merge from 'lodash/merge.js';
 
@@ -8,11 +8,23 @@ import type { Linter } from 'eslint';
 
 const filesExtensions = ['js'];
 
-const eslintConfig = [
-  ...jsEslintConfig,
-  merge({}, baseConfig, {
-    files: [`src/**/*.spec.{${filesExtensions.join(',')}}`],
-  }),
-] as unknown as Linter.Config[];
+export const getEslintConfig: (
+  srcPath?: string,
+  files?: string[],
+  ignores?: string[],
+  gitignorePath?: string
+) => Linter.Config[] = (
+  srcPath = 'src',
+  files = [`${srcPath}/**/*.spec.{${filesExtensions.join(',')}}`],
+  ignores = [],
+  gitignorePath
+) => {
+  const eslintConfig = merge({}, baseConfig, {
+    files,
+    ignores,
+  });
 
-export default eslintConfig;
+  return gitignorePath ? [includeIgnoreFile(gitignorePath), eslintConfig] : [eslintConfig];
+};
+
+export default getEslintConfig();

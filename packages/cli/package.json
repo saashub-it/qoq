@@ -4,7 +4,8 @@
   "license": "MIT",
   "version": "0.7.8",
   "bin": {
-    "qoq": "bin/qoq.js"
+    "qoq": "bin/qoq.mjs",
+    "qoq-cjs": "bin/qoq.js"
   },
   "publishConfig": {
     "access": "public"
@@ -23,12 +24,16 @@
     "tinyrainbow": "1.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "11.1.6",
+    "@rollup/plugin-commonjs": "26.0.1",
+    "@rollup/plugin-json": "6.1.0",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-replace": "5.0.7",
     "@types/lodash": "4.17.7",
     "@types/prompts": "2.4.9",
     "rimraf": "6.0.1",
     "rollup": "4.21.2",
-    "tsx": "^4.19.0",
+    "rollup-plugin-esbuild": "6.1.1",
+    "tsx": "4.19.0",
     "typescript": "5.5.4"
   },
   "repository": {

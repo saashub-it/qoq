@@ -26,6 +26,7 @@ const baseConfig: Linter.Config = {
     ...jsRules.configs.recommended.rules,
     ...importPlugin.configs.recommended.rules,
     ...sonarJsPlugin.configs.recommended.rules,
+    'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'import/no-cycle': 'warn',
     'import/no-duplicates': 'warn',

@@ -1,7 +1,13 @@
-export enum EModules {
+export enum EModulesPrettier {
   PRETTIER = '@saashub/qoq-prettier',
   PRETTIER_WITH_JSON_SORT = '@saashub/qoq-prettier-with-json-sort',
+}
+
+export enum EModulesJscpd {
   JSCPD = '@saashub/qoq-jscpd',
+}
+
+export enum EModulesEslint {
   ESLINT_V9_JS = '@saashub/qoq-eslint-v9-js',
   ESLINT_V9_JS_REACT = '@saashub/qoq-eslint-v9-js-react',
   ESLINT_V9_JS_JEST = '@saashub/qoq-eslint-v9-js-jest',
@@ -12,16 +18,25 @@ export enum EModules {
   ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
 }
 
-export type TModulesWithConfig = Record<EModules, boolean | object>;
+export type TModulesWithConfig = Record<
+  EModulesPrettier & EModulesJscpd & EModulesEslint,
+  boolean | object
+>;
 export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
+
+export interface IEslintModuleConfig {
+  files: string[];
+  ignores: string[];
+}
 
 export interface qoqConfig {
   srcPath?: string;
   prettier?: {
-    config?: EModules.PRETTIER | EModules.PRETTIER_WITH_JSON_SORT;
+    config: EModulesPrettier;
     sources?: string[];
   };
-  eslint?: {};
+  jscpd?: unknown;
+  eslint?: Partial<Record<EModulesEslint, IEslintModuleConfig>>;
 }
 
 export type TQoqConfigPromise = Promise<qoqConfig>;
