@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-js",
   "description": "Eslint flat config template for JS",
   "license": "MIT",
-  "version": "0.7.12",
+  "version": "0.8.0",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
