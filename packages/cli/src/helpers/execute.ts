@@ -103,13 +103,13 @@ const executeEslint = async (config: qoqConfig, fix: boolean): Promise<boolean> 
         imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
         const getEslintConfigArgs: string[] = [
-          `${config?.srcPath || DEFAULT_SRC}`,
+          `'${config?.srcPath || DEFAULT_SRC}'`,
           JSON.stringify(files),
           JSON.stringify(ignores),
         ];
 
         if (existsSync(GITIGNORE_FILE_PATH)) {
-          getEslintConfigArgs.push(`${GITIGNORE_FILE_PATH}`);
+          getEslintConfigArgs.push(`'${GITIGNORE_FILE_PATH}'`);
         }
 
         acc.push(

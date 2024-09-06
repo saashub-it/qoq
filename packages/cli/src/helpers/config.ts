@@ -237,19 +237,11 @@ const prepareConfig = (
     );
 
   if (writeFile) {
+    const exports = util.inspect(config, { showHidden: false, compact: false, depth: null });
+
     writeFileSync(
       CONFIG_FILE_PATH,
-      process.env.BUILD_ENV === 'CJS'
-        ? formatCjs(
-            {},
-            [],
-            util.inspect(config, { showHidden: false, compact: false, depth: null })
-          )
-        : formatEsm(
-            {},
-            [],
-            util.inspect(config, { showHidden: false, compact: false, depth: null })
-          )
+      process.env.BUILD_ENV === 'CJS' ? formatCjs({}, [], exports) : formatEsm({}, [], exports)
     );
   }
 

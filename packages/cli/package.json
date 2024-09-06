@@ -1,8 +1,9 @@
 {
   "name": "@saashub/qoq-cli",
-  "type": "module",
   "license": "MIT",
   "version": "0.7.10",
+  "main": "./bin/qoq.cjs",
+  "module": "./bin/qoq.mjs",
   "bin": {
     "qoq": "bin/qoq.mjs",
     "qoq-cjs": "bin/qoq.cjs"
