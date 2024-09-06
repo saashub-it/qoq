@@ -5,7 +5,7 @@
   "version": "0.7.9",
   "bin": {
     "qoq": "bin/qoq.mjs",
-    "qoq-cjs": "bin/qoq.js"
+    "qoq-cjs": "bin/qoq.cjs"
   },
   "publishConfig": {
     "access": "public"

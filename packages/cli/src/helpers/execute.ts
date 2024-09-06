@@ -12,7 +12,8 @@ import {
   GITIGNORE_FILE_PATH,
 } from './constants';
 import { getPackageInfo } from './packages';
-import { IEslintModuleConfig, qoqConfig } from './types';
+import { EModulesEslint, IEslintModuleConfig, qoqConfig } from './types';
+import { formatCjs, formatEsm } from './formatCode';
 
 const executePrettier = (config: qoqConfig, fix: boolean): boolean => {
   process.stderr.write(c.green('\nRunning Prettier:\n'));
@@ -83,67 +84,62 @@ const executeEslint = async (config: qoqConfig, fix: boolean): Promise<boolean> 
   try {
     const { rootPath } = getPackageInfo(pkg.name);
     const configFilePath = `${rootPath}/bin/eslint.config.js`;
-    let content: string[] = [];
+    const globalExcludeRules = config?.eslint?.excludeRules;
 
-    if (process.env.BUILD_ENV === 'CJS') {
-      content = Object.keys(config.eslint || {}).reduce(
-        (acc: string[], dependency: string, index: number) => {
-          const { files, ignores } = config.eslint[dependency] as IEslintModuleConfig;
-
-          acc.push(`const dependency${index} = require('${dependency}/eslintConfig')`);
-
-          if (existsSync(GITIGNORE_FILE_PATH)) {
-            acc.push(
-              `const config${index} = dependency${index}.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, '${GITIGNORE_FILE_PATH}')`
-            );
-          } else {
-            acc.push(
-              `const config${index} = dependency${index}.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)})`
-            );
+    const imports: Record<string, string> =
+      process.env.BUILD_ENV === 'CJS'
+        ? {
+            tools: '@saashub/qoq-eslint-v9-js/tools',
           }
+        : {
+            '* as tools': '@saashub/qoq-eslint-v9-js/tools',
+          };
 
-          return acc;
-        },
-        []
-      );
+    const content: string[] = Object.keys(config.eslint || {})
+      .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
+      .reduce((acc: string[], dependency: string, index: number) => {
+        const { files, ignores } = config.eslint[dependency] as IEslintModuleConfig;
 
-      content.push(
-        `module.exports=[${Object.keys(config.eslint || {})
-          .map((_, index) => `...config${index}`)
-          .join(',')}]`
-      );
-    } else {
-      content = Object.keys(config.eslint || {}).reduce(
-        (acc: string[], dependency: string, index: number) => {
-          const { files, ignores } = config.eslint[dependency] as IEslintModuleConfig;
+        imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
-          acc.push(
-            `import {getEslintConfig as getEslintConfig${index}} from '${dependency}/eslintConfig'`
-          );
+        const getEslintConfigArgs: string[] = [
+          `${config?.srcPath || DEFAULT_SRC}`,
+          JSON.stringify(files),
+          JSON.stringify(ignores),
+        ];
 
-          if (existsSync(GITIGNORE_FILE_PATH)) {
-            acc.push(
-              `const config${index} = getEslintConfig${index}('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, '${GITIGNORE_FILE_PATH}')`
-            );
-          } else {
-            acc.push(
-              `const config${index} = getEslintConfig${index}('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)})`
-            );
-          }
+        if (existsSync(GITIGNORE_FILE_PATH)) {
+          getEslintConfigArgs.push(`${GITIGNORE_FILE_PATH}`);
+        }
 
-          return acc;
-        },
-        []
-      );
+        acc.push(
+          `const config${index} = dependency${index}.getEslintConfig(${getEslintConfigArgs.join(',')})`
+        );
 
-      content.push(
-        `export default [${Object.keys(config.eslint || {})
-          .map((_, index) => `...config${index}`)
-          .join(',')}]`
-      );
-    }
+        return acc;
+      }, []);
 
-    writeFileSync(configFilePath, content.join(';'));
+    const mergeConfigs = `[${Object.keys(config.eslint || {})
+      .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
+      .map((dependency, index) => {
+        const { excludeRules } = config.eslint[dependency] as IEslintModuleConfig;
+
+        return excludeRules
+          ? `...tools.omitRules(config${index}, [${excludeRules.map((key) => `'${key}'`).join(',')}])`
+          : `...config${index}`;
+      })
+      .join(',')}]`;
+
+    const exports = globalExcludeRules
+      ? `tools.omitRulesForConfigCollection(${mergeConfigs})`
+      : mergeConfigs;
+
+    writeFileSync(
+      configFilePath,
+      process.env.BUILD_ENV === 'CJS'
+        ? formatCjs(imports, content, exports)
+        : formatEsm(imports, content, exports)
+    );
 
     try {
       const stdout = execSync(`eslint -c ${configFilePath} --max-warnings 0 ${fix ? '--fix' : ''}`);

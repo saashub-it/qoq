@@ -9,6 +9,7 @@ import c from 'tinyrainbow';
 import { allModules, CONFIG_FILE_PATH, DEFAULT_SRC, defaultModules } from './constants';
 import { EModulesEslint, EModulesPrettier, qoqConfig, TModulesWithConfig } from './types';
 import { installPackages } from './packages';
+import { formatCjs, formatEsm } from './formatCode';
 
 export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConfig> => {
   const modulesConfig = Object.keys(modules).reduce((acc, key) => {
@@ -236,17 +237,20 @@ const prepareConfig = (
     );
 
   if (writeFile) {
-    if (process.env.BUILD_ENV === 'CJS') {
-      writeFileSync(
-        CONFIG_FILE_PATH,
-        `module.exports=${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
-      );
-    } else {
-      writeFileSync(
-        CONFIG_FILE_PATH,
-        `export default ${util.inspect(config, { showHidden: false, compact: false, depth: null })}`
-      );
-    }
+    writeFileSync(
+      CONFIG_FILE_PATH,
+      process.env.BUILD_ENV === 'CJS'
+        ? formatCjs(
+            {},
+            [],
+            util.inspect(config, { showHidden: false, compact: false, depth: null })
+          )
+        : formatEsm(
+            {},
+            [],
+            util.inspect(config, { showHidden: false, compact: false, depth: null })
+          )
+    );
   }
 
   return config;

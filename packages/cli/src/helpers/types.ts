@@ -24,9 +24,14 @@ export type TModulesWithConfig = Record<
 >;
 export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
 
+export interface IEslintCommonConfig {
+  excludeRules?: string[];
+}
+
 export interface IEslintModuleConfig {
   files: string[];
   ignores: string[];
+  excludeRules?: string[];
 }
 
 export interface qoqConfig {
@@ -36,7 +41,7 @@ export interface qoqConfig {
     sources?: string[];
   };
   jscpd?: unknown;
-  eslint?: Partial<Record<EModulesEslint, IEslintModuleConfig>>;
+  eslint?: Partial<Record<EModulesEslint, IEslintModuleConfig>> & IEslintCommonConfig;
 }
 
 export type TQoqConfigPromise = Promise<qoqConfig>;

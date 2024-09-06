@@ -51,7 +51,7 @@ export default {
     {
       dir: outputDir,
       format: 'cjs',
-      exports: 'auto',
+      entryFileNames: '[name].cjs',
       plugins: [
         replace({
           'process.env.BUILD_ENV': JSON.stringify('CJS'),
