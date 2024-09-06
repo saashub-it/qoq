@@ -3,7 +3,7 @@
   "description": "Eslint flat config template for JS",
   "type": "module",
   "license": "MIT",
-  "version": "0.7.9",
+  "version": "0.7.10",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",

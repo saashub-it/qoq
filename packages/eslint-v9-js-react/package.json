@@ -3,7 +3,7 @@
   "description": "Eslint flat config template for JS + React",
   "type": "module",
   "license": "MIT",
-  "version": "0.7.9",
+  "version": "0.7.10",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -39,7 +39,7 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.7.9",
+    "@saashub/qoq-eslint-v9-js": "^0.7.10",
     "eslint-plugin-jsx-a11y": "6.9.0",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "4.6.2",
