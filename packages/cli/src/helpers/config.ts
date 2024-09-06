@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import { existsSync, writeFileSync } from 'fs';
 import util from 'util';
 
@@ -6,12 +7,24 @@ import merge from 'lodash/merge';
 import prompts from 'prompts';
 import c from 'tinyrainbow';
 
-import { allModules, CONFIG_FILE_PATH, DEFAULT_SRC, defaultModules } from './constants';
-import { EModulesEslint, EModulesPrettier, qoqConfig, TModulesWithConfig } from './types';
+import {
+  allModules,
+  CONFIG_FILE_PATH,
+  DEFAULT_JSCPD_THRESHOLD,
+  DEFAULT_SRC,
+  defaultModules,
+} from './constants';
+import { formatCode } from './formatCode';
 import { installPackages } from './packages';
-import { formatCjs, formatEsm } from './formatCode';
+import {
+  EModulesEslint,
+  EModulesJscpd,
+  EModulesPrettier,
+  QoqConfig,
+  TModulesWithConfig,
+} from './types';
 
-export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConfig> => {
+export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConfig> => {
   const modulesConfig = Object.keys(modules).reduce((acc, key) => {
     acc[key] = false;
 
@@ -27,17 +40,9 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
 
   const prettierPrompts = [
     {
-      type: 'toggle',
-      name: 'prettier',
-      message: c.reset(`Would You like to use ${c.green('Prettier')} as a formatter?`),
-      initial: true,
-      active: c.green('yes'),
-      inactive: c.red('no'),
-    },
-    {
-      type: (prev) => (prev ? 'select' : null),
+      type: 'select',
       name: 'prettierPackage',
-      message: 'What options should we use?',
+      message: c.reset(`What options should we use for ${c.green('Prettier')}?`),
       choices: [
         { title: 'Basic Prettier', value: EModulesPrettier.PRETTIER },
         { title: 'Prettier with JSON sort', value: EModulesPrettier.PRETTIER_WITH_JSON_SORT },
@@ -52,7 +57,7 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
       inactive: c.red('no'),
     },
     {
-      type: (prev) => (prev ? 'list' : null),
+      type: (prev: boolean) => (prev ? 'list' : null),
       name: 'prettierSources',
       message: 'Provide paths (from project root dir), space " " separated',
       separator: ' ',
@@ -67,6 +72,17 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
       : { config: prettierPackage };
   }
 
+  const { jscpdThreshold }: { jscpdThreshold: number } = await prompts.prompt({
+    type: 'number',
+    name: 'jscpdThreshold',
+    message: `What threshold should we use for copy/paste detector?`,
+    initial: DEFAULT_JSCPD_THRESHOLD,
+  });
+
+  if (jscpdThreshold) {
+    modulesConfig[EModulesJscpd.JSCPD] = { threshold: jscpdThreshold };
+  }
+
   const eslintPrompts = [
     {
       type: 'toggle',
@@ -77,7 +93,7 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
       inactive: c.red('no'),
     },
     {
-      type: (prev) => (prev ? 'multiselect' : null),
+      type: (prev: boolean) => (prev ? 'multiselect' : null),
       name: 'eslintPackages',
       message: 'What options should we use?',
       choices: [
@@ -89,7 +105,7 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
       min: 1,
     },
     {
-      type: (prev) => (!prev ? 'multiselect' : null),
+      type: (prev: boolean) => (!prev ? 'multiselect' : null),
       name: 'eslintPackages',
       message: 'What options should we use?',
       choices: [
@@ -179,9 +195,6 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<qoqConf
     }
   }
 
-  /**
-   * @todo uncomment for final varsion
-   */
   await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]));
 
   prepareConfig(srcPath, modulesConfig, true);
@@ -193,7 +206,7 @@ const prepareConfig = (
   srcPath: string,
   modulesConfig: TModulesWithConfig,
   writeFile = false
-): qoqConfig => {
+): QoqConfig => {
   const config = Object.keys(modulesConfig)
     .filter((key) => modulesConfig[key])
     .reduce(
@@ -239,16 +252,13 @@ const prepareConfig = (
   if (writeFile) {
     const exports = util.inspect(config, { showHidden: false, compact: false, depth: null });
 
-    writeFileSync(
-      CONFIG_FILE_PATH,
-      process.env.BUILD_ENV === 'CJS' ? formatCjs({}, [], exports) : formatEsm({}, [], exports)
-    );
+    writeFileSync(CONFIG_FILE_PATH, formatCode({}, [], exports));
   }
 
   return config;
 };
 
-export const getConfig = async (skipInit: boolean): Promise<qoqConfig> => {
+export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {console.log(CONFIG_FILE_PATH)
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -272,10 +282,10 @@ export const getConfig = async (skipInit: boolean): Promise<qoqConfig> => {
     const config = await import(CONFIG_FILE_PATH);
 
     if (process.env.BUILD_ENV === 'CJS') {
-      return config.default;
+      return config.default as QoqConfig;
     }
 
-    return config;
+    return config as QoqConfig;
   } catch {
     return prepareConfig(DEFAULT_SRC, defaultModules);
   }

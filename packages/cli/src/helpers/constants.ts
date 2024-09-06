@@ -21,12 +21,10 @@ export const defaultModules: TModulesWithConfig = {
   [EModulesPrettier.PRETTIER]: true,
   [EModulesPrettier.PRETTIER_WITH_JSON_SORT]: false,
   [EModulesJscpd.JSCPD]: true,
-  // [EModulesJscpd.JSCPD]: false,
   [EModulesEslint.ESLINT_V9_JS]: false,
   [EModulesEslint.ESLINT_V9_JS_REACT]: false,
   [EModulesEslint.ESLINT_V9_JS_JEST]: false,
   [EModulesEslint.ESLINT_V9_JS_VITEST]: false,
-  // [EModulesEslint.ESLINT_V9_TS]: false,
   [EModulesEslint.ESLINT_V9_TS]: {
     files: [`src/**/*.{js,jsx,ts,tsx}`],
     ignores: ['**/*.spec.js'],
@@ -38,4 +36,4 @@ export const defaultModules: TModulesWithConfig = {
 
 export const DEFAULT_SRC = './src';
 export const DEFAULT_PRETTIER_PACKAGE = EModulesPrettier.PRETTIER;
-export const DEFAULT_JSCPD_PACKAGE = EModulesJscpd.JSCPD;
+export const DEFAULT_JSCPD_THRESHOLD = 2;

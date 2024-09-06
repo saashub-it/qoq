@@ -16,6 +16,13 @@ jobs:
       - run: npm run build
       - run: npm run test
 
+      - name: Upload cli coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/cli/coverage/coverage-final.json
+          flags: cli
+          token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Upload eslint-v9-js coverage to Codecov
         uses: codecov/codecov-action@v4
         with:

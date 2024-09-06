@@ -3,13 +3,13 @@
 import cac from 'cac';
 
 import { createConfig, getConfig } from './helpers/config';
-import { execute } from './helpers/execute';
 import { allModules } from './helpers/constants';
+import { execute } from './helpers/execute';
 
 const cli = cac('qoq');
 
-cli.command('').action(async () => {
-  console.log(
+cli.command('').action(() => {
+  process.stdout.write(
     'Please pass valid QoQ command to execute. Use `qoq --help` or `qoq -h` for avaliable options'
   );
 });
@@ -36,11 +36,6 @@ cli
     await execute(config, true);
   });
 
-// cli.command('audit', 'Audit project with QoQ').action(() => {
-//   console.log('audit');
-// });
-
-// Display help message when `-h` or `--help` appears
 cli.help();
 
 cli.parse();

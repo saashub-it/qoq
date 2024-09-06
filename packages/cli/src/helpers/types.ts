@@ -34,14 +34,20 @@ export interface IEslintModuleConfig {
   excludeRules?: string[];
 }
 
-export interface qoqConfig {
+type TAvaliablePrettierPackages =`${EModulesPrettier}`;
+type TAvaliableEslintPackages =`${EModulesEslint}`;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export interface QoqConfig {
   srcPath?: string;
   prettier?: {
-    config: EModulesPrettier;
+    config: TAvaliablePrettierPackages;
     sources?: string[];
   };
-  jscpd?: unknown;
-  eslint?: Partial<Record<EModulesEslint, IEslintModuleConfig>> & IEslintCommonConfig;
+  jscpd?: {
+    threshold?: number;
+  };
+  eslint?: Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> & IEslintCommonConfig;
 }
 
-export type TQoqConfigPromise = Promise<qoqConfig>;
+export type TQoqConfigPromise = Promise<QoqConfig>;

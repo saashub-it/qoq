@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "pretty": true,
     "resolveJsonModule": true,
+    "strict": true,
     "skipLibCheck": true
   },
   "exclude": ["node_modules", "**/*.spec.ts"]

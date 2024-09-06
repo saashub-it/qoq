@@ -13,12 +13,12 @@
   },
   "scripts": {
     "build": "rimraf ./bin && rollup -c --silent",
-    "dev": "tsx ./src/index.ts"
+    "test": "vitest run --coverage",
+    "dev": "npm run build && node ./bin/qoq.cjs"
   },
   "dependencies": {
     "@antfu/install-pkg": "0.4.1",
     "cac": "6.7.14",
-    "child_process": "1.0.2",
     "local-pkg": "0.5.0",
     "lodash": "4.17.21",
     "prompts": "2.4.2",
@@ -34,8 +34,8 @@
     "rimraf": "6.0.1",
     "rollup": "4.21.2",
     "rollup-plugin-esbuild": "6.1.1",
-    "tsx": "4.19.0",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vitest": "2.0.5"
   },
   "repository": {
     "type": "git",
