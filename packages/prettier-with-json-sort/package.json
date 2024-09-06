@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-prettier-with-json-sort",
   "type": "module",
   "license": "MIT",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "main": "./index.json",
   "exports": {
     ".": {
@@ -22,7 +22,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-prettier": "^0.7.8",
+    "@saashub/qoq-prettier": "^0.7.9",
     "prettier-plugin-sort-json": "4.0.0"
   },
   "devDependencies": {

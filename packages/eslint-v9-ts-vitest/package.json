@@ -3,7 +3,7 @@
   "description": "Eslint flat config template for TS + Vitest",
   "type": "module",
   "license": "MIT",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -39,8 +39,8 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^0.7.8",
-    "@saashub/qoq-eslint-v9-ts": "^0.7.8",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.7.9",
+    "@saashub/qoq-eslint-v9-ts": "^0.7.9",
     "lodash": "4.17.21"
   },
   "devDependencies": {
