@@ -3,7 +3,7 @@
   "description": "Eslint flat config template for JS + Jest",
   "type": "module",
   "license": "MIT",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -39,8 +39,8 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.7.10",
-    "eslint-plugin-jest": "28.8.1",
+    "@saashub/qoq-eslint-v9-js": "^0.7.11",
+    "eslint-plugin-jest": "28.8.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
