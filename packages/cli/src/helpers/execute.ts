@@ -5,7 +5,12 @@ import c from 'tinyrainbow';
 
 import pkg from '../../package.json';
 
-import { DEFAULT_JSCPD_PACKAGE, DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC, GITIGNORE_FILE_PATH } from './constants';
+import {
+  DEFAULT_JSCPD_PACKAGE,
+  DEFAULT_PRETTIER_PACKAGE,
+  DEFAULT_SRC,
+  GITIGNORE_FILE_PATH,
+} from './constants';
 import { getPackageInfo } from './packages';
 import { IEslintModuleConfig, qoqConfig } from './types';
 
@@ -89,11 +94,11 @@ const executeEslint = async (config: qoqConfig, fix: boolean): Promise<boolean> 
 
           if (existsSync(GITIGNORE_FILE_PATH)) {
             acc.push(
-              `const config${index} = dependency${index}.default.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, ${GITIGNORE_FILE_PATH})`
+              `const config${index} = dependency${index}.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, '${GITIGNORE_FILE_PATH}')`
             );
           } else {
             acc.push(
-              `const config${index} = dependency${index}.default.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)})`
+              `const config${index} = dependency${index}.getEslintConfig('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)})`
             );
           }
 
@@ -112,18 +117,20 @@ const executeEslint = async (config: qoqConfig, fix: boolean): Promise<boolean> 
         (acc: string[], dependency: string, index: number) => {
           const { files, ignores } = config.eslint[dependency] as IEslintModuleConfig;
 
-          acc.push(`import getEslintConfig${index} from '${dependency}/eslintConfig'`);
+          acc.push(
+            `import {getEslintConfig as getEslintConfig${index}} from '${dependency}/eslintConfig'`
+          );
 
           if (existsSync(GITIGNORE_FILE_PATH)) {
             acc.push(
-              `const config${index} = getEslintConfig${index}('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, ${GITIGNORE_FILE_PATH})`
+              `const config${index} = getEslintConfig${index}('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)}, '${GITIGNORE_FILE_PATH}')`
             );
           } else {
             acc.push(
               `const config${index} = getEslintConfig${index}('${config?.srcPath || DEFAULT_SRC}', ${JSON.stringify(files)}, ${JSON.stringify(ignores)})`
             );
           }
-          
+
           return acc;
         },
         []

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { builtinModules } from 'module'
+import { builtinModules } from 'module';
 import esbuild from 'rollup-plugin-esbuild';
 import json from '@rollup/plugin-json';
 import nodeResolve from '@rollup/plugin-node-resolve';
@@ -23,10 +23,15 @@ const plugins = [
     target: 'node18',
   }),
 ];
+
+const onlyEsmDependencies = ['tinyrainbow'];
+
 const external = [
   ...builtinModules,
-  ...Object.keys(pkg.dependencies),
-]
+  ...Object.keys(pkg.dependencies).filter(
+    (dependency) => !onlyEsmDependencies.includes(dependency)
+  ),
+];
 
 export default {
   input,
