@@ -89,7 +89,7 @@ const executeEslint = async (config: qoqConfig, fix: boolean): Promise<boolean> 
     const imports: Record<string, string> =
       process.env.BUILD_ENV === 'CJS'
         ? {
-            tools: '@saashub/qoq-eslint-v9-js/tools',
+            tools: '@saashub/qoq-eslint-v9-js/tools.js',
           }
         : {
             '* as tools': '@saashub/qoq-eslint-v9-js/tools',

@@ -18,7 +18,7 @@ describe('baseConfig', () => {
     const projectPath = __dirname.replace('/src', '');
 
     expect(() =>
-      execSync(`eslint ${projectPath}/lib/index.js -c ${projectPath}/lib/eslintConfig.mjs`)
+      execSync(`eslint ${projectPath}/lib/index.cjs -c ${projectPath}/lib/eslintConfig.mjs`)
     ).not.toThrowError();
   });
 });

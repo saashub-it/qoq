@@ -21,7 +21,7 @@ export default {
     {
       dir: outputDir,
       format: 'cjs',
-      exports: 'auto',
+      entryFileNames: '[name].cjs',
     },
   ],
 };

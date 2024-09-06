@@ -1,10 +1,9 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-vitest",
   "description": "Eslint flat config template for JS + Vitest",
-  "type": "module",
   "license": "MIT",
   "version": "0.7.11",
-  "main": "./lib/index.js",
+  "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "exports": {
@@ -12,21 +11,21 @@
       "types": "./lib/index.d.ts",
       "module": "./lib/index.mjs",
       "import": "./lib/index.mjs",
-      "require": "./lib/index.js",
+      "require": "./lib/index.cjs",
       "default": "./lib/index.mjs"
     },
     "./baseConfig": {
       "types": "./lib/baseConfig.d.ts",
       "module": "./lib/baseConfig.mjs",
       "import": "./lib/baseConfig.mjs",
-      "require": "./lib/baseConfig.js",
+      "require": "./lib/baseConfig.cjs",
       "default": "./lib/baseConfig.mjs"
     },
     "./eslintConfig": {
       "types": "./lib/eslintConfig.d.ts",
       "module": "./lib/eslintConfig.mjs",
       "import": "./lib/eslintConfig.mjs",
-      "require": "./lib/eslintConfig.js",
+      "require": "./lib/eslintConfig.cjs",
       "default": "./lib/eslintConfig.mjs"
     }
   },
@@ -36,7 +35,7 @@
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
     "test": "vitest run --coverage",
-    "inspect": "npm run build && eslint -c ./lib/eslintConfig.js --inspect-config"
+    "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^0.7.11",

@@ -44,18 +44,3 @@ cli
 cli.help();
 
 cli.parse();
-
-//   if (avaliableModules[EModules.JSCPD]) {
-//     try {
-//       const configOverridePath = resolve(`${process.cwd()}/.jscpd.json`);
-//       const configPath = existsSync(configOverridePath)
-//         ? configOverridePath
-//         : resolve(`${process.cwd()}/node_modules/@saashub/qoq-jscpd/index.json`);
-
-//       const stdout = execSync(`jscpd ${src} -c ${configPath}`);
-
-//       console.log(stdout.toString());
-//     } catch {
-//       console.error('Errors found!');
-//     }
-//   }
