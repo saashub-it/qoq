@@ -1,14 +1,13 @@
+import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
 import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
-import * as importPlugin from 'eslint-plugin-import';
 import jsJestBaseConfig from '@saashub/qoq-eslint-v9-js-jest/baseConfig';
 import tsBaseConfig from '@saashub/qoq-eslint-v9-ts/baseConfig';
-
+import * as importPlugin from 'eslint-plugin-import';
 import merge from 'lodash/merge.js';
 
-import type { Linter } from 'eslint';
-
-const config = merge(
+const config: EslintConfig = merge(
   {},
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
   omitRules(jsJestBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   tsBaseConfig,
   {
@@ -20,6 +19,6 @@ const config = merge(
       'sonarjs/no-duplicate-string': 0,
     },
   }
-) as unknown as Linter.Config;
+);
 
 export default config;

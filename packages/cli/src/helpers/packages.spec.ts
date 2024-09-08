@@ -1,9 +1,10 @@
 /* ChatGPT generated */
-import { describe, it, expect, vi } from 'vitest';
-import { installPackages, isPackageInstalled, getPackageInfo } from './packages';
 import { installPackage } from '@antfu/install-pkg';
 import { isPackageExists, getPackageInfoSync } from 'local-pkg';
 import c from 'tinyrainbow';
+import { describe, it, expect, vi } from 'vitest';
+
+import { installPackages, isPackageInstalled, getPackageInfo } from './packages';
 
 vi.mock('@antfu/install-pkg', () => ({
   installPackage: vi.fn(),

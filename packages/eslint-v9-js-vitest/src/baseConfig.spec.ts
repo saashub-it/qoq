@@ -1,5 +1,5 @@
-import { describe, test, expect } from 'vitest';
 import { ESLint } from 'eslint';
+import { describe, test, expect } from 'vitest';
 
 import baseConfig from './baseConfig';
 

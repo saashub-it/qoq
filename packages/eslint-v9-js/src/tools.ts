@@ -1,9 +1,9 @@
 import merge from 'lodash/merge.js';
 import omit from 'lodash/omit.js';
 
-import type { Linter } from 'eslint';
+import type { EslintConfig } from './index';
 
-export const omitRules = (sourceConfig: Linter.Config, rulesToOmit: string[]): Linter.Config => {
+export const omitRules = (sourceConfig: EslintConfig, rulesToOmit: string[]): EslintConfig => {
   const newConfig = merge({}, sourceConfig);
 
   newConfig.rules = omit(newConfig.rules, rulesToOmit);
@@ -12,14 +12,14 @@ export const omitRules = (sourceConfig: Linter.Config, rulesToOmit: string[]): L
 };
 
 export const omitRulesForConfigCollection = (
-  sourceConfigs: Linter.Config[],
+  sourceConfigs: EslintConfig[],
   rulesToOmit: string[]
-): Linter.Config[] => sourceConfigs.map((sourceConfig) => omitRules(sourceConfig, rulesToOmit));
+): EslintConfig[] => sourceConfigs.map((sourceConfig) => omitRules(sourceConfig, rulesToOmit));
 
 export const addIgnoresToConfigCollection = (
-  sourceConfigs: Linter.Config[],
+  sourceConfigs: EslintConfig[],
   ignores: string[]
-): Linter.Config[] =>
+): EslintConfig[] =>
   sourceConfigs.map((sourceConfig) =>
-    merge({}, sourceConfig, { ignores: [...sourceConfig.ignores, ...ignores] })
+    merge({}, sourceConfig, { ignores: [...(sourceConfig.ignores ?? []), ...ignores] })
   );

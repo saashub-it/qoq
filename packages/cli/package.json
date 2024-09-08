@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-cli",
   "license": "MIT",
-  "version": "0.8.1",
+  "version": "0.8.0",
   "main": "./bin/qoq.cjs",
   "bin": {
     "qoq": "bin/qoq.cjs"
@@ -39,5 +39,6 @@
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/cli"
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/cli",
+  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }

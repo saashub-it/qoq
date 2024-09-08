@@ -1,3 +1,5 @@
+import { EConfigType } from './constants';
+
 const formatCjs = (imports: Record<string, string>, content: string[], exports: string): string => {
   const importArray = Object.keys(imports).map(
     (name) => `const ${name} = require('${imports[name]}')`
@@ -16,15 +18,16 @@ const formatEsm = (imports: Record<string, string>, content: string[], exports: 
   const code = [...importArray, ...content];
 
   return code.length > 0
-    ? `${[...importArray, ...content].join(';')}; export default = ${exports}`
-    : `export default = ${exports}`;
+    ? `${[...importArray, ...content].join(';')}; export default ${exports}`
+    : `export default ${exports}`;
 };
 
 export const formatCode = (
+  format: EConfigType,
   imports: Record<string, string>,
   content: string[],
   exports: string
 ): string =>
-  process.env.BUILD_ENV === 'CJS'
+  format === EConfigType.CJS
     ? formatCjs(imports, content, exports)
     : formatEsm(imports, content, exports);

@@ -1,7 +1,10 @@
 /* ChatGPT generated */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { spawn } from 'child_process';
-import { executeCommand } from './command';
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+import { executeCommand } from './command';
 
 vi.mock('child_process');
 

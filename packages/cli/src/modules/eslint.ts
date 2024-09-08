@@ -4,10 +4,10 @@ import c from 'tinyrainbow';
 
 import pkg from '../../package.json';
 import { executeCommand } from '../helpers/command';
-import { DEFAULT_SRC, GITIGNORE_FILE_PATH } from '../helpers/constants';
+import { DEFAULT_SRC, EConfigType, GITIGNORE_FILE_PATH } from '../helpers/constants';
 import { formatCode } from '../helpers/formatCode';
 import { getPackageInfo } from '../helpers/packages';
-import { EModulesEslint, IEslintModuleConfig, QoqConfig } from '../helpers/types';
+import { EModulesEslint, IEslintModuleConfig, IQoQEslint, QoqConfig } from '../helpers/types';
 
 export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<boolean> => {
   process.stdout.write(c.green('\nRunning Eslint:\n'));
@@ -17,19 +17,15 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<bo
     const configFilePath = `${rootPath}/bin/eslint.config.js`;
     const globalExcludeRules = config?.eslint?.excludeRules;
 
-    const imports: Record<string, string> =
-      process.env.BUILD_ENV === 'CJS'
-        ? {
-            tools: '@saashub/qoq-eslint-v9-js/tools',
-          }
-        : {
-            '* as tools': '@saashub/qoq-eslint-v9-js/tools',
-          };
+    const imports: Record<string, string> = {
+      tools: '@saashub/qoq-eslint-v9-js/tools',
+      compat: '@eslint/compat',
+    };
 
     const content: string[] = Object.keys(config.eslint ?? {})
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .reduce((acc: string[], dependency: string, index: number) => {
-        const { files, ignores } = config.eslint[dependency] as IEslintModuleConfig;
+        const { files, ignores } = (config.eslint as IQoQEslint)[dependency] as IEslintModuleConfig;
 
         imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
@@ -50,22 +46,25 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<bo
         return acc;
       }, []);
 
-    const mergeConfigs = `[${Object.keys(config.eslint ?? {})
+    const mergeConfigsInitialArray = existsSync(GITIGNORE_FILE_PATH)
+      ? `[compat.includeIgnoreFile('${GITIGNORE_FILE_PATH}')]`
+      : '[]';
+    const mergeConfigs = `${mergeConfigsInitialArray}${Object.keys(config.eslint ?? {})
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .map((dependency, index) => {
-        const { excludeRules } = config.eslint[dependency] as IEslintModuleConfig;
+        const { excludeRules } = (config.eslint as IQoQEslint)[dependency] as IEslintModuleConfig;
 
         return excludeRules
-          ? `...tools.omitRules(config${index}, ${JSON.stringify(excludeRules)})`
-          : `...config${index}`;
+          ? `.concat(tools.omitRulesForConfigCollection(config${index}, ${JSON.stringify(excludeRules)}))`
+          : `.concat(config${index})`;
       })
-      .join(',')}]`;
+      .join('')}`;
 
     const exports = globalExcludeRules
       ? `tools.omitRulesForConfigCollection(${mergeConfigs}, ${JSON.stringify(globalExcludeRules)})`
       : mergeConfigs;
 
-    writeFileSync(configFilePath, formatCode(imports, content, exports));
+    writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
 
     try {
       const args = ['-c', configFilePath, '--max-warnings', '0'];

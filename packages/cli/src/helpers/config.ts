@@ -13,6 +13,7 @@ import {
   DEFAULT_JSCPD_THRESHOLD,
   DEFAULT_SRC,
   defaultModules,
+  EConfigType,
 } from './constants';
 import { formatCode } from './formatCode';
 import { installPackages } from './packages';
@@ -36,6 +37,16 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
     name: 'srcPath',
     message: `What's your project source path (from project root dir)?`,
     initial: DEFAULT_SRC,
+  });
+
+  const { configType }: { configType: EConfigType } = await prompts.prompt({
+    type: 'select',
+    name: 'configType',
+    message: 'In what format should we create config file?',
+    choices: [
+      { title: EConfigType.CJS, value: EConfigType.CJS },
+      { title: EConfigType.ESM, value: EConfigType.ESM },
+    ],
   });
 
   const prettierPrompts = [
@@ -143,12 +154,12 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
 
         case eslintPackage === EModulesEslint.ESLINT_V9_TS:
           initialFiles = `${eslintSrcPath}/**/*.{js,ts}`;
-          initialIgnores = '**/*.spec.js';
+          initialIgnores = '**/*.spec.{js,ts}';
           break;
 
         case eslintPackage === EModulesEslint.ESLINT_V9_TS_REACT:
           initialFiles = `${eslintSrcPath}/**/*.{js,jsx,ts,tsx}`;
-          initialIgnores = '**/*.spec.js';
+          initialIgnores = '**/*.spec.{js,ts}';
           break;
 
         case [EModulesEslint.ESLINT_V9_JS_JEST, EModulesEslint.ESLINT_V9_JS_VITEST].includes(
@@ -197,7 +208,7 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
 
   await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]));
 
-  prepareConfig(srcPath, modulesConfig, true);
+  prepareConfig(srcPath, modulesConfig, configType);
 
   return prepareConfig(srcPath, modulesConfig);
 };
@@ -205,7 +216,7 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
 const prepareConfig = (
   srcPath: string,
   modulesConfig: TModulesWithConfig,
-  writeFile = false
+  configType?: EConfigType
 ): QoqConfig => {
   const config = Object.keys(modulesConfig)
     .filter((key) => modulesConfig[key])
@@ -215,7 +226,7 @@ const prepareConfig = (
           case key.includes('prettier'): {
             const newValue = merge({}, acc['prettier'] || {}, modulesConfig[key]);
 
-            if (writeFile && isEmpty(newValue)) {
+            if (configType && isEmpty(newValue)) {
               return acc;
             }
 
@@ -227,7 +238,7 @@ const prepareConfig = (
           case key.includes('eslint'): {
             const newValue = merge({}, acc['eslint'] || {}, { [key]: modulesConfig[key] });
 
-            if (writeFile && isEmpty(newValue)) {
+            if (configType && isEmpty(newValue)) {
               return acc;
             }
 
@@ -246,19 +257,19 @@ const prepareConfig = (
             return acc;
         }
       },
-      writeFile && srcPath === DEFAULT_SRC ? {} : { srcPath }
+      configType && srcPath === DEFAULT_SRC ? {} : { srcPath }
     );
 
-  if (writeFile) {
+  if (configType) {
     const exports = util.inspect(config, { showHidden: false, compact: false, depth: null });
 
-    writeFileSync(CONFIG_FILE_PATH, formatCode({}, [], exports));
+    writeFileSync(CONFIG_FILE_PATH, formatCode(configType, {}, [], exports));
   }
 
   return config;
 };
 
-export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {console.log(CONFIG_FILE_PATH)
+export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -281,11 +292,7 @@ export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {conso
   try {
     const config = await import(CONFIG_FILE_PATH);
 
-    if (process.env.BUILD_ENV === 'CJS') {
-      return config.default as QoqConfig;
-    }
-
-    return config as QoqConfig;
+    return config.default as QoqConfig;
   } catch {
     return prepareConfig(DEFAULT_SRC, defaultModules);
   }

@@ -5,9 +5,10 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
 import globals from 'globals';
 
-import type { ESLint, Linter } from 'eslint';
+import type { EslintConfig } from './index';
+import type { ESLint } from 'eslint';
 
-const baseConfig: Linter.Config = {
+const baseConfig: EslintConfig = {
   name: '@saashub/qoq-eslint-v9-js',
   linterOptions: {
     reportUnusedDisableDirectives: true,
@@ -18,16 +19,15 @@ const baseConfig: Linter.Config = {
     },
   },
   plugins: {
-    import: fixupPluginRules(importPlugin) as unknown as ESLint.Plugin,
-    prettier: prettierPlugin as unknown as ESLint.Plugin,
-    sonarjs: sonarJsPlugin as unknown as ESLint.Plugin,
+    import: fixupPluginRules(importPlugin as ESLint.Plugin),
+    prettier: prettierPlugin,
+    sonarjs: sonarJsPlugin,
   },
   rules: {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jsRules.configs.recommended.rules,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...importPlugin.configs.recommended.rules,
-    ...sonarJsPlugin.configs.recommended.rules,
-    'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
-    ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'import/no-cycle': 'warn',
     'import/no-duplicates': 'warn',
     'import/no-named-default': 'warn',
@@ -40,6 +40,11 @@ const baseConfig: Linter.Config = {
         'newlines-between': 'always',
       },
     ],
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    ...sonarJsPlugin.configs.recommended.rules,
+    'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
+
+    ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
     'consistent-return': 'warn',
     curly: ['warn', 'all'],
@@ -76,6 +81,11 @@ const baseConfig: Linter.Config = {
       },
     ],
     'no-useless-return': 'warn',
+  },
+  settings: {
+    react: {
+      version: '16.8',
+    },
   },
 };
 

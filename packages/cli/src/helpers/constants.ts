@@ -3,6 +3,11 @@ import { EModulesPrettier, EModulesJscpd, EModulesEslint, TModulesWithConfig } f
 export const CONFIG_FILE_PATH = `${process.cwd()}/qoq.config.js`;
 export const GITIGNORE_FILE_PATH = `${process.cwd()}/.gitignore`;
 
+export enum EConfigType {
+  CJS = 'CJS',
+  ESM = 'ESM',
+}
+
 export const allModules: TModulesWithConfig = {
   [EModulesPrettier.PRETTIER]: false,
   [EModulesPrettier.PRETTIER_WITH_JSON_SORT]: false,

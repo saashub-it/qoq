@@ -1,12 +1,9 @@
-import baseConfig from '@saashub/qoq-eslint-v9-js/baseConfig';
+import { EslintConfig, baseConfig } from '@saashub/qoq-eslint-v9-js';
 import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
-
 import merge from 'lodash/merge.js';
 
-import type { Linter } from 'eslint';
-
-const config = merge({}, baseConfig, {
+const config: EslintConfig = merge({}, baseConfig, {
   name: '@saashub/qoq-eslint-v9-js-jest',
   languageOptions: {
     globals: {
@@ -17,9 +14,10 @@ const config = merge({}, baseConfig, {
     jest: jestPlugin,
   },
   rules: {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jestPlugin.configs.recommended.rules,
     'sonarjs/no-duplicate-string': 0,
   },
-}) as unknown as Linter.Config;
+});
 
 export default config;

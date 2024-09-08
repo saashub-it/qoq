@@ -5,12 +5,11 @@
   "scripts": {
     "build": "lerna run build",
     "publish": "npm run build && npm run test && lerna publish --no-private --force-publish",
-    "format": "npm run format:check -- --write",
-    "format:check": "prettier --check \"./**/*\" --ignore-unknown",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "qoq:fix": "npm run build && lerna run qoq:fix"
   },
   "devDependencies": {
-    "@saashub/qoq-prettier": "^0.7.7",
+    "@saashub/qoq-cli": "^0.8.0",
     "@types/node": "^20",
     "@vitest/coverage-v8": "^2.0.5",
     "lerna": "8.1.8"

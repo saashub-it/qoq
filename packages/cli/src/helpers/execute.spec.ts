@@ -1,14 +1,12 @@
 /* ChatGPT generated */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { execute } from './execute';
+
 import { executeEslint } from '../modules/eslint';
 import { executeJscpd } from '../modules/jscpd';
 import { executePrettier } from '../modules/prettier';
-import {
-  EModulesPrettier,
-  EModulesEslint,
-  QoqConfig
-} from './types';
+
+import { execute } from './execute';
+import { EModulesPrettier, EModulesEslint, QoqConfig } from './types';
 
 vi.mock('../modules/eslint', () => ({
   executeEslint: vi.fn(),
@@ -31,7 +29,7 @@ describe('execute', () => {
     const config: QoqConfig = {
       prettier: {
         config: EModulesPrettier.PRETTIER,
-        sources: ['src']
+        sources: ['src'],
       },
       eslint: {
         [EModulesEslint.ESLINT_V9_TS]: {

@@ -4,7 +4,6 @@ import esbuild from 'rollup-plugin-esbuild';
 import json from '@rollup/plugin-json';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import replace from '@rollup/plugin-replace';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 
@@ -40,23 +39,8 @@ export default {
   output: [
     {
       dir: outputDir,
-      format: 'esm',
-      entryFileNames: '[name].mjs',
-      plugins: [
-        replace({
-          'process.env.BUILD_ENV': JSON.stringify('ESM'),
-        }),
-      ],
-    },
-    {
-      dir: outputDir,
       format: 'cjs',
       entryFileNames: '[name].cjs',
-      plugins: [
-        replace({
-          'process.env.BUILD_ENV': JSON.stringify('CJS'),
-        }),
-      ],
     },
   ],
 };

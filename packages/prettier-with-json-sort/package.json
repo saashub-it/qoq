@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-prettier-with-json-sort",
   "type": "module",
   "license": "MIT",
-  "version": "0.8.1",
+  "version": "0.8.0",
   "main": "./index.json",
   "exports": {
     ".": {
@@ -34,5 +34,6 @@
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/prettier-with-json-sort"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier-with-json-sort"
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier-with-json-sort",
+  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }

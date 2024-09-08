@@ -7,7 +7,9 @@ const input = {
   baseConfig: `${sourceDir}/baseConfig.ts`,
   eslintConfig: `${sourceDir}/eslintConfig.ts`,
 };
-const plugins = [typescript()];
+const plugins = [typescript({
+  exclude: ['**/*.spec.{js,ts}', 'types.ts']
+})];
 
 export default {
   input,

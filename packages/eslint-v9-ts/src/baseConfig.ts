@@ -1,15 +1,13 @@
-import baseConfig from '@saashub/qoq-eslint-v9-js/baseConfig';
+import { EslintConfig, baseConfig } from '@saashub/qoq-eslint-v9-js';
 import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
-import * as importPlugin from 'eslint-plugin-import';
-import * as typeScriptParser from '@typescript-eslint/parser';
 import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
-
+import * as typeScriptParser from '@typescript-eslint/parser';
+import * as importPlugin from 'eslint-plugin-import';
 import merge from 'lodash/merge.js';
 
-import type { Linter } from 'eslint';
-
-const config = merge(
+const config: EslintConfig = merge(
   {},
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
   omitRules(baseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   {
     name: '@saashub/qoq-eslint-v9-ts',
@@ -24,6 +22,7 @@ const config = merge(
     },
     rules: {
       'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       ...importPlugin.configs.typescript.rules,
       'import/no-cycle': 'warn',
       'import/no-duplicates': 'warn',
@@ -86,6 +85,6 @@ const config = merge(
       },
     },
   }
-) as unknown as Linter.Config;
+);
 
 export default config;
