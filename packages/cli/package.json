@@ -20,7 +20,7 @@
     "local-pkg": "0.5.0",
     "lodash": "4.17.21",
     "prompts": "2.4.2",
-    "tinyrainbow": "1.2.0"
+    "picocolors": "1.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "26.0.1",

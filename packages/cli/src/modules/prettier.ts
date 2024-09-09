@@ -1,15 +1,18 @@
+/* eslint-disable consistent-return */
 import { existsSync } from 'fs';
 
-import c from 'tinyrainbow';
+import c from 'picocolors';
 
 import { executeCommand } from '../helpers/command';
 import { DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC } from '../helpers/constants';
 import { getPackageInfo } from '../helpers/packages';
-import { QoqConfig } from '../helpers/types';
+import { MeasurePerformance } from '../helpers/performance';
+import { EExitCode, QoqConfig } from '../helpers/types';
 
-export const executePrettier = async (config: QoqConfig, fix: boolean): Promise<boolean> => {
+export const executePrettier = async (config: QoqConfig, fix: boolean): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Prettier:\n'));
 
+  const measurePerformance = new MeasurePerformance();
   const sources = config?.prettier?.sources ?? [config?.srcPath ?? DEFAULT_SRC];
 
   try {
@@ -45,15 +48,17 @@ export const executePrettier = async (config: QoqConfig, fix: boolean): Promise<
 
       const exitCode = await executeCommand('prettier', args);
 
-      return exitCode === 0;
+      measurePerformance.printExecutionTime();
+
+      return exitCode;
     } catch {
       process.stderr.write('Unknown error!\n');
 
-      return true;
+      process.exit(EExitCode.EXCEPTION);
     }
   } catch {
     process.stderr.write(c.red("Can't load Prettier package config!\n"));
 
-    return true;
+    process.exit(EExitCode.EXCEPTION);
   }
 };

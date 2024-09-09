@@ -37,7 +37,8 @@ export interface IEslintModuleConfig {
 type TAvaliablePrettierPackages = `${EModulesPrettier}`;
 type TAvaliableEslintPackages = `${EModulesEslint}`;
 
-export type IQoQEslint = Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> & IEslintCommonConfig;
+export type TQoQEslint = Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> &
+  IEslintCommonConfig;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface QoqConfig {
@@ -49,7 +50,13 @@ export interface QoqConfig {
   jscpd?: {
     threshold?: number;
   };
-  eslint?: IQoQEslint;
+  eslint?: TQoQEslint;
 }
 
 export type TQoqConfigPromise = Promise<QoqConfig>;
+
+export enum EExitCode {
+  OK = 0,
+  ERROR = 1,
+  EXCEPTION = 2,
+}

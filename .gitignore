@@ -1,6 +1,5 @@
 # dependencies
 **/node_modules
-**/coverage
 
 # config
 .npmrc
@@ -9,8 +8,6 @@
 **/*.tsbuildinfo
 
 # builds
-**/bin
-**/lib
 lerna.json
 
 # Logs

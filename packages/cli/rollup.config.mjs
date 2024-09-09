@@ -23,7 +23,7 @@ const plugins = [
   }),
 ];
 
-const onlyEsmDependencies = ['tinyrainbow'];
+const onlyEsmDependencies = [];
 
 const external = [
   ...builtinModules,

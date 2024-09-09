@@ -35,8 +35,8 @@
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
     "test": "vitest run --coverage",
-    "qoq:check": "qoq check",
-    "qoq:fix": "qoq fix",
+    "qoq:check": "qoq --check",
+    "qoq:fix": "qoq --fix",
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
   },
   "dependencies": {

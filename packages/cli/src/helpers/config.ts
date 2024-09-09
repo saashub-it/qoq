@@ -4,8 +4,8 @@ import util from 'util';
 
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
+import c from 'picocolors';
 import prompts from 'prompts';
-import c from 'tinyrainbow';
 
 import {
   allModules,

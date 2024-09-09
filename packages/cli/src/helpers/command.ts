@@ -1,9 +1,8 @@
 import { spawn } from 'child_process';
 
-export const executeCommand = (
-  command: string,
-  args: readonly string[] = []
-): Promise<Error | number> =>
+import { EExitCode } from './types';
+
+export const executeCommand = (command: string, args: readonly string[] = []): Promise<EExitCode> =>
   new Promise((resolve, reject) => {
     const child = spawn(command, args);
 
@@ -20,6 +19,6 @@ export const executeCommand = (
     });
 
     child.on('close', (code) => {
-      resolve(code ?? 0);
+      resolve(code ?? EExitCode.OK);
     });
   });

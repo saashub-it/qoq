@@ -1,16 +1,26 @@
+/* eslint-disable consistent-return */
 import { writeFileSync, existsSync } from 'fs';
 
-import c from 'tinyrainbow';
+import c from 'picocolors';
 
 import pkg from '../../package.json';
 import { executeCommand } from '../helpers/command';
 import { DEFAULT_SRC, EConfigType, GITIGNORE_FILE_PATH } from '../helpers/constants';
 import { formatCode } from '../helpers/formatCode';
 import { getPackageInfo } from '../helpers/packages';
-import { EModulesEslint, IEslintModuleConfig, IQoQEslint, QoqConfig } from '../helpers/types';
+import { MeasurePerformance } from '../helpers/performance';
+import {
+  EModulesEslint,
+  IEslintModuleConfig,
+  TQoQEslint,
+  QoqConfig,
+  EExitCode,
+} from '../helpers/types';
 
-export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<boolean> => {
+export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Eslint:\n'));
+
+  const measurePerformance = new MeasurePerformance();
 
   try {
     const { rootPath } = getPackageInfo(pkg.name) ?? {};
@@ -25,7 +35,7 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<bo
     const content: string[] = Object.keys(config.eslint ?? {})
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .reduce((acc: string[], dependency: string, index: number) => {
-        const { files, ignores } = (config.eslint as IQoQEslint)[dependency] as IEslintModuleConfig;
+        const { files, ignores } = (config.eslint as TQoQEslint)[dependency] as IEslintModuleConfig;
 
         imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
@@ -52,7 +62,7 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<bo
     const mergeConfigs = `${mergeConfigsInitialArray}${Object.keys(config.eslint ?? {})
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .map((dependency, index) => {
-        const { excludeRules } = (config.eslint as IQoQEslint)[dependency] as IEslintModuleConfig;
+        const { excludeRules } = (config.eslint as TQoQEslint)[dependency] as IEslintModuleConfig;
 
         return excludeRules
           ? `.concat(tools.omitRulesForConfigCollection(config${index}, ${JSON.stringify(excludeRules)}))`
@@ -75,15 +85,21 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<bo
 
       const exitCode = await executeCommand('eslint', args);
 
-      return exitCode === 0;
+      measurePerformance.printExecutionTime();
+
+      if (exitCode === EExitCode.OK) {
+        process.stdout.write(c.green('All matched files passed Eslint checks\n'));
+      }
+
+      return exitCode;
     } catch {
       process.stderr.write('Unknown error!\n');
 
-      return true;
+      process.exit(EExitCode.EXCEPTION);
     }
   } catch {
     process.stderr.write(c.red("Can't load Eslint package config!\n"));
 
-    return true;
+    process.exit(EExitCode.EXCEPTION);
   }
 };

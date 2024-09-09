@@ -1,6 +1,6 @@
 import { installPackage } from '@antfu/install-pkg';
 import { isPackageExists, getPackageInfoSync } from 'local-pkg';
-import c from 'tinyrainbow';
+import c from 'picocolors';
 import { describe, it, expect, vi } from 'vitest';
 
 import { installPackages, isPackageInstalled, getPackageInfo } from './packages';
@@ -42,8 +42,8 @@ describe('isPackageInstalled', () => {
 
 describe('getPackageInfo', () => {
   it('should return package info for an existing package', () => {
-    // Mock the getPackageInfoSync function to return fake package data
-    const mockPackageInfo = { name: 'eslint', version: '7.0.0' };
+    // Mock getPackageInfoSync to return fake package data
+    const mockPackageInfo = { name: 'eslint', version: '7.0.0', rootPath: '/path/to/package', packageJsonPath: '/path/to/package/package.json', packageJson: {} };
     vi.mocked(getPackageInfoSync).mockReturnValue(mockPackageInfo);
 
     // Test if the function returns the correct package info
@@ -54,13 +54,12 @@ describe('getPackageInfo', () => {
     expect(getPackageInfoSync).toHaveBeenCalledWith('eslint');
   });
 
-  it('should return undefined if package info is not available', () => {
-    // Mock the getPackageInfoSync function to return undefined
+  it('should throw an error for a non-existent package', () => {
+    // Mock getPackageInfoSync to return undefined
     vi.mocked(getPackageInfoSync).mockReturnValue(undefined);
 
-    // Test if the function returns undefined
-    const result = getPackageInfo('non-existent-package');
-    expect(result).toBeUndefined();
+    // Test if the function throws an error
+    expect(() => getPackageInfo('non-existent-package')).toThrowError('Package non-existent-package not installed!');
 
     // Ensure that getPackageInfoSync was called with the correct package name
     expect(getPackageInfoSync).toHaveBeenCalledWith('non-existent-package');

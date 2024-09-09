@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { formatCode } from './formatCode';
+
 import { EConfigType } from './constants';
+import { formatCode } from './formatCode';
 
 describe('formatCode', () => {
   it('generates cjs code', () => {
@@ -8,9 +9,9 @@ describe('formatCode', () => {
     const content = ['const result = foo() + baz()'];
     const exports = 'result';
 
-    expect(
-      formatCode(EConfigType.CJS, imports, content, exports)
-    ).toEqual(`const foo = require('bar');const baz = require('qux');const result = foo() + baz(); module.exports = result;`);
+    expect(formatCode(EConfigType.CJS, imports, content, exports)).toEqual(
+      `const foo = require('bar');const baz = require('qux');const result = foo() + baz(); module.exports = result;`
+    );
   });
 
   it('generates esm code', () => {
@@ -18,8 +19,8 @@ describe('formatCode', () => {
     const content = ['const result = foo() + baz()'];
     const exports = 'result';
 
-    expect(
-      formatCode(EConfigType.ESM, imports, content, exports)
-    ).toEqual(`import foo from 'bar';import baz from 'qux';const result = foo() + baz(); export default result;`);
+    expect(formatCode(EConfigType.ESM, imports, content, exports)).toEqual(
+      `import foo from 'bar';import baz from 'qux';const result = foo() + baz(); export default result;`
+    );
   });
 });
