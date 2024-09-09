@@ -43,7 +43,13 @@ const baseConfig: EslintConfig = {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...sonarJsPlugin.configs.recommended.rules,
     'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
-
+    'sonarjs/no-alphabetical-sort': 0,
+    'sonarjs/no-misused-promises': 0,
+    'sonarjs/no-nested-functions': 0,
+    'sonarjs/new-cap': 0,
+    'sonarjs/sonar-max-params': 0,
+    'sonarjs/no-misleading-array-reverse': 0,
+    'sonarjs/todo-tag': 0,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
     'consistent-return': 'warn',

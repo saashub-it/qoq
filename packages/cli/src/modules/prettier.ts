@@ -18,7 +18,7 @@ export const executePrettier = async (config: QoqConfig, fix: boolean): Promise<
     try {
       const args = [
         '--check',
-        sources.join(' '),
+        ...sources,
         '--config',
         `${rootPath}/index.json`,
         '--ignore-unknown',

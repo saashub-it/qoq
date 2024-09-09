@@ -12,6 +12,9 @@ const config: EslintConfig = merge(
   tsBaseConfig,
   {
     name: '@saashub/qoq-eslint-v9-ts-react',
+    rules: {
+      'sonarjs/function-return-type': 0,
+    },
   }
 );
 

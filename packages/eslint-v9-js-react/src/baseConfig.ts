@@ -66,6 +66,7 @@ const config: EslintConfig = merge({}, baseConfig, {
     ...jsxA11yPlugin.configs.recommended.rules,
     'import/order': importOrderRule,
     'no-restricted-imports': noRestrictedImportsRule,
+    'sonarjs/function-return-type': 0,
   },
   settings: {
     react: {
