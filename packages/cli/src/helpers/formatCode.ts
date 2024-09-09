@@ -8,8 +8,8 @@ const formatCjs = (imports: Record<string, string>, content: string[], exports: 
   const code = [...importArray, ...content];
 
   return code.length > 0
-    ? `${[...importArray, ...content].join(';')}; module.exports = ${exports}`
-    : `module.exports = ${exports}`;
+    ? `${[...importArray, ...content].join(';')}; module.exports = ${exports};`
+    : `module.exports = ${exports};`;
 };
 
 const formatEsm = (imports: Record<string, string>, content: string[], exports: string): string => {
@@ -18,8 +18,8 @@ const formatEsm = (imports: Record<string, string>, content: string[], exports: 
   const code = [...importArray, ...content];
 
   return code.length > 0
-    ? `${[...importArray, ...content].join(';')}; export default ${exports}`
-    : `export default ${exports}`;
+    ? `${[...importArray, ...content].join(';')}; export default ${exports};`
+    : `export default ${exports};`;
 };
 
 export const formatCode = (

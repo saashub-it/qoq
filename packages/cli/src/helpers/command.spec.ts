@@ -1,4 +1,3 @@
-/* ChatGPT generated */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { spawn } from 'child_process';
 
