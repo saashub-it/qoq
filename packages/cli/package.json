@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-cli",
   "license": "MIT",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "main": "./bin/qoq.cjs",
   "bin": {
     "qoq": "bin/qoq.cjs"
@@ -19,8 +19,8 @@
     "cac": "6.7.14",
     "local-pkg": "0.5.0",
     "lodash": "4.17.21",
-    "prompts": "2.4.2",
-    "picocolors": "1.1.0"
+    "picocolors": "1.1.0",
+    "prompts": "2.4.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "26.0.1",

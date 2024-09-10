@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-js-react",
   "description": "Eslint flat config template for JS + React",
   "license": "MIT",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -40,7 +40,7 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.8.2",
+    "@saashub/qoq-eslint-v9-js": "^0.9.0",
     "eslint-plugin-jsx-a11y": "6.10.0",
     "eslint-plugin-react": "7.35.2",
     "eslint-plugin-react-hooks": "4.6.2",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "11.1.6",
-    "@saashub/qoq-cli": "^0.8.2",
+    "@saashub/qoq-cli": "^0.9.0",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.7",
     "@vitest/coverage-v8": "2.0.5",
