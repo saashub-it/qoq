@@ -18,8 +18,12 @@ export enum EModulesEslint {
   ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
 }
 
+export enum EModulesKnip {
+  KNIP = '@saashub/qoq-knip',
+}
+
 export type TModulesWithConfig = Record<
-  EModulesPrettier & EModulesJscpd & EModulesEslint,
+  EModulesPrettier & EModulesJscpd & EModulesEslint & EModulesKnip,
   boolean | object
 >;
 export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
@@ -40,6 +44,8 @@ type TAvaliableEslintPackages = `${EModulesEslint}`;
 export type TQoQEslint = Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> &
   IEslintCommonConfig;
 
+export type TJscpdFormat = 'javascript' | 'jsx' | 'typescript' | 'tsx';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface QoqConfig {
   srcPath?: string;
@@ -47,10 +53,18 @@ export interface QoqConfig {
     config: TAvaliablePrettierPackages;
     sources?: string[];
   };
-  jscpd?: {
-    threshold?: number;
-  };
   eslint?: TQoQEslint;
+  jscpd?: {
+    format?: TJscpdFormat[];
+    threshold?: number;
+    ignore?: string[];
+  };
+  knip?: {
+    entry?: string[];
+    project?: string[];
+    ignore?: string[];
+    ignoreDependencies?: string[];
+  };
 }
 
 export type TQoqConfigPromise = Promise<QoqConfig>;

@@ -3,6 +3,7 @@ import { writeFileSync, existsSync } from 'fs';
 
 import c from 'picocolors';
 
+// eslint-disable-next-line no-restricted-imports
 import pkg from '../../package.json';
 import { executeCommand } from '../helpers/command';
 import { DEFAULT_SRC, EConfigType, GITIGNORE_FILE_PATH } from '../helpers/constants';

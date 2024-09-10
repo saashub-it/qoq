@@ -2,9 +2,9 @@
 
 import cac from 'cac';
 
-import { createConfig, getConfig } from './helpers/config';
 import { allModules } from './helpers/constants';
 import { execute } from './helpers/execute';
+import { createConfig, getConfig } from './modules/config';
 
 const cli = cac('qoq');
 

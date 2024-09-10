@@ -1,4 +1,10 @@
-import { EModulesPrettier, EModulesJscpd, EModulesEslint, TModulesWithConfig } from './types';
+import {
+  EModulesPrettier,
+  EModulesJscpd,
+  EModulesEslint,
+  TModulesWithConfig,
+  EModulesKnip,
+} from './types';
 
 export const CONFIG_FILE_PATH = `${process.cwd()}/qoq.config.js`;
 export const GITIGNORE_FILE_PATH = `${process.cwd()}/.gitignore`;
@@ -20,6 +26,7 @@ export const allModules: TModulesWithConfig = {
   [EModulesEslint.ESLINT_V9_TS_REACT]: false,
   [EModulesEslint.ESLINT_V9_TS_JEST]: false,
   [EModulesEslint.ESLINT_V9_TS_VITEST]: false,
+  [EModulesKnip.KNIP]: false,
 };
 
 export const defaultModules: TModulesWithConfig = {
@@ -37,6 +44,7 @@ export const defaultModules: TModulesWithConfig = {
   [EModulesEslint.ESLINT_V9_TS_REACT]: false,
   [EModulesEslint.ESLINT_V9_TS_JEST]: false,
   [EModulesEslint.ESLINT_V9_TS_VITEST]: false,
+  [EModulesKnip.KNIP]: false,
 };
 
 export const DEFAULT_SRC = './src';

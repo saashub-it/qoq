@@ -1,10 +1,10 @@
 import { ESLint } from 'eslint';
-import { describe, test, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 import baseConfig from './baseConfig';
 
 describe('baseConfig', () => {
-  test('can constuct Eslint object', () => {
+  it('can constuct Eslint object', () => {
     expect(
       () =>
         new ESLint({

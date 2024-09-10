@@ -14,41 +14,22 @@ import {
   DEFAULT_SRC,
   defaultModules,
   EConfigType,
-} from './constants';
-import { formatCode } from './formatCode';
-import { installPackages } from './packages';
+} from '../helpers/constants';
+import { formatCode } from '../helpers/formatCode';
+import { installPackages } from '../helpers/packages';
 import {
   EModulesEslint,
   EModulesJscpd,
+  EModulesKnip,
   EModulesPrettier,
   QoqConfig,
   TModulesWithConfig,
-} from './types';
+} from '../helpers/types';
 
-export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConfig> => {
-  const modulesConfig = Object.keys(modules).reduce((acc, key) => {
-    acc[key] = false;
+import { getDefaultJscpdFormat, getDefaultJscpdIgnore } from './jscpd';
+import { getDefaultKnipEntry, getDefaultKnipIgnore, getDefaultKnipProject } from './knip';
 
-    return acc;
-  }, {} as TModulesWithConfig);
-
-  const { srcPath }: { srcPath: string } = await prompts.prompt({
-    type: 'text',
-    name: 'srcPath',
-    message: `What's your project source path (from project root dir)?`,
-    initial: DEFAULT_SRC,
-  });
-
-  const { configType }: { configType: EConfigType } = await prompts.prompt({
-    type: 'select',
-    name: 'configType',
-    message: 'In what format should we create config file?',
-    choices: [
-      { title: EConfigType.CJS, value: EConfigType.CJS },
-      { title: EConfigType.ESM, value: EConfigType.ESM },
-    ],
-  });
-
+const createPrettierConfig = async (modulesConfig: TModulesWithConfig): Promise<void> => {
   const prettierPrompts = [
     {
       type: 'select',
@@ -82,18 +63,12 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
       ? { config: prettierPackage, sources: prettierSources }
       : { config: prettierPackage };
   }
+};
 
-  const { jscpdThreshold }: { jscpdThreshold: number } = await prompts.prompt({
-    type: 'number',
-    name: 'jscpdThreshold',
-    message: `What threshold should we use for copy/paste detector?`,
-    initial: DEFAULT_JSCPD_THRESHOLD,
-  });
-
-  if (jscpdThreshold) {
-    modulesConfig[EModulesJscpd.JSCPD] = { threshold: jscpdThreshold };
-  }
-
+const createEslintConfig = async (
+  srcPath: string,
+  modulesConfig: TModulesWithConfig
+): Promise<void> => {
   const eslintPrompts = [
     {
       type: 'toggle',
@@ -205,12 +180,115 @@ export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConf
       };
     }
   }
+};
 
-  await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]));
+const createJscpdConfig = async (
+  srcPath: string,
+  configType: EConfigType,
+  modulesConfig: TModulesWithConfig
+): Promise<void> => {
+  const jscpdPrompts = [
+    {
+      type: 'number',
+      name: 'jscpdThreshold',
+      message: `What threshold should we use for copy/paste detector?`,
+      initial: DEFAULT_JSCPD_THRESHOLD,
+    },
+    {
+      type: 'list',
+      name: 'jscpdFormat',
+      message:
+        'Provide files format (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+      initial: getDefaultJscpdFormat(prepareConfig(srcPath, modulesConfig, configType)).join(' '),
+    },
+    {
+      type: 'list',
+      name: 'jscpdIgnore',
+      message:
+        'Provide files format (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+      initial: getDefaultJscpdIgnore(prepareConfig(srcPath, modulesConfig, configType)).join(' '),
+    },
+  ];
 
-  prepareConfig(srcPath, modulesConfig, configType);
+  const {
+    jscpdThreshold,
+    jscpdFormat,
+    jscpdIgnore,
+  }: { jscpdThreshold: number; jscpdFormat: string[]; jscpdIgnore: string[] } =
+    await prompts.prompt(jscpdPrompts);
 
-  return prepareConfig(srcPath, modulesConfig);
+  if (jscpdThreshold) {
+    modulesConfig[EModulesJscpd.JSCPD] = {
+      threshold: jscpdThreshold,
+      format: jscpdFormat.filter((entry) => !!entry),
+      ignore: jscpdIgnore.filter((entry) => !!entry),
+    };
+  }
+};
+
+const createKnipConfig = async (
+  srcPath: string,
+  configType: EConfigType,
+  modulesConfig: TModulesWithConfig
+): Promise<void> => {
+  const knipPrompts = [
+    {
+      type: 'list',
+      name: 'knipEntry',
+      message: 'Provide entry (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+      initial: getDefaultKnipEntry(srcPath, prepareConfig(srcPath, modulesConfig, configType)).join(
+        ' '
+      ),
+    },
+    {
+      type: 'list',
+      name: 'knipProject',
+      message: 'Provide project (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+      initial: getDefaultKnipProject(
+        srcPath,
+        prepareConfig(srcPath, modulesConfig, configType)
+      ).join(' '),
+    },
+    {
+      type: 'list',
+      name: 'knipIgnore',
+      message: 'Provide ignore (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+      initial: getDefaultKnipIgnore(prepareConfig(srcPath, modulesConfig, configType)).join(' '),
+    },
+    {
+      type: 'list',
+      name: 'knipIgnoreDependencies',
+      message:
+        'Provide ignoreDependencies (initially autodetected from previous config), space " " separated',
+      separator: ' ',
+    },
+  ];
+
+  const {
+    knipEntry,
+    knipProject,
+    knipIgnore,
+    knipIgnoreDependencies,
+  }: {
+    knipEntry: string[];
+    knipProject: string[];
+    knipIgnore: string[];
+    knipIgnoreDependencies: string[];
+  } = await prompts.prompt(knipPrompts);
+
+  if (knipEntry.length > 0 && knipProject.length > 0) {
+    modulesConfig[EModulesKnip.KNIP] = {
+      entry: knipEntry.filter((entry) => !!entry),
+      project: knipProject.filter((entry) => !!entry),
+      ignore: knipIgnore.filter((entry) => !!entry),
+      ignoreDependencies: knipIgnoreDependencies.filter((entry) => !!entry),
+    };
+  }
 };
 
 const prepareConfig = (
@@ -269,6 +347,42 @@ const prepareConfig = (
   return config;
 };
 
+export const createConfig = async (modules: TModulesWithConfig): Promise<QoqConfig> => {
+  const modulesConfig = Object.keys(modules).reduce((acc, key) => {
+    acc[key] = false;
+
+    return acc;
+  }, {} as TModulesWithConfig);
+
+  const { srcPath }: { srcPath: string } = await prompts.prompt({
+    type: 'text',
+    name: 'srcPath',
+    message: `What's your project source path (from project root dir)?`,
+    initial: DEFAULT_SRC,
+  });
+
+  const { configType }: { configType: EConfigType } = await prompts.prompt({
+    type: 'select',
+    name: 'configType',
+    message: 'In what format should we create config file?',
+    choices: [
+      { title: EConfigType.CJS, value: EConfigType.CJS },
+      { title: EConfigType.ESM, value: EConfigType.ESM },
+    ],
+  });
+
+  await createPrettierConfig(modulesConfig);
+  await createEslintConfig(srcPath, modulesConfig);
+  await createJscpdConfig(srcPath, configType, modulesConfig);
+  await createKnipConfig(srcPath, configType, modulesConfig);
+
+  await installPackages(Object.keys(modulesConfig).filter((key) => !!modulesConfig[key]));
+
+  prepareConfig(srcPath, modulesConfig, configType);
+
+  return prepareConfig(srcPath, modulesConfig);
+};
+
 export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
     const { config } = await prompts.prompt({
@@ -297,3 +411,18 @@ export const getConfig = async (skipInit: boolean): Promise<QoqConfig> => {
     return prepareConfig(DEFAULT_SRC, defaultModules);
   }
 };
+
+export const configUsesTs = (config: QoqConfig): boolean =>
+  !!config.eslint && Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS);
+
+export const configUsesReact = (config: QoqConfig): boolean =>
+  !!config.eslint &&
+  (Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_JS_REACT) ||
+    Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS_REACT));
+
+export const configUsesTests = (config: QoqConfig): boolean =>
+  !!config.eslint &&
+  (Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_JS_JEST) ||
+    Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS_JEST) ||
+    Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_JS_VITEST) ||
+    Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS_VITEST));

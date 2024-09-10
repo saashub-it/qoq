@@ -43,7 +43,13 @@ describe('isPackageInstalled', () => {
 describe('getPackageInfo', () => {
   it('should return package info for an existing package', () => {
     // Mock getPackageInfoSync to return fake package data
-    const mockPackageInfo = { name: 'eslint', version: '7.0.0', rootPath: '/path/to/package', packageJsonPath: '/path/to/package/package.json', packageJson: {} };
+    const mockPackageInfo = {
+      name: 'eslint',
+      version: '7.0.0',
+      rootPath: '/path/to/package',
+      packageJsonPath: '/path/to/package/package.json',
+      packageJson: {},
+    };
     vi.mocked(getPackageInfoSync).mockReturnValue(mockPackageInfo);
 
     // Test if the function returns the correct package info
@@ -59,7 +65,9 @@ describe('getPackageInfo', () => {
     vi.mocked(getPackageInfoSync).mockReturnValue(undefined);
 
     // Test if the function throws an error
-    expect(() => getPackageInfo('non-existent-package')).toThrowError('Package non-existent-package not installed!');
+    expect(() => getPackageInfo('non-existent-package')).toThrowError(
+      'Package non-existent-package not installed!'
+    );
 
     // Ensure that getPackageInfoSync was called with the correct package name
     expect(getPackageInfoSync).toHaveBeenCalledWith('non-existent-package');

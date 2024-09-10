@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 
 import { MeasurePerformance } from './performance';
 
-
 describe('MeasurePerformance', () => {
   describe('printExecutionTime', () => {
     it('marks the end of the performance measurement', () => {

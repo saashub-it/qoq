@@ -1,0 +1,59 @@
+{
+  "name": "@saashub/qoq-knip",
+  "description": "Knip configs template",
+  "license": "MIT",
+  "version": "0.8.2",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "module": "./lib/index.mjs",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.mjs"
+    },
+    "./knipConfig": {
+      "types": "./lib/knipConfig.d.ts",
+      "module": "./lib/knipConfig.mjs",
+      "import": "./lib/knipConfig.mjs",
+      "require": "./lib/knipConfig.cjs",
+      "default": "./lib/knipConfig.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf ./lib && rollup -c --silent",
+    "test": "vitest run --coverage",
+    "qoq:check": "qoq --check",
+    "qoq:fix": "qoq --fix"
+  },
+  "dependencies": {
+    "lodash": "4.17.21",
+    "knip": "5.30.1"
+  },
+  "devDependencies": {
+    "@saashub/qoq-cli": "^0.8.2",
+    "@types/lodash": "4.17.7",
+    "rimraf": "6.0.1",
+    "rollup": "4.21.2",
+    "typescript": "5.6.2",
+    "vitest": "2.0.5"
+  },
+  "keywords": [
+    "Knip template",
+    "saashub",
+    "qoq",
+    "QualityOverQuantity"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/knip"
+  },
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/knip",
+  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
+}
