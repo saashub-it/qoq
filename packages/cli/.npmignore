@@ -1,6 +1,9 @@
 # builds
 !bin
 
+# tests
+coverage
+
 # sources
 src
 

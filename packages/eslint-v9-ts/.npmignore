@@ -1,6 +1,9 @@
 # builds
 !lib
 
+# tests
+coverage
+
 # sources
 src
 
