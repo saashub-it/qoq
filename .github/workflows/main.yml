@@ -92,3 +92,10 @@ jobs:
           files: ./packages/prettier-with-json-sort/coverage/coverage-final.json
           flags: prettier-with-json-sort
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload knip coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/knip/coverage/coverage-final.json
+          flags: knip
+          token: ${{ secrets.CODECOV_TOKEN }}
