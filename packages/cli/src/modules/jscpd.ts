@@ -5,30 +5,21 @@ import { executeCommand } from '../helpers/command';
 import { DEFAULT_JSCPD_THRESHOLD, DEFAULT_SRC } from '../helpers/constants';
 import { EExitCode, QoqConfig, TJscpdFormat } from '../helpers/types';
 
-import { configUsesReact, configUsesTs } from './config';
+import { getFilesExtensions } from './config';
 
-export const getDefaultJscpdFormat = (config: QoqConfig): TJscpdFormat[] => {
-  const format: TJscpdFormat[] = [];
+export const getDefaultJscpdFormat = (config: QoqConfig): TJscpdFormat[] =>
+  getFilesExtensions(config).map((key) => {
+    switch (key) {
+      case 'js':
+        return 'javascript';
 
-  switch (true) {
-    case configUsesTs(config) && configUsesReact(config):
-      format.push('javascript', 'jsx', 'typescript', 'tsx');
-      break;
+      case 'ts':
+        return 'typescript';
 
-    case configUsesTs(config):
-      format.push('typescript');
-      break;
-
-    case configUsesReact(config):
-      format.push('javascript', 'jsx');
-      break;
-
-    default:
-      format.push('javascript');
-  }
-
-  return format;
-};
+      default:
+        return key;
+    }
+  }) as TJscpdFormat[];
 
 export const getDefaultJscpdIgnore = (config: QoqConfig): string[] =>
   getDefaultJscpdFormat(config).map(

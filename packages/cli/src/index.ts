@@ -24,6 +24,17 @@ cli
     return await execute(config, !!fix);
   });
 
+cli
+  .command(
+    'staged [...files]',
+    'Perform QoQ quality checks but only on filelist, usefull for eg `lint-staged` config'
+  )
+  .action(async (files: string[] = []) => {
+    const config = await getConfig(true);
+
+    return await execute(config, false, files);
+  });
+
 cli.help();
 
 cli.parse();

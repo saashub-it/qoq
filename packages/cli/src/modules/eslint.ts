@@ -18,7 +18,13 @@ import {
   EExitCode,
 } from '../helpers/types';
 
-export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<EExitCode> => {
+import { getFilesExtensions } from './config';
+
+export const executeEslint = async (
+  config: QoqConfig,
+  fix: boolean,
+  files: string[]
+): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Eslint:\n'));
 
   const measurePerformance = new MeasurePerformance();
@@ -36,14 +42,16 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<EE
     const content: string[] = Object.keys(config.eslint ?? {})
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .reduce((acc: string[], dependency: string, index: number) => {
-        const { files, ignores } = (config.eslint as TQoQEslint)[dependency] as IEslintModuleConfig;
+        const { files: configFiles, ignores: configIgnores } = (config.eslint as TQoQEslint)[
+          dependency
+        ] as IEslintModuleConfig;
 
         imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
         const getEslintConfigArgs: string[] = [
           `'${config?.srcPath ?? DEFAULT_SRC}'`,
-          JSON.stringify(files),
-          JSON.stringify(ignores),
+          JSON.stringify(configFiles),
+          JSON.stringify(configIgnores),
         ];
 
         if (existsSync(GITIGNORE_FILE_PATH)) {
@@ -71,14 +79,27 @@ export const executeEslint = async (config: QoqConfig, fix: boolean): Promise<EE
       })
       .join('')}`;
 
-    const exports = globalExcludeRules
+    let exports = globalExcludeRules
       ? `tools.omitRulesForConfigCollection(${mergeConfigs}, ${JSON.stringify(globalExcludeRules)})`
       : mergeConfigs;
+
+    if (files.length > 0) {
+      exports = `${exports}.map((config) => { const { files, ...rest } = config; return rest; })`;
+    }
 
     writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
 
     try {
       const args = ['-c', configFilePath, '--max-warnings', '0'];
+
+      if (files.length > 0) {
+        args.push(
+          '--stdin-filename',
+          ...files.filter((file) =>
+            getFilesExtensions(config).some((ext) => file.endsWith(`.${ext}`))
+          )
+        );
+      }
 
       if (fix) {
         args.push('--fix');

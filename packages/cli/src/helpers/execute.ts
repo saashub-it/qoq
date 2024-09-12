@@ -7,7 +7,11 @@ import { executePrettier } from '../modules/prettier';
 
 import { EExitCode, QoqConfig } from './types';
 
-export const execute = async (config: QoqConfig, fix = false): Promise<void> => {
+export const execute = async (
+  config: QoqConfig,
+  fix = false,
+  files: string[] = []
+): Promise<void> => {
   const responses = {
     Prettier: EExitCode.OK,
     JSCPD: EExitCode.OK,
@@ -16,7 +20,7 @@ export const execute = async (config: QoqConfig, fix = false): Promise<void> => 
   };
 
   if (config.prettier) {
-    responses.Prettier = await executePrettier(config, fix);
+    responses.Prettier = await executePrettier(config, fix, files);
   }
 
   responses.JSCPD = await executeJscpd(config);
@@ -26,7 +30,7 @@ export const execute = async (config: QoqConfig, fix = false): Promise<void> => 
   }
 
   if (config.eslint) {
-    responses.Eslint = await executeEslint(config, fix);
+    responses.Eslint = await executeEslint(config, fix, files);
   }
 
   Object.keys(responses)

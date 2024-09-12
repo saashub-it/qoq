@@ -9,11 +9,16 @@ import { getPackageInfo } from '../helpers/packages';
 import { MeasurePerformance } from '../helpers/performance';
 import { EExitCode, QoqConfig } from '../helpers/types';
 
-export const executePrettier = async (config: QoqConfig, fix: boolean): Promise<EExitCode> => {
+export const executePrettier = async (
+  config: QoqConfig,
+  fix: boolean,
+  files: string[]
+): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Prettier:\n'));
 
   const measurePerformance = new MeasurePerformance();
-  const sources = config?.prettier?.sources ?? [config?.srcPath ?? DEFAULT_SRC];
+  const sources =
+    files.length > 0 ? files : (config?.prettier?.sources ?? [config?.srcPath ?? DEFAULT_SRC]);
 
   try {
     const { rootPath } = getPackageInfo(config?.prettier?.config ?? DEFAULT_PRETTIER_PACKAGE);

@@ -13,23 +13,7 @@ import { getPackageInfo } from '../helpers/packages';
 import { MeasurePerformance } from '../helpers/performance';
 import { EExitCode, QoqConfig } from '../helpers/types';
 
-import { configUsesReact, configUsesTs } from './config';
-
-const getFilesExtensions = (config: QoqConfig): string[] => {
-  switch (true) {
-    case configUsesTs(config) && configUsesReact(config):
-      return ['js', 'jsx', 'ts', 'tsx'];
-
-    case configUsesTs(config):
-      return ['ts'];
-
-    case configUsesReact(config):
-      return ['js', 'jsx'];
-
-    default:
-      return ['js'];
-  }
-};
+import { configUsesReact, configUsesTs, getFilesExtensions } from './config';
 
 export const getDefaultKnipEntry = (srcPath: string, config: QoqConfig): string[] => {
   switch (true) {

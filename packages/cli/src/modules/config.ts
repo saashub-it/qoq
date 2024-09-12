@@ -426,3 +426,19 @@ export const configUsesTests = (config: QoqConfig): boolean =>
     Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS_JEST) ||
     Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_JS_VITEST) ||
     Object.keys(config.eslint).includes(EModulesEslint.ESLINT_V9_TS_VITEST));
+
+export const getFilesExtensions = (config: QoqConfig): string[] => {
+  switch (true) {
+    case configUsesTs(config) && configUsesReact(config):
+      return ['js', 'jsx', 'ts', 'tsx'];
+
+    case configUsesTs(config):
+      return ['ts'];
+
+    case configUsesReact(config):
+      return ['js', 'jsx'];
+
+    default:
+      return ['js'];
+  }
+};
