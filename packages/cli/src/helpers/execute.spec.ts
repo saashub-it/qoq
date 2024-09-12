@@ -5,7 +5,8 @@ import { executeJscpd } from '../modules/jscpd';
 import { executePrettier } from '../modules/prettier';
 
 import { execute } from './execute';
-import { EModulesPrettier, EModulesEslint, QoqConfig } from './types';
+import { EModulesPrettier, QoqConfig, EExitCode } from './types';
+import { executeKnip } from '../modules/knip';
 
 vi.mock('../modules/eslint', () => ({
   executeEslint: vi.fn(),
@@ -15,122 +16,75 @@ vi.mock('../modules/jscpd', () => ({
   executeJscpd: vi.fn(),
 }));
 
+vi.mock('../modules/knip', () => ({
+  executeKnip: vi.fn(),
+}));
+
 vi.mock('../modules/prettier', () => ({
   executePrettier: vi.fn(),
 }));
 
-describe('execute', () => {
+describe('execute function', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('should execute all modules when all are configured', async () => {
-    const config: QoqConfig = {
-      prettier: {
-        config: EModulesPrettier.PRETTIER,
-        sources: ['src'],
-      },
-      jscpd: {
-        threshold: 50,
-      },
-      eslint: {
-        [EModulesEslint.ESLINT_V9_TS]: {
-          files: ['src/**/*.ts'],
-          ignores: [],
-        },
-      },
-    };
-
+  it('should call executeJscpd with default config', async () => {
+    const config: QoqConfig = {};
     await execute(config);
-
-    expect(executePrettier).toHaveBeenCalledWith(config, false);
-    expect(executeJscpd).toHaveBeenCalledWith(config);
-    expect(executeEslint).toHaveBeenCalledWith(config, false);
+    expect(executeJscpd).toHaveBeenCalledTimes(1);
   });
 
-  it('should not execute Prettier if not configured', async () => {
-    const config: QoqConfig = {
-      prettier: undefined,
-      jscpd: {
-        threshold: 50,
-      },
-      eslint: {
-        [EModulesEslint.ESLINT_V9_TS]: {
-          files: ['src/**/*.ts'],
-          ignores: [],
-        },
-      },
-    };
-
+  it('should call executePrettier with config.prettier enabled', async () => {
+    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER} };
     await execute(config);
-
-    expect(executePrettier).not.toHaveBeenCalled();
-    expect(executeJscpd).toHaveBeenCalledWith(config);
-    expect(executeEslint).toHaveBeenCalledWith(config, false);
+    expect(executePrettier).toHaveBeenCalledTimes(1);
   });
 
-  it('should not execute ESLint if not configured', async () => {
-    const config: QoqConfig = {
-      prettier: {
-        config: EModulesPrettier.PRETTIER,
-        sources: ['src'],
-      },
-      jscpd: {
-        threshold: 50,
-      },
-      eslint: undefined,
-    };
-
+  it('should call executeKnip with config.knip enabled', async () => {
+    const config: QoqConfig = { knip: {} };
     await execute(config);
-
-    expect(executePrettier).toHaveBeenCalledWith(config, false);
-    expect(executeJscpd).toHaveBeenCalledWith(config);
-    expect(executeEslint).not.toHaveBeenCalled();
+    expect(executeKnip).toHaveBeenCalledTimes(1);
   });
 
-  it('should not execute Jscpd if not configured', async () => {
-    const config: QoqConfig = {
-      prettier: {
-        config: EModulesPrettier.PRETTIER,
-        sources: ['src'],
-      },
-      jscpd: undefined,
-      eslint: {
-        [EModulesEslint.ESLINT_V9_TS]: {
-          files: ['src/**/*.ts'],
-          ignores: [],
-        },
-      },
-    };
-
+  it('should call executeEslint with config.eslint enabled', async () => {
+    const config: QoqConfig = { eslint: {} };
     await execute(config);
-
-    expect(executePrettier).toHaveBeenCalledWith(config, false);
-    expect(executeJscpd).toHaveBeenCalledWith(config);
-    expect(executeEslint).toHaveBeenCalledWith(config, false);
+    expect(executeEslint).toHaveBeenCalledTimes(1);
   });
 
-  it('should pass the "fix" argument to Prettier and ESLint when set to true', async () => {
-    const config: QoqConfig = {
-      prettier: {
-        config: EModulesPrettier.PRETTIER,
-        sources: ['src'],
-      },
-      jscpd: {
-        threshold: 50,
-      },
-      eslint: {
-        [EModulesEslint.ESLINT_V9_TS]: {
-          files: ['src/**/*.ts'],
-          ignores: [],
-        },
-      },
-    };
+  it('should call multiple execute functions with multiple config options enabled', async () => {
+    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, knip: {}, eslint: {} };
+    await execute(config);
+    expect(executePrettier).toHaveBeenCalledTimes(1);
+    expect(executeKnip).toHaveBeenCalledTimes(1);
+    expect(executeEslint).toHaveBeenCalledTimes(1);
+  });
 
+  it('should pass fix option to executePrettier and executeEslint', async () => {
+    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
     await execute(config, true);
+    expect(executePrettier).toHaveBeenCalledTimes(1);
+    expect(executePrettier).toHaveBeenCalledWith(config, true, []);
+    expect(executeEslint).toHaveBeenCalledTimes(1);
+    expect(executeEslint).toHaveBeenCalledWith(config, true, []);
+  });
 
-    expect(executePrettier).toHaveBeenCalledWith(config, true);
-    expect(executeJscpd).toHaveBeenCalledWith(config);
-    expect(executeEslint).toHaveBeenCalledWith(config, true);
+  it('should pass files option to executePrettier and executeEslint', async () => {
+    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
+    const files = ['file1', 'file2'];
+    await execute(config, false, files);
+    expect(executePrettier).toHaveBeenCalledTimes(1);
+    expect(executePrettier).toHaveBeenCalledWith(config, false, files);
+    expect(executeEslint).toHaveBeenCalledTimes(1);
+    expect(executeEslint).toHaveBeenCalledWith(config, false, files);
+  });
+
+  it('should set process.exitCode to EExitCode.ERROR with error responses', async () => {
+    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
+    executePrettier.mockResolvedValue(EExitCode.ERROR);
+    executeEslint.mockResolvedValue(EExitCode.ERROR);
+    await execute(config);
+    expect(process.exitCode).toBe(EExitCode.ERROR);
   });
 });

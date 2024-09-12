@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 import {
   EModulesPrettier,
   EModulesJscpd,
@@ -6,8 +8,8 @@ import {
   EModulesKnip,
 } from './types';
 
-export const CONFIG_FILE_PATH = `${process.cwd()}/qoq.config.js`;
-export const GITIGNORE_FILE_PATH = `${process.cwd()}/.gitignore`;
+export const CONFIG_FILE_PATH = resolve(`${process.cwd()}/qoq.config.js`);
+export const GITIGNORE_FILE_PATH = resolve(`${process.cwd()}/.gitignore`);
 
 export enum EConfigType {
   CJS = 'CJS',

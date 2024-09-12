@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import { writeFileSync } from 'fs';
+import { resolve } from 'path';
 
 import { getKnipConfig } from '@saashub/qoq-knip/knipConfig';
 import c from 'picocolors';
@@ -58,7 +59,7 @@ export const executeKnip = async (config: QoqConfig): Promise<EExitCode> => {
 
   try {
     const { rootPath } = getPackageInfo(pkg.name) ?? {};
-    const configFilePath = `${rootPath}/bin/knip.js`;
+    const configFilePath = resolve(`${rootPath}/bin/knip.js`);
 
     writeFileSync(
       configFilePath,
@@ -71,7 +72,12 @@ export const executeKnip = async (config: QoqConfig): Promise<EExitCode> => {
     );
 
     try {
-      const args = ['-c', configFilePath.replace(process.cwd(), '.'), '--exclude', 'enumMembers'];
+      const args = [
+        '-c',
+        resolve(configFilePath.replace(process.cwd(), '.')),
+        '--exclude',
+        'enumMembers',
+      ];
 
       const exitCode = await executeCommand('knip', args);
 

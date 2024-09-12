@@ -4,7 +4,8 @@ import { EExitCode } from './types';
 
 export const executeCommand = (command: string, args: readonly string[] = []): Promise<EExitCode> =>
   new Promise((resolve, reject) => {
-    const child = spawn(command, args);
+    // eslint-disable-next-line sonarjs/os-command
+    const child = spawn(command, args, { shell: true });
 
     child.stdout.on('data', (data: Buffer) => {
       process.stdout.write(data.toString('utf-8'));

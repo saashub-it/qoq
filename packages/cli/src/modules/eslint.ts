@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import { writeFileSync, existsSync } from 'fs';
+import { resolve } from 'path';
 
 import c from 'picocolors';
 
@@ -31,7 +32,7 @@ export const executeEslint = async (
 
   try {
     const { rootPath } = getPackageInfo(pkg.name) ?? {};
-    const configFilePath = `${rootPath}/bin/eslint.config.js`;
+    const configFilePath = resolve(`${rootPath}/bin/eslint.config.js`);
     const globalExcludeRules = config?.eslint?.excludeRules;
 
     const imports: Record<string, string> = {

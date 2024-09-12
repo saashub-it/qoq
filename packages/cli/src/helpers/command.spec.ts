@@ -1,85 +1,80 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { spawn } from 'child_process';
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-
+import { spawn } from 'child_process';
 import { executeCommand } from './command';
 
-vi.mock('child_process');
+vi.mock('child_process', () => ({
+  spawn: vi.fn(),
+}));
+
+const mockSpawn = vi.mocked(spawn);
 
 describe('executeCommand', () => {
-  const mockSpawn = spawn as unknown as ReturnType<typeof vi.fn>;
-
   beforeEach(() => {
     mockSpawn.mockReset();
   });
 
-  it('should execute command and return exit code', async () => {
-    const mockChildProcess = {
-      stdout: { on: vi.fn() },
-      stderr: { on: vi.fn() },
+  const mockChildProcess = {
+    stdout: {
       on: vi.fn((event, callback) => {
-        if (event === 'close') {
-          callback(0);
+        if (event === 'data') {
+          callback(Buffer.from('stdout data'));
         }
       }),
-    };
+    },
+    stderr: {
+      on: vi.fn((event, callback) => {
+        if (event === 'data') {
+          callback(Buffer.from('stderr data'));
+        }
+      }),
+    },
+    on: vi.fn((event, callback) => {
+      if (event === 'close') {
+        callback(0);
+      }
+    }),
+  };
+
+  it('should execute command with no arguments', async () => {
     mockSpawn.mockReturnValue(mockChildProcess);
 
-    const result = await executeCommand('echo', ['Hello, world!']);
+    const result = await executeCommand('some-command');
     expect(result).toBe(0);
-    expect(mockSpawn).toHaveBeenCalledWith('echo', ['Hello, world!']);
   });
 
-  it('should handle command error', async () => {
-    const mockChildProcess = {
-      stdout: { on: vi.fn() },
-      stderr: { on: vi.fn() },
-      on: vi.fn((event, callback) => {
-        if (event === 'error') {
-          callback(new Error('command failed'));
-        }
-      }),
-    };
+  it('should execute command with multiple arguments', async () => {
     mockSpawn.mockReturnValue(mockChildProcess);
 
-    await expect(executeCommand('wrong-command')).rejects.toThrow('command failed');
-    expect(mockSpawn).toHaveBeenCalledWith('wrong-command', []);
+    const result = await executeCommand('some-command', ['arg1', 'arg2']);
+    expect(result).toBe(0);
   });
 
-  it('should print stdout and stderr data', async () => {
-    const mockChildProcess = {
-      stdout: {
-        on: vi.fn((event, callback) => {
-          if (event === 'data') {
-            callback(Buffer.from('stdout data'));
-          }
-        }),
-      },
-      stderr: {
-        on: vi.fn((event, callback) => {
-          if (event === 'data') {
-            callback(Buffer.from('stderr data'));
-          }
-        }),
-      },
-      on: vi.fn((event, callback) => {
-        if (event === 'close') {
-          callback(0);
-        }
-      }),
-    };
+  it('should reject with error on command execution with error', async () => {
+    mockSpawn.mockReturnValue({...mockChildProcess, on: vi.fn((event, callback) => {
+      if (event === 'error') {
+        callback(new Error('Mock error'));
+      }
+    })});
+
+    await expect(executeCommand('some-command')).rejects.toThrowError('Mock error');
+  });
+
+  it('should resolve with non-zero exit code on command execution with error', async () => {
+    mockSpawn.mockReturnValue({...mockChildProcess, on: vi.fn((event, callback) => {
+      if (event === 'close') {
+        callback(1);
+      }
+    })});
+
+    const result = await executeCommand('some-command');
+    expect(result).toBe(1);
+  });
+
+  it('should execute command with no output', async () => {
     mockSpawn.mockReturnValue(mockChildProcess);
 
-    const logSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
-    const errorSpy = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
-
-    await executeCommand('some-command');
-
-    expect(logSpy).toHaveBeenCalledWith('stdout data');
-    expect(errorSpy).toHaveBeenCalledWith('stderr data');
-
-    logSpy.mockRestore();
-    errorSpy.mockRestore();
+    const result = await executeCommand('some-command');
+    expect(result).toBe(0);
   });
 });

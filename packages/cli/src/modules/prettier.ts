@@ -1,10 +1,11 @@
 /* eslint-disable consistent-return */
 import { existsSync } from 'fs';
+import { resolve } from 'path';
 
 import c from 'picocolors';
 
 import { executeCommand } from '../helpers/command';
-import { DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC } from '../helpers/constants';
+import { DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC, GITIGNORE_FILE_PATH } from '../helpers/constants';
 import { getPackageInfo } from '../helpers/packages';
 import { MeasurePerformance } from '../helpers/performance';
 import { EExitCode, QoqConfig } from '../helpers/types';
@@ -28,22 +29,21 @@ export const executePrettier = async (
         '--check',
         ...sources,
         '--config',
-        `${rootPath}/index.json`,
+        resolve(`${rootPath}/index.json`),
         '--ignore-unknown',
       ];
 
-      if (
-        existsSync(`${process.cwd()}/.gitignore`) ||
-        existsSync(`${process.cwd()}/.prettierignore`)
-      ) {
+      const prettierignorePath = resolve(`${process.cwd()}/.prettierignore`);
+
+      if (existsSync(GITIGNORE_FILE_PATH) || existsSync(prettierignorePath)) {
         args.push('--ignore-path');
 
-        if (existsSync(`${process.cwd()}/.gitignore`)) {
-          args.push(`${process.cwd()}/.gitignore`);
+        if (existsSync(GITIGNORE_FILE_PATH)) {
+          args.push(GITIGNORE_FILE_PATH);
         }
 
-        if (existsSync(`${process.cwd()}/.prettierignore`)) {
-          args.push(`${process.cwd()}/.prettierignore`);
+        if (existsSync(prettierignorePath)) {
+          args.push(prettierignorePath);
         }
       }
 
