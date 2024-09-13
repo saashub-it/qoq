@@ -1,4 +1,4 @@
-import { EConfigType } from './constants';
+import { EConfigType } from './types';
 
 const formatCjs = (imports: Record<string, string>, content: string[], exports: string): string => {
   const importArray = Object.keys(imports).map(

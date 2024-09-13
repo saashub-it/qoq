@@ -1,25 +1,19 @@
 /* eslint-disable consistent-return */
 import { writeFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
 
 import c from 'picocolors';
 
-// eslint-disable-next-line no-restricted-imports
-import pkg from '../../package.json';
-import { executeCommand } from '../helpers/command';
-import { DEFAULT_SRC, EConfigType, GITIGNORE_FILE_PATH } from '../helpers/constants';
-import { formatCode } from '../helpers/formatCode';
-import { getPackageInfo } from '../helpers/packages';
-import { MeasurePerformance } from '../helpers/performance';
-import {
-  EModulesEslint,
-  IEslintModuleConfig,
-  TQoQEslint,
-  QoqConfig,
-  EExitCode,
-} from '../helpers/types';
+import { executeCommand } from '@/helpers/command';
+import { DEFAULT_SRC, GITIGNORE_FILE_PATH } from '@/helpers/constants';
+import { formatCode } from '@/helpers/formatCode';
+import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
+import { MeasurePerformance } from '@/helpers/performance';
+import { EConfigType, EExitCode } from '@/helpers/types';
 
-import { getFilesExtensions } from './config';
+import { getFilesExtensions } from '../config/helpers';
+import { QoqConfig } from '../config/types';
+
+import { EModulesEslint, IEslintModuleConfig, TQoQEslint } from './types';
 
 export const executeEslint = async (
   config: QoqConfig,
@@ -31,8 +25,7 @@ export const executeEslint = async (
   const measurePerformance = new MeasurePerformance();
 
   try {
-    const { rootPath } = getPackageInfo(pkg.name) ?? {};
-    const configFilePath = resolve(`${rootPath}/bin/eslint.config.js`);
+    const configFilePath = resolveCliPackagePath('/bin/eslint.config.js');
     const globalExcludeRules = config?.eslint?.excludeRules;
 
     const imports: Record<string, string> = {
@@ -91,7 +84,7 @@ export const executeEslint = async (
     writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
 
     try {
-      const args = ['-c', configFilePath, '--max-warnings', '0'];
+      const args = ['-c', getRelativePath(configFilePath), '--max-warnings', '0'];
 
       if (files.length > 0) {
         args.push(

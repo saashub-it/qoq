@@ -1,11 +1,12 @@
 import c from 'picocolors';
 
-import { executeEslint } from '../modules/eslint';
-import { executeJscpd } from '../modules/jscpd';
-import { executeKnip } from '../modules/knip';
-import { executePrettier } from '../modules/prettier';
+import { QoqConfig } from '@/modules/config/types';
+import { executeEslint } from '@/modules/eslint/execute';
+import { executeJscpd } from '@/modules/jscpd/execute';
+import { executeKnip } from '@/modules/knip/execute';
+import { executePrettier } from '@/modules/prettier/execute';
 
-import { EExitCode, QoqConfig } from './types';
+import { EExitCode } from './types';
 
 export const execute = async (
   config: QoqConfig,

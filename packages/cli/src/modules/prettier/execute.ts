@@ -4,11 +4,14 @@ import { resolve } from 'path';
 
 import c from 'picocolors';
 
-import { executeCommand } from '../helpers/command';
-import { DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC, GITIGNORE_FILE_PATH } from '../helpers/constants';
-import { getPackageInfo } from '../helpers/packages';
-import { MeasurePerformance } from '../helpers/performance';
-import { EExitCode, QoqConfig } from '../helpers/types';
+import { executeCommand } from '@/helpers/command';
+import { DEFAULT_PRETTIER_PACKAGE, DEFAULT_SRC, GITIGNORE_FILE_PATH } from '@/helpers/constants';
+import { getPackageInfo } from '@/helpers/packages';
+import { getRelativePath, resolveCwdPath } from '@/helpers/paths';
+import { MeasurePerformance } from '@/helpers/performance';
+import { EExitCode } from '@/helpers/types';
+
+import { QoqConfig } from '../config/types';
 
 export const executePrettier = async (
   config: QoqConfig,
@@ -29,17 +32,17 @@ export const executePrettier = async (
         '--check',
         ...sources,
         '--config',
-        resolve(`${rootPath}/index.json`),
+        getRelativePath(resolve(`${rootPath}/index.json`)),
         '--ignore-unknown',
       ];
 
-      const prettierignorePath = resolve(`${process.cwd()}/.prettierignore`);
+      const prettierignorePath = resolveCwdPath('/.prettierignore');
 
       if (existsSync(GITIGNORE_FILE_PATH) || existsSync(prettierignorePath)) {
         args.push('--ignore-path');
 
         if (existsSync(GITIGNORE_FILE_PATH)) {
-          args.push(GITIGNORE_FILE_PATH);
+          args.push(getRelativePath(GITIGNORE_FILE_PATH));
         }
 
         if (existsSync(prettierignorePath)) {

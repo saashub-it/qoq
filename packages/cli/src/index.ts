@@ -2,9 +2,9 @@
 
 import cac from 'cac';
 
-import { allModules } from './helpers/constants';
 import { execute } from './helpers/execute';
-import { createConfig, getConfig } from './modules/config';
+import { allModules } from './helpers/types';
+import { createConfig, getConfig } from './modules/config/execute';
 
 const cli = cac('qoq');
 
@@ -13,13 +13,12 @@ cli
   .option('--init', 'Initialize QoQ cli config')
   .option('--check', 'Perform QoQ quality checks')
   .option('--fix', 'Apply fixes to QoQ check findings where possible')
-  .option('--use-default-config', 'Skip config initialization')
-  .action(async ({ init, fix, useDefaultConfig }) => {
+  .action(async ({ init, fix }) => {
     if (init) {
       return await createConfig(allModules);
     }
 
-    const config = await getConfig(!!useDefaultConfig);
+    const config = await getConfig();
 
     return await execute(config, !!fix);
   });

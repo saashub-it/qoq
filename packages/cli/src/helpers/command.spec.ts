@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { spawn } from 'child_process';
+
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import { executeCommand } from './command';
 
 vi.mock('child_process', () => ({
@@ -51,21 +53,27 @@ describe('executeCommand', () => {
   });
 
   it('should reject with error on command execution with error', async () => {
-    mockSpawn.mockReturnValue({...mockChildProcess, on: vi.fn((event, callback) => {
-      if (event === 'error') {
-        callback(new Error('Mock error'));
-      }
-    })});
+    mockSpawn.mockReturnValue({
+      ...mockChildProcess,
+      on: vi.fn((event, callback) => {
+        if (event === 'error') {
+          callback(new Error('Mock error'));
+        }
+      }),
+    });
 
     await expect(executeCommand('some-command')).rejects.toThrowError('Mock error');
   });
 
   it('should resolve with non-zero exit code on command execution with error', async () => {
-    mockSpawn.mockReturnValue({...mockChildProcess, on: vi.fn((event, callback) => {
-      if (event === 'close') {
-        callback(1);
-      }
-    })});
+    mockSpawn.mockReturnValue({
+      ...mockChildProcess,
+      on: vi.fn((event, callback) => {
+        if (event === 'close') {
+          callback(1);
+        }
+      }),
+    });
 
     const result = await executeCommand('some-command');
     expect(result).toBe(1);

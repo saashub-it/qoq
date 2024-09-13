@@ -1,30 +1,13 @@
 /* eslint-disable consistent-return */
 import c from 'picocolors';
 
-import { executeCommand } from '../helpers/command';
-import { DEFAULT_JSCPD_THRESHOLD, DEFAULT_SRC } from '../helpers/constants';
-import { EExitCode, QoqConfig, TJscpdFormat } from '../helpers/types';
+import { executeCommand } from '@/helpers/command';
+import { DEFAULT_JSCPD_THRESHOLD, DEFAULT_SRC } from '@/helpers/constants';
+import { EExitCode } from '@/helpers/types';
 
-import { getFilesExtensions } from './config';
+import { QoqConfig } from '../config/types';
 
-export const getDefaultJscpdFormat = (config: QoqConfig): TJscpdFormat[] =>
-  getFilesExtensions(config).map((key) => {
-    switch (key) {
-      case 'js':
-        return 'javascript';
-
-      case 'ts':
-        return 'typescript';
-
-      default:
-        return key;
-    }
-  }) as TJscpdFormat[];
-
-export const getDefaultJscpdIgnore = (config: QoqConfig): string[] =>
-  getDefaultJscpdFormat(config).map(
-    (key) => `**/*.spec.${key.replace('javascript', 'js').replace('typescript', 'ts')}`
-  );
+import { getDefaultJscpdFormat, getDefaultJscpdIgnore } from './helpers';
 
 export const executeJscpd = async (config: QoqConfig): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning JSCPD:\n'));

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import { EConfigType } from './constants';
 import { formatCode } from './formatCode';
+import { EConfigType } from './types';
 
 describe('formatCode', () => {
   it('generates cjs code', () => {

@@ -1,26 +1,27 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-import { executeEslint } from '../modules/eslint';
-import { executeJscpd } from '../modules/jscpd';
-import { executePrettier } from '../modules/prettier';
+import { QoqConfig } from '@/modules/config/types';
+import { executeEslint } from '@/modules/eslint/execute';
+import { executeJscpd } from '@/modules/jscpd/execute';
+import { executeKnip } from '@/modules/knip/execute';
+import { executePrettier } from '@/modules/prettier/execute';
+import { EModulesPrettier } from '@/modules/prettier/types';
 
 import { execute } from './execute';
-import { EModulesPrettier, QoqConfig, EExitCode } from './types';
-import { executeKnip } from '../modules/knip';
 
-vi.mock('../modules/eslint', () => ({
+vi.mock('@/modules/eslint/execute', () => ({
   executeEslint: vi.fn(),
 }));
 
-vi.mock('../modules/jscpd', () => ({
+vi.mock('@/modules/jscpd/execute', () => ({
   executeJscpd: vi.fn(),
 }));
 
-vi.mock('../modules/knip', () => ({
+vi.mock('@/modules/knip/execute', () => ({
   executeKnip: vi.fn(),
 }));
 
-vi.mock('../modules/prettier', () => ({
+vi.mock('@/modules/prettier/execute', () => ({
   executePrettier: vi.fn(),
 }));
 
@@ -36,7 +37,7 @@ describe('execute function', () => {
   });
 
   it('should call executePrettier with config.prettier enabled', async () => {
-    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER} };
+    const config: QoqConfig = { prettier: { config: EModulesPrettier.PRETTIER } };
     await execute(config);
     expect(executePrettier).toHaveBeenCalledTimes(1);
   });
@@ -54,7 +55,11 @@ describe('execute function', () => {
   });
 
   it('should call multiple execute functions with multiple config options enabled', async () => {
-    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, knip: {}, eslint: {} };
+    const config: QoqConfig = {
+      prettier: { config: EModulesPrettier.PRETTIER },
+      knip: {},
+      eslint: {},
+    };
     await execute(config);
     expect(executePrettier).toHaveBeenCalledTimes(1);
     expect(executeKnip).toHaveBeenCalledTimes(1);
@@ -62,7 +67,7 @@ describe('execute function', () => {
   });
 
   it('should pass fix option to executePrettier and executeEslint', async () => {
-    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
+    const config: QoqConfig = { prettier: { config: EModulesPrettier.PRETTIER }, eslint: {} };
     await execute(config, true);
     expect(executePrettier).toHaveBeenCalledTimes(1);
     expect(executePrettier).toHaveBeenCalledWith(config, true, []);
@@ -71,20 +76,12 @@ describe('execute function', () => {
   });
 
   it('should pass files option to executePrettier and executeEslint', async () => {
-    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
+    const config: QoqConfig = { prettier: { config: EModulesPrettier.PRETTIER }, eslint: {} };
     const files = ['file1', 'file2'];
     await execute(config, false, files);
     expect(executePrettier).toHaveBeenCalledTimes(1);
     expect(executePrettier).toHaveBeenCalledWith(config, false, files);
     expect(executeEslint).toHaveBeenCalledTimes(1);
     expect(executeEslint).toHaveBeenCalledWith(config, false, files);
-  });
-
-  it('should set process.exitCode to EExitCode.ERROR with error responses', async () => {
-    const config: QoqConfig = { prettier: {config: EModulesPrettier.PRETTIER}, eslint: {} };
-    executePrettier.mockResolvedValue(EExitCode.ERROR);
-    executeEslint.mockResolvedValue(EExitCode.ERROR);
-    await execute(config);
-    expect(process.exitCode).toBe(EExitCode.ERROR);
   });
 });

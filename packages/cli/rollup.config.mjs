@@ -4,6 +4,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import json from '@rollup/plugin-json';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 
@@ -13,6 +14,7 @@ const input = {
   qoq: `${sourceDir}/index.ts`,
 };
 const plugins = [
+  typescriptPaths({preserveExtensions: true}),
   nodeResolve({
     preferBuiltins: true,
   }),
@@ -23,13 +25,9 @@ const plugins = [
   }),
 ];
 
-const onlyEsmDependencies = [];
-
 const external = [
   ...builtinModules,
-  ...Object.keys(pkg.dependencies).filter(
-    (dependency) => !onlyEsmDependencies.includes(dependency)
-  ),
+  ...Object.keys(pkg.dependencies),
 ];
 
 export default {

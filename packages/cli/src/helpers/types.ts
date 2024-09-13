@@ -1,76 +1,49 @@
-export enum EModulesPrettier {
-  PRETTIER = '@saashub/qoq-prettier',
-  PRETTIER_WITH_JSON_SORT = '@saashub/qoq-prettier-with-json-sort',
-}
-
-export enum EModulesJscpd {
-  JSCPD = '@saashub/qoq-jscpd',
-}
-
-export enum EModulesEslint {
-  ESLINT_V9_JS = '@saashub/qoq-eslint-v9-js',
-  ESLINT_V9_JS_REACT = '@saashub/qoq-eslint-v9-js-react',
-  ESLINT_V9_JS_JEST = '@saashub/qoq-eslint-v9-js-jest',
-  ESLINT_V9_JS_VITEST = '@saashub/qoq-eslint-v9-js-vitest',
-  ESLINT_V9_TS = '@saashub/qoq-eslint-v9-ts',
-  ESLINT_V9_TS_REACT = '@saashub/qoq-eslint-v9-ts-react',
-  ESLINT_V9_TS_JEST = '@saashub/qoq-eslint-v9-ts-jest',
-  ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
-}
-
-export enum EModulesKnip {
-  KNIP = '@saashub/qoq-knip',
-}
-
-export type TModulesWithConfig = Record<
-  EModulesPrettier & EModulesJscpd & EModulesEslint & EModulesKnip,
-  boolean | object
->;
-export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
-
-export interface IEslintCommonConfig {
-  excludeRules?: string[];
-}
-
-export interface IEslintModuleConfig {
-  files: string[];
-  ignores: string[];
-  excludeRules?: string[];
-}
-
-type TAvaliablePrettierPackages = `${EModulesPrettier}`;
-type TAvaliableEslintPackages = `${EModulesEslint}`;
-
-export type TQoQEslint = Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> &
-  IEslintCommonConfig;
-
-export type TJscpdFormat = 'javascript' | 'jsx' | 'typescript' | 'tsx';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export interface QoqConfig {
-  srcPath?: string;
-  prettier?: {
-    config: TAvaliablePrettierPackages;
-    sources?: string[];
-  };
-  eslint?: TQoQEslint;
-  jscpd?: {
-    format?: TJscpdFormat[];
-    threshold?: number;
-    ignore?: string[];
-  };
-  knip?: {
-    entry?: string[];
-    project?: string[];
-    ignore?: string[];
-    ignoreDependencies?: string[];
-  };
-}
-
-export type TQoqConfigPromise = Promise<QoqConfig>;
+import { TModulesWithConfig } from '@/modules/config/types';
+import { EModulesEslint } from '@/modules/eslint/types';
+import { EModulesJscpd } from '@/modules/jscpd/types';
+import { EModulesKnip } from '@/modules/knip/types';
+import { EModulesPrettier } from '@/modules/prettier/types';
 
 export enum EExitCode {
   OK = 0,
   ERROR = 1,
   EXCEPTION = 2,
 }
+
+export enum EConfigType {
+  CJS = 'CJS',
+  ESM = 'ESM',
+}
+
+export const allModules: TModulesWithConfig = {
+  [EModulesPrettier.PRETTIER]: false,
+  [EModulesPrettier.PRETTIER_WITH_JSON_SORT]: false,
+  [EModulesJscpd.JSCPD]: false,
+  [EModulesEslint.ESLINT_V9_JS]: false,
+  [EModulesEslint.ESLINT_V9_JS_REACT]: false,
+  [EModulesEslint.ESLINT_V9_JS_JEST]: false,
+  [EModulesEslint.ESLINT_V9_JS_VITEST]: false,
+  [EModulesEslint.ESLINT_V9_TS]: false,
+  [EModulesEslint.ESLINT_V9_TS_REACT]: false,
+  [EModulesEslint.ESLINT_V9_TS_JEST]: false,
+  [EModulesEslint.ESLINT_V9_TS_VITEST]: false,
+  [EModulesKnip.KNIP]: false,
+};
+
+export const defaultModules: TModulesWithConfig = {
+  [EModulesPrettier.PRETTIER]: true,
+  [EModulesPrettier.PRETTIER_WITH_JSON_SORT]: false,
+  [EModulesJscpd.JSCPD]: true,
+  [EModulesEslint.ESLINT_V9_JS]: false,
+  [EModulesEslint.ESLINT_V9_JS_REACT]: false,
+  [EModulesEslint.ESLINT_V9_JS_JEST]: false,
+  [EModulesEslint.ESLINT_V9_JS_VITEST]: false,
+  [EModulesEslint.ESLINT_V9_TS]: {
+    files: [`src/**/*.{js,jsx,ts,tsx}`],
+    ignores: ['**/*.spec.js'],
+  },
+  [EModulesEslint.ESLINT_V9_TS_REACT]: false,
+  [EModulesEslint.ESLINT_V9_TS_JEST]: false,
+  [EModulesEslint.ESLINT_V9_TS_VITEST]: false,
+  [EModulesKnip.KNIP]: false,
+};
