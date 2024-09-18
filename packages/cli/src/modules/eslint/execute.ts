@@ -11,50 +11,51 @@ import { MeasurePerformance } from '@/helpers/performance';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { getFilesExtensions } from '../config/helpers';
-import { QoqConfig } from '../config/types';
+import { EModulesConfig } from '../config/types';
 
 import { EModulesEslint, IEslintModuleConfig, TQoQEslint } from './types';
+import { TModulesInitialWithEslint } from '../types';
 
 export const executeEslint = async (
-  config: QoqConfig,
+  modules: TModulesInitialWithEslint,
   fix: boolean,
   files: string[]
 ): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Eslint:\n'));
 
   const measurePerformance = new MeasurePerformance();
+  const { srcPath } = modules[EModulesConfig.BASIC];
 
   try {
     const configFilePath = resolveCliPackagePath('/bin/eslint.config.js');
-    const globalExcludeRules = config?.eslint?.excludeRules;
 
     const imports: Record<string, string> = {
       tools: '@saashub/qoq-eslint-v9-js/tools',
       compat: '@eslint/compat',
     };
 
-    const content: string[] = Object.keys(config.eslint ?? {})
+    const content: string[] = Object.keys(modules)
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
       .reduce((acc: string[], dependency: string, index: number) => {
-        const { files: configFiles, ignores: configIgnores } = (config.eslint as TQoQEslint)[
-          dependency
-        ] as IEslintModuleConfig;
+        // const { files: configFiles, ignores: configIgnores } = (config.eslint as TQoQEslint)[
+        //   dependency
+        // ] as IEslintModuleConfig;
 
-        imports[`dependency${index}`] = `${dependency}/eslintConfig`;
+        // imports[`dependency${index}`] = `${dependency}/eslintConfig`;
 
-        const getEslintConfigArgs: string[] = [
-          `'${config?.srcPath ?? DEFAULT_SRC}'`,
-          JSON.stringify(configFiles),
-          JSON.stringify(configIgnores),
-        ];
+        // const getEslintConfigArgs: string[] = [
+        //   `'${srcPath}'`,
+        //   JSON.stringify(configFiles),
+        //   JSON.stringify(configIgnores),
+        // ];
 
-        if (existsSync(GITIGNORE_FILE_PATH)) {
-          getEslintConfigArgs.push(`'${GITIGNORE_FILE_PATH}'`);
-        }
+        // if (existsSync(GITIGNORE_FILE_PATH)) {
+        //   getEslintConfigArgs.push(`'${GITIGNORE_FILE_PATH}'`);
+        // }
 
-        acc.push(
-          `const config${index} = dependency${index}.getEslintConfig(${getEslintConfigArgs.join(',')})`
-        );
+        // acc.push(
+        //   `const config${index} = dependency${index}.getEslintConfig(${getEslintConfigArgs.join(',')})`
+        // );
 
         return acc;
       }, []);
@@ -62,20 +63,10 @@ export const executeEslint = async (
     const mergeConfigsInitialArray = existsSync(GITIGNORE_FILE_PATH)
       ? `[compat.includeIgnoreFile('${GITIGNORE_FILE_PATH}')]`
       : '[]';
-    const mergeConfigs = `${mergeConfigsInitialArray}${Object.keys(config.eslint ?? {})
+    let exports = `${mergeConfigsInitialArray}${Object.keys(modules)
       .filter((key) => Object.values(EModulesEslint).includes(key as EModulesEslint))
-      .map((dependency, index) => {
-        const { excludeRules } = (config.eslint as TQoQEslint)[dependency] as IEslintModuleConfig;
-
-        return excludeRules
-          ? `.concat(tools.omitRulesForConfigCollection(config${index}, ${JSON.stringify(excludeRules)}))`
-          : `.concat(config${index})`;
-      })
+      .map((_, index) => `.concat(config${index})`)
       .join('')}`;
-
-    let exports = globalExcludeRules
-      ? `tools.omitRulesForConfigCollection(${mergeConfigs}, ${JSON.stringify(globalExcludeRules)})`
-      : mergeConfigs;
 
     if (files.length > 0) {
       exports = `${exports}.map((config) => { const { files, ...rest } = config; return rest; })`;
@@ -90,7 +81,7 @@ export const executeEslint = async (
         args.push(
           '--stdin-filename',
           ...files.filter((file) =>
-            getFilesExtensions(config).some((ext) => file.endsWith(`.${ext}`))
+            getFilesExtensions(modules).some((ext) => file.endsWith(`.${ext}`))
           )
         );
       }

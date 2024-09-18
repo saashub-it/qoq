@@ -2,15 +2,19 @@
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { TModulesWithConfig } from '../config/types';
-
+import { DEFAULT_PRETTIER_SOURCES } from './constants';
 import { EModulesPrettier } from './types';
+import { IModulesConfig } from '../types';
+import { QoqConfig } from '../config/types';
+import isEqual from 'react-fast-compare';
 
-export const createPrettierConfig = async (modulesConfig: TModulesWithConfig): Promise<void> => {
+export const createPrettierConfig = async (
+  modulesConfig: IModulesConfig
+): Promise<IModulesConfig> => {
   const prettierPrompts = [
     {
       type: 'select',
-      name: 'prettierPackage',
+      name: 'packages',
       message: c.reset(`What options should we use for ${c.green('Prettier')}?`),
       choices: [
         { title: 'Basic Prettier', value: EModulesPrettier.PRETTIER },
@@ -33,11 +37,30 @@ export const createPrettierConfig = async (modulesConfig: TModulesWithConfig): P
     },
   ];
 
-  const { prettierPackage, prettierSources } = await prompts.prompt(prettierPrompts);
+  const {
+    /**
+     * @todo write prettier confg
+     */
+    // prettierPackage
+    prettierSources,
+  }: {
+    prettierPackage: EModulesPrettier.PRETTIER | EModulesPrettier.PRETTIER_WITH_JSON_SORT;
+    prettierSources: string[];
+  } = await prompts.prompt(prettierPrompts);
 
-  if (prettierPackage) {
-    modulesConfig[prettierPackage] = prettierSources
-      ? { config: prettierPackage, sources: prettierSources }
-      : { config: prettierPackage };
+  modulesConfig.modules.prettier = {
+    sources: prettierSources.filter((entry) => !!entry) ?? DEFAULT_PRETTIER_SOURCES
   }
+
+  return modulesConfig;
 };
+
+export const omitPrettierDefaultsForConfig = (modulesConfig: IModulesConfig, config: QoqConfig): QoqConfig => {
+  const { modules: { prettier } } = modulesConfig;
+
+  if (prettier?.sources && !isEqual(prettier.sources, DEFAULT_PRETTIER_SOURCES)) {
+    config.prettier = {...prettier};
+  }
+
+  return config;
+}

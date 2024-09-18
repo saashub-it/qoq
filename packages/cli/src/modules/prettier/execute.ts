@@ -11,30 +11,27 @@ import { getRelativePath, resolveCwdPath } from '@/helpers/paths';
 import { MeasurePerformance } from '@/helpers/performance';
 import { EExitCode } from '@/helpers/types';
 
-import { QoqConfig } from '../config/types';
+import { EModulesConfig, QoqConfig } from '../config/types';
+import { TModulesInitialWithPrettier } from '../types';
+import { EModulesPrettier } from './types';
 
 export const executePrettier = async (
-  config: QoqConfig,
+  modules: TModulesInitialWithPrettier,
   fix: boolean,
   files: string[]
 ): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning Prettier:\n'));
 
   const measurePerformance = new MeasurePerformance();
-  const sources =
-    files.length > 0 ? files : (config?.prettier?.sources ?? [config?.srcPath ?? DEFAULT_SRC]);
 
   try {
-    const { rootPath } = getPackageInfo(config?.prettier?.config ?? DEFAULT_PRETTIER_PACKAGE);
+    const sources: string[] =
+      files.length > 0
+        ? files
+        : (modules[EModulesPrettier.PRETTIER]?.sources ?? [modules[EModulesConfig.BASIC].srcPath]);
 
     try {
-      const args = [
-        '--check',
-        ...sources,
-        '--config',
-        getRelativePath(resolve(`${rootPath}/index.json`)),
-        '--ignore-unknown',
-      ];
+      const args = ['--check', ...sources, '--ignore-unknown'];
 
       const prettierignorePath = resolveCwdPath('/.prettierignore');
 

@@ -2,22 +2,21 @@
 import c from 'picocolors';
 
 import { executeCommand } from '@/helpers/command';
-import { DEFAULT_JSCPD_THRESHOLD, DEFAULT_SRC } from '@/helpers/constants';
 import { EExitCode } from '@/helpers/types';
 
-import { QoqConfig } from '../config/types';
+import { EModulesConfig } from '../config/types';
 
-import { getDefaultJscpdFormat, getDefaultJscpdIgnore } from './helpers';
+import { TModulesInitialWithJscpd } from '../types';
+import { EModulesJscpd } from './types';
 
-export const executeJscpd = async (config: QoqConfig): Promise<EExitCode> => {
+export const executeJscpd = async (modules: TModulesInitialWithJscpd): Promise<EExitCode> => {
   process.stdout.write(c.green('\nRunning JSCPD:\n'));
 
-  const format = config?.jscpd?.format ?? getDefaultJscpdFormat(config);
-  const ignore = config?.jscpd?.ignore ?? getDefaultJscpdIgnore(config);
-  const threshold = String(config?.jscpd?.threshold ?? DEFAULT_JSCPD_THRESHOLD);
+  const { srcPath } = modules[EModulesConfig.BASIC];
+  const { format, ignore, threshold } = modules[EModulesJscpd.JSCPD];
 
   try {
-    const args = [config?.srcPath ?? DEFAULT_SRC, '-a', '-f', format.join(), '-t', threshold];
+    const args = [srcPath, '-a', '-f', format.join(), '-t', String(threshold)];
 
     if (ignore.length > 0) {
       args.push('-i', ignore.join());

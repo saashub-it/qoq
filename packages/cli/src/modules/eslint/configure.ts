@@ -2,14 +2,13 @@
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { TModulesWithConfig } from '../config/types';
-
 import { EModulesEslint } from './types';
+import { IModulesConfig } from '../types';
+import { QoqConfig } from '../config/types';
 
 export const createEslintConfig = async (
-  modulesConfig: TModulesWithConfig,
-  srcPath: string
-): Promise<void> => {
+  modulesConfig: IModulesConfig
+): Promise<IModulesConfig> => {
   const eslintPrompts = [
     {
       type: 'toggle',
@@ -48,8 +47,12 @@ export const createEslintConfig = async (
   const { eslintPackages }: { eslintPackages: EModulesEslint[] } =
     await prompts.prompt(eslintPrompts);
 
+  const { srcPath } = modulesConfig;
+
   if (eslintPackages.length > 0) {
     const eslintSrcPath = srcPath.startsWith('./') ? srcPath.replace('./', '') : srcPath;
+
+    modulesConfig.modules.eslint = [];
 
     for (const eslintPackage of eslintPackages) {
       process.stderr.write(c.green(`\nProvide configuration for ${eslintPackage} checks:\n`));
@@ -115,10 +118,21 @@ export const createEslintConfig = async (
         },
       ]);
 
-      modulesConfig[eslintPackage] = {
+      modulesConfig.modules.eslint.push({
+        template: eslintPackage,
         files: files.filter((entry) => !!entry),
-        ignores: ignores.filter((entry) => !!entry),
-      };
+        ignores: ignores.filter((entry) => !!entry)
+      })
     }
   }
+
+  return modulesConfig;
 };
+
+export const omitEslintDefaultsForConfig = (modulesConfig: IModulesConfig, config: QoqConfig): QoqConfig => {
+  const { modules: { eslint } } = modulesConfig;
+
+  config.eslint = eslint ?? [];
+
+  return config;
+}

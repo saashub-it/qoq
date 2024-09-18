@@ -1,20 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import prompts from 'prompts';
 
-import { DEFAULT_JSCPD_THRESHOLD } from '@/helpers/constants';
-import { EConfigType } from '@/helpers/types';
-
-import { prepareConfig } from '../config/execute';
-import { TModulesWithConfig } from '../config/types';
-
+import { DEFAULT_JSCPD_THRESHOLD } from './constants';
 import { getDefaultJscpdFormat, getDefaultJscpdIgnore } from './helpers';
-import { EModulesJscpd } from './types';
+import { IModulesConfig } from '../types';
+import { QoqConfig } from '../config/types';
+import isEqual from 'react-fast-compare';
 
 export const createJscpdConfig = async (
-  modulesConfig: TModulesWithConfig,
-  srcPath: string,
-  configType: EConfigType
-): Promise<void> => {
+  modulesConfig: IModulesConfig
+): Promise<IModulesConfig> => {
   const jscpdPrompts = [
     {
       type: 'number',
@@ -28,7 +23,7 @@ export const createJscpdConfig = async (
       message:
         'Provide files format (initially autodetected from previous config), space " " separated',
       separator: ' ',
-      initial: getDefaultJscpdFormat(prepareConfig(srcPath, modulesConfig, configType)).join(' '),
+      initial: getDefaultJscpdFormat(modulesConfig).join(' '),
     },
     {
       type: 'list',
@@ -36,7 +31,7 @@ export const createJscpdConfig = async (
       message:
         'Provide files format (initially autodetected from previous config), space " " separated',
       separator: ' ',
-      initial: getDefaultJscpdIgnore(prepareConfig(srcPath, modulesConfig, configType)).join(' '),
+      initial: getDefaultJscpdIgnore(modulesConfig).join(' '),
     },
   ];
 
@@ -47,11 +42,26 @@ export const createJscpdConfig = async (
   }: { jscpdThreshold: number; jscpdFormat: string[]; jscpdIgnore: string[] } =
     await prompts.prompt(jscpdPrompts);
 
-  if (jscpdThreshold) {
-    modulesConfig[EModulesJscpd.JSCPD] = {
-      threshold: jscpdThreshold,
+    modulesConfig.modules.jscpd = {
+      threshold: Number(jscpdThreshold) ?? DEFAULT_JSCPD_THRESHOLD,
       format: jscpdFormat.filter((entry) => !!entry),
       ignore: jscpdIgnore.filter((entry) => !!entry),
-    };
-  }
+    }
+
+  return modulesConfig;
 };
+
+export const omitJscpdDefaultsForConfig = (modulesConfig: IModulesConfig, config: QoqConfig): QoqConfig => {
+  const { modules: { jscpd } } = modulesConfig;
+
+  config.jscpd = {
+    format: jscpd?.format as string[],
+  }
+
+  if (jscpd?.ignore && !isEqual(jscpd.ignore, [])) {
+
+  }
+  
+
+  return config;
+}

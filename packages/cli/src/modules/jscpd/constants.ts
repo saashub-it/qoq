@@ -1,0 +1,1 @@
+export const DEFAULT_JSCPD_THRESHOLD = 2;

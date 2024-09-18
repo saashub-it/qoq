@@ -12,7 +12,7 @@
   "scripts": {
     "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/qoq.cjs",
     "test": "vitest run --coverage",
-    "dev": "npm run build && qoq"
+    "dev": "npm run build && node ./bin/qoq.cjs"
   },
   "dependencies": {
     "@antfu/install-pkg": "0.4.1",
@@ -20,12 +20,14 @@
     "local-pkg": "0.5.0",
     "lodash": "4.17.21",
     "picocolors": "1.1.0",
-    "prompts": "2.4.2"
+    "prompts": "2.4.2",
+    "react-fast-compare": "3.2.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "26.0.1",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.2.3",
+    "@saashub/qoq-eslint-v9-js": "^0.9.3",
     "@saashub/qoq-knip": "^0.9.3",
     "@types/lodash": "4.17.7",
     "@types/prompts": "2.4.9",

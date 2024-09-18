@@ -1,21 +1,17 @@
-import { EModulesEslint, TQoQEslint } from '../eslint/types';
-import { EModulesJscpd, TJscpdFormat } from '../jscpd/types';
-import { EModulesKnip } from '../knip/types';
-import { EModulesPrettier, TAvaliablePrettierPackages } from '../prettier/types';
+import { TQoQEslint } from '../eslint/types';
+import { TJscpdFormat } from '../jscpd/types';
+import { TAvaliablePrettierPackages } from '../prettier/types';
+import { IModuleEslintConfig, IModulePrettierConfig } from '../types';
 
-export type TModulesWithConfig = Record<
-  EModulesPrettier & EModulesJscpd & EModulesEslint & EModulesKnip,
-  boolean | object
->;
-export type TModulesWithConfigPromise = Promise<TModulesWithConfig>;
+export enum EModulesConfig {
+  BASIC = 'BASIC',
+}
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface QoqConfig {
   srcPath?: string;
-  prettier?: {
-    config: TAvaliablePrettierPackages;
-    sources?: string[];
-  };
-  eslint?: TQoQEslint;
+  prettier?: IModulePrettierConfig;
+  eslint: IModuleEslintConfig[];
   jscpd?: {
     format?: TJscpdFormat[];
     threshold?: number;

@@ -4,10 +4,12 @@ import prompts from 'prompts';
 import { DEFAULT_SRC } from '@/helpers/constants';
 import { EConfigType } from '@/helpers/types';
 
-export const createBasicConfig = async (): Promise<{
-  srcPath: string;
-  configType: EConfigType;
-}> => {
+import { IModulesConfig } from '../types';
+import { QoqConfig } from './types';
+
+export const createBasicConfig = async (
+  modulesConfig: IModulesConfig
+): Promise<IModulesConfig> => {
   const { srcPath }: { srcPath: string } = await prompts.prompt({
     type: 'text',
     name: 'srcPath',
@@ -25,5 +27,18 @@ export const createBasicConfig = async (): Promise<{
     ],
   });
 
-  return { srcPath, configType };
+  modulesConfig.srcPath = srcPath;
+  modulesConfig.configType = configType;
+
+  return modulesConfig;
 };
+
+export const omitBasicDefaultsForConfig = (modulesConfig: IModulesConfig, config: QoqConfig): QoqConfig => {
+  const { srcPath } = modulesConfig;
+
+  if (srcPath !== DEFAULT_SRC) {
+    config.srcPath = srcPath;
+  }
+
+  return config;
+}
