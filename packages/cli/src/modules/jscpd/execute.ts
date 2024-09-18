@@ -4,7 +4,7 @@ import c from 'picocolors';
 import { executeCommand } from '@/helpers/command';
 import { EExitCode } from '@/helpers/types';
 
-import { EModulesConfig } from '../config/types';
+import { EModulesConfig } from '../basic/types';
 
 import { TModulesInitialWithJscpd } from '../types';
 import { EModulesJscpd } from './types';

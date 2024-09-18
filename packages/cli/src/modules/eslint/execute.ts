@@ -10,8 +10,8 @@ import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
 import { MeasurePerformance } from '@/helpers/performance';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
-import { getFilesExtensions } from '../config/helpers';
-import { EModulesConfig } from '../config/types';
+import { getFilesExtensions } from '../basic/helpers';
+import { EModulesConfig } from '../basic/types';
 
 import { EModulesEslint, IEslintModuleConfig, TQoQEslint } from './types';
 import { TModulesInitialWithEslint } from '../types';

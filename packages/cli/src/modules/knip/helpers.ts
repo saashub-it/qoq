@@ -1,8 +1,8 @@
-import { configUsesReact, configUsesTs, getFilesExtensions } from '../config/helpers';
+import { configUsesReact, configUsesTs, getFilesExtensions } from '../basic/helpers';
 import { IModulesConfig } from '../types';
 
 export const getDefaultKnipEntry = (modulesConfig: IModulesConfig): string[] => {
-  const {srcPath, modules} = modulesConfig;
+  const { srcPath, modules } = modulesConfig;
 
   switch (true) {
     case configUsesTs(modules) && configUsesReact(modules):
@@ -20,13 +20,13 @@ export const getDefaultKnipEntry = (modulesConfig: IModulesConfig): string[] => 
 };
 
 export const getDefaultKnipProject = (modulesConfig: IModulesConfig): string[] => {
-  const {srcPath, modules} = modulesConfig;
+  const { srcPath, modules } = modulesConfig;
 
   return [`${srcPath}/**/*.{${getFilesExtensions(modules).join()}}`];
 };
 
 export const getDefaultKnipIgnore = (modulesConfig: IModulesConfig): string[] => {
-  const {modules} = modulesConfig;
+  const { modules } = modulesConfig;
   const ignore = ['package.json'];
 
   if (configUsesTs(modules)) {

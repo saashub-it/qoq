@@ -1,4 +1,4 @@
-import { getFilesExtensions } from '../config/helpers';
+import { getFilesExtensions } from '../basic/helpers';
 import { IModulesConfig } from '../types';
 
 import { TJscpdFormat } from './types';

@@ -1,4 +1,4 @@
-import { EModulesConfig } from './config/types';
+import { EModulesConfig } from './basic/types';
 import { EModulesEslint } from './eslint/types';
 import { EModulesJscpd } from './jscpd/types';
 import { EModulesKnip } from './knip/types';

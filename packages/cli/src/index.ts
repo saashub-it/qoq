@@ -2,8 +2,7 @@
 
 import cac from 'cac';
 
-import { execute } from './helpers/execute';
-import { createConfig, getConfig } from './modules/config/execute';
+import { getConfig, initConfig, execute } from './modules';
 
 const cli = cac('qoq');
 
@@ -14,7 +13,7 @@ cli
   .option('--fix', 'Apply fixes to QoQ check findings where possible')
   .action(async ({ init, fix }) => {
     if (init) {
-      return await createConfig();
+      return await initConfig();
     }
 
     const config = await getConfig();

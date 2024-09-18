@@ -11,7 +11,7 @@ import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
 import { MeasurePerformance } from '@/helpers/performance';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
-import { EModulesConfig, QoqConfig } from '../config/types';
+import { EModulesConfig, QoqConfig } from '../basic/types';
 
 import { getDefaultKnipEntry, getDefaultKnipIgnore, getDefaultKnipProject } from './helpers';
 import { TModulesInitialWithKnip } from '../types';
