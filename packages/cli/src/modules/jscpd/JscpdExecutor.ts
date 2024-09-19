@@ -3,9 +3,9 @@ import c from 'picocolors';
 import { EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IModuleJscpdConfig } from '../types';
 
 import { JscpdConfigHandler } from './JscpdConfigHandler';
+import { IModuleJscpdConfig } from './types';
 
 export class JscpdExecutor extends AbstractExecutor {
   getName(): string {

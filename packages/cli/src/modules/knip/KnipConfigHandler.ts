@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import prompts from 'prompts';
+import isEqual from 'react-fast-compare';
 
 import { QoqConfig } from '@/helpers/types';
 
@@ -8,7 +9,8 @@ import { configUsesReact, configUsesTs, getFilesExtensions } from '../helpers';
 import { IModulesConfig } from '../types';
 
 export class KnipConfigHandler extends AbstractConfigHandler {
-  static DEFAULT_IGNORE_DEPENDENCIES = [];
+  static readonly DEFAULT_IGNORE_DEPENDENCIES = [];
+
   async getPrompts(): Promise<void> {
     const {
       knipEntry,
@@ -67,6 +69,31 @@ export class KnipConfigHandler extends AbstractConfigHandler {
     const {
       modules: { knip },
     } = this.modulesConfig;
+
+    this.config.knip = {};
+
+    if (knip?.entry && !isEqual(knip.entry, this.getDefaultEntry())) {
+      this.config.knip.entry = knip.entry;
+    }
+
+    if (knip?.project && !isEqual(knip.project, this.getDefaultProject())) {
+      this.config.knip.project = knip.project;
+    }
+
+    if (knip?.ignore && !isEqual(knip.ignore, this.getDefaultIgnore())) {
+      this.config.knip.ignore = knip.ignore;
+    }
+
+    if (
+      knip?.ignoreDependencies &&
+      !isEqual(knip.ignoreDependencies, KnipConfigHandler.DEFAULT_IGNORE_DEPENDENCIES)
+    ) {
+      this.config.knip.ignoreDependencies = knip.ignoreDependencies;
+    }
+
+    if (Object.keys(this.config.knip).length === 0) {
+      delete this.config.knip;
+    }
 
     return super.getConfigFromModules();
   }

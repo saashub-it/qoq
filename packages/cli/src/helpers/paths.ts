@@ -15,7 +15,7 @@ export const resolveCliPackagePath = (path: string): string =>
   resolve(`${getCliPackagePath()}${path}`);
 
 export const resolveCliRelativePath = (path: string): string =>
-  resolveCliPackagePath(resolveCwdPath(path));
+  getRelativePath(resolveCliPackagePath(path));
 
 export const getRelativePath = (path: string): string => path.replace(process.cwd(), '.');
 

@@ -1,3 +1,7 @@
+import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
+
+import { TPartialBy } from '@/helpers/types';
+
 export enum EModulesEslint {
   ESLINT_V9_JS = '@saashub/qoq-eslint-v9-js',
   ESLINT_V9_JS_REACT = '@saashub/qoq-eslint-v9-js-react',
@@ -9,17 +13,12 @@ export enum EModulesEslint {
   ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
 }
 
-export type TAvaliableEslintPackages = `${EModulesEslint}`;
-
-export interface IEslintCommonConfig {
-  excludeRules?: string[];
-}
-
 export interface IEslintModuleConfig {
   files: string[];
   ignores: string[];
   excludeRules?: string[];
 }
 
-export type TQoQEslint = Partial<Record<TAvaliableEslintPackages, IEslintModuleConfig>> &
-  IEslintCommonConfig;
+export interface IModuleEslintConfig extends TPartialBy<EslintConfig, 'rules'> {
+  template?: EModulesEslint;
+}

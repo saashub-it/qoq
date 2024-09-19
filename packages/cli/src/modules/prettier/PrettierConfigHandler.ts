@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { existsSync, rmSync, writeFileSync } from 'fs';
+
 import c from 'picocolors';
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
@@ -12,14 +14,19 @@ import { IModulesConfig } from '../types';
 import { EModulesPrettier } from './types';
 
 export class PrettierConfigHandler extends AbstractConfigHandler {
-  static CONFIG_FILE_PATH = resolveCwdRelativePath('/.prettierrc');
+  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/.prettierrc');
 
   async getPrompts(): Promise<void> {
+    if (this.configFileExists()) {
+      process.stdout.write(
+        c.red(
+          `\n '.prettierrc' already exists in the project root, config will be overwritten by this setup!\n\n`
+        )
+      );
+    }
+
     const {
-      /**
-       * @todo write prettier confg
-       */
-      // prettierSources,
+      prettierPackage,
       prettierSources,
     }: {
       prettierPackage: EModulesPrettier.PRETTIER | EModulesPrettier.PRETTIER_WITH_JSON_SORT;
@@ -49,6 +56,9 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
         separator: ' ',
       },
     ]);
+
+    rmSync(PrettierConfigHandler.CONFIG_FILE_PATH);
+    writeFileSync(PrettierConfigHandler.CONFIG_FILE_PATH, `"${prettierPackage}"`);
 
     const { srcPath } = this.modulesConfig;
 
@@ -82,7 +92,7 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
     return super.getModulesFromConfig();
   }
 
-  // protected configFileExists(): boolean {
-  //   return existsSync(PrettierConfigHandler.CONFIG_FILE_PATH);
-  // }
+  protected configFileExists(): boolean {
+    return existsSync(PrettierConfigHandler.CONFIG_FILE_PATH);
+  }
 }

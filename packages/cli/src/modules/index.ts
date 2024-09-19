@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import { existsSync } from 'fs';
 
 import c from 'picocolors';
@@ -50,6 +48,7 @@ export const initConfig = async (): Promise<IModulesConfig> => {
 
 export const getConfig = async (skipInit: boolean = false): Promise<IModulesConfig> => {
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { config } = await prompts.prompt({
       type: 'toggle',
       name: 'config',
@@ -71,6 +70,7 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
   try {
     const config = await import(CONFIG_FILE_PATH);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return getModulesFromConfig(config.default as QoqConfig);
   } catch {
     process.stderr.write('Running with defaults\n');
@@ -114,7 +114,7 @@ export const execute = async (
   responses[eslintExecutor.getName()] = await eslintExecutor.run(fix, files);
 
   Object.keys(responses)
-    .filter((key) => responses[key] > 0)
+    .filter((key) => responses[key] !== EExitCode.OK)
     .forEach((key) => {
       process.exitCode = EExitCode.ERROR;
 

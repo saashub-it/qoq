@@ -1,16 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { existsSync, rmSync, writeFileSync } from 'fs';
+
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { QoqConfig } from '@/helpers/types';
+import { formatCode } from '@/helpers/formatCode';
+import { resolveCwdRelativePath } from '@/helpers/paths';
+import { EConfigType, QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModuleEslintConfig, IModulesConfig } from '../types';
+import { IModulesConfig } from '../types';
 
-import { EModulesEslint } from './types';
+import { EslintExecutor } from './EslintExecutor';
+import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintConfigHandler extends AbstractConfigHandler {
+  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/eslint.config.js');
+
   async getPrompts(): Promise<void> {
+    if (this.configFileExists()) {
+      process.stdout.write(
+        c.red(
+          `\n 'eslint.config.js' already exists in the project root, config will be overwritten by this setup!\n\n`
+        )
+      );
+    }
+
     const { eslintPackages }: { eslintPackages: EModulesEslint[] } = await prompts.prompt([
       {
         type: 'toggle',
@@ -125,6 +140,18 @@ export class EslintConfigHandler extends AbstractConfigHandler {
       }
     }
 
+    rmSync(EslintConfigHandler.CONFIG_FILE_PATH);
+
+    writeFileSync(
+      EslintConfigHandler.CONFIG_FILE_PATH,
+      formatCode(
+        this.modulesConfig.configType as EConfigType,
+        { config: EslintExecutor.CONFIG_FILE_PATH },
+        [],
+        'config'
+      )
+    );
+
     return super.getPrompts();
   }
 
@@ -142,5 +169,9 @@ export class EslintConfigHandler extends AbstractConfigHandler {
     this.modulesConfig.modules.eslint = this.config.eslint;
 
     return super.getModulesFromConfig();
+  }
+
+  protected configFileExists(): boolean {
+    return existsSync(EslintConfigHandler.CONFIG_FILE_PATH);
   }
 }

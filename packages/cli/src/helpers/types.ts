@@ -1,5 +1,8 @@
+import { IModuleEslintConfig } from '@/modules/eslint/types';
 import { TJscpdFormat } from '@/modules/jscpd/types';
-import { IModuleEslintConfig, IModulePrettierConfig } from '@/modules/types';
+import { IModulePrettierConfig } from '@/modules/prettier/types';
+
+export type TPartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export enum EExitCode {
   OK = 0,

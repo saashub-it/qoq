@@ -1,30 +1,9 @@
-import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
-
 import { EConfigType } from '@/helpers/types';
 
-import { EModulesEslint } from './eslint/types';
-
-type TPartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-export interface IModulePrettierConfig {
-  sources: string[];
-}
-
-export interface IModuleEslintConfig extends TPartialBy<EslintConfig, 'rules'> {
-  template?: EModulesEslint;
-}
-
-export interface IModuleJscpdConfig {
-  format: string[];
-  threshold: number;
-  ignore: string[];
-}
-
-export interface IModuleKnipConfig {
-  entry: string[];
-  project: string[];
-  ignore: string[];
-  ignoreDependencies: string[];
-}
+import { IModuleEslintConfig } from './eslint/types';
+import { IModuleJscpdConfig } from './jscpd/types';
+import { IModuleKnipConfig } from './knip/types';
+import { IModulePrettierConfig } from './prettier/types';
 
 export interface IModulesConfig {
   srcPath: string;

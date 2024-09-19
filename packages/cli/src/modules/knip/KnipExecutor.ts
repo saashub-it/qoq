@@ -9,7 +9,8 @@ import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IModuleKnipConfig } from '../types';
+
+import { IModuleKnipConfig } from './types';
 
 export class KnipExecutor extends AbstractExecutor {
   getName(): string {

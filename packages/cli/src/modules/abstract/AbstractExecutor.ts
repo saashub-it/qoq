@@ -21,7 +21,6 @@ export abstract class AbstractExecutor implements IExecutor {
     this.measurePerformance = new MeasurePerformance(!skipPerformanceCalculations);
   }
 
-  //eslint-disable-next-line consistent-return
   async run(fix?: boolean, files?: string[]): Promise<EExitCode> {
     process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
 
@@ -43,7 +42,7 @@ export abstract class AbstractExecutor implements IExecutor {
   protected modulesConfig: IModulesConfig;
   protected measurePerformance: MeasurePerformance;
 
-  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected prepare(args: string[], fix?: boolean, files?: string[]): Promise<EExitCode> {
     return Promise.resolve(EExitCode.OK);
   }

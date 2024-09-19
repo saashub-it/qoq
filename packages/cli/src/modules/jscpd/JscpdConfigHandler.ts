@@ -11,8 +11,8 @@ import { IModulesConfig } from '../types';
 import { TJscpdFormat } from './types';
 
 export class JscpdConfigHandler extends AbstractConfigHandler {
-  static DEFAULT_THRESHOLD = 2;
-  static DEFAULT_IGNORE = [];
+  static readonly DEFAULT_THRESHOLD = 2;
+  static readonly DEFAULT_IGNORE = [];
   async getPrompts(): Promise<void> {
     const {
       jscpdThreshold,
@@ -48,7 +48,7 @@ export class JscpdConfigHandler extends AbstractConfigHandler {
     ]);
 
     this.modulesConfig.modules.jscpd = {
-      threshold: Number(jscpdThreshold) ?? JscpdConfigHandler.DEFAULT_THRESHOLD,
+      threshold: jscpdThreshold ?? JscpdConfigHandler.DEFAULT_THRESHOLD,
       format: jscpdFormat.filter((entry) => !!entry),
       ignore: jscpdIgnore.filter((entry) => !!entry),
     };

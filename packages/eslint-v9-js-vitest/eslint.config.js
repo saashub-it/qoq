@@ -1,0 +1,1 @@
+const config = require('./bin/eslint.config.js'); module.exports = config;

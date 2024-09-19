@@ -1,4 +1,5 @@
-import { QoqConfig } from '../basic/types';
+import { QoqConfig } from '@/helpers/types';
+
 import { IModulesConfig } from '../types';
 
 interface IConfigHandler {

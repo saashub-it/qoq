@@ -60,6 +60,11 @@ const config: EslintConfig = merge(
           format: ['camelCase'],
         },
         {
+          selector: ['classProperty'],
+          modifiers: ['static'],
+          format: ['UPPER_CASE'],
+        },
+        {
           selector: 'parameter',
           leadingUnderscore: 'allow',
           format: ['camelCase'],

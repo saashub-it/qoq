@@ -4,16 +4,17 @@ import c from 'picocolors';
 
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
-import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
+import { getRelativePath, resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { getFilesExtensions } from '../helpers';
-import { IModuleEslintConfig } from '../types';
 
-import { EModulesEslint } from './types';
+import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintExecutor extends AbstractExecutor {
+  static readonly CONFIG_FILE_PATH = resolveCliRelativePath('/bin/eslint.config.js');
+
   getName(): string {
     return this.getCommandName().toUpperCase();
   }
@@ -34,7 +35,7 @@ export class EslintExecutor extends AbstractExecutor {
       const configFilePath = resolveCliPackagePath('/bin/eslint.config.js');
 
       const imports: Record<string, string> = {
-        // tools: '@saashub/qoq-eslint-v9-js/tools',
+        lodash: 'lodash',
         compat: '@eslint/compat',
       };
 
@@ -46,7 +47,7 @@ export class EslintExecutor extends AbstractExecutor {
             imports[`dependency${index}`] = `${template}/baseConfig`;
 
             acc.push(
-              `const config${index} = [{...dependency${index}, ...${JSON.stringify(rest)}}]`
+              `const config${index} = [lodash.merge({}, dependency${index}, ${JSON.stringify(rest)})]`
             );
           } else {
             acc.push(`const config${index} = [${JSON.stringify(rest)}]`);
