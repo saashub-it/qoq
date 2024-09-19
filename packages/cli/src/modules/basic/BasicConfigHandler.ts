@@ -2,16 +2,15 @@
 import prompts from 'prompts';
 
 import { DEFAULT_SRC } from '@/helpers/constants';
-import { EConfigType } from '@/helpers/types';
+import { EConfigType, QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
-import { QoqConfig } from './types';
 
 export class BasicConfigHandler extends AbstractConfigHandler {
-  getPrompts(): Promise<void> {
-    return prompts
-      .prompt([
+  async getPrompts(): Promise<void> {
+    const { srcPath, configType }: { srcPath: string; configType: EConfigType } =
+      await prompts.prompt([
         {
           type: 'text',
           name: 'srcPath',
@@ -27,13 +26,12 @@ export class BasicConfigHandler extends AbstractConfigHandler {
             { title: EConfigType.ESM, value: EConfigType.ESM },
           ],
         },
-      ])
-      .then(({ srcPath, configType }: { srcPath: string; configType: EConfigType }) => {
-        this.modulesConfig.srcPath = srcPath;
-        this.modulesConfig.configType = configType;
+      ]);
 
-        return super.getPrompts();
-      });
+    this.modulesConfig.srcPath = srcPath;
+    this.modulesConfig.configType = configType;
+
+    return super.getPrompts();
   }
 
   getConfigFromModules(): QoqConfig {

@@ -1,6 +1,5 @@
-import { EModulesEslint } from '../eslint/types';
-
-import { IModulesConfig } from '../types';
+import { EModulesEslint } from './eslint/types';
+import { IModulesConfig } from './types';
 
 export const configUsesTs = (modules: IModulesConfig['modules']): boolean =>
   (modules.eslint ?? []).some(

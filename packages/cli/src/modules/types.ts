@@ -2,25 +2,21 @@ import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
 
 import { EConfigType } from '@/helpers/types';
 
-import { EModulesConfig, QoqConfig } from './basic/types';
 import { EModulesEslint } from './eslint/types';
-import { EModulesJscpd, TJscpdFormat } from './jscpd/types';
-import { EModulesKnip } from './knip/types';
-import { EModulesPrettier } from './prettier/types';
 
-type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+type TPartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 export interface IModulePrettierConfig {
   sources: string[];
 }
 
-export interface IModuleEslintConfig extends PartialBy<EslintConfig, 'rules'> {
+export interface IModuleEslintConfig extends TPartialBy<EslintConfig, 'rules'> {
   template?: EModulesEslint;
 }
 
 export interface IModuleJscpdConfig {
   format: string[];
-  threshold?: number;
-  ignore?: string[];
+  threshold: number;
+  ignore: string[];
 }
 
 export interface IModuleKnipConfig {

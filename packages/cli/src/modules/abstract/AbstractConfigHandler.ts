@@ -17,7 +17,7 @@ export abstract class AbstractConfigHandler implements IConfigHandler {
       return this.nextHandler.getPrompts();
     }
 
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
   }
   getConfigFromModules(): QoqConfig {
     if (this.nextHandler) {

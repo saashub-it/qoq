@@ -1,8 +1,10 @@
 import c from 'picocolors';
+
 import { executeCommand } from '@/helpers/command';
-import { IModulesConfig } from '../types';
-import { EExitCode } from '@/helpers/types';
 import { MeasurePerformance } from '@/helpers/performance';
+import { EExitCode } from '@/helpers/types';
+
+import { IModulesConfig } from '../types';
 
 interface IExecutor {
   getName: () => string;
@@ -13,32 +15,36 @@ export abstract class AbstractExecutor implements IExecutor {
   protected abstract getCommandName(): string;
   protected abstract getCommandArgs(): string[];
 
-  constructor(modulesConfig: IModulesConfig) {
+  constructor(modulesConfig: IModulesConfig, skipPerformanceCalculations: boolean = false) {
     this.modulesConfig = modulesConfig;
-    this.measurePerformance = new MeasurePerformance();
+
+    this.measurePerformance = new MeasurePerformance(!skipPerformanceCalculations);
   }
 
-  run(fix?: boolean, files?: string[]): Promise<EExitCode> {
-    process.stdout.write(c.green('\nRunning Prettier:\n'));
+  //eslint-disable-next-line consistent-return
+  async run(fix?: boolean, files?: string[]): Promise<EExitCode> {
+    process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
+
     const args = [...this.getCommandArgs()];
 
-    return this.prepare(args, fix, files)
-      .then(() => executeCommand(this.getCommandName(), args))
-      .then((exitCode) => exitCode)
-      .catch(() => {
-        process.stderr.write('Unknown error!\n');
+    try {
+      await this.prepare(args, fix, files);
 
-        process.exit(EExitCode.EXCEPTION);
-      })
-      .finally(() => {
-        this.measurePerformance.printExecutionTime();
-      });
+      return await executeCommand(this.getCommandName(), args);
+    } catch {
+      process.stderr.write('Unknown error!\n');
+
+      process.exit(EExitCode.EXCEPTION);
+    } finally {
+      this.measurePerformance.printExecutionTime();
+    }
   }
 
   protected modulesConfig: IModulesConfig;
   protected measurePerformance: MeasurePerformance;
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected prepare(args: string[], fix?: boolean, files?: string[]): Promise<EExitCode> {
-    return new Promise((resolve) => resolve(EExitCode.OK));
+    return Promise.resolve(EExitCode.OK);
   }
 }

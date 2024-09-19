@@ -1,24 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import prompts from 'prompts';
-import c from 'picocolors';
 
-import { BasicConfigHandler } from './basic/BasicConfigHandler';
-import { IModulesConfig } from './types';
-import { QoqConfig } from './basic/types';
-import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
-import { EslintConfigHandler } from './eslint/EslintConfigHandler';
-import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
-import { KnipConfigHandler } from './knip/KnipConfigHandler';
 import { existsSync } from 'fs';
+
+import c from 'picocolors';
+import prompts from 'prompts';
+
 import { CONFIG_FILE_PATH } from '@/helpers/constants';
+import { EExitCode, QoqConfig } from '@/helpers/types';
+
+import { AbstractConfigHandler } from './abstract/AbstractConfigHandler';
+import { BasicConfigHandler } from './basic/BasicConfigHandler';
+import { EslintConfigHandler } from './eslint/EslintConfigHandler';
+import { EslintExecutor } from './eslint/EslintExecutor';
+import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
+import { JscpdExecutor } from './jscpd/JscpdExecutor';
+import { KnipConfigHandler } from './knip/KnipConfigHandler';
+import { KnipExecutor } from './knip/KnipExecutor';
+import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
-import { EExitCode } from '@/helpers/types';
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { IModulesConfig } from './types';
 
-export const initConfig = async (): Promise<IModulesConfig> => {
-  const modulesConfig = { modules: {} } as IModulesConfig;
-  const config = {} as QoqConfig;
-
+const getHandlerBySequence = (
+  modulesConfig: IModulesConfig,
+  config: QoqConfig
+): AbstractConfigHandler => {
   const basicConfigHandler = new BasicConfigHandler(modulesConfig, config);
   const prettierConfigHandler = new PrettierConfigHandler(modulesConfig, config);
   const eslintConfigHandler = new EslintConfigHandler(modulesConfig, config);
@@ -31,7 +36,14 @@ export const initConfig = async (): Promise<IModulesConfig> => {
     .setNext(jscpdConfigHandler)
     .setNext(knipConfigHandler);
 
-  await basicConfigHandler.getPrompts();
+  return basicConfigHandler;
+};
+
+export const initConfig = async (): Promise<IModulesConfig> => {
+  const modulesConfig = { modules: {} } as IModulesConfig;
+  const config = {} as QoqConfig;
+
+  await getHandlerBySequence(modulesConfig, config).getPrompts();
 
   return modulesConfig;
 };
@@ -70,37 +82,13 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
 export const getConfigFromModules = (modulesConfig: IModulesConfig): QoqConfig => {
   const config = {} as QoqConfig;
 
-  const basicConfigHandler = new BasicConfigHandler(modulesConfig, config);
-  const prettierConfigHandler = new PrettierConfigHandler(modulesConfig, config);
-  const eslintConfigHandler = new EslintConfigHandler(modulesConfig, config);
-  const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
-  const knipConfigHandler = new KnipConfigHandler(modulesConfig, config);
-
-  basicConfigHandler
-    .setNext(prettierConfigHandler)
-    .setNext(eslintConfigHandler)
-    .setNext(jscpdConfigHandler)
-    .setNext(knipConfigHandler);
-
-  return basicConfigHandler.getConfigFromModules();
+  return getHandlerBySequence(modulesConfig, config).getConfigFromModules();
 };
 
 export const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
   const modulesConfig = { modules: {} } as IModulesConfig;
 
-  const basicConfigHandler = new BasicConfigHandler(modulesConfig, config);
-  const prettierConfigHandler = new PrettierConfigHandler(modulesConfig, config);
-  const eslintConfigHandler = new EslintConfigHandler(modulesConfig, config);
-  const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
-  const knipConfigHandler = new KnipConfigHandler(modulesConfig, config);
-
-  knipConfigHandler
-    .setNext(jscpdConfigHandler)
-    .setNext(eslintConfigHandler)
-    .setNext(prettierConfigHandler)
-    .setNext(basicConfigHandler);
-
-  return knipConfigHandler.getModulesFromConfig();
+  return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
 };
 
 export const execute = async (
@@ -109,12 +97,21 @@ export const execute = async (
   files?: string[]
 ): Promise<void> => {
   const prettierExecutor = new PrettierExecutor(modulesConfig);
+  const jscpdExecutor = new JscpdExecutor(modulesConfig, true);
+  const knipExecutor = new KnipExecutor(modulesConfig);
+  const eslintExecutor = new EslintExecutor(modulesConfig);
 
   const responses: Record<string, EExitCode> = {
     [prettierExecutor.getName()]: EExitCode.OK,
+    [jscpdExecutor.getName()]: EExitCode.OK,
+    [knipExecutor.getName()]: EExitCode.OK,
+    [eslintExecutor.getName()]: EExitCode.OK,
   };
 
   responses[prettierExecutor.getName()] = await prettierExecutor.run(fix, files);
+  responses[jscpdExecutor.getName()] = await jscpdExecutor.run(fix, files);
+  responses[knipExecutor.getName()] = await knipExecutor.run(fix, files);
+  responses[eslintExecutor.getName()] = await eslintExecutor.run(fix, files);
 
   Object.keys(responses)
     .filter((key) => responses[key] > 0)
