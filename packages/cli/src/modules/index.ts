@@ -1,4 +1,5 @@
 import { existsSync } from 'fs';
+import { pathToFileURL } from 'url';
 
 import c from 'picocolors';
 import prompts from 'prompts';
@@ -68,7 +69,7 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
   }
 
   try {
-    const config = await import(CONFIG_FILE_PATH);
+    const config = await import(pathToFileURL(CONFIG_FILE_PATH).toString());
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return getModulesFromConfig(config.default as QoqConfig);

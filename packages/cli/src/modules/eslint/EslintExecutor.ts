@@ -4,7 +4,7 @@ import c from 'picocolors';
 
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
-import { getRelativePath, resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
+import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
@@ -13,7 +13,7 @@ import { getFilesExtensions } from '../helpers';
 import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintExecutor extends AbstractExecutor {
-  static readonly CONFIG_FILE_PATH = resolveCliRelativePath('/bin/eslint.config.js');
+  static readonly CONFIG_FILE_PATH = '@saashub/qoq-cli/bin/eslint.config.js';
 
   getName(): string {
     return this.getCommandName().toUpperCase();
@@ -59,28 +59,28 @@ export class EslintExecutor extends AbstractExecutor {
       );
 
       const mergeConfigsInitialArray = existsSync(GITIGNORE_FILE_PATH)
-        ? `[compat.includeIgnoreFile('${GITIGNORE_FILE_PATH}')]`
+        ? `[compat.includeIgnoreFile('${GITIGNORE_FILE_PATH.replaceAll('\\', '\\\\')}')]`
         : '[]';
 
       let exports = `${mergeConfigsInitialArray}${(this.modulesConfig.modules?.eslint ?? [])
         .map((_, index) => `.concat(config${index})`)
         .join('')}`;
 
-      if (files.length > 0) {
-        exports = `${exports}.map((config) => { const { files, ...rest } = config; return rest; })`;
-      }
-
       writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
 
       args.push('-c', getRelativePath(configFilePath));
 
       if (files.length > 0) {
-        args.push(
-          '--stdin-filename',
-          ...files.filter((file) =>
-            getFilesExtensions(this.modulesConfig.modules).some((ext) => file.endsWith(`.${ext}`))
-          )
+        const supportedExtensions = getFilesExtensions(this.modulesConfig.modules);
+        const filteredFiles = files.filter((file) =>
+          supportedExtensions.some((ext) => file.endsWith(`.${ext}`))
         );
+
+        if (filteredFiles.length === 0) {
+          process.exit(EExitCode.OK);
+        }
+
+        args.push('--stdin-filename', ...filteredFiles);
       }
 
       if (fix) {
