@@ -1,7 +1,7 @@
 {
   "name": "@saashub/qoq-cli",
   "license": "MIT",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "main": "./bin/qoq.cjs",
   "bin": {
     "qoq": "bin/qoq.cjs"
@@ -27,8 +27,8 @@
     "@rollup/plugin-commonjs": "26.0.1",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.2.3",
-    "@saashub/qoq-eslint-v9-js": "^0.9.4",
-    "@saashub/qoq-knip": "^0.9.4",
+    "@saashub/qoq-eslint-v9-js": "^0.10.0",
+    "@saashub/qoq-knip": "^0.10.0",
     "@types/lodash": "4.17.7",
     "@types/prompts": "2.4.9",
     "@vitest/coverage-v8": "2.1.1",

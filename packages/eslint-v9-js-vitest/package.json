@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-js-vitest",
   "description": "Eslint flat config template for JS + Vitest",
   "license": "MIT",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -40,13 +40,13 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.9.4",
+    "@saashub/qoq-eslint-v9-js": "^0.10.0",
     "eslint-plugin-vitest": "0.5.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "11.1.6",
-    "@saashub/qoq-cli": "^0.9.4",
+    "@saashub/qoq-cli": "^0.10.0",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.7",
     "@vitest/coverage-v8": "2.1.1",
