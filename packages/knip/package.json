@@ -32,7 +32,7 @@
     "qoq:fix": "qoq --fix"
   },
   "dependencies": {
-    "knip": "5.30.2",
+    "knip": "5.30.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {

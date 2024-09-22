@@ -15,10 +15,10 @@ export abstract class AbstractExecutor implements IExecutor {
   protected abstract getCommandName(): string;
   protected abstract getCommandArgs(): string[];
 
-  constructor(modulesConfig: IModulesConfig, skipPerformanceCalculations: boolean = false) {
+  constructor(modulesConfig: IModulesConfig, silent: boolean = false) {
     this.modulesConfig = modulesConfig;
 
-    this.measurePerformance = new MeasurePerformance(!skipPerformanceCalculations);
+    this.measurePerformance = new MeasurePerformance(this.getName(), !!silent);
   }
 
   async run(fix?: boolean, files?: string[]): Promise<EExitCode> {

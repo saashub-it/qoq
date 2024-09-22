@@ -1,23 +1,19 @@
 import c from 'picocolors';
 
 export class MeasurePerformance {
-  constructor(stdout: boolean = true) {
-    this.stdout = stdout;
+  constructor(name: string, silent: boolean = false) {
+    this.name = `${name} execution time:`;
+    this.silent = !!silent;
 
-    performance.clearMarks();
-    performance.mark('start');
+    console.time(c.italic(c.gray(this.name)));
   }
 
   printExecutionTime(): void {
-    performance.mark('end');
-
-    const executionTime =
-      Math.round(performance.measure('execution', 'start', 'end').duration * 1000) / 1000;
-
-    if (this.stdout) {
-      process.stdout.write(`${c.gray('Detection time:')} ${executionTime}ms\n`);
+    if (!this.silent) {
+      console.timeEnd(c.italic(c.gray(this.name)));
     }
   }
 
-  protected stdout: boolean;
+  protected name: string;
+  protected silent: boolean;
 }

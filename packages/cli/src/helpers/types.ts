@@ -19,7 +19,7 @@ export enum EConfigType {
 export interface QoqConfig {
   srcPath?: string;
   prettier?: IModulePrettierConfig;
-  eslint: IModuleEslintConfig[];
+  eslint?: IModuleEslintConfig[];
   jscpd?: {
     format?: TJscpdFormat[];
     threshold?: number;

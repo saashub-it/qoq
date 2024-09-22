@@ -2,21 +2,21 @@ import { existsSync, writeFileSync } from 'fs';
 
 import c from 'picocolors';
 
+import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
-import { getRelativePath, resolveCliPackagePath } from '@/helpers/paths';
+import { resolveCliPackagePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { getFilesExtensions } from '../helpers';
 
+import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintExecutor extends AbstractExecutor {
-  static readonly CONFIG_FILE_PATH = '@saashub/qoq-cli/bin/eslint.config.js';
-
   getName(): string {
-    return this.getCommandName().toUpperCase();
+    return capitalizeFirstLetter(this.getCommandName());
   }
   protected getCommandName(): string {
     return 'eslint';
@@ -44,10 +44,10 @@ export class EslintExecutor extends AbstractExecutor {
           const { template, ...rest } = current;
 
           if (Object.values(EModulesEslint).includes(template as EModulesEslint)) {
-            imports[`dependency${index}`] = `${template}/baseConfig`;
+            imports[`dependency${index}`] = String(template);
 
             acc.push(
-              `const config${index} = [lodash.merge({}, dependency${index}, ${JSON.stringify(rest)})]`
+              `const config${index} = [lodash.merge({}, dependency${index}.baseConfig, ${JSON.stringify(rest)})]`
             );
           } else {
             acc.push(`const config${index} = [${JSON.stringify(rest)}]`);
@@ -68,7 +68,7 @@ export class EslintExecutor extends AbstractExecutor {
 
       writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
 
-      args.push('-c', getRelativePath(configFilePath));
+      args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
         const supportedExtensions = getFilesExtensions(this.modulesConfig.modules);

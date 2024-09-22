@@ -13,20 +13,6 @@
       "import": "./lib/index.mjs",
       "require": "./lib/index.cjs",
       "default": "./lib/index.mjs"
-    },
-    "./baseConfig": {
-      "types": "./lib/baseConfig.d.ts",
-      "module": "./lib/baseConfig.mjs",
-      "import": "./lib/baseConfig.mjs",
-      "require": "./lib/baseConfig.cjs",
-      "default": "./lib/baseConfig.mjs"
-    },
-    "./eslintConfig": {
-      "types": "./lib/eslintConfig.d.ts",
-      "module": "./lib/eslintConfig.mjs",
-      "import": "./lib/eslintConfig.mjs",
-      "require": "./lib/eslintConfig.cjs",
-      "default": "./lib/eslintConfig.mjs"
     }
   },
   "publishConfig": {

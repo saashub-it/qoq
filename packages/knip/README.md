@@ -18,7 +18,7 @@ Package exports both CommonJS and ESM code just import it in Your knip config fi
 ### For CommonJS
 
 ```js
-const { jsConfig, jsReactConfig, tsConfig, tsReactConfig } = require("@saashub/qoq-knip");
+const { jsConfig, jsReactConfig, tsConfig, tsReactConfig } = require('@saashub/qoq-knip');
 
 module.exports = jsConfig;
 ```

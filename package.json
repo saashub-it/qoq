@@ -10,20 +10,8 @@
     "qoq:fix": "npm run build && lerna run qoq:fix"
   },
   "devDependencies": {
-    "@saashub/qoq-cli": "^0.8.0",
     "@types/node": "^20",
     "lerna": "8.1.8"
-  },
-  "overrides": {
-    "eslint-plugin-import": {
-      "eslint": "^9"
-    },
-    "eslint-plugin-react-hooks": {
-      "eslint": "^9"
-    },
-    "eslint-plugin-jsx-a11y": {
-      "eslint": "^9"
-    }
   },
   "workspaces": [
     "packages/*"

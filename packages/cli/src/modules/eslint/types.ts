@@ -13,12 +13,6 @@ export enum EModulesEslint {
   ESLINT_V9_TS_VITEST = '@saashub/qoq-eslint-v9-ts-vitest',
 }
 
-export interface IEslintModuleConfig {
-  files: string[];
-  ignores: string[];
-  excludeRules?: string[];
-}
-
 export interface IModuleEslintConfig extends TPartialBy<EslintConfig, 'rules'> {
   template?: EModulesEslint;
 }

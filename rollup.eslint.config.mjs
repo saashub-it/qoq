@@ -4,8 +4,6 @@ const sourceDir = './src';
 const outputDir = './lib';
 const input = {
   index: `${sourceDir}/index.ts`,
-  baseConfig: `${sourceDir}/baseConfig.ts`,
-  eslintConfig: `${sourceDir}/eslintConfig.ts`,
 };
 const plugins = [typescript({
   exclude: ['**/*.spec.{js,ts}', 'types.ts']

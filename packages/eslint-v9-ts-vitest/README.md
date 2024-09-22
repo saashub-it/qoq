@@ -18,7 +18,7 @@ Package exports both CommonJS and ESM code just import it in Your eslint config 
 ### For CommonJS
 
 ```js
-const jsBaseConfig = require("@saashub/qoq-eslint-v9-ts-vitest/baseConfig");
+const jsBaseConfig = require("@saashub/qoq-eslint-v9-ts-vitest");
 
 module.exports = [
   {
@@ -31,7 +31,7 @@ module.exports = [
 ### For ESM
 
 ```js
-import jsBaseConfig from '@saashub/qoq-eslint-v9-ts-vitest/baseConfig';
+import jsBaseConfig from '@saashub/qoq-eslint-v9-ts-vitest';
 
 export default [
   {

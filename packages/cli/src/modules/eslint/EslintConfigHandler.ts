@@ -11,7 +11,6 @@ import { EConfigType, QoqConfig } from '@/helpers/types';
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
-import { EslintExecutor } from './EslintExecutor';
 import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintConfigHandler extends AbstractConfigHandler {
@@ -146,7 +145,7 @@ export class EslintConfigHandler extends AbstractConfigHandler {
       EslintConfigHandler.CONFIG_FILE_PATH,
       formatCode(
         this.modulesConfig.configType as EConfigType,
-        { config: EslintExecutor.CONFIG_FILE_PATH },
+        { config: '@saashub/qoq-cli/bin/eslint.config.js' },
         [],
         'config'
       )
