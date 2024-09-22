@@ -5,7 +5,7 @@
 
 ## Rationale
 
-Beign tired of setting up [Prettier](https://www.npmjs.com/package/prettier) all over again for new projects I've created some base template.
+Beign tired of setting up [Prettier](https://www.npmjs.com/package/prettier) all over again for new projects, we created some base template.
 
 ## Install
 
@@ -25,7 +25,7 @@ module.exports = {
 };
 ```
 
-### For ES modules
+### For ESM
 
 ```js
 import config from '@saashub/qoq-prettier-with-json-sort/config';
