@@ -29,11 +29,7 @@ export class JscpdExecutor extends AbstractExecutor {
     ];
   }
 
-  protected prepare(
-    args: string[],
-    fix: boolean = false,
-    files: string[] = []
-  ): Promise<EExitCode> {
+  protected prepare(args: string[]): Promise<EExitCode> {
     try {
       const { ignore } = this.modulesConfig.modules.jscpd as IModuleJscpdConfig;
 
@@ -41,7 +37,7 @@ export class JscpdExecutor extends AbstractExecutor {
         args.push('-i', ignore.join());
       }
 
-      return super.prepare(args, fix, files);
+      return super.prepare(args, true);
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 

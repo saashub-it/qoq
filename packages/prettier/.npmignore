@@ -1,5 +1,8 @@
 # tests
 coverage
 
+# sources
+src
+
 # configs
 vitest.config.js

@@ -11,25 +11,38 @@ cli
   .option('--init', 'Initialize QoQ cli config')
   .option('--check', 'Perform QoQ quality checks')
   .option('--fix', 'Apply fixes to QoQ check findings where possible')
-  .action(async ({ init, fix }) => {
-    if (init) {
-      return await initConfig();
+  .option('--disable-cache', 'Disable cache to all tools')
+  .action(
+    async ({
+      init,
+      fix,
+      disableCache,
+    }: {
+      init: boolean | undefined;
+      fix: boolean | undefined;
+      disableCache: boolean | undefined;
+    }) => {
+      if (init) {
+        return await initConfig();
+      }
+
+      const config = await getConfig();
+
+      return await execute(config, !!disableCache, !!fix);
     }
-
-    const config = await getConfig();
-
-    return await execute(config, !!fix);
-  });
+  );
 
 cli
   .command(
     'staged [...files]',
     'Perform QoQ quality checks but only on filelist, usefull for eg `lint-staged` config'
   )
-  .action(async (files: string[] = []) => {
+  .option('--disable-cache', 'Disable cache to all tools')
+  // eslint-disable-next-line sonarjs/default-param-last
+  .action(async (files: string[] = [], { disableCache }: { disableCache: boolean | undefined }) => {
     const config = await getConfig(true);
 
-    return await execute(config, false, files);
+    return await execute(config, disableCache, false, files);
   });
 
 cli.help();

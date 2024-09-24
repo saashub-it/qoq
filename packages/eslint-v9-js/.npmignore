@@ -12,3 +12,5 @@ qoq.config.js
 rollup.config.mjs
 tsconfig.json
 vitest.config.mjs
+.prettierrc
+eslint.config.js

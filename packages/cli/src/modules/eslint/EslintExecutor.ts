@@ -5,7 +5,7 @@ import c from 'picocolors';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath } from '@/helpers/paths';
+import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
@@ -15,6 +15,8 @@ import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
 
 export class EslintExecutor extends AbstractExecutor {
+  static readonly CACHE_PATH = resolveCliRelativePath('/bin/.eslintcache');
+
   getName(): string {
     return capitalizeFirstLetter(this.getCommandName());
   }
@@ -28,6 +30,7 @@ export class EslintExecutor extends AbstractExecutor {
 
   protected prepare(
     args: string[],
+    disableCache: boolean = false,
     fix: boolean = false,
     files: string[] = []
   ): Promise<EExitCode> {
@@ -87,7 +90,7 @@ export class EslintExecutor extends AbstractExecutor {
         args.push('--fix');
       }
 
-      return super.prepare(args, fix, files);
+      return super.prepare(args, disableCache, fix, files);
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 

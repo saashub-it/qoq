@@ -4,7 +4,7 @@ import c from 'picocolors';
 
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { getRelativePath, resolveCwdPath } from '@/helpers/paths';
+import { getRelativePath, resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
 import { EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
@@ -12,6 +12,8 @@ import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { PrettierConfigHandler } from './PrettierConfigHandler';
 
 export class PrettierExecutor extends AbstractExecutor {
+  static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');
+
   getName(): string {
     return capitalizeFirstLetter(this.getCommandName());
   }
@@ -25,6 +27,7 @@ export class PrettierExecutor extends AbstractExecutor {
 
   protected prepare(
     args: string[],
+    disableCache: boolean = false,
     fix: boolean = false,
     files: string[] = []
   ): Promise<EExitCode> {
@@ -53,7 +56,7 @@ export class PrettierExecutor extends AbstractExecutor {
         args.push('--write');
       }
 
-      return super.prepare(args, fix, files);
+      return super.prepare(args, disableCache, fix, files);
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 

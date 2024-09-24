@@ -32,12 +32,12 @@
     "qoq:fix": "qoq --fix"
   },
   "dependencies": {
-    "knip": "5.30.4",
+    "knip": "5.30.5",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@saashub/qoq-cli": "^0.10.0",
-    "@types/lodash": "4.17.7",
+    "@types/lodash": "4.17.9",
     "@vitest/coverage-v8": "2.1.1",
     "rimraf": "6.0.1",
     "rollup": "4.22.4",

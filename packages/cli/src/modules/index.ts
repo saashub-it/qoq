@@ -94,6 +94,7 @@ export const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
 
 export const execute = async (
   modulesConfig: IModulesConfig,
+  disableCache?: boolean,
   fix?: boolean,
   files?: string[]
 ): Promise<void> => {
@@ -109,10 +110,10 @@ export const execute = async (
     [eslintExecutor.getName()]: EExitCode.OK,
   };
 
-  responses[prettierExecutor.getName()] = await prettierExecutor.run(fix, files);
-  responses[jscpdExecutor.getName()] = await jscpdExecutor.run(fix, files);
-  responses[knipExecutor.getName()] = await knipExecutor.run(fix, files);
-  responses[eslintExecutor.getName()] = await eslintExecutor.run(fix, files);
+  responses[prettierExecutor.getName()] = await prettierExecutor.run(disableCache, fix, files);
+  responses[jscpdExecutor.getName()] = await jscpdExecutor.run(disableCache, fix, files);
+  responses[knipExecutor.getName()] = await knipExecutor.run(disableCache, fix, files);
+  responses[eslintExecutor.getName()] = await eslintExecutor.run(disableCache, fix, files);
 
   Object.keys(responses)
     .filter((key) => responses[key] !== EExitCode.OK)

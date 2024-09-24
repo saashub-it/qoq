@@ -21,13 +21,13 @@ export abstract class AbstractExecutor implements IExecutor {
     this.measurePerformance = new MeasurePerformance(this.getName(), !!silent);
   }
 
-  async run(fix?: boolean, files?: string[]): Promise<EExitCode> {
+  async run(disableCache?: boolean, fix?: boolean, files?: string[]): Promise<EExitCode> {
     process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
 
     const args = [...this.getCommandArgs()];
 
     try {
-      await this.prepare(args, fix, files);
+      await this.prepare(args, disableCache, fix, files);
 
       return await executeCommand(this.getCommandName(), args);
     } catch {
@@ -42,8 +42,19 @@ export abstract class AbstractExecutor implements IExecutor {
   protected modulesConfig: IModulesConfig;
   protected measurePerformance: MeasurePerformance;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected prepare(args: string[], fix?: boolean, files?: string[]): Promise<EExitCode> {
+  protected prepare(
+    args: string[],
+    disableCache: boolean = false,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    fix: boolean = false,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    files: string[] = []
+  ): Promise<EExitCode> {
+    if (disableCache === false) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      args.push('--cache', '--cache-location', this.constructor.CACHE_PATH);
+    }
+
     return Promise.resolve(EExitCode.OK);
   }
 }
