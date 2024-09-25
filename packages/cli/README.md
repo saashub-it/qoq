@@ -39,7 +39,7 @@ When setting things up by Yourself all three files needs to be created manually,
 2. `eslint.config.js` with custom config or re-export of QoQ settings in CommonJs
 
    ```js
-   const config = require('@saashub/qoq-cli/bin/eslint.config.js');
+   const config = require('@saashub/qoq-cli/bin/eslint.config.cjs');
 
    module.exports = config;
    ```
@@ -47,7 +47,7 @@ When setting things up by Yourself all three files needs to be created manually,
    or ESM
 
    ```js
-   import config from '@saashub/qoq-cli/bin/eslint.config.js';
+   import config from '@saashub/qoq-cli/bin/eslint.config.mjs';
 
    export default config;
    ```

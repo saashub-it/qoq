@@ -6,7 +6,7 @@ import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
+import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { getFilesExtensions } from '../helpers';
@@ -35,22 +35,29 @@ export class EslintExecutor extends AbstractExecutor {
     files: string[] = []
   ): Promise<EExitCode> {
     try {
-      const configFilePath = resolveCliPackagePath('/bin/eslint.config.js');
+      const { configType, modules } = this.modulesConfig;
+      const configFilePath = resolveCliPackagePath(
+        `/bin/eslint.config.${configType === EConfigType.ESM ? 'm' : 'c'}js`
+      );
 
       const imports: Record<string, string> = {
         lodash: 'lodash',
-        compat: '@eslint/compat',
+        '{ includeIgnoreFile }': '@eslint/compat',
       };
 
-      const content = (this.modulesConfig.modules?.eslint ?? []).reduce(
+      const content = (modules?.eslint ?? []).reduce(
         (acc: string[], current: IModuleEslintConfig, index) => {
           const { template, ...rest } = current;
 
           if (Object.values(EModulesEslint).includes(template as EModulesEslint)) {
-            imports[`dependency${index}`] = String(template);
+            if (configType === EConfigType.ESM) {
+              imports[`{ baseConfig as baseConfig${index} }`] = String(template);
+            } else {
+              imports[`{ baseConfig: baseConfig${index} }`] = String(template);
+            }
 
             acc.push(
-              `const config${index} = [lodash.merge({}, dependency${index}.baseConfig, ${JSON.stringify(rest)})]`
+              `const config${index} = [lodash.merge({}, baseConfig${index}, ${JSON.stringify(rest)})]`
             );
           } else {
             acc.push(`const config${index} = [${JSON.stringify(rest)}]`);
@@ -62,22 +69,19 @@ export class EslintExecutor extends AbstractExecutor {
       );
 
       const mergeConfigsInitialArray = existsSync(GITIGNORE_FILE_PATH)
-        ? `[compat.includeIgnoreFile('${GITIGNORE_FILE_PATH.replaceAll('\\', '\\\\')}')]`
+        ? `[includeIgnoreFile('${GITIGNORE_FILE_PATH.replaceAll('\\', '\\\\')}')]`
         : '[]';
 
-      let exports = `${mergeConfigsInitialArray}${(this.modulesConfig.modules?.eslint ?? [])
+      let exports = `${mergeConfigsInitialArray}${(modules?.eslint ?? [])
         .map((_, index) => `.concat(config${index})`)
         .join('')}`;
 
-      writeFileSync(
-        configFilePath,
-        formatCode(this.modulesConfig.configType, imports, content, exports)
-      );
+      writeFileSync(configFilePath, formatCode(configType, imports, content, exports));
 
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
-        const supportedExtensions = getFilesExtensions(this.modulesConfig.modules);
+        const supportedExtensions = getFilesExtensions(modules);
         const filteredFiles = files.filter((file) =>
           supportedExtensions.some((ext) => file.endsWith(`.${ext}`))
         );

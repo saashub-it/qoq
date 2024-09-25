@@ -11,7 +11,7 @@ import { IModulesConfig } from '../types';
 
 export class KnipConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_IGNORE = [];
-  static readonly DEFAULT_IGNORE_DEPENDENCIES = [];
+  static readonly DEFAULT_IGNORE_DEPENDENCIES = ['@saashub/qoq-*'];
 
   async getPrompts(): Promise<void> {
     const {
