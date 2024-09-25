@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { readFileSync } from 'fs';
+
 import prompts from 'prompts';
 
 import { DEFAULT_SRC } from '@/helpers/constants';
+import { resolveCwdRelativePath } from '@/helpers/paths';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
 export class BasicConfigHandler extends AbstractConfigHandler {
+  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/qoq.config.js');
+
   async getPrompts(): Promise<void> {
     const { srcPath, configType }: { srcPath: string; configType: EConfigType } =
       await prompts.prompt([
@@ -46,6 +51,18 @@ export class BasicConfigHandler extends AbstractConfigHandler {
 
   getModulesFromConfig(): IModulesConfig {
     this.modulesConfig.srcPath = this.config.srcPath ?? DEFAULT_SRC;
+
+    try {
+      const configFileContent = readFileSync(BasicConfigHandler.CONFIG_FILE_PATH, 'utf-8');
+
+      this.modulesConfig.configType =
+        configFileContent.includes('module.exports-') ||
+        configFileContent.includes('module.exports ')
+          ? EConfigType.CJS
+          : EConfigType.ESM;
+    } catch {
+      this.modulesConfig.configType = EConfigType.ESM;
+    }
 
     return super.getModulesFromConfig();
   }

@@ -3,10 +3,10 @@ import { writeFileSync } from 'fs';
 import { getKnipConfig } from '@saashub/qoq-knip/knipConfig';
 import c from 'picocolors';
 
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
 import { getRelativePath, resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+import { EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
@@ -38,7 +38,7 @@ export class KnipExecutor extends AbstractExecutor {
       writeFileSync(
         configFilePath,
         formatCode(
-          EConfigType.CJS,
+          this.modulesConfig.configType,
           {},
           [],
           JSON.stringify(getKnipConfig(srcPath, entry, project, ignore, ignoreDependencies))

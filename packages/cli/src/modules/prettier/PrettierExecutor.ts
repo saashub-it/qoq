@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 
 import c from 'picocolors';
 
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { getRelativePath, resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
 import { EExitCode } from '@/helpers/types';

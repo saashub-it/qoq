@@ -7,7 +7,7 @@ import { IModulePrettierConfig } from './prettier/types';
 
 export interface IModulesConfig {
   srcPath: string;
-  configType?: EConfigType;
+  configType: EConfigType;
   modules: {
     prettier?: IModulePrettierConfig;
     eslint?: IModuleEslintConfig[];
@@ -15,7 +15,3 @@ export interface IModulesConfig {
     knip?: IModuleKnipConfig;
   };
 }
-
-export type TModulesPromise = Promise<IModulesConfig>;
-
-export type TModuleConfigure = (modules: IModulesConfig) => Promise<void>;

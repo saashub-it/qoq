@@ -32,5 +32,3 @@ export interface QoqConfig {
     ignoreDependencies?: string[];
   };
 }
-
-export type TQoqConfigPromise = Promise<QoqConfig>;

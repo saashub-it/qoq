@@ -8,7 +8,7 @@ import { IModulesConfig } from '../types';
 
 interface IExecutor {
   getName: () => string;
-  run: (fix?: boolean, files?: string[]) => Promise<EExitCode>;
+  run: (disableCache?: boolean, fix?: boolean, files?: string[]) => Promise<EExitCode>;
 }
 export abstract class AbstractExecutor implements IExecutor {
   abstract getName(): string;

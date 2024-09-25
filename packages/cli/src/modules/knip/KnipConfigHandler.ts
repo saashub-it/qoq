@@ -2,6 +2,7 @@
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
 
+import { omitStartingDotFromPath } from '@/helpers/common';
 import { QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
@@ -9,6 +10,7 @@ import { configUsesReact, configUsesTs, getFilesExtensions } from '../helpers';
 import { IModulesConfig } from '../types';
 
 export class KnipConfigHandler extends AbstractConfigHandler {
+  static readonly DEFAULT_IGNORE = [];
   static readonly DEFAULT_IGNORE_DEPENDENCIES = [];
 
   async getPrompts(): Promise<void> {
@@ -44,7 +46,6 @@ export class KnipConfigHandler extends AbstractConfigHandler {
         message:
           'Provide ignore (initially autodetected from previous config), space " " separated',
         separator: ' ',
-        initial: this.getDefaultIgnore().join(' '),
       },
       {
         type: 'list',
@@ -56,9 +57,9 @@ export class KnipConfigHandler extends AbstractConfigHandler {
     ]);
 
     this.modulesConfig.modules.knip = {
-      entry: knipEntry.filter((entry) => !!entry),
-      project: knipProject.filter((entry) => !!entry),
-      ignore: knipIgnore.filter((entry) => !!entry),
+      entry: knipEntry.filter((entry) => !!entry).map(omitStartingDotFromPath),
+      project: knipProject.filter((entry) => !!entry).map(omitStartingDotFromPath),
+      ignore: knipIgnore.filter((entry) => !!entry).map(omitStartingDotFromPath),
       ignoreDependencies: knipIgnoreDependencies.filter((entry) => !!entry),
     };
 
@@ -80,7 +81,7 @@ export class KnipConfigHandler extends AbstractConfigHandler {
       this.config.knip.project = knip.project;
     }
 
-    if (knip?.ignore && !isEqual(knip.ignore, this.getDefaultIgnore())) {
+    if (knip?.ignore && !isEqual(knip.ignore, KnipConfigHandler.DEFAULT_IGNORE)) {
       this.config.knip.ignore = knip.ignore;
     }
 
@@ -102,7 +103,7 @@ export class KnipConfigHandler extends AbstractConfigHandler {
     this.modulesConfig.modules.knip = {
       entry: this.config.knip?.entry ?? this.getDefaultEntry(),
       project: this.config.knip?.project ?? this.getDefaultProject(),
-      ignore: this.config.knip?.ignore ?? this.getDefaultIgnore(),
+      ignore: this.config.knip?.ignore ?? KnipConfigHandler.DEFAULT_IGNORE,
       ignoreDependencies:
         this.config.knip?.ignoreDependencies ?? KnipConfigHandler.DEFAULT_IGNORE_DEPENDENCIES,
     };
@@ -112,36 +113,32 @@ export class KnipConfigHandler extends AbstractConfigHandler {
 
   protected getDefaultEntry = (): string[] => {
     const { srcPath, modules } = this.modulesConfig;
+    const pathString = omitStartingDotFromPath(srcPath);
 
     switch (true) {
       case configUsesTs(modules) && configUsesReact(modules):
-        return [`${srcPath}/index.tsx`];
+        return [`${pathString}/index.tsx`];
 
       case configUsesTs(modules):
-        return [`${srcPath}/index.ts`];
+        return [`${pathString}/index.ts`];
 
       case configUsesReact(modules):
-        return [`${srcPath}/index.jsx`];
+        return [`${pathString}/index.jsx`];
 
       default:
-        return [`${srcPath}/index.js`];
+        return [`${pathString}/index.js`];
     }
   };
 
   protected getDefaultProject = (): string[] => {
     const { srcPath, modules } = this.modulesConfig;
+    const pathString = omitStartingDotFromPath(srcPath);
+    const filesExtensions = getFilesExtensions(modules);
 
-    return [`${srcPath}/**/*.{${getFilesExtensions(modules).join()}}`];
-  };
-
-  protected getDefaultIgnore = (): string[] => {
-    const { modules } = this.modulesConfig;
-    const ignore = ['package.json'];
-
-    if (configUsesTs(modules)) {
-      ignore.push('tsconfig.json');
+    if (filesExtensions.length === 1) {
+      return [`${pathString}/**/*.${getFilesExtensions(modules).join('')}`];
     }
 
-    return ignore;
+    return [`${pathString}/**/*.{${getFilesExtensions(modules).join()}}`];
   };
 }

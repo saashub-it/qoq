@@ -17,15 +17,6 @@ export const configUsesReact = (modules: IModulesConfig['modules']): boolean =>
       config.template === EModulesEslint.ESLINT_V9_TS_REACT
   );
 
-export const configUsesTests = (modules: IModulesConfig['modules']): boolean =>
-  (modules.eslint ?? []).some(
-    (config) =>
-      config.template === EModulesEslint.ESLINT_V9_JS_JEST ||
-      config.template === EModulesEslint.ESLINT_V9_JS_VITEST ||
-      config.template === EModulesEslint.ESLINT_V9_TS_JEST ||
-      config.template === EModulesEslint.ESLINT_V9_TS_VITEST
-  );
-
 export const getFilesExtensions = (modules: IModulesConfig['modules']): string[] => {
   switch (true) {
     case configUsesTs(modules) && configUsesReact(modules):

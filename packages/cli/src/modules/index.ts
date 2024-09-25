@@ -1,10 +1,11 @@
-import { existsSync } from 'fs';
+import { existsSync, rmSync, writeFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
 import c from 'picocolors';
 import prompts from 'prompts';
 
 import { CONFIG_FILE_PATH } from '@/helpers/constants';
+import { formatCode } from '@/helpers/formatCode';
 import { EExitCode, QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from './abstract/AbstractConfigHandler';
@@ -38,11 +39,24 @@ const getHandlerBySequence = (
   return basicConfigHandler;
 };
 
+const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
+  const modulesConfig = { modules: {} } as IModulesConfig;
+
+  return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
+};
+
 export const initConfig = async (): Promise<IModulesConfig> => {
   const modulesConfig = { modules: {} } as IModulesConfig;
   const config = {} as QoqConfig;
 
   await getHandlerBySequence(modulesConfig, config).getPrompts();
+
+  rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
+
+  writeFileSync(
+    BasicConfigHandler.CONFIG_FILE_PATH,
+    formatCode(modulesConfig.configType, {}, [], JSON.stringify(config))
+  );
 
   return modulesConfig;
 };
@@ -80,20 +94,9 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
   }
 };
 
-export const getConfigFromModules = (modulesConfig: IModulesConfig): QoqConfig => {
-  const config = {} as QoqConfig;
-
-  return getHandlerBySequence(modulesConfig, config).getConfigFromModules();
-};
-
-export const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
-  const modulesConfig = { modules: {} } as IModulesConfig;
-
-  return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
-};
-
 export const execute = async (
   modulesConfig: IModulesConfig,
+  skips: Record<string, boolean | undefined>,
   disableCache?: boolean,
   fix?: boolean,
   files?: string[]
@@ -110,10 +113,21 @@ export const execute = async (
     [eslintExecutor.getName()]: EExitCode.OK,
   };
 
-  responses[prettierExecutor.getName()] = await prettierExecutor.run(disableCache, fix, files);
-  responses[jscpdExecutor.getName()] = await jscpdExecutor.run(disableCache, fix, files);
-  responses[knipExecutor.getName()] = await knipExecutor.run(disableCache, fix, files);
-  responses[eslintExecutor.getName()] = await eslintExecutor.run(disableCache, fix, files);
+  if (!skips.skipPrettier) {
+    responses[prettierExecutor.getName()] = await prettierExecutor.run(disableCache, fix, files);
+  }
+
+  if (!skips.skipJscpd) {
+    responses[jscpdExecutor.getName()] = await jscpdExecutor.run(disableCache, fix, files);
+  }
+
+  if (!skips.skipKnip) {
+    responses[knipExecutor.getName()] = await knipExecutor.run(disableCache, fix, files);
+  }
+
+  if (!skips.skipEslint) {
+    responses[eslintExecutor.getName()] = await eslintExecutor.run(disableCache, fix, files);
+  }
 
   Object.keys(responses)
     .filter((key) => responses[key] !== EExitCode.OK)

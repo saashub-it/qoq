@@ -2,11 +2,11 @@ import { existsSync, writeFileSync } from 'fs';
 
 import c from 'picocolors';
 
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+import { EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { getFilesExtensions } from '../helpers';
@@ -69,7 +69,10 @@ export class EslintExecutor extends AbstractExecutor {
         .map((_, index) => `.concat(config${index})`)
         .join('')}`;
 
-      writeFileSync(configFilePath, formatCode(EConfigType.CJS, imports, content, exports));
+      writeFileSync(
+        configFilePath,
+        formatCode(this.modulesConfig.configType, imports, content, exports)
+      );
 
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 

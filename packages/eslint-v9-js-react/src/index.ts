@@ -74,4 +74,3 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     },
   },
 });
-

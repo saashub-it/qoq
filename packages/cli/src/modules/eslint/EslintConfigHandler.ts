@@ -4,9 +4,10 @@ import { existsSync, rmSync, writeFileSync } from 'fs';
 import c from 'picocolors';
 import prompts from 'prompts';
 
+import { omitStartingDotFromPath } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCwdRelativePath } from '@/helpers/paths';
-import { EConfigType, QoqConfig } from '@/helpers/types';
+import { QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
@@ -63,7 +64,7 @@ export class EslintConfigHandler extends AbstractConfigHandler {
     const { srcPath } = this.modulesConfig;
 
     if (eslintPackages.length > 0) {
-      const eslintSrcPath = srcPath.startsWith('./') ? srcPath.replace('./', '') : srcPath;
+      const eslintSrcPath = omitStartingDotFromPath(srcPath);
 
       this.modulesConfig.modules.eslint = [];
 
@@ -144,7 +145,7 @@ export class EslintConfigHandler extends AbstractConfigHandler {
     writeFileSync(
       EslintConfigHandler.CONFIG_FILE_PATH,
       formatCode(
-        this.modulesConfig.configType as EConfigType,
+        this.modulesConfig.configType,
         { config: '@saashub/qoq-cli/bin/eslint.config.js' },
         [],
         'config'
