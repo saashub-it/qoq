@@ -2,7 +2,7 @@
   "name": "@saashub/qoq-eslint-v9-js-jest",
   "description": "Eslint flat config template for JS + Jest",
   "license": "MIT",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
@@ -26,13 +26,13 @@
     "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.11.2",
+    "@saashub/qoq-eslint-v9-js": "^0.11.3",
     "eslint-plugin-jest": "28.8.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.0",
-    "@saashub/qoq-cli": "^0.11.2",
+    "@saashub/qoq-cli": "^0.11.3",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.9",
     "@vitest/coverage-v8": "2.1.1",
