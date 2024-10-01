@@ -1,7 +1,7 @@
 name: Bug report
 description: Report a problem you encountered
 title: "[Bug][package-name]: "
-labels: ["bug"]
+labels: [":bug: Bug"]
 body:
   - type: markdown
     attributes:
