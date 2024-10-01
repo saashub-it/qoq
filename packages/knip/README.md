@@ -30,3 +30,5 @@ import { jsConfig, jsReactConfig, tsConfig, tsReactConfig } from '@saashub/qoq-k
 
 export default jsConfig;
 ```
+
+_Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_

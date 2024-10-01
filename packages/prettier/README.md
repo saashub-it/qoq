@@ -34,3 +34,5 @@ export default {
   ...config,
 };
 ```
+
+*Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*

@@ -101,6 +101,9 @@ export const execute = async (
   fix?: boolean,
   files?: string[]
 ): Promise<void> => {
+  const consoleTimeName = `Total execution time:`;
+  console.time(c.italic(c.gray(consoleTimeName)));
+
   const prettierExecutor = new PrettierExecutor(modulesConfig);
   const jscpdExecutor = new JscpdExecutor(modulesConfig, true);
   const knipExecutor = new KnipExecutor(modulesConfig);
@@ -136,4 +139,8 @@ export const execute = async (
 
       process.stderr.write(c.red(`\nQoQ found some ${key} errors!\n\n`));
     });
+
+  process.stdout.write('\n-------------------------\n\n');
+
+  console.timeEnd(c.italic(c.gray(consoleTimeName)));
 };

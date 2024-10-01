@@ -1,7 +1,6 @@
 import c from 'picocolors';
 
 import { executeCommand } from '@/helpers/command';
-import { MeasurePerformance } from '@/helpers/performance';
 import { EExitCode } from '@/helpers/types';
 
 import { IModulesConfig } from '../types';
@@ -17,11 +16,13 @@ export abstract class AbstractExecutor implements IExecutor {
 
   constructor(modulesConfig: IModulesConfig, silent: boolean = false) {
     this.modulesConfig = modulesConfig;
-
-    this.measurePerformance = new MeasurePerformance(this.getName(), !!silent);
+    this.silent = silent;
   }
 
   async run(disableCache?: boolean, fix?: boolean, files?: string[]): Promise<EExitCode> {
+    const consoleTimeName = `${this.getName()} execution time:`;
+    console.time(c.italic(c.gray(consoleTimeName)));
+
     process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
 
     const args = [...this.getCommandArgs()];
@@ -35,12 +36,14 @@ export abstract class AbstractExecutor implements IExecutor {
 
       process.exit(EExitCode.EXCEPTION);
     } finally {
-      this.measurePerformance.printExecutionTime();
+      if (!this.silent) {
+        console.timeEnd(c.italic(c.gray(consoleTimeName)));
+      }
     }
   }
 
   protected modulesConfig: IModulesConfig;
-  protected measurePerformance: MeasurePerformance;
+  protected silent: boolean;
 
   protected prepare(
     args: string[],

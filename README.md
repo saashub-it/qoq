@@ -8,4 +8,6 @@ Set of tools to help You:
 - lint
 - analyze
 
-any JavaScript / TypeScript project
+any JavaScript / TypeScript project. 
+
+*Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*

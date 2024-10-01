@@ -6,7 +6,7 @@ import c from 'picocolors';
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
 import { getRelativePath, resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
+import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
@@ -30,10 +30,13 @@ export class KnipExecutor extends AbstractExecutor {
     try {
       const {
         srcPath,
+        configType,
         modules: { knip },
       } = this.modulesConfig;
       const { entry, project, ignore, ignoreDependencies } = knip as IModuleKnipConfig;
-      const configFilePath = resolveCliPackagePath('/bin/knip.js');
+      const configFilePath = resolveCliPackagePath(
+        `/bin/knip.config.${configType === EConfigType.ESM ? 'm' : 'c'}js`
+      );
 
       writeFileSync(
         configFilePath,

@@ -15,3 +15,5 @@ Beign tired of setting up [JSCPD](https://www.npmjs.com/package/jscpd) all over 
 Just run JSCPD with `-c` flag like
 
     jscpd -c ./node_modules/@saashub/qoq-jscpd/index.json
+
+*Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*

@@ -34,6 +34,9 @@
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/prettier"
   },
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
+  },
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier",
   "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }

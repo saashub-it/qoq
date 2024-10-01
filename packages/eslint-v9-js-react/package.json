@@ -28,7 +28,7 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^0.11.3",
     "eslint-plugin-jsx-a11y": "6.10.0",
-    "eslint-plugin-react": "7.36.1",
+    "eslint-plugin-react": "7.37.0",
     "eslint-plugin-react-hooks": "4.6.2",
     "lodash": "4.17.21"
   },
@@ -39,7 +39,7 @@
     "@types/lodash": "4.17.9",
     "@vitest/coverage-v8": "2.1.1",
     "rimraf": "6.0.1",
-    "rollup": "4.22.4",
+    "rollup": "4.23.0",
     "typescript": "5.6.2",
     "vitest": "2.1.1"
   },
@@ -65,6 +65,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/eslint-v9-js-react"
+  },
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
   },
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-react",
   "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
