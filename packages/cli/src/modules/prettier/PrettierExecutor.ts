@@ -31,6 +31,10 @@ export class PrettierExecutor extends AbstractExecutor {
     fix: boolean = false,
     files: string[] = []
   ): Promise<EExitCode> {
+    if (!disableCache) {
+      args.push('--cache-strategy', 'metadata');
+    }
+
     try {
       const { srcPath, modules } = this.modulesConfig;
       const sources: string[] =

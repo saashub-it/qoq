@@ -1,22 +1,26 @@
 {
   "name": "@saashub/qoq",
-  "license": "MIT",
   "private": true,
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "lerna run build",
     "publish": "npm run build && npm run test && lerna publish --no-private --force-publish",
-    "test": "lerna run test",
     "qoq:check": "npm run build && lerna run qoq:check",
-    "qoq:fix": "npm run build && lerna run qoq:fix"
+    "qoq:fix": "npm run build && lerna run qoq:fix",
+    "sort:packages:json": "npx -y sort-package-json 'package.json' 'packages/*/package.json'",
+    "test": "lerna run test"
   },
   "devDependencies": {
     "@types/node": "^20",
     "lerna": "8.1.8"
   },
-  "bugs": {
-    "url": "https://github.com/saashub-it/qoq/issues"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  "engines": {
+    "node": ">=18"
+  }
 }

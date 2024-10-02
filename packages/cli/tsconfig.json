@@ -1,13 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./bin",
     "baseUrl": ".",
+    "outDir": "./bin",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
+  "extends": "../../tsconfig.json",
   "include": ["./src"]
 }

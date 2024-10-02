@@ -1,3 +1,3 @@
-const config = require("../../qoq.config");
+const config = require('../../qoq.config');
 
 module.exports = config;

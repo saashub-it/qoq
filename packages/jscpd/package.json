@@ -1,23 +1,26 @@
 {
   "name": "@saashub/qoq-jscpd",
-  "type": "module",
-  "license": "MIT",
   "version": "0.11.4",
-  "main": "./index.json",
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "jscpd": "4.0.5"
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/jscpd",
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
     "directory": "packages/jscpd"
   },
-  "bugs": {
-    "url": "https://github.com/saashub-it/qoq/issues"
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.json",
+  "dependencies": {
+    "jscpd": "4.0.5"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/jscpd",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }

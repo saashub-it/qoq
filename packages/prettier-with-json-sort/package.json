@@ -1,9 +1,17 @@
 {
   "name": "@saashub/qoq-prettier-with-json-sort",
-  "type": "module",
-  "license": "MIT",
   "version": "0.11.4",
-  "main": "./index.json",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier-with-json-sort",
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/prettier-with-json-sort"
+  },
+  "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "default": "./index.json"
@@ -14,9 +22,7 @@
       "default": "./src/config.js"
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "main": "./index.json",
   "scripts": {
     "build": "rimraf ./index.json && node ./src/index.js",
     "test": "vitest run --coverage"
@@ -26,18 +32,15 @@
     "prettier-plugin-sort-json": "4.0.0"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "2.1.1",
+    "@vitest/coverage-v8": "2.1.2",
     "rimraf": "6.0.1",
-    "vitest": "2.1.1"
+    "vitest": "2.1.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/prettier-with-json-sort"
+  "engines": {
+    "node": ">=18"
   },
-  "bugs": {
-    "url": "https://github.com/saashub-it/qoq/issues"
+  "publishConfig": {
+    "access": "public"
   },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier-with-json-sort",
   "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }

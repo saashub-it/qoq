@@ -6,9 +6,11 @@ const input = {
   index: `${sourceDir}/index.ts`,
   knipConfig: `${sourceDir}/knipConfig.ts`,
 };
-const plugins = [typescript({
-  exclude: ['**/*.spec.{js,ts}']
-})];
+const plugins = [
+  typescript({
+    exclude: ['**/*.spec.{js,ts}'],
+  }),
+];
 
 export default {
   input,

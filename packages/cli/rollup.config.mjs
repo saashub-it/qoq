@@ -14,7 +14,7 @@ const input = {
   qoq: `${sourceDir}/index.ts`,
 };
 const plugins = [
-  typescriptPaths({preserveExtensions: true}),
+  typescriptPaths({ preserveExtensions: true }),
   nodeResolve({
     preferBuiltins: true,
   }),
@@ -25,10 +25,7 @@ const plugins = [
   }),
 ];
 
-const external = [
-  ...builtinModules,
-  ...Object.keys(pkg.dependencies),
-];
+const external = [...builtinModules, ...Object.keys(pkg.dependencies)];
 
 export default {
   input,

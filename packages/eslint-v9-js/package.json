@@ -1,11 +1,24 @@
 {
   "name": "@saashub/qoq-eslint-v9-js",
-  "description": "Eslint flat config template for JS",
-  "license": "MIT",
   "version": "0.11.4",
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.mjs",
-  "types": "./lib/index.d.js",
+  "description": "Eslint flat config template for JS",
+  "keywords": [
+    "eslint JavaScript template",
+    "flat config",
+    "saashub",
+    "qoq",
+    "QualityOverQuantity"
+  ],
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js",
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/eslint-v9-js"
+  },
+  "license": "MIT",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -22,15 +35,15 @@
       "default": "./lib/tools.mjs"
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.js",
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
-    "test": "vitest run --coverage",
+    "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config",
     "qoq:check": "qoq --check --skip-knip",
     "qoq:fix": "qoq --fix --skip-knip",
-    "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@eslint/compat": "1.1.1",
@@ -47,35 +60,25 @@
     "@saashub/qoq-cli": "^0.11.4",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.9",
-    "@vitest/coverage-v8": "2.1.1",
+    "@vitest/coverage-v8": "2.1.2",
     "rimraf": "6.0.1",
-    "rollup": "4.23.0",
+    "rollup": "4.24.0",
     "typescript": "5.6.2",
-    "vitest": "2.1.1"
+    "vitest": "2.1.2"
   },
   "peerDependencies": {
     "eslint": "^9"
   },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf",
   "overrides": {
     "eslint-plugin-import": {
       "eslint": "$eslint"
     }
-  },
-  "keywords": [
-    "eslint JavaScript template",
-    "flat config",
-    "saashub",
-    "qoq",
-    "QualityOverQuantity"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js"
-  },
-  "bugs": {
-    "url": "https://github.com/saashub-it/qoq/issues"
-  },
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js",
-  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
+  }
 }
