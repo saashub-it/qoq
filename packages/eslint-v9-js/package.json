@@ -50,7 +50,7 @@
     "@eslint/js": "^9",
     "eslint": "^9",
     "eslint-plugin-compat": "6.0.1",
-    "eslint-plugin-import": "2.30.0",
+    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-sonarjs": "2.0.3",
     "lodash": "4.17.21"
@@ -59,7 +59,7 @@
     "@rollup/plugin-typescript": "12.1.0",
     "@saashub/qoq-cli": "^0.11.4",
     "@types/eslint": "^9",
-    "@types/lodash": "4.17.9",
+    "@types/lodash": "4.17.10",
     "@vitest/coverage-v8": "2.1.2",
     "rimraf": "6.0.1",
     "rollup": "4.24.0",
@@ -75,10 +75,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf",
-  "overrides": {
-    "eslint-plugin-import": {
-      "eslint": "$eslint"
-    }
-  }
+  "gitHead": "e0e86de03d55c73d4f4bc6a403fd2394c84dc6bf"
 }
