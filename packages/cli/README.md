@@ -71,4 +71,12 @@ Needs to export an CommonJS or ESM object with shape of:
 | `knip.ignore`             | false    | `['package.json', 'tsconfig.json]`                                   | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
 | `knip.ignoreDependencies` | false    | `[]`                                                                 | Default don't ignore any dependencies errors                                                                                                                                                                                                                                                                             |
 
-_Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
+## Avaliable options
+
+CLI has it's own documentation just run `qoq -help` or `qoq -h`.
+
+### Last but not least
+
+_Feel free to Yoin us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
+
+CLI technical documentation can be found [here](./docs/PROJECT.md)

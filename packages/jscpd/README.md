@@ -16,4 +16,6 @@ Just run JSCPD with `-c` flag like
 
     jscpd -c ./node_modules/@saashub/qoq-jscpd/index.json
 
-*Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*
+### Last but not least
+
+_Feel free to Yoin us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_

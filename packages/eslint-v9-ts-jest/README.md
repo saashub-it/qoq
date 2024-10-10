@@ -41,4 +41,6 @@ export default [
 ];
 ```
 
-_Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
+### Last but not least
+
+_Feel free to Yoin us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
