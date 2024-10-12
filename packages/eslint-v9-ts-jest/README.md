@@ -44,3 +44,5 @@ export default [
 ### Last but not least
 
 _Feel free to Yoin us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
+
+CLI technical documentation can be found [here](../eslint-v9/PROJECT.md)

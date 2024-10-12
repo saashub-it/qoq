@@ -1,4 +1,4 @@
-import config from '../../rollup.eslint.config.mjs';
+import config from '../eslint-v9/rollup.eslint.config.mjs';
 
 config.input.tools = './src/tools.ts';
 
