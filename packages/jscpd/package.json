@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-jscpd",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/jscpd",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"

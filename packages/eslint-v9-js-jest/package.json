@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-jest",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "Eslint flat config template for JS + Jest",
   "keywords": [
     "eslint JavaScript + Jest template",
@@ -39,15 +39,15 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.13.1",
+    "@saashub/qoq-eslint-v9-js": "^0.13.2",
     "eslint-plugin-jest": "28.8.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.1",
-    "@saashub/qoq-cli": "^0.13.1",
+    "@saashub/qoq-cli": "^0.13.2",
     "@types/eslint": "^9",
-    "@types/lodash": "4.17.10",
+    "@types/lodash": "4.17.12",
     "@vitest/coverage-v8": "2.1.3",
     "rimraf": "6.0.1",
     "rollup": "4.24.0",
