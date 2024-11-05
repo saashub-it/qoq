@@ -14,7 +14,6 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     jest: jestPlugin,
   },
   rules: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jestPlugin.configs.recommended.rules,
     'sonarjs/no-duplicate-string': 0,
   },
