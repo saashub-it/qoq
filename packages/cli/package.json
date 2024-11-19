@@ -30,7 +30,7 @@
   "dependencies": {
     "@antfu/install-pkg": "0.4.1",
     "cac": "6.7.14",
-    "local-pkg": "0.5.0",
+    "local-pkg": "0.5.1",
     "picocolors": "1.1.1",
     "prompts": "2.4.2",
     "react-fast-compare": "3.2.2"
@@ -42,15 +42,15 @@
     "@saashub/qoq-eslint-v9-js": "^0.13.5",
     "@saashub/qoq-knip": "^0.13.5",
     "@types/prompts": "2.4.9",
-    "@vitest/coverage-v8": "2.1.4",
-    "knip": "5.36.7",
+    "@vitest/coverage-v8": "2.1.5",
+    "knip": "5.37.1",
     "rimraf": "6.0.1",
-    "rollup": "4.26.0",
+    "rollup": "4.27.3",
     "rollup-plugin-esbuild": "6.1.1",
     "rollup-plugin-typescript-paths": "1.5.0",
     "typescript": "5.6.3",
     "vite-tsconfig-paths": "5.1.2",
-    "vitest": "2.1.4"
+    "vitest": "2.1.5"
   },
   "peerDependencies": {
     "lodash": "^4"
