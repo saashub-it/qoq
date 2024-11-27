@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts",
-  "version": "0.13.6",
+  "version": "0.13.7",
   "description": "Eslint flat config template for TS",
   "keywords": [
     "eslint TypeScript template",
@@ -39,23 +39,23 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.13.6",
-    "@typescript-eslint/eslint-plugin": "8.15.0",
-    "@typescript-eslint/parser": "8.15.0",
-    "@typescript-eslint/utils": "8.15.0",
+    "@saashub/qoq-eslint-v9-js": "^0.13.7",
+    "@typescript-eslint/eslint-plugin": "8.16.0",
+    "@typescript-eslint/parser": "8.16.0",
+    "@typescript-eslint/utils": "8.16.0",
     "eslint-import-resolver-typescript": "3.6.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.1",
-    "@saashub/qoq-cli": "^0.13.6",
+    "@saashub/qoq-cli": "^0.13.7",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.13",
-    "@vitest/coverage-v8": "2.1.5",
+    "@vitest/coverage-v8": "2.1.6",
     "rimraf": "6.0.1",
-    "rollup": "4.27.3",
-    "typescript": "5.6.3",
-    "vitest": "2.1.5"
+    "rollup": "4.27.4",
+    "typescript": "5.7.2",
+    "vitest": "2.1.6"
   },
   "peerDependencies": {
     "eslint": "^9"
