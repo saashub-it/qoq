@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "0.13.7",
+  "version": "0.14.0",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -39,18 +39,18 @@
     "@rollup/plugin-commonjs": "28.0.1",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.3.0",
-    "@saashub/qoq-eslint-v9-js": "^0.13.7",
-    "@saashub/qoq-knip": "^0.13.7",
+    "@saashub/qoq-eslint-v9-js": "^0.14.0",
+    "@saashub/qoq-knip": "^0.14.0",
     "@types/prompts": "2.4.9",
-    "@vitest/coverage-v8": "2.1.6",
-    "knip": "5.38.1",
+    "@vitest/coverage-v8": "2.1.8",
+    "knip": "5.39.1",
     "rimraf": "6.0.1",
-    "rollup": "4.27.4",
+    "rollup": "4.28.0",
     "rollup-plugin-esbuild": "6.1.1",
     "rollup-plugin-typescript-paths": "1.5.0",
     "typescript": "5.7.2",
     "vite-tsconfig-paths": "5.1.3",
-    "vitest": "2.1.6"
+    "vitest": "2.1.8"
   },
   "peerDependencies": {
     "lodash": "^4"

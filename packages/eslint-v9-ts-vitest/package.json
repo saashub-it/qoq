@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-vitest",
-  "version": "0.13.7",
+  "version": "0.14.0",
   "description": "Eslint flat config template for TS + Vitest",
   "keywords": [
     "eslint TypeScript + Vitest template",
@@ -39,20 +39,20 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^0.13.7",
-    "@saashub/qoq-eslint-v9-ts": "^0.13.7",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.14.0",
+    "@saashub/qoq-eslint-v9-ts": "^0.14.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.1",
-    "@saashub/qoq-cli": "^0.13.7",
+    "@saashub/qoq-cli": "^0.14.0",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.13",
-    "@vitest/coverage-v8": "2.1.6",
+    "@vitest/coverage-v8": "2.1.8",
     "rimraf": "6.0.1",
-    "rollup": "4.27.4",
+    "rollup": "4.28.0",
     "typescript": "5.7.2",
-    "vitest": "2.1.6"
+    "vitest": "2.1.8"
   },
   "peerDependencies": {
     "eslint": "^9"
