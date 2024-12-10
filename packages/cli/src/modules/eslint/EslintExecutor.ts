@@ -91,6 +91,7 @@ export class EslintExecutor extends AbstractExecutor {
         }
 
         args.push('--stdin-filename', ...filteredFiles);
+        args.push('--no-error-on-unmatched-pattern');
       }
 
       if (fix) {
