@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "description": "Eslint flat config template for JS",
   "keywords": [
     "eslint JavaScript template",
@@ -49,15 +49,15 @@
     "@eslint/compat": "1.2.4",
     "@eslint/js": "^9.12.0",
     "eslint": "^9.12.0",
-    "eslint-plugin-compat": "6.0.1",
+    "eslint-plugin-compat": "6.0.2",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-sonarjs": "3.0.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "12.1.1",
-    "@saashub/qoq-cli": "^0.14.2",
+    "@rollup/plugin-typescript": "12.1.2",
+    "@saashub/qoq-cli": "^0.14.3",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.13",
     "@vitest/coverage-v8": "2.1.8",

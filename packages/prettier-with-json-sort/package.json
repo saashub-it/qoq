@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-prettier-with-json-sort",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier-with-json-sort",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
@@ -28,7 +28,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-prettier": "^0.14.2",
+    "@saashub/qoq-prettier": "^0.14.3",
     "prettier-plugin-sort-json": "4.0.0"
   },
   "devDependencies": {
