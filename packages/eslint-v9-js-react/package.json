@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-react",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "Eslint flat config template for JS + React",
   "keywords": [
     "eslint JavaScript + React template",
@@ -39,20 +39,20 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.14.3",
+    "@saashub/qoq-eslint-v9-js": "^0.14.4",
     "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-react": "7.37.3",
     "eslint-plugin-react-hooks": "5.1.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^0.14.3",
+    "@saashub/qoq-cli": "^0.14.4",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.13",
     "@vitest/coverage-v8": "2.1.8",
     "rimraf": "6.0.1",
-    "rollup": "4.28.1",
+    "rollup": "4.29.1",
     "typescript": "5.7.2",
     "vitest": "2.1.8"
   },
