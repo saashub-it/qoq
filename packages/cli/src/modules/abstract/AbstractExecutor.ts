@@ -45,7 +45,7 @@ export abstract class AbstractExecutor implements IExecutor {
   protected modulesConfig: IModulesConfig;
   protected silent: boolean;
 
-  protected prepare(
+  protected async prepare(
     args: string[],
     disableCache: boolean = false,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

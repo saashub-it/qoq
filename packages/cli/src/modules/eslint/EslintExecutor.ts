@@ -1,6 +1,8 @@
 import { existsSync, writeFileSync } from 'fs';
 
 import c from 'picocolors';
+import micromatch from 'micromatch';
+import flattenDeep from 'lodash/flattenDeep';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
@@ -9,7 +11,6 @@ import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { getFilesExtensions } from '../helpers';
 
 import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
@@ -28,7 +29,7 @@ export class EslintExecutor extends AbstractExecutor {
     return ['--max-warnings', '0'];
   }
 
-  protected prepare(
+  protected async prepare(
     args: string[],
     disableCache: boolean = false,
     fix: boolean = false,
@@ -81,17 +82,51 @@ export class EslintExecutor extends AbstractExecutor {
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
-        const supportedExtensions = getFilesExtensions(modules);
-        const filteredFiles = files.filter((file) =>
-          supportedExtensions.some((ext) => file.endsWith(`.${ext}`))
-        );
+        try {
+          const eslintConfig = await import(configFilePath);
+          const mapCallback = (entry: string) =>
+            entry.startsWith('**') || entry.startsWith('./') ? entry : `**/${entry}`;
+          const prepareCollection = (
+            patterns: IModuleEslintConfig['files'] | IModuleEslintConfig['ignores']
+          ) => {
+            let collection: string[];
 
-        if (filteredFiles.length === 0) {
-          process.exit(EExitCode.OK);
+            if (patterns) {
+              collection = Array.isArray(patterns) ? flattenDeep(patterns) : [patterns];
+            } else {
+              collection = [];
+            }
+
+            return collection.map(mapCallback);
+          };
+
+          const possibleFiles = (eslintConfig.default as IModuleEslintConfig[]).reduce(
+            (acc: { files: string[]; ignores: string[] }[], config) =>
+              acc.concat([
+                {
+                  files: prepareCollection(config.files),
+                  ignores: prepareCollection(config.ignores),
+                },
+              ]),
+            []
+          );
+
+          const shouldLintFile = (file: string) =>
+            possibleFiles.some(
+              ({ files, ignores }) =>
+                micromatch.isMatch(file, files) && !micromatch.isMatch(file, ignores)
+            );
+
+          const filteredFiles = files.filter((file) => shouldLintFile(file));
+
+          if (filteredFiles.length === 0) {
+            process.exit(EExitCode.OK);
+          }
+
+          args.push('--stdin-filename', ...filteredFiles);
+        } catch {
+          throw new Error();
         }
-
-        args.push('--stdin-filename', ...filteredFiles);
-        args.push('--no-error-on-unmatched-pattern');
       }
 
       if (fix) {

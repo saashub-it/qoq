@@ -40,9 +40,9 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^0.14.5",
-    "@typescript-eslint/eslint-plugin": "8.19.1",
-    "@typescript-eslint/parser": "8.19.1",
-    "@typescript-eslint/utils": "8.19.1",
+    "@typescript-eslint/eslint-plugin": "8.20.0",
+    "@typescript-eslint/parser": "8.20.0",
+    "@typescript-eslint/utils": "8.20.0",
     "eslint-import-resolver-typescript": "3.7.0",
     "lodash": "4.17.21"
   },
