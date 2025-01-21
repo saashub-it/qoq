@@ -1,8 +1,8 @@
 import { existsSync, writeFileSync } from 'fs';
-
 import c from 'picocolors';
 import micromatch from 'micromatch';
 import flattenDeep from 'lodash/flattenDeep';
+import { pathToFileURL } from 'url';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
@@ -83,7 +83,7 @@ export class EslintExecutor extends AbstractExecutor {
 
       if (files.length > 0) {
         try {
-          const eslintConfig = await import(configFilePath);
+          const eslintConfig = await import(pathToFileURL(configFilePath).toString());
           const mapCallback = (entry: string) =>
             entry.startsWith('**') || entry.startsWith('./') ? entry : `**/${entry}`;
           const prepareCollection = (
