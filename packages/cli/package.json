@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "0.15.3",
+  "version": "0.16.0",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -42,8 +42,8 @@
     "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.0",
-    "@saashub/qoq-eslint-v9-js": "^0.15.3",
-    "@saashub/qoq-knip": "^0.15.3",
+    "@saashub/qoq-eslint-v9-js": "^0.16.0",
+    "@saashub/qoq-knip": "^0.16.0",
     "@types/lodash": "4.17.14",
     "@types/micromatch": "4.0.9",
     "@types/prompts": "2.4.9",
