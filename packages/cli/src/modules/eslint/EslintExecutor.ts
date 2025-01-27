@@ -9,6 +9,7 @@ import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
@@ -82,6 +83,8 @@ export class EslintExecutor extends AbstractExecutor {
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
+        let filteredFiles = files;
+
         try {
           const eslintConfig = await import(pathToFileURL(configFilePath).toString());
           const mapCallback = (entry: string) =>
@@ -117,16 +120,16 @@ export class EslintExecutor extends AbstractExecutor {
                 micromatch.isMatch(file, files) && !micromatch.isMatch(file, ignores)
             );
 
-          const filteredFiles = files.filter((file) => shouldLintFile(file));
-
-          if (filteredFiles.length === 0) {
-            process.exit(EExitCode.OK);
-          }
-
-          args.push('--stdin-filename', ...filteredFiles);
+          filteredFiles = files.filter((file) => shouldLintFile(file));
         } catch {
           throw new Error();
         }
+
+        if (filteredFiles.length === 0) {
+          throw new TerminateExecutorGracefully();
+        }
+
+        args.push('--stdin-filename', ...filteredFiles);
       }
 
       if (fix) {
@@ -134,7 +137,11 @@ export class EslintExecutor extends AbstractExecutor {
       }
 
       return super.prepare(args, disableCache, fix, files);
-    } catch {
+    } catch(e) {
+      if (e instanceof TerminateExecutorGracefully) {
+        throw e;
+      }
+
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
       process.exit(EExitCode.EXCEPTION);

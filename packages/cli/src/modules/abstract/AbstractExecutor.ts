@@ -2,6 +2,7 @@ import c from 'picocolors';
 
 import { executeCommand } from '@/helpers/command';
 import { EExitCode } from '@/helpers/types';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 
 import { IModulesConfig } from '../types';
 
@@ -31,10 +32,12 @@ export abstract class AbstractExecutor implements IExecutor {
       await this.prepare(args, disableCache, fix, files);
 
       return await executeCommand(this.getCommandName(), args);
-    } catch {
-      process.stderr.write('Unknown error!\n');
+    } catch (e) {
+      if (!(e instanceof TerminateExecutorGracefully)) {
+        process.stderr.write('Unknown error!\n');
 
-      process.exit(EExitCode.EXCEPTION);
+        process.exit(EExitCode.EXCEPTION);
+      }
     } finally {
       if (!this.silent) {
         console.timeEnd(c.italic(c.gray(consoleTimeName)));

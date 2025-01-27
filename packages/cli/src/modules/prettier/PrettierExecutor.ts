@@ -1,5 +1,6 @@
-import { existsSync } from 'fs';
-
+import { existsSync, readFileSync } from 'fs';
+import { open } from 'fs/promises';
+import micromatch from 'micromatch';
 import c from 'picocolors';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
@@ -10,6 +11,7 @@ import { EExitCode } from '@/helpers/types';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
 import { PrettierConfigHandler } from './PrettierConfigHandler';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 
 export class PrettierExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');
@@ -25,7 +27,7 @@ export class PrettierExecutor extends AbstractExecutor {
     return ['--config', PrettierConfigHandler.CONFIG_FILE_PATH, '--ignore-unknown'];
   }
 
-  protected prepare(
+  protected async prepare(
     args: string[],
     disableCache: boolean = false,
     fix: boolean = false,
@@ -37,12 +39,44 @@ export class PrettierExecutor extends AbstractExecutor {
 
     try {
       const { srcPath, modules } = this.modulesConfig;
-      const sources: string[] =
-        files.length > 0 ? files : (modules?.prettier?.sources ?? [srcPath]);
+      const prettierignorePath = resolveCwdPath('/.prettierignore');
+      let sources: string[] = modules?.prettier?.sources ?? [srcPath];
+
+      if (files.length > 0) {
+        try {
+          const ignores: string[] = [];
+
+          if (existsSync(GITIGNORE_FILE_PATH)) {
+            const file = await open(GITIGNORE_FILE_PATH);
+
+            for await (const line of file.readLines()) {
+              if (!line.startsWith('#') && line !== '') {
+                ignores.push(line);
+              }
+            }
+          }
+
+          if (existsSync(prettierignorePath)) {
+            const file = await open(prettierignorePath);
+
+            for await (const line of file.readLines()) {
+              if (!line.startsWith('#') && line !== '') {
+                ignores.push(line);
+              }
+            }
+          }
+
+          sources = files.filter((file) => !micromatch.isMatch(file, ignores));
+        } catch {
+          throw new Error();
+        }
+
+        if (sources.length === 0) {
+          throw new TerminateExecutorGracefully();
+        }
+      }
 
       args.push('--check', ...sources);
-
-      const prettierignorePath = resolveCwdPath('/.prettierignore');
 
       if (existsSync(GITIGNORE_FILE_PATH) || existsSync(prettierignorePath)) {
         args.push('--ignore-path');
@@ -61,7 +95,11 @@ export class PrettierExecutor extends AbstractExecutor {
       }
 
       return super.prepare(args, disableCache, fix, files);
-    } catch {
+    } catch (e) {
+      if (e instanceof TerminateExecutorGracefully) {
+        throw e;
+      }
+
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
       process.exit(EExitCode.EXCEPTION);

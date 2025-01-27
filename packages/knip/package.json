@@ -44,17 +44,17 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "knip": "5.42.2",
+    "knip": "5.43.5",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@saashub/qoq-cli": "^0.15.3",
     "@types/lodash": "4.17.14",
-    "@vitest/coverage-v8": "3.0.2",
+    "@vitest/coverage-v8": "3.0.4",
     "rimraf": "6.0.1",
-    "rollup": "4.31.0",
+    "rollup": "4.32.0",
     "typescript": "5.7.3",
-    "vitest": "3.0.2"
+    "vitest": "3.0.4"
   },
   "peerDependencies": {
     "knip": "^5"
