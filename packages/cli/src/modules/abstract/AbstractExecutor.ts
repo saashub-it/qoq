@@ -38,6 +38,8 @@ export abstract class AbstractExecutor implements IExecutor {
 
         process.exit(EExitCode.EXCEPTION);
       }
+
+      return EExitCode.OK;
     } finally {
       if (!this.silent) {
         console.timeEnd(c.italic(c.gray(consoleTimeName)));

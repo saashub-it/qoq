@@ -1,22 +1,22 @@
 {
-  "name": "@saashub/qoq-eslint-v9-js-jest",
+  "name": "@saashub/qoq-eslint-v9-js-vitest-rtl",
   "version": "0.16.0",
-  "description": "Eslint flat config template for JS + Jest",
+  "description": "Eslint flat config template for JS + Vitest + RTL",
   "keywords": [
-    "eslint JavaScript + Jest template",
+    "eslint JavaScript + Vitest + RTL template",
     "flat config",
     "saashub",
     "qoq",
     "QualityOverQuantity"
   ],
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-jest",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-vitest-rtl",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js-jest"
+    "directory": "packages/eslint-v9-js-vitest-rtl"
   },
   "license": "MIT",
   "exports": {
@@ -39,8 +39,8 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^0.16.0",
-    "eslint-plugin-jest": "28.11.0",
+    "@saashub/qoq-eslint-v9-js-vitest": "^0.16.0",
+    "eslint-plugin-testing-library": "7.1.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
