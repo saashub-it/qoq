@@ -65,3 +65,5 @@ Join us in making QoQ even better! Read our [Contributing Guidelines](https://gi
 
 💡 **QoQ: Focus on writing great code, we handle the rest.**
 
+
+*Feel free to join us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*
