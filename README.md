@@ -10,4 +10,4 @@ Set of tools to help You:
 
 any JavaScript / TypeScript project. 
 
-*Feel free to Yoin us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*
+*Feel free to join us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*
