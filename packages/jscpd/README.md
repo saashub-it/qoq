@@ -4,7 +4,8 @@
 
 ## Rationale
 
-Beign tired of setting up [JSCPD](https://www.npmjs.com/package/jscpd) all over again for new projects, we created some base template.
+Tired of setting up [JSCPD](https://www.npmjs.com/package/jscpd) from scratch for every new project? We created a base template to make the process easier.
+
 
 ## Install
 

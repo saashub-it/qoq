@@ -5,7 +5,10 @@
 
 ## Rationale
 
-Beign tired of setting up [Eslint](https://www.npmjs.com/package/eslint) all over again for new projects, on top of v9 [flatConfig](https://eslint.org/docs/latest/use/configure/configuration-files) , we created some base template for different setups (check all [@saashub/qoq-eslint-v9-\* packages](https://www.npmjs.com/search?q=%40saashub%2Fqoq-eslint-v9-)). Configs inherit from base ones and includes all necessary packages and settings. Rules are opinionated, configured from years of development experience, can be used as full setup without any tweaks or as base to Your own configs.
+Tired of setting up [ESLint](https://www.npmjs.com/package/eslint) from scratch for every new project? With the introduction of [Flat Config](https://eslint.org/docs/latest/use/configure/configuration-files) in ESLint v9, we created a set of base templates for different setups. Check out all our [@saashub/qoq-eslint-v9-* packages](https://www.npmjs.com/search?q=%40saashub%2Fqoq-eslint-v9-).
+
+These configurations inherit from base presets and include all necessary packages and settings. The rules are opinionated, shaped by years of development experience, and can be used as a complete setup or as a foundation for your own configurations.
+
 
 ## Install
 
