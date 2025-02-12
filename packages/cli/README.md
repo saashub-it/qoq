@@ -77,6 +77,6 @@ CLI has it's own documentation just run `qoq -help` or `qoq -h`.
 
 ### Last but not least
 
-_Feel free to Yoin us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
+_Feel free to join us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_
 
 CLI technical documentation can be found [here](./docs/PROJECT.md)
