@@ -2,6 +2,6 @@
 
 'use strict';
 
-const { exec } = require( 'child_process' );
+const { execSync } = require( 'child_process' );
 
-exec(`cd ${process.cwd()} && qoq --warmup`)
+return execSync(`cd ${process.cwd()} && qoq --warmup`)
