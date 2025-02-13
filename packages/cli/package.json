@@ -26,7 +26,7 @@
     "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/qoq.cjs",
     "dev": "npm run build && node ./bin/qoq.cjs",
     "test": "vitest run --coverage",
-    "postinstall": "npm run qoq --warmup --if-present"
+    "postinstall": "node ./scripts/postinstall.cjs"
   },
   "dependencies": {
     "@antfu/install-pkg": "1.0.0",
