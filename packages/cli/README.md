@@ -5,11 +5,14 @@
 
 ## Rationale
 
-To keep high code quality and simplicity of both CI and git hooks usage of different static code analysis tools we created QoQ CLI. It orchestrates different tools with minimal config to bring execution of everything You need by 3 simple commands:
+To maintain high code quality and simplify the use of static code analysis tools in both CI and Git hooks, we created **QoQ CLI**. It orchestrates multiple tools with minimal configuration, allowing you to run everything you need with just three simple commands:
 
-- `qoq --check` to check Your code, typically in CI lint step or prepush hook
-- `qoq staged` to check staged changes, typically in precommit hook
-- `qoq --fix` to fix findings where possible, typically user triggered after hooks and/or CI failure to correct things asap
+- `qoq --check` – Runs a full code check, typically used in the CI lint step or pre-push hook.
+- `qoq staged` – Checks only staged changes, typically used in the pre-commit hook.
+- `qoq --fix` – Fixes issues where possible, typically triggered manually after hooks or a CI failure to quickly correct problems.
+
+With **QoQ CLI**, keeping your code clean and compliant is easier than ever.
+
 
 ## Install
 
@@ -25,15 +28,18 @@ But if no config file found, it will ask to create one every time You'll run che
 
 ## Automatic configuration
 
-Just answer all questions, wizard will provide You with some initial config values, after it's done it will install all necesarry packages from [@saashub/qoq-\*](<(https://www.npmjs.com/search?q=%40saashub%2Fqoq-)>) workspace, and create 3 files in Your project root path:
+Simply answer all the questions, and the wizard will generate initial configuration values for you. Once complete, it will install all necessary packages from the [@saashub/qoq-*](https://www.npmjs.com/search?q=%40saashub%2Fqoq-) workspace and create three files in your project's root directory:
 
-- `.prettierrc` to support IDE formatting with pre-configured template
-- `eslint.config.js` to connect CLI generated eslint config with IDE
-- `qoq.config.js` to provide config for CLI
+- `.prettierrc` – Supports IDE formatting with a pre-configured template.
+- `eslint.config.js` – Connects the CLI-generated ESLint config with your IDE.
+- `qoq.config.js` – Provides configuration for the CLI.
+
+With this setup, you’ll be up and running quickly with minimal manual configuration.
+
 
 ## Manual configuration
 
-When setting things up by Yourself all three files needs to be created manually,
+When setting things up by yourself all three files needs to be created manually,
 
 1. `.prettierrc` with custom config or QoQ templeate eg `"@saashub/qoq-prettier"`
 2. `eslint.config.js` with custom config or re-export of QoQ settings in CommonJs
@@ -73,7 +79,7 @@ Needs to export an CommonJS or ESM object with shape of:
 
 ## Avaliable options
 
-CLI has it's own documentation just run `qoq -help` or `qoq -h`.
+CLI has its own documentation just run `qoq -help` or `qoq -h`.
 
 ### Last but not least
 

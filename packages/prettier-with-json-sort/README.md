@@ -5,7 +5,7 @@
 
 ## Rationale
 
-Beign tired of setting up [Prettier](https://www.npmjs.com/package/prettier) all over again for new projects, we created some base template.
+Tired of setting up [Prettier](https://www.npmjs.com/package/prettier) from scratch for every new project? We created a base template to streamline the process.
 
 ## Install
 

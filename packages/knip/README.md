@@ -5,7 +5,10 @@
 
 ## Rationale
 
-Beign tired of setting up [Knip](https://www.npmjs.com/package/knip) all over again for new projects, we created some base template. Configs is opinionated, configured from years of development experience, can be used as full setup without any tweaks or as base to Your own configs.
+Tired of setting up [Knip](https://www.npmjs.com/package/knip) from scratch for every new project? We created a base template to simplify the process.
+
+The configuration is opinionated, shaped by years of development experience, and can be used as a complete setup without any tweaks or as a foundation for your own configurations.
+
 
 ## Install
 
