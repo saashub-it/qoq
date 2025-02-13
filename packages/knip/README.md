@@ -9,7 +9,6 @@ Tired of setting up [Knip](https://www.npmjs.com/package/knip) from scratch for 
 
 The configuration is opinionated, shaped by years of development experience, and can be used as a complete setup without any tweaks or as a foundation for your own configurations.
 
-
 ## Install
 
     npm install @saashub/qoq-knip
