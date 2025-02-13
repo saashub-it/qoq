@@ -6,6 +6,7 @@ import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
 import { JscpdConfigHandler } from './JscpdConfigHandler';
 import { IModuleJscpdConfig } from './types';
+import { IExecutorOptions } from '../types';
 
 export class JscpdExecutor extends AbstractExecutor {
   getName(): string {
@@ -29,7 +30,7 @@ export class JscpdExecutor extends AbstractExecutor {
     ];
   }
 
-  protected prepare(args: string[]): Promise<EExitCode> {
+  protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
     try {
       const { ignore } = this.modulesConfig.modules.jscpd as IModuleJscpdConfig;
 
@@ -37,7 +38,7 @@ export class JscpdExecutor extends AbstractExecutor {
         args.push('-i', ignore.join());
       }
 
-      return super.prepare(args, true);
+      return super.prepare(args, {...options, disableCache: true});
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 

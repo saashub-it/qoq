@@ -3,6 +3,7 @@
 import cac from 'cac';
 
 import { getConfig, initConfig, execute } from './modules';
+import { IExecuteOptions, IExecuteStagedOptions } from './modules/types';
 
 const cli = cac('qoq');
 
@@ -16,24 +17,12 @@ cli
   .option('--skip-jscpd', 'Skip JSCPD checks')
   .option('--skip-knip', 'Skip Knip checks')
   .option('--skip-eslint', 'Skip Eslint checks')
+  .option('--warmup', 'Create configs for tools without QoQ execution')
+  .option('--silent', 'Mute all QoQ messages')
   .action(
-    async ({
-      init,
-      fix,
-      disableCache,
-      skipPrettier,
-      skipJscpd,
-      skipKnip,
-      skipEslint,
-    }: {
-      init: boolean | undefined;
-      fix: boolean | undefined;
-      disableCache: boolean | undefined;
-      skipPrettier: boolean | undefined;
-      skipJscpd: boolean | undefined;
-      skipKnip: boolean | undefined;
-      skipEslint: boolean | undefined;
-    }) => {
+    async (options: IExecuteOptions) => {
+      const { init, fix, disableCache } = options;
+
       if (init) {
         return await initConfig();
       }
@@ -42,9 +31,7 @@ cli
 
       return await execute(
         config,
-        { skipPrettier, skipJscpd, skipKnip, skipEslint },
-        !!disableCache,
-        !!fix
+        {...options, fix: !!fix, disableCache: !!disableCache}
       );
     }
   );
@@ -63,27 +50,13 @@ cli
     async (
       // eslint-disable-next-line sonarjs/default-param-last
       files: string[] = [],
-      {
-        disableCache,
-        skipPrettier,
-        skipJscpd,
-        skipKnip,
-        skipEslint,
-      }: {
-        disableCache: boolean | undefined;
-        skipPrettier: boolean | undefined;
-        skipJscpd: boolean | undefined;
-        skipKnip: boolean | undefined;
-        skipEslint: boolean | undefined;
-      }
+      options: IExecuteStagedOptions
     ) => {
       const config = await getConfig(true);
 
       return await execute(
         config,
-        { skipPrettier, skipJscpd, skipKnip, skipEslint },
-        disableCache,
-        false,
+        {...options, fix: false, disableCache: !!options.disableCache},
         files
       );
     }

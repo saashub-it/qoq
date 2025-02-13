@@ -12,6 +12,7 @@ import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
 import { PrettierConfigHandler } from './PrettierConfigHandler';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { IExecutorOptions } from '../types';
 
 export class PrettierExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');
@@ -29,10 +30,10 @@ export class PrettierExecutor extends AbstractExecutor {
 
   protected async prepare(
     args: string[],
-    disableCache: boolean = false,
-    fix: boolean = false,
+    options: IExecutorOptions,
     files: string[] = []
   ): Promise<EExitCode> {
+    const { disableCache, fix } = options;
     if (!disableCache) {
       args.push('--cache-strategy', 'metadata');
     }
@@ -94,7 +95,7 @@ export class PrettierExecutor extends AbstractExecutor {
         args.push('--write');
       }
 
-      return super.prepare(args, disableCache, fix, files);
+      return super.prepare(args, options, files);
     } catch (e) {
       if (e instanceof TerminateExecutorGracefully) {
         throw e;

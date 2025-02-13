@@ -15,6 +15,7 @@ import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
 import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
+import { IExecutorOptions } from '../types';
 
 export class EslintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.eslintcache');
@@ -32,8 +33,7 @@ export class EslintExecutor extends AbstractExecutor {
 
   protected async prepare(
     args: string[],
-    disableCache: boolean = false,
-    fix: boolean = false,
+    options: IExecutorOptions,
     files: string[] = []
   ): Promise<EExitCode> {
     try {
@@ -132,11 +132,11 @@ export class EslintExecutor extends AbstractExecutor {
         args.push('--stdin-filename', ...filteredFiles);
       }
 
-      if (fix) {
+      if (options.fix) {
         args.push('--fix');
       }
 
-      return super.prepare(args, disableCache, fix, files);
+      return super.prepare(args, options, files);
     } catch(e) {
       if (e instanceof TerminateExecutorGracefully) {
         throw e;

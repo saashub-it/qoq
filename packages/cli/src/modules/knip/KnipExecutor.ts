@@ -11,6 +11,7 @@ import { EConfigType, EExitCode } from '@/helpers/types';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 
 import { IModuleKnipConfig } from './types';
+import { IExecutorOptions } from '../types';
 
 export class KnipExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.knipcache');
@@ -26,7 +27,7 @@ export class KnipExecutor extends AbstractExecutor {
     return ['--exclude', 'enumMembers'];
   }
 
-  protected prepare(args: string[], disableCache: boolean = false): Promise<EExitCode> {
+  protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
     try {
       const {
         srcPath,
@@ -50,7 +51,7 @@ export class KnipExecutor extends AbstractExecutor {
 
       args.push('-c', getRelativePath(configFilePath));
 
-      return super.prepare(args, disableCache);
+      return super.prepare(args, options);
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 

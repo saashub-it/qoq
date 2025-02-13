@@ -15,3 +15,32 @@ export interface IModulesConfig {
     knip?: IModuleKnipConfig;
   };
 }
+
+export interface IExecuteStagedOptions {
+  disableCache?: boolean;
+  skipPrettier?: boolean;
+  skipJscpd?: boolean;
+  skipKnip?: boolean;
+  skipEslint?: boolean;
+  warmup?: boolean;
+  silent?: boolean;
+}
+
+export interface IExecuteOptions extends IExecuteStagedOptions {
+  init?: boolean;
+  fix?: boolean;
+}
+
+export interface IExecuteStagedOptions {
+  disableCache?: boolean;
+  skipPrettier?: boolean;
+  skipJscpd?: boolean;
+  skipKnip?: boolean;
+  skipEslint?: boolean;
+  warmup?: boolean;
+}
+
+export interface IExecutorOptions extends IExecuteStagedOptions {
+  fix: boolean;
+  disableCache: boolean;
+}

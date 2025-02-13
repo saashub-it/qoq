@@ -4,32 +4,39 @@ import { executeCommand } from '@/helpers/command';
 import { EExitCode } from '@/helpers/types';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 
-import { IModulesConfig } from '../types';
+import { IExecutorOptions, IModulesConfig } from '../types';
 
 interface IExecutor {
   getName: () => string;
-  run: (disableCache?: boolean, fix?: boolean, files?: string[]) => Promise<EExitCode>;
+  run: (options: IExecutorOptions, files?: string[]) => Promise<EExitCode>;
 }
 export abstract class AbstractExecutor implements IExecutor {
   abstract getName(): string;
   protected abstract getCommandName(): string;
   protected abstract getCommandArgs(): string[];
 
-  constructor(modulesConfig: IModulesConfig, silent: boolean = false) {
+  constructor(modulesConfig: IModulesConfig, silent: boolean = false, hideTimer: boolean = false) {
     this.modulesConfig = modulesConfig;
     this.silent = silent;
+    this.hideTimer = hideTimer;
   }
 
-  async run(disableCache?: boolean, fix?: boolean, files?: string[]): Promise<EExitCode> {
+  async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode> {
     const consoleTimeName = `${this.getName()} execution time:`;
     console.time(c.italic(c.gray(consoleTimeName)));
 
-    process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
+    if (!this.silent) {
+      process.stdout.write(c.green(`\nRunning ${this.getName()}:\n`));
+    }
 
     const args = [...this.getCommandArgs()];
 
     try {
-      await this.prepare(args, disableCache, fix, files);
+      await this.prepare(args, options, files);
+
+      if (options.warmup) {
+        return EExitCode.OK;
+      }
 
       return await executeCommand(this.getCommandName(), args);
     } catch (e) {
@@ -41,7 +48,7 @@ export abstract class AbstractExecutor implements IExecutor {
 
       return EExitCode.OK;
     } finally {
-      if (!this.silent) {
+      if (!this.silent && !this.hideTimer) {
         console.timeEnd(c.italic(c.gray(consoleTimeName)));
       }
     }
@@ -49,16 +56,15 @@ export abstract class AbstractExecutor implements IExecutor {
 
   protected modulesConfig: IModulesConfig;
   protected silent: boolean;
+  protected hideTimer: boolean;
 
   protected async prepare(
     args: string[],
-    disableCache: boolean = false,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    fix: boolean = false,
+    options: IExecutorOptions,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     files: string[] = []
   ): Promise<EExitCode> {
-    if (disableCache === false) {
+    if (!options.disableCache) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       args.push('--cache', '--cache-location', this.constructor.CACHE_PATH);
     }

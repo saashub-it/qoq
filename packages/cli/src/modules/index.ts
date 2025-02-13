@@ -18,7 +18,8 @@ import { KnipConfigHandler } from './knip/KnipConfigHandler';
 import { KnipExecutor } from './knip/KnipExecutor';
 import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
-import { IModulesConfig } from './types';
+import { IExecutorOptions, IModulesConfig } from './types';
+import { executeCommand } from '@/helpers/command';
 
 const getHandlerBySequence = (
   modulesConfig: IModulesConfig,
@@ -45,7 +46,7 @@ const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
   return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
 };
 
-export const initConfig = async (): Promise<IModulesConfig> => {
+export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesConfig> => {
   const modulesConfig = { modules: {} } as IModulesConfig;
   const config = {} as QoqConfig;
 
@@ -57,6 +58,10 @@ export const initConfig = async (): Promise<IModulesConfig> => {
     BasicConfigHandler.CONFIG_FILE_PATH,
     formatCode(modulesConfig.configType, {}, [], JSON.stringify(config))
   );
+
+  if(!skipWarmup) {
+    executeCommand('qoq', ['--warmup'])
+  }
 
   return modulesConfig;
 };
@@ -79,7 +84,7 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
       return getModulesFromConfig({} as QoqConfig);
     }
 
-    return initConfig();
+    return initConfig(true);
   }
 
   try {
@@ -96,18 +101,19 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
 
 export const execute = async (
   modulesConfig: IModulesConfig,
-  skips: Record<string, boolean | undefined>,
-  disableCache?: boolean,
-  fix?: boolean,
+  options: IExecutorOptions,
   files?: string[]
 ): Promise<void> => {
+  const { silent, warmup, skipPrettier, skipJscpd, skipKnip, skipEslint } = options;
+  const hideMessages = !!silent || !!warmup;
+
   const consoleTimeName = `Total execution time:`;
   console.time(c.italic(c.gray(consoleTimeName)));
 
-  const prettierExecutor = new PrettierExecutor(modulesConfig);
-  const jscpdExecutor = new JscpdExecutor(modulesConfig, true);
-  const knipExecutor = new KnipExecutor(modulesConfig);
-  const eslintExecutor = new EslintExecutor(modulesConfig);
+  const prettierExecutor = new PrettierExecutor(modulesConfig, hideMessages);
+  const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
+  const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
+  const eslintExecutor = new EslintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
     [prettierExecutor.getName()]: EExitCode.OK,
@@ -116,20 +122,20 @@ export const execute = async (
     [eslintExecutor.getName()]: EExitCode.OK,
   };
 
-  if (!skips.skipPrettier) {
-    responses[prettierExecutor.getName()] = await prettierExecutor.run(disableCache, fix, files);
+  if (!skipPrettier) {
+    responses[prettierExecutor.getName()] = await prettierExecutor.run(options, files);
   }
 
-  if (!skips.skipJscpd) {
-    responses[jscpdExecutor.getName()] = await jscpdExecutor.run(disableCache, fix, files);
+  if (!skipJscpd) {
+    responses[jscpdExecutor.getName()] = await jscpdExecutor.run(options, files);
   }
 
-  if (!skips.skipKnip) {
-    responses[knipExecutor.getName()] = await knipExecutor.run(disableCache, fix, files);
+  if (!skipKnip) {
+    responses[knipExecutor.getName()] = await knipExecutor.run(options, files);
   }
 
-  if (!skips.skipEslint) {
-    responses[eslintExecutor.getName()] = await eslintExecutor.run(disableCache, fix, files);
+  if (!skipEslint) {
+    responses[eslintExecutor.getName()] = await eslintExecutor.run(options, files);
   }
 
   Object.keys(responses)
@@ -140,7 +146,9 @@ export const execute = async (
       process.stderr.write(c.red(`\nQoQ found some ${key} errors!\n\n`));
     });
 
-  process.stdout.write('\n-------------------------\n\n');
+    if (!hideMessages) {
+      process.stdout.write('\n-------------------------\n\n');
 
-  console.timeEnd(c.italic(c.gray(consoleTimeName)));
+      console.timeEnd(c.italic(c.gray(consoleTimeName)));
+    }
 };
