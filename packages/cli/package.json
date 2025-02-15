@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -25,8 +25,7 @@
   "scripts": {
     "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/qoq.cjs",
     "dev": "npm run build && node ./bin/qoq.cjs",
-    "test": "vitest run --coverage",
-    "postinstall": "node ./scripts/postinstall.cjs"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@antfu/install-pkg": "1.0.0",
@@ -43,15 +42,15 @@
     "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.0",
-    "@saashub/qoq-eslint-v9-js": "^1.0.3",
-    "@saashub/qoq-knip": "^1.0.3",
+    "@saashub/qoq-eslint-v9-js": "^1.0.4",
+    "@saashub/qoq-knip": "^1.0.4",
     "@types/lodash": "4.17.15",
     "@types/micromatch": "4.0.9",
     "@types/prompts": "2.4.9",
     "@vitest/coverage-v8": "3.0.5",
     "knip": "5.44.1",
     "rimraf": "6.0.1",
-    "rollup": "4.34.6",
+    "rollup": "4.34.7",
     "rollup-plugin-esbuild": "6.2.0",
     "rollup-plugin-typescript-paths": "1.5.0",
     "typescript": "5.7.3",

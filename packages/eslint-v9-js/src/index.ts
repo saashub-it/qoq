@@ -28,7 +28,6 @@ export const baseConfig: EslintConfig = {
     sonarjs: sonarJsPlugin,
   },
   rules: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jsRules.configs.recommended.rules,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...importPlugin.configs.recommended.rules,
@@ -44,7 +43,7 @@ export const baseConfig: EslintConfig = {
         'newlines-between': 'always',
       },
     ],
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
     ...sonarJsPlugin.configs.recommended.rules,
     'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
     'sonarjs/no-alphabetical-sort': 0,
