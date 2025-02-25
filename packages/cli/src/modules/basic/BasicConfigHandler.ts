@@ -66,4 +66,10 @@ export class BasicConfigHandler extends AbstractConfigHandler {
 
     return super.getModulesFromConfig();
   }
+
+  getPackages(): string[] {
+    this.packages = ['@saashub/qoq-cli'];
+
+    return super.getPackages();
+  }
 }

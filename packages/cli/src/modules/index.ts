@@ -20,6 +20,7 @@ import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
 import { IExecutorOptions, IModulesConfig } from './types';
 import { executeCommand } from '@/helpers/command';
+import { installPackages } from '@/helpers/packages';
 
 const getHandlerBySequence = (
   modulesConfig: IModulesConfig,
@@ -52,15 +53,21 @@ export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesC
 
   await getHandlerBySequence(modulesConfig, config).getPrompts();
 
-  rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
+  if (existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
+    rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
+  }
 
   writeFileSync(
     BasicConfigHandler.CONFIG_FILE_PATH,
     formatCode(modulesConfig.configType, {}, [], JSON.stringify(config))
   );
 
-  if(!skipWarmup) {
-    executeCommand('qoq', ['--warmup'])
+  const packages = getHandlerBySequence(modulesConfig, config).getPackages();
+
+  await installPackages(packages);
+
+  if (!skipWarmup) {
+    await executeCommand('qoq', ['--warmup']);
   }
 
   return modulesConfig;
@@ -146,9 +153,9 @@ export const execute = async (
       process.stderr.write(c.red(`\nQoQ found some ${key} errors!\n\n`));
     });
 
-    if (!hideMessages) {
-      process.stdout.write('\n-------------------------\n\n');
+  if (!hideMessages) {
+    process.stdout.write('\n-------------------------\n\n');
 
-      console.timeEnd(c.italic(c.gray(consoleTimeName)));
-    }
+    console.timeEnd(c.italic(c.gray(consoleTimeName)));
+  }
 };

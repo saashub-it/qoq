@@ -7,12 +7,13 @@ import prompts from 'prompts';
 import { omitStartingDotFromPath } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCwdRelativePath } from '@/helpers/paths';
-import { QoqConfig } from '@/helpers/types';
+import { EConfigType, QoqConfig } from '@/helpers/types';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
 import { EModulesEslint, IModuleEslintConfig } from './types';
+import { getPackageInfo } from '@/helpers/packages';
 
 export class EslintConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/eslint.config.js');
@@ -26,12 +27,88 @@ export class EslintConfigHandler extends AbstractConfigHandler {
       );
     }
 
+    let isTypeSriptInstalled: boolean;
+
+    try {
+      isTypeSriptInstalled = !!getPackageInfo('typescript');
+    } catch {
+      isTypeSriptInstalled = false;
+    }
+
+    const initialValue: EModulesEslint[] = [];
+
+    if (isTypeSriptInstalled) {
+      try {
+        if (!!getPackageInfo('react')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_TS_REACT);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      try {
+        if (!!getPackageInfo('jest')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_TS_JEST);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      try {
+        if (!!getPackageInfo('vitest')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_TS_VITEST);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      if (initialValue.length === 0) {
+        initialValue.push(EModulesEslint.ESLINT_V9_TS);
+      }
+    } else {
+      try {
+        if (!!getPackageInfo('react')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_JS_REACT);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      try {
+        if (!!getPackageInfo('jest')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_JS_JEST);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      try {
+        if (!!getPackageInfo('vitest')) {
+          initialValue.push(EModulesEslint.ESLINT_V9_JS_VITEST);
+        }
+      } catch {
+        // not setting initial value
+      }
+
+      if (initialValue.length === 0) {
+        initialValue.push(EModulesEslint.ESLINT_V9_JS);
+      }
+    }
+
+    let isJestInstalled: boolean;
+
+    try {
+      isJestInstalled = !!getPackageInfo('jest');
+    } catch {
+      // not setting initial value
+    }
+
     const { eslintPackages }: { eslintPackages: EModulesEslint[] } = await prompts.prompt([
       {
         type: 'toggle',
         name: 'eslint',
         message: c.reset(`Do You use ${c.green('TypeScript')} in Your project?`),
-        initial: true,
+        initial: isTypeSriptInstalled,
         active: c.green('yes'),
         inactive: c.red('no'),
       },
@@ -39,6 +116,7 @@ export class EslintConfigHandler extends AbstractConfigHandler {
         type: (prev: boolean) => (prev ? 'multiselect' : null),
         name: 'eslintPackages',
         message: 'What options should we use?',
+        initial: initialValue,
         choices: [
           { title: 'Basic TypeScript only', value: EModulesEslint.ESLINT_V9_TS },
           { title: 'TypeScript + React', value: EModulesEslint.ESLINT_V9_TS_REACT },
@@ -51,6 +129,7 @@ export class EslintConfigHandler extends AbstractConfigHandler {
         type: (prev: boolean) => (!prev ? 'multiselect' : null),
         name: 'eslintPackages',
         message: 'What options should we use?',
+        initial: initialValue,
         choices: [
           { title: 'Basic JavaScript only', value: EModulesEslint.ESLINT_V9_JS },
           { title: 'JavaScript + React', value: EModulesEslint.ESLINT_V9_JS_REACT },
@@ -140,13 +219,17 @@ export class EslintConfigHandler extends AbstractConfigHandler {
       }
     }
 
-    rmSync(EslintConfigHandler.CONFIG_FILE_PATH);
+    if (this.configFileExists()) {
+      rmSync(EslintConfigHandler.CONFIG_FILE_PATH);
+    }
 
     writeFileSync(
       EslintConfigHandler.CONFIG_FILE_PATH,
       formatCode(
         this.modulesConfig.configType,
-        { config: '@saashub/qoq-cli/bin/eslint.config.js' },
+        {
+          config: `@saashub/qoq-cli/bin/eslint.config.${this.modulesConfig.configType === EConfigType.ESM ? 'm' : 'c'}js`,
+        },
         [],
         'config'
       )
@@ -169,6 +252,16 @@ export class EslintConfigHandler extends AbstractConfigHandler {
     this.modulesConfig.modules.eslint = this.config.eslint;
 
     return super.getModulesFromConfig();
+  }
+
+  getPackages(): string[] {
+    const templates = (this.modulesConfig.modules.eslint ?? [])
+      .filter((config) => config.template && config.template !== EModulesEslint.ESLINT_V9_JS)
+      .map((config) => String(config.template));
+
+    this.packages = [EModulesEslint.ESLINT_V9_JS, ...templates];
+
+    return super.getPackages();
   }
 
   protected configFileExists(): boolean {

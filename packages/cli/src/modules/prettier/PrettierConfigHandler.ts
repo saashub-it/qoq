@@ -29,7 +29,7 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
       prettierPackage,
       prettierSources,
     }: {
-      prettierPackage: EModulesPrettier.PRETTIER | EModulesPrettier.PRETTIER_WITH_JSON_SORT;
+      prettierPackage: EModulesPrettier;
       prettierSources: string[];
     } = await prompts.prompt([
       {
@@ -57,7 +57,10 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
       },
     ]);
 
-    rmSync(PrettierConfigHandler.CONFIG_FILE_PATH);
+    if (this.configFileExists()) {
+      rmSync(PrettierConfigHandler.CONFIG_FILE_PATH);
+    }
+
     writeFileSync(PrettierConfigHandler.CONFIG_FILE_PATH, `"${prettierPackage}"`);
 
     const { srcPath } = this.modulesConfig;
@@ -90,6 +93,12 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
     };
 
     return super.getModulesFromConfig();
+  }
+
+  getPackages(): string[] {
+    this.packages = [];
+
+    return super.getPackages();
   }
 
   protected configFileExists(): boolean {

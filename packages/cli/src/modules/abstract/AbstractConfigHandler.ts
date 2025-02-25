@@ -42,7 +42,16 @@ export abstract class AbstractConfigHandler implements IConfigHandler {
     return handler;
   }
 
+  getPackages(): string[] {
+    if (this.nextHandler) {
+      return [...this.packages, ...this.nextHandler.getPackages()];
+    }
+
+    return this.packages;
+  }
+
   protected modulesConfig: IModulesConfig;
   protected config: QoqConfig;
   private nextHandler: AbstractConfigHandler;
+  protected packages: string[] = [];
 }

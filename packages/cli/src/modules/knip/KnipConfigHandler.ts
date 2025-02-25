@@ -111,6 +111,12 @@ export class KnipConfigHandler extends AbstractConfigHandler {
     return super.getModulesFromConfig();
   }
 
+  getPackages(): string[] {
+    this.packages = ['@saashub/qoq-knip'];
+
+    return super.getPackages();
+  }
+
   protected getDefaultEntry = (): string[] => {
     const { srcPath, modules } = this.modulesConfig;
     const pathString = omitStartingDotFromPath(srcPath);

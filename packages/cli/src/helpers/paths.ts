@@ -6,9 +6,15 @@ import pkg from '../../package.json';
 import { getPackageInfo } from './packages';
 
 const getCliPackagePath = (): string => {
-  const { rootPath } = getPackageInfo(pkg.name) ?? {};
+  try {
+    const { rootPath } = getPackageInfo(pkg.name) ?? {};
 
-  return rootPath;
+    return rootPath;
+  } catch {
+    // this is for npx
+    
+    return process.cwd();
+  }
 };
 
 export const resolveCliPackagePath = (path: string): string =>

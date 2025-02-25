@@ -84,6 +84,12 @@ export class JscpdConfigHandler extends AbstractConfigHandler {
     return super.getModulesFromConfig();
   }
 
+  getPackages(): string[] {
+    this.packages = ['@saashub/qoq-jscpd'];
+
+    return super.getPackages();
+  }
+
   protected getDefaultFormat = (): TJscpdFormat[] =>
     getFilesExtensions(this.modulesConfig.modules).map((key) => {
       switch (key) {
