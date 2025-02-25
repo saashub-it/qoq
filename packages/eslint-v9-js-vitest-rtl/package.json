@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-vitest-rtl",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Eslint flat config template for JS + Vitest + RTL",
   "keywords": [
     "eslint JavaScript + Vitest + RTL template",
@@ -39,13 +39,13 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^1.0.4",
+    "@saashub/qoq-eslint-v9-js-vitest": "^1.0.5",
     "eslint-plugin-testing-library": "7.1.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^1.0.4",
+    "@saashub/qoq-cli": "^1.0.5",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.15",
     "@vitest/coverage-v8": "3.0.7",
