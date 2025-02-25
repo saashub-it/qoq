@@ -10,16 +10,3 @@ export const omitRules = (sourceConfig: EslintConfig, rulesToOmit: string[]): Es
 
   return newConfig;
 };
-
-export const omitRulesForConfigCollection = (
-  sourceConfigs: EslintConfig[],
-  rulesToOmit: string[]
-): EslintConfig[] => sourceConfigs.map((sourceConfig) => omitRules(sourceConfig, rulesToOmit));
-
-export const addIgnoresToConfigCollection = (
-  sourceConfigs: EslintConfig[],
-  ignores: string[]
-): EslintConfig[] =>
-  sourceConfigs.map((sourceConfig) =>
-    merge({}, sourceConfig, { ignores: [...(sourceConfig.ignores ?? []), ...ignores] })
-  );

@@ -1,3 +1,3 @@
-import config from '../../vitest.config.mjs';
+import config from '../eslint-v9/vitest.config.mjs';
 
 export default config;

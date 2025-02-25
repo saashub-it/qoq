@@ -1,4 +1,6 @@
 import tsconfigPaths from 'vite-tsconfig-paths';
-import config from '../../vitest.config.mjs';
+import { commonConfig } from '../../vitest.config.mjs';
 
-export default { ...config, plugins: [tsconfigPaths()] };
+commonConfig.test.coverage.exclude = [...commonConfig.test.coverage.exclude, '**/__tests__/**', '**/types.ts'];
+
+export default { ...commonConfig, plugins: [tsconfigPaths()] };

@@ -91,9 +91,4 @@ export const baseConfig: EslintConfig = {
     ],
     'no-useless-return': 'warn',
   },
-  settings: {
-    react: {
-      version: '16.8',
-    },
-  },
 };
