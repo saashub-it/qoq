@@ -1,4 +1,4 @@
-import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
+import { EslintConfig } from '../../../../eslint-v9-js/src/index';
 
 import { TPartialBy } from '@/helpers/types';
 
