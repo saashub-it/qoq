@@ -17,9 +17,13 @@ With **QoQ CLI**, keeping your code clean and compliant is easier than ever.
 
     npm install @saashub/qoq-cli
 
+or run wizard directly via npx with
+
+    npx -y @saashub/qoq-cli --init
+
 ## Usage
 
-First of all we need to run configure wizard, You can do it intentionally by running:
+First of all, if not configured via npx we need to run wizard manually, You can do it intentionally by running:
 
     qoq --init
 
@@ -81,7 +85,7 @@ Needs to export an CommonJS or ESM object with shape of:
 | `knip.entry`              | false    | ``[`${srcPath}/index.{js,jsx,ts,tsx}`]``                             | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
 | `knip.project`            | false    | ``[`${srcPath}/**/*.{js,jsx,ts,tsx}`]``                              | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
 | `knip.ignore`             | false    | `['package.json', 'tsconfig.json]`                                   | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
-| `knip.ignoreDependencies` | false    | `[]`                                                                 | Default don't ignore any dependencies errors                                                                                                                                                                                                                                                                             |
+| `knip.ignoreDependencies` | false    | `['saashub/qoq-*']`                                                  | Default don't ignore any dependencies errors                                                                                                                                                                                                                                                                             |
 
 ## Avaliable options
 
