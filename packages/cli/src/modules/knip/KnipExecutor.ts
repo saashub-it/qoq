@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 
-import { getKnipConfig } from '@saashub/qoq-knip/knipConfig';
+import { getKnipConfig } from '../../../../knip/src/knipConfig';
 import c from 'picocolors';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
