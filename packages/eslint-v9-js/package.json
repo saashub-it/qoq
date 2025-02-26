@@ -40,7 +40,7 @@
   "types": "./lib/index.d.js",
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
-    "inspect": "npm run build && eslint -c ./lib/eslintConfig.cjs --inspect-config",
+    "inspect": "npm run build && eslint -c ./eslint.config.local.js --inspect-config",
     "qoq:check": "qoq --check --skip-knip",
     "qoq:fix": "qoq --fix --skip-knip",
     "test": "vitest run --coverage"

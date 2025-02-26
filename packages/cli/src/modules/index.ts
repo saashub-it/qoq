@@ -57,9 +57,11 @@ export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesC
     rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
   }
 
+  const configFromModules = getHandlerBySequence(modulesConfig, config).getConfigFromModules();
+
   writeFileSync(
     BasicConfigHandler.CONFIG_FILE_PATH,
-    formatCode(modulesConfig.configType, {}, [], JSON.stringify(config))
+    formatCode(modulesConfig.configType, {}, [], JSON.stringify(configFromModules))
   );
 
   const packages = getHandlerBySequence(modulesConfig, config).getPackages();

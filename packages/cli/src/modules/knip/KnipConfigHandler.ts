@@ -59,8 +59,14 @@ export class KnipConfigHandler extends AbstractConfigHandler {
     this.modulesConfig.modules.knip = {
       entry: knipEntry.filter((entry) => !!entry).map(omitStartingDotFromPath),
       project: knipProject.filter((entry) => !!entry).map(omitStartingDotFromPath),
-      ignore: knipIgnore.filter((entry) => !!entry).map(omitStartingDotFromPath),
-      ignoreDependencies: knipIgnoreDependencies.filter((entry) => !!entry),
+      ignore: [
+        ...KnipConfigHandler.DEFAULT_IGNORE,
+        ...knipIgnore.filter((entry) => !!entry).map(omitStartingDotFromPath),
+      ],
+      ignoreDependencies: [
+        ...KnipConfigHandler.DEFAULT_IGNORE_DEPENDENCIES,
+        ...knipIgnoreDependencies.filter((entry) => !!entry),
+      ],
     };
 
     return super.getPrompts();
