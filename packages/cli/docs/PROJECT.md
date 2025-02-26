@@ -22,6 +22,7 @@ As stated in [root documentation](../README.md) with Qoq CLI we aim to provide m
  ┃ ┗ 📜types.ts
  ┗ 📜index.ts // CLI execution file
 ```
+
 ## Config Wizard
 
 Every `ConfigHandler` must extend `AbstractConfigHandler`, which requires implementing the `getPrompts` method. This method defines all wizard questions and answer mappings for a specific module.
@@ -48,4 +49,4 @@ Every `Executor` must extend `AbstractExecutor` and implement the following meth
 
 ### Last but not least
 
-The CLI supports both CommonJS and ESM formats. Every configuration must be formatted using the `formatCode` helper to ensure compatibility across both standards.  
+The CLI supports both CommonJS and ESM formats. Every configuration must be formatted using the `formatCode` helper to ensure compatibility across both standards.

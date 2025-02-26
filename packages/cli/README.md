@@ -13,7 +13,6 @@ To maintain high code quality and simplify the use of static code analysis tools
 
 With **QoQ CLI**, keeping your code clean and compliant is easier than ever.
 
-
 ## Install
 
     npm install @saashub/qoq-cli
@@ -28,14 +27,13 @@ But if no config file found, it will ask to create one every time You'll run che
 
 ## Automatic configuration
 
-Simply answer all the questions, and the wizard will generate initial configuration values for you. Once complete, it will install all necessary packages from the [@saashub/qoq-*](https://www.npmjs.com/search?q=%40saashub%2Fqoq-) workspace and create three files in your project's root directory:
+Simply answer all the questions, and the wizard will generate initial configuration values for you. Once complete, it will install all necessary packages from the [@saashub/qoq-\*](https://www.npmjs.com/search?q=%40saashub%2Fqoq-) workspace and create three files in your project's root directory:
 
 - `.prettierrc` – Supports IDE formatting with a pre-configured template.
 - `eslint.config.js` – Connects the CLI-generated ESLint config with your IDE.
 - `qoq.config.js` – Provides configuration for the CLI.
 
 With this setup, you’ll be up and running quickly with minimal manual configuration.
-
 
 ## Manual configuration
 
@@ -64,7 +62,7 @@ When setting things up by yourself all three files needs to be created manually,
 
 Since QoQ CLI re-creates config for the particular tool on execution You may end up with a situation that created `eslint.config.js` config will try to import a file that doesn't exist yet. The same situation will occur when You checkout a fresh project and install dependencies. To avoid that please modify Your `package.json` file in `scripts` section by adding:
 
-    "postinstall": "qoq --warmup" 
+    "postinstall": "qoq --warmup"
 
 We're not adding it to the package on purpose. Often 3rd party libraries with `postinstall` scripts are treated as suspicious due to the fact that You can execute there pretty much everything. Also `pnpm` totally ignores `postinstalls` entry.
 
@@ -72,18 +70,18 @@ We're not adding it to the package on purpose. Often 3rd party libraries with `p
 
 Needs to export an CommonJS or ESM object with shape of:
 
-| Property | Required | Default | Description |
-| - | - | - | - |
-| `srcPath` | false | `./src` | Path to project source files on which analysis will be conducted |
-| `prettier.sources` | false | `[]` | Array of paths for Prettier formatting |
-| `eslint` | false | `[]` | Valid v9 [flatConfig](https://eslint.org/docs/latest/use/configure/configuration-files) array, if `template` key exists any [@saashub/qoq-eslint-v9-\* packages](https://www.npmjs.com/search?q=%40saashub%2Fqoq-eslint-v9-) can be used as a baseConfig, remember to install dependency (CLI wizard will do it for You) |
-| `jscpd.threshold` | false | `2` | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) threshold config. |
-| `jscpd.format` | false | `javascript,jsx,typescript,tsx` | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) format config. |
-| `jscpd.ignore` | false | `["**/*.spec.js", "**/*.spec.jsx", "**/*.spec.ts", "**/*.spec.tsx"]` | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) ignore config. |
-| `knip.entry` | false | ``[`${srcPath}/index.{js,jsx,ts,tsx}`]`` | Default value is calculated based on `srcPath` and `eslint` config |
-| `knip.project` | false | ``[`${srcPath}/**/*.{js,jsx,ts,tsx}`]`` | Default value is calculated based on `srcPath` and `eslint` config |
-| `knip.ignore` | false | `['package.json', 'tsconfig.json]` | Default value is calculated based on `srcPath` and `eslint` config |
-| `knip.ignoreDependencies` | false | `[]` | Default don't ignore any dependencies errors |
+| Property                  | Required | Default                                                              | Description                                                                                                                                                                                                                                                                                                              |
+| ------------------------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `srcPath`                 | false    | `./src`                                                              | Path to project source files on which analysis will be conducted                                                                                                                                                                                                                                                         |
+| `prettier.sources`        | false    | `[]`                                                                 | Array of paths for Prettier formatting                                                                                                                                                                                                                                                                                   |
+| `eslint`                  | false    | `[]`                                                                 | Valid v9 [flatConfig](https://eslint.org/docs/latest/use/configure/configuration-files) array, if `template` key exists any [@saashub/qoq-eslint-v9-\* packages](https://www.npmjs.com/search?q=%40saashub%2Fqoq-eslint-v9-) can be used as a baseConfig, remember to install dependency (CLI wizard will do it for You) |
+| `jscpd.threshold`         | false    | `2`                                                                  | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) threshold config.                                                                                                                                                                                         |
+| `jscpd.format`            | false    | `javascript,jsx,typescript,tsx`                                      | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) format config.                                                                                                                                                                                            |
+| `jscpd.ignore`            | false    | `["**/*.spec.js", "**/*.spec.jsx", "**/*.spec.ts", "**/*.spec.tsx"]` | With this value we can override default [@saashub/qoq-jscpd](https://www.npmjs.com/package/@saashub/qoq-jscpd) ignore config.                                                                                                                                                                                            |
+| `knip.entry`              | false    | ``[`${srcPath}/index.{js,jsx,ts,tsx}`]``                             | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
+| `knip.project`            | false    | ``[`${srcPath}/**/*.{js,jsx,ts,tsx}`]``                              | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
+| `knip.ignore`             | false    | `['package.json', 'tsconfig.json]`                                   | Default value is calculated based on `srcPath` and `eslint` config                                                                                                                                                                                                                                                       |
+| `knip.ignoreDependencies` | false    | `[]`                                                                 | Default don't ignore any dependencies errors                                                                                                                                                                                                                                                                             |
 
 ## Avaliable options
 

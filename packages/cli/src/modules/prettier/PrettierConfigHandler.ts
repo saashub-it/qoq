@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { existsSync, rmSync, writeFileSync } from 'fs';
+import { existsSync, rmSync, writeFileSync, readFileSync } from 'fs';
 
 import c from 'picocolors';
 import prompts from 'prompts';
@@ -96,7 +96,21 @@ export class PrettierConfigHandler extends AbstractConfigHandler {
   }
 
   getPackages(): string[] {
-    this.packages = [];
+    if (this.configFileExists()) {
+      try {
+        const configFileContent = readFileSync(PrettierConfigHandler.CONFIG_FILE_PATH, 'utf-8');
+
+        this.packages = [
+          configFileContent.includes(EModulesPrettier.PRETTIER_WITH_JSON_SORT)
+            ? EModulesPrettier.PRETTIER_WITH_JSON_SORT
+            : EModulesPrettier.PRETTIER,
+        ];
+      } catch {
+        this.packages = [EModulesPrettier.PRETTIER];
+      }
+    } else {
+      this.packages = [EModulesPrettier.PRETTIER];
+    }
 
     return super.getPackages();
   }

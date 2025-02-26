@@ -19,22 +19,17 @@ cli
   .option('--skip-eslint', 'Skip Eslint checks')
   .option('--warmup', 'Create configs for tools without QoQ execution')
   .option('--silent', 'Mute all QoQ messages')
-  .action(
-    async (options: IExecuteOptions) => {
-      const { init, fix, disableCache } = options;
+  .action(async (options: IExecuteOptions) => {
+    const { init, fix, disableCache } = options;
 
-      if (init) {
-        return await initConfig();
-      }
-
-      const config = await getConfig();
-
-      return await execute(
-        config,
-        {...options, fix: !!fix, disableCache: !!disableCache}
-      );
+    if (init) {
+      return await initConfig();
     }
-  );
+
+    const config = await getConfig();
+
+    return await execute(config, { ...options, fix: !!fix, disableCache: !!disableCache });
+  });
 
 cli
   .command(
@@ -56,7 +51,7 @@ cli
 
       return await execute(
         config,
-        {...options, fix: false, disableCache: !!options.disableCache},
+        { ...options, fix: false, disableCache: !!options.disableCache },
         files
       );
     }

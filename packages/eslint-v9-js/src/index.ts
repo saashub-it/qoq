@@ -45,7 +45,6 @@ export const baseConfig: EslintConfig = {
     ],
 
     ...sonarJsPlugin.configs.recommended.rules,
-    'sonarjs/sonar-no-fallthrough': 0, // due to error in 2.0.2
     'sonarjs/no-alphabetical-sort': 0,
     'sonarjs/no-misused-promises': 0,
     'sonarjs/no-nested-functions': 0,

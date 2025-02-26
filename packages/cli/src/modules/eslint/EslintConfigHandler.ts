@@ -35,64 +35,12 @@ export class EslintConfigHandler extends AbstractConfigHandler {
       isTypeSriptInstalled = false;
     }
 
-    const initialValue: EModulesEslint[] = [];
+    let isReactInstalled: boolean;
 
-    if (isTypeSriptInstalled) {
-      try {
-        if (!!getPackageInfo('react')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_TS_REACT);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      try {
-        if (!!getPackageInfo('jest')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_TS_JEST);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      try {
-        if (!!getPackageInfo('vitest')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_TS_VITEST);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      if (initialValue.length === 0) {
-        initialValue.push(EModulesEslint.ESLINT_V9_TS);
-      }
-    } else {
-      try {
-        if (!!getPackageInfo('react')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_JS_REACT);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      try {
-        if (!!getPackageInfo('jest')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_JS_JEST);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      try {
-        if (!!getPackageInfo('vitest')) {
-          initialValue.push(EModulesEslint.ESLINT_V9_JS_VITEST);
-        }
-      } catch {
-        // not setting initial value
-      }
-
-      if (initialValue.length === 0) {
-        initialValue.push(EModulesEslint.ESLINT_V9_JS);
-      }
+    try {
+      isReactInstalled = !!getPackageInfo('react');
+    } catch {
+      isReactInstalled = false;
     }
 
     let isJestInstalled: boolean;
@@ -100,7 +48,15 @@ export class EslintConfigHandler extends AbstractConfigHandler {
     try {
       isJestInstalled = !!getPackageInfo('jest');
     } catch {
-      // not setting initial value
+      isJestInstalled = false;
+    }
+
+    let isVitestInstalled: boolean;
+
+    try {
+      isVitestInstalled = !!getPackageInfo('vitest');
+    } catch {
+      isVitestInstalled = false;
     }
 
     const { eslintPackages }: { eslintPackages: EModulesEslint[] } = await prompts.prompt([
@@ -116,12 +72,27 @@ export class EslintConfigHandler extends AbstractConfigHandler {
         type: (prev: boolean) => (prev ? 'multiselect' : null),
         name: 'eslintPackages',
         message: 'What options should we use?',
-        initial: initialValue,
         choices: [
-          { title: 'Basic TypeScript only', value: EModulesEslint.ESLINT_V9_TS },
-          { title: 'TypeScript + React', value: EModulesEslint.ESLINT_V9_TS_REACT },
-          { title: 'TypeScript + Jest', value: EModulesEslint.ESLINT_V9_TS_JEST },
-          { title: 'TypeScript + Vitest', value: EModulesEslint.ESLINT_V9_TS_VITEST },
+          {
+            title: 'Basic TypeScript only',
+            value: EModulesEslint.ESLINT_V9_TS,
+            selected: !isReactInstalled,
+          },
+          {
+            title: 'TypeScript + React',
+            value: EModulesEslint.ESLINT_V9_TS_REACT,
+            selected: isReactInstalled,
+          },
+          {
+            title: 'TypeScript + Jest',
+            value: EModulesEslint.ESLINT_V9_TS_JEST,
+            selected: isJestInstalled,
+          },
+          {
+            title: 'TypeScript + Vitest',
+            value: EModulesEslint.ESLINT_V9_TS_VITEST,
+            selected: isVitestInstalled,
+          },
         ],
         min: 1,
       },
@@ -129,12 +100,27 @@ export class EslintConfigHandler extends AbstractConfigHandler {
         type: (prev: boolean) => (!prev ? 'multiselect' : null),
         name: 'eslintPackages',
         message: 'What options should we use?',
-        initial: initialValue,
         choices: [
-          { title: 'Basic JavaScript only', value: EModulesEslint.ESLINT_V9_JS },
-          { title: 'JavaScript + React', value: EModulesEslint.ESLINT_V9_JS_REACT },
-          { title: 'JavaScript + Jest', value: EModulesEslint.ESLINT_V9_JS_JEST },
-          { title: 'JavaScript + Vitest', value: EModulesEslint.ESLINT_V9_JS_VITEST },
+          {
+            title: 'Basic JavaScript only',
+            value: EModulesEslint.ESLINT_V9_JS,
+            selected: !isReactInstalled,
+          },
+          {
+            title: 'JavaScript + React',
+            value: EModulesEslint.ESLINT_V9_JS_REACT,
+            selected: isReactInstalled,
+          },
+          {
+            title: 'JavaScript + Jest',
+            value: EModulesEslint.ESLINT_V9_JS_JEST,
+            selected: isJestInstalled,
+          },
+          {
+            title: 'JavaScript + Vitest',
+            value: EModulesEslint.ESLINT_V9_JS_VITEST,
+            selected: isVitestInstalled,
+          },
         ],
         min: 1,
       },

@@ -12,7 +12,7 @@ const getCliPackagePath = (): string => {
     return rootPath;
   } catch {
     // this is for npx
-    
+
     return process.cwd();
   }
 };

@@ -25,6 +25,10 @@
   "scripts": {
     "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/qoq.cjs",
     "dev": "npm run build && node ./bin/qoq.cjs",
+    "prettier:check": "prettier --ignore-unknown --check .",
+    "prettier:write": "npm run -- prettier:check --write",
+    "qoq:check": "npm run prettier:check",
+    "qoq:fix": "npm run prettier:write",
     "test": "vitest run --coverage"
   },
   "dependencies": {
@@ -42,13 +46,12 @@
     "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.0",
-    "@saashub/qoq-eslint-v9-js": "^1.0.5",
-    "@saashub/qoq-knip": "^1.0.5",
     "@types/lodash": "4.17.15",
     "@types/micromatch": "4.0.9",
     "@types/prompts": "2.4.9",
     "@vitest/coverage-v8": "3.0.7",
-    "knip": "5.45.0",
+    "esbuild": "0.25.0",
+    "prettier": "3.5.2",
     "rimraf": "6.0.1",
     "rollup": "4.34.8",
     "rollup-plugin-esbuild": "6.2.0",

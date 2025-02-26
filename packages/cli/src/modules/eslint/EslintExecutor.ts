@@ -137,7 +137,7 @@ export class EslintExecutor extends AbstractExecutor {
       }
 
       return super.prepare(args, options, files);
-    } catch(e) {
+    } catch (e) {
       if (e instanceof TerminateExecutorGracefully) {
         throw e;
       }

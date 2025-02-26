@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { open } from 'fs/promises';
 import micromatch from 'micromatch';
 import c from 'picocolors';
