@@ -1,9 +1,10 @@
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
 import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
-import typeScriptPlugin from '@typescript-eslint/eslint-plugin';
-import * as typeScriptParser from '@typescript-eslint/parser';
 import * as importPlugin from 'eslint-plugin-import';
 import merge from 'lodash/merge.js';
+import tseslint from 'typescript-eslint';
+
+import type { TSESLint } from '@typescript-eslint/utils';
 
 export const baseConfig: EslintConfig = merge(
   {},
@@ -12,13 +13,13 @@ export const baseConfig: EslintConfig = merge(
   {
     name: '@saashub/qoq-eslint-v9-ts',
     languageOptions: {
-      parser: typeScriptParser,
+      parser: tseslint.parser,
       parserOptions: {
         project: './tsconfig.json',
       },
     },
     plugins: {
-      '@typescript-eslint': typeScriptPlugin,
+      '@typescript-eslint': tseslint.plugin,
     },
     rules: {
       'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
@@ -27,8 +28,15 @@ export const baseConfig: EslintConfig = merge(
       'import/no-cycle': 'warn',
       'import/no-duplicates': 'warn',
       'import/no-named-default': 'warn',
-      ...typeScriptPlugin.configs.recommended.rules,
-      ...typeScriptPlugin.configs['recommended-requiring-type-checking'].rules,
+      ...(
+        (tseslint.plugin.configs as TSESLint.FlatConfig.SharedConfigs)
+          .recommended as TSESLint.FlatConfig.Config
+      ).rules,
+      ...(
+        (tseslint.plugin.configs as TSESLint.FlatConfig.SharedConfigs)[
+          'recommended-requiring-type-checking'
+        ] as TSESLint.FlatConfig.Config
+      ).rules,
       '@typescript-eslint/no-unsafe-assignment': 0, // strange rule, turned off for now
       '@typescript-eslint/naming-convention': [
         'warn',

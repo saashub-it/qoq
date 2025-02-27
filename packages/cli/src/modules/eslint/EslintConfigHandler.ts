@@ -76,22 +76,22 @@ export class EslintConfigHandler extends AbstractConfigHandler {
           {
             title: 'Basic TypeScript only',
             value: EModulesEslint.ESLINT_V9_TS,
-            selected: !isReactInstalled,
+            selected: isTypeSriptInstalled && !isReactInstalled,
           },
           {
             title: 'TypeScript + React',
             value: EModulesEslint.ESLINT_V9_TS_REACT,
-            selected: isReactInstalled,
+            selected: isTypeSriptInstalled && isReactInstalled,
           },
           {
             title: 'TypeScript + Jest',
             value: EModulesEslint.ESLINT_V9_TS_JEST,
-            selected: isJestInstalled,
+            selected: isTypeSriptInstalled && isJestInstalled,
           },
           {
             title: 'TypeScript + Vitest',
             value: EModulesEslint.ESLINT_V9_TS_VITEST,
-            selected: isVitestInstalled,
+            selected: isTypeSriptInstalled && isVitestInstalled,
           },
         ],
         min: 1,
@@ -104,22 +104,22 @@ export class EslintConfigHandler extends AbstractConfigHandler {
           {
             title: 'Basic JavaScript only',
             value: EModulesEslint.ESLINT_V9_JS,
-            selected: !isReactInstalled,
+            selected: !isTypeSriptInstalled && !isReactInstalled,
           },
           {
             title: 'JavaScript + React',
             value: EModulesEslint.ESLINT_V9_JS_REACT,
-            selected: isReactInstalled,
+            selected: !isTypeSriptInstalled && isReactInstalled,
           },
           {
             title: 'JavaScript + Jest',
             value: EModulesEslint.ESLINT_V9_JS_JEST,
-            selected: isJestInstalled,
+            selected: !isTypeSriptInstalled && isJestInstalled,
           },
           {
             title: 'JavaScript + Vitest',
             value: EModulesEslint.ESLINT_V9_JS_VITEST,
-            selected: isVitestInstalled,
+            selected: !isTypeSriptInstalled && isVitestInstalled,
           },
         ],
         min: 1,
