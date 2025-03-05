@@ -34,7 +34,7 @@ npm install @saashub/qoq-cli
 QoQ uses an intuitive **Config Wizard** to guide you through setup. Run:
 
 ```sh
-npx qoq init
+npx -y @saashub/qoq-cli --init
 ```
 
 This will generate a `qoq.config.js` file with all necessary configurations.
