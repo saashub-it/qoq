@@ -57,9 +57,7 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
   },
   rules: {
     ...reactPlugin.configs.recommended.rules,
-
     ...reactPlugin.configs['jsx-runtime'].rules,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...reactHooksPlugin.configs.recommended.rules,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jsxA11yPlugin.configs.recommended.rules,

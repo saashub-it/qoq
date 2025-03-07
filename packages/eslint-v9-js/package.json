@@ -35,12 +35,15 @@
       "default": "./lib/tools.mjs"
     }
   },
+  "bin": {
+    "qoq-eslint-v9-js/config-inspector": "./bin/config-inspector.cjs"
+  },
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
-    "inspect": "npm run build && eslint -c ./eslint.config.local.js --inspect-config",
+    "inspect": "node ./bin/config-inspector.cjs",
     "qoq:check": "qoq --check --skip-knip",
     "qoq:fix": "qoq --fix --skip-knip",
     "test": "vitest run --coverage"

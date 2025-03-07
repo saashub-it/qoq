@@ -1,5 +1,6 @@
 # builds
 !lib
+!bin
 
 # tests
 coverage
@@ -14,4 +15,3 @@ tsconfig.json
 vitest.config.mjs
 .prettierrc
 eslint.config.js
-eslint.config.local.js
