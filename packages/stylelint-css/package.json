@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "browserslist": "latest",
+    "stylelint": "^16.15.0",
     "stylelint-config-standard": "37.0.0",
     "stylelint-file-max-lines": "1.0.0",
     "stylelint-high-performance-animation": "1.11.0",
