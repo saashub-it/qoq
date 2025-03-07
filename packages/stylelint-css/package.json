@@ -1,22 +1,21 @@
 {
-  "name": "@saashub/qoq-eslint-v9-ts-jest",
+  "name": "@saashub/qoq-stylelint-css",
   "version": "1.0.8",
-  "description": "Eslint flat config template for TS + Jest",
+  "description": "Stylelint config template for CSS",
   "keywords": [
-    "eslint TypeScript + Jest template",
-    "flat config",
+    "stylelint CSS template",
     "saashub",
     "qoq",
     "QualityOverQuantity"
   ],
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-ts-jest",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/stylelint-css",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-ts-jest"
+    "directory": "packages/stylelint-css"
   },
   "license": "MIT",
   "exports": {
@@ -33,21 +32,22 @@
   "types": "./lib/index.d.js",
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent",
-    "inspect": "npm run build && eslint -c ./eslint.config.local.js --inspect-config",
     "qoq:check": "qoq --check --skip-knip",
     "qoq:fix": "qoq --fix --skip-knip",
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "^1.0.8",
-    "@saashub/qoq-eslint-v9-ts": "^1.0.8",
-    "lodash": "4.17.21"
+    "browserslist": "latest",
+    "stylelint-config-standard": "37.0.0",
+    "stylelint-file-max-lines": "1.0.0",
+    "stylelint-high-performance-animation": "1.11.0",
+    "stylelint-no-unsupported-browser-features": "8.0.4",
+    "stylelint-order": "6.0.4",
+    "stylelint-prettier": "5.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
     "@saashub/qoq-cli": "^1.0.8",
-    "@types/eslint": "^9",
-    "@types/lodash": "4.17.16",
     "@vitest/coverage-v8": "3.0.8",
     "rimraf": "6.0.1",
     "rollup": "4.34.9",
@@ -55,8 +55,7 @@
     "vitest": "3.0.8"
   },
   "peerDependencies": {
-    "eslint": "^9.19.0",
-    "typescript": ">=4.8.4 <5.9.0"
+    "stylelint": "^16.15.0"
   },
   "engines": {
     "node": ">=18"
