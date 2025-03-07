@@ -5,7 +5,18 @@ export enum EModulesStylelint {
   STYLELINT_SCSS = '@saashub/qoq-stylelint-scss',
 }
 
-export interface IModuleStylelintConfig extends StylelintConfig {
+interface IModuleStylelintConfig extends StylelintConfig {
   strict: boolean;
-  template?: EModulesStylelint;
 }
+
+export interface IModuleStylelintConfigWithTemplate extends IModuleStylelintConfig {
+  template: EModulesStylelint;
+}
+
+export interface IModuleStylelintConfigWithPattern extends IModuleStylelintConfig {
+  pattern: string;
+}
+
+export type TModuleStylelintConfig =
+  | IModuleStylelintConfigWithTemplate
+  | IModuleStylelintConfigWithPattern;

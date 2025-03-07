@@ -4,7 +4,7 @@ import { IModuleEslintConfig } from './eslint/types';
 import { IModuleJscpdConfig } from './jscpd/types';
 import { IModuleKnipConfig } from './knip/types';
 import { IModulePrettierConfig } from './prettier/types';
-import { IModuleStylelintConfig } from './stylelint/types';
+import { TModuleStylelintConfig } from './stylelint/types';
 
 export interface IModulesConfig {
   srcPath: string;
@@ -14,7 +14,7 @@ export interface IModulesConfig {
     eslint?: IModuleEslintConfig[];
     jscpd?: IModuleJscpdConfig;
     knip?: IModuleKnipConfig;
-    stylelint?: IModuleStylelintConfig;
+    stylelint?: TModuleStylelintConfig;
   };
 }
 

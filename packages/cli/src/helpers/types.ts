@@ -1,7 +1,7 @@
 import { IModuleEslintConfig } from '@/modules/eslint/types';
 import { TJscpdFormat } from '@/modules/jscpd/types';
 import { IModulePrettierConfig } from '@/modules/prettier/types';
-import { IModuleStylelintConfig } from '@/modules/stylelint/types';
+import { TModuleStylelintConfig } from '@/modules/stylelint/types';
 
 export type TPartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -26,7 +26,7 @@ export interface QoqConfig {
     threshold?: number;
     ignore?: string[];
   };
-  stylelint?: IModuleStylelintConfig;
+  stylelint?: TModuleStylelintConfig;
   knip?: {
     entry?: string[];
     project?: string[];

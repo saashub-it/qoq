@@ -11,7 +11,11 @@ import { EConfigType, QoqConfig } from '@/helpers/types';
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
-import { EModulesStylelint } from './types';
+import {
+  EModulesStylelint,
+  IModuleStylelintConfigWithPattern,
+  IModuleStylelintConfigWithTemplate,
+} from './types';
 
 export class StylelintConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/stylelint.config.js');
@@ -100,13 +104,20 @@ export class StylelintConfigHandler extends AbstractConfigHandler {
     } = this.modulesConfig;
 
     if (stylelint) {
-      const { strict, template } = stylelint;
-      this.config.stylelint = {
-        strict: !!strict,
-      };
+      const { strict } = stylelint;
 
-      if (template) {
-        this.config.stylelint.template = template;
+      if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
+        this.config.stylelint = {
+          strict: !!strict,
+          template: (<IModuleStylelintConfigWithTemplate>stylelint).template,
+        };
+      } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
+        this.config.stylelint = {
+          strict: !!strict,
+          pattern: (<IModuleStylelintConfigWithPattern>stylelint).pattern,
+        };
+      } else {
+        throw new Error('Bad config!');
       }
     }
 
@@ -118,14 +129,20 @@ export class StylelintConfigHandler extends AbstractConfigHandler {
     const { stylelint } = this.config;
 
     if (stylelint) {
-      const { strict, template } = stylelint;
+      const { strict } = stylelint;
 
-      modules.stylelint = {
-        strict: !!strict,
-      };
-
-      if (template) {
-        modules.stylelint.template = template;
+      if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
+        modules.stylelint = {
+          strict: !!strict,
+          template: (<IModuleStylelintConfigWithTemplate>stylelint).template,
+        };
+      } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
+        modules.stylelint = {
+          strict: !!strict,
+          pattern: (<IModuleStylelintConfigWithPattern>stylelint).pattern,
+        };
+      } else {
+        throw new Error('Bad config!');
       }
     }
 
@@ -135,8 +152,14 @@ export class StylelintConfigHandler extends AbstractConfigHandler {
   getPackages(): string[] {
     const { stylelint } = this.modulesConfig.modules;
 
-    if (stylelint?.template && Object.values(EModulesStylelint).includes(stylelint.template)) {
-      this.packages = [stylelint.template];
+    if (
+      stylelint &&
+      (<IModuleStylelintConfigWithTemplate>stylelint).template &&
+      Object.values(EModulesStylelint).includes(
+        (<IModuleStylelintConfigWithTemplate>stylelint).template
+      )
+    ) {
+      this.packages = [(<IModuleStylelintConfigWithTemplate>stylelint).template];
     }
 
     return super.getPackages();

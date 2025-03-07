@@ -14,6 +14,12 @@ import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
 import { StylelintConfigHandler } from './StylelintConfigHandler';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
+import {
+  EModulesStylelint,
+  IModuleStylelintConfigWithPattern,
+  IModuleStylelintConfigWithTemplate,
+} from './types';
+import { StylelintConfig } from '../../../../stylelint-css/src/index';
 
 export class StylelintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.stylelintcache');
@@ -35,6 +41,39 @@ export class StylelintExecutor extends AbstractExecutor {
     options: IExecutorOptions,
     files: string[] = []
   ): Promise<EExitCode> {
+    const {
+      srcPath,
+      configType,
+      modules: { stylelint },
+    } = this.modulesConfig;
+
+    if (!stylelint) {
+      throw new TerminateExecutorGracefully();
+    }
+
+    const { strict, ...restWithoutStrict } = stylelint;
+    let rest: StylelintConfig;
+
+    if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
+      const { strict, template, ...other } = <IModuleStylelintConfigWithTemplate>stylelint;
+
+      rest = other;
+
+      if (template === EModulesStylelint.STYLELINT_SCSS) {
+        args.push(`${srcPath}/**/*.{css,scss,sass}`);
+      } else {
+        args.push(`${srcPath}/**/*.css`);
+      }
+    } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
+      const { strict, pattern, ...other } = <IModuleStylelintConfigWithPattern>stylelint;
+
+      rest = other;
+
+      args.push(`${srcPath}/${pattern}`);
+    } else {
+      throw new Error('Bad config!');
+    }
+
     const { disableCache, fix } = options;
 
     if (!disableCache) {
@@ -42,17 +81,6 @@ export class StylelintExecutor extends AbstractExecutor {
     }
 
     try {
-      const {
-        configType,
-        modules: { stylelint },
-      } = this.modulesConfig;
-
-      if (!stylelint) {
-        throw new Error();
-      }
-
-      const { strict, template, ...rest } = stylelint;
-
       if (strict) {
         args.push('--max-warnings', '0');
       }
@@ -67,11 +95,13 @@ export class StylelintExecutor extends AbstractExecutor {
 
       const content: string[] = [];
 
-      if (template) {
-        imports[`{ baseConfig }`] = String(template);
-        content.push(`const config = [lodash.merge({}, baseConfig, ${JSON.stringify(rest)})]`);
+      if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
+        imports[`{ baseConfig }`] = String(
+          (<IModuleStylelintConfigWithTemplate>stylelint).template
+        );
+        content.push(`const config = lodash.merge({}, baseConfig, ${JSON.stringify(rest)})`);
       } else {
-        content.push(`const config = [${JSON.stringify(rest)}]`);
+        content.push(`const config = ${JSON.stringify(rest)}`);
       }
 
       const exports = 'config';
