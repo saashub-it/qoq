@@ -43,7 +43,6 @@ export const baseConfig: EslintConfig = {
         'newlines-between': 'always',
       },
     ],
-
     ...sonarJsPlugin.configs.recommended.rules,
     'sonarjs/no-alphabetical-sort': 0,
     'sonarjs/no-misused-promises': 0,

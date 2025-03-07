@@ -5,6 +5,7 @@ import json from '@rollup/plugin-json';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
+import terser from '@rollup/plugin-terser';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 
@@ -23,6 +24,7 @@ const plugins = [
   esbuild({
     target: 'node18',
   }),
+  terser(),
 ];
 
 const external = [...builtinModules, ...Object.keys(pkg.dependencies)];
