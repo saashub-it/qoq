@@ -18,6 +18,8 @@ import { KnipConfigHandler } from './knip/KnipConfigHandler';
 import { KnipExecutor } from './knip/KnipExecutor';
 import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
+import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
+import { StylelintExecutor } from './stylelint/StylelintExecutor';
 import { IExecutorOptions, IModulesConfig } from './types';
 import { executeCommand } from '@/helpers/command';
 import { installPackages } from '@/helpers/packages';
@@ -31,12 +33,14 @@ const getHandlerBySequence = (
   const eslintConfigHandler = new EslintConfigHandler(modulesConfig, config);
   const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
   const knipConfigHandler = new KnipConfigHandler(modulesConfig, config);
+  const stylelintConfigHandler = new StylelintConfigHandler(modulesConfig, config);
 
   basicConfigHandler
     .setNext(prettierConfigHandler)
     .setNext(eslintConfigHandler)
     .setNext(jscpdConfigHandler)
-    .setNext(knipConfigHandler);
+    .setNext(knipConfigHandler)
+    .setNext(stylelintConfigHandler);
 
   return basicConfigHandler;
 };
@@ -123,12 +127,14 @@ export const execute = async (
   const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
   const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
   const eslintExecutor = new EslintExecutor(modulesConfig, hideMessages);
+  const stylelintExecutor = new StylelintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
     [prettierExecutor.getName()]: EExitCode.OK,
     [jscpdExecutor.getName()]: EExitCode.OK,
     [knipExecutor.getName()]: EExitCode.OK,
     [eslintExecutor.getName()]: EExitCode.OK,
+    [stylelintExecutor.getName()]: EExitCode.OK,
   };
 
   if (!skipPrettier) {
@@ -145,6 +151,10 @@ export const execute = async (
 
   if (!skipEslint) {
     responses[eslintExecutor.getName()] = await eslintExecutor.run(options, files);
+  }
+
+  if (modulesConfig.modules.stylelint) {
+    responses[stylelintExecutor.getName()] = await stylelintExecutor.run(options, files);
   }
 
   Object.keys(responses)

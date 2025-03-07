@@ -1,6 +1,11 @@
 import { Config } from 'stylelint';
 
-export const baseConfig: Config = {
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-object-type
+export interface StylelintConfig extends Config {
+  // just to force typings
+}
+
+export const baseConfig: StylelintConfig = {
   extends: ['stylelint-config-standard', 'stylelint-prettier'],
   plugins: [
     'stylelint-file-max-lines',

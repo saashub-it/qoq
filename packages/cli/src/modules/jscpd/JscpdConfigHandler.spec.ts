@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { JscpdConfigHandler } from './JscpdConfigHandler';
 import { dummyModulesConfig } from '@/__tests__/common';
 
