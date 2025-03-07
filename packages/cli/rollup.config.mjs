@@ -1,11 +1,8 @@
 import { readFileSync } from 'fs';
 import { builtinModules } from 'module';
-import esbuild from 'rollup-plugin-esbuild';
-import json from '@rollup/plugin-json';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
-import terser from '@rollup/plugin-terser';
+import { binPlugins } from '../bin/rollupPlugins.mjs';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 
@@ -19,12 +16,7 @@ const plugins = [
   nodeResolve({
     preferBuiltins: true,
   }),
-  json(),
-  commonjs(),
-  esbuild({
-    target: 'node18',
-  }),
-  terser(),
+  ...binPlugins,
 ];
 
 const external = [...builtinModules, ...Object.keys(pkg.dependencies)];
