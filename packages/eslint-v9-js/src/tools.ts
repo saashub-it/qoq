@@ -1,7 +1,6 @@
 import { spawn } from 'child_process';
 import { resolve } from 'path';
 
-import { getPackageInfoSync } from 'local-pkg';
 import merge from 'lodash/merge.js';
 import omit from 'lodash/omit.js';
 
@@ -15,9 +14,7 @@ export const omitRules = (sourceConfig: EslintConfig, rulesToOmit: string[]): Es
   return newConfig;
 };
 
-export const executeInspector = (packageName: string): void => {
-  const { rootPath } = getPackageInfoSync(packageName) as { rootPath: string };
-
+export const executeInspector = (): void => {
   const child = spawn(
     // eslint-disable-next-line sonarjs/no-os-command-from-path
     'npx',
@@ -25,7 +22,9 @@ export const executeInspector = (packageName: string): void => {
       '-y',
       '@eslint/config-inspector',
       '--config',
-      resolve(`${rootPath}/eslint.config-inspector.js`),
+      resolve(__dirname, '..', 'eslint.config-inspector.js'),
+      '--basePath',
+      __dirname,
     ],
     { shell: true }
   );
