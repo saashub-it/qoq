@@ -43,6 +43,12 @@ export default [
 ];
 ```
 
+## Rules preview with ESLint Config Inspector
+
+To preview all rules defined by this config simply run:
+
+    npx -y @saashub/qoq-eslint-v9-js-react
+
 ### Last but not least
 
 _Feel free to join us, please read [General Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_

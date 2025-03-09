@@ -28,12 +28,15 @@
       "default": "./lib/index.mjs"
     }
   },
+  "bin": {
+    "@saashub/qoq-eslint-v9-ts-react": "./bin/bin.cjs"
+  },
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "scripts": {
-    "build": "rimraf ./lib && rollup -c --silent",
-    "inspect": "npm run build && eslint -c ./eslint.config.local.js --inspect-config",
+    "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
+    "inspect": "node ./bin/bin.cjs",
     "qoq:check": "qoq --check --skip-knip",
     "qoq:fix": "qoq --fix --skip-knip",
     "test": "vitest run --coverage"
