@@ -51,11 +51,11 @@ export class StylelintExecutor extends AbstractExecutor {
       throw new TerminateExecutorGracefully();
     }
 
-    const { strict, ...restWithoutStrict } = stylelint;
+    const { strict } = stylelint;
     let rest: StylelintConfig;
 
     if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
-      const { strict, template, ...other } = <IModuleStylelintConfigWithTemplate>stylelint;
+      const { template, ...other } = <IModuleStylelintConfigWithTemplate>stylelint;
 
       rest = other;
 
@@ -65,7 +65,7 @@ export class StylelintExecutor extends AbstractExecutor {
         args.push(`${srcPath}/**/*.css`);
       }
     } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
-      const { strict, pattern, ...other } = <IModuleStylelintConfigWithPattern>stylelint;
+      const { pattern, ...other } = <IModuleStylelintConfigWithPattern>stylelint;
 
       rest = other;
 

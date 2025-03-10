@@ -2,7 +2,7 @@ import { baseConfig as baseCssConfig, StylelintConfig } from '@saashub/qoq-style
 
 export const baseConfig: StylelintConfig = {
   ...baseCssConfig,
-  extends: ['stylelint-config-standard-scss', 'stylelint-prettier'],
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order', 'stylelint-prettier'],
   overrides: [
     {
       files: ['*.scss', '**/*.scss'],

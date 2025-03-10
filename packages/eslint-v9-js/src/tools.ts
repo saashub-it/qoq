@@ -22,7 +22,7 @@ export const executeInspector = (): void => {
       '-y',
       '@eslint/config-inspector',
       '--config',
-      resolve(__dirname, '..', 'eslint.config-inspector.js'),
+      resolve(__dirname, '..', 'eslint.config.local.js'),
       '--basePath',
       __dirname,
     ],

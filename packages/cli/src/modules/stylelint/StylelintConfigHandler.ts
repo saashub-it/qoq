@@ -129,17 +129,19 @@ export class StylelintConfigHandler extends AbstractConfigHandler {
     const { stylelint } = this.config;
 
     if (stylelint) {
-      const { strict } = stylelint;
+      const { strict, ...rest } = stylelint;
 
       if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
         modules.stylelint = {
           strict: !!strict,
           template: (<IModuleStylelintConfigWithTemplate>stylelint).template,
+          ...rest,
         };
       } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
         modules.stylelint = {
           strict: !!strict,
           pattern: (<IModuleStylelintConfigWithPattern>stylelint).pattern,
+          ...rest,
         };
       } else {
         throw new Error('Bad config!');

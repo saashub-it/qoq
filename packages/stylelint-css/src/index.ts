@@ -6,12 +6,11 @@ export interface StylelintConfig extends Config {
 }
 
 export const baseConfig: StylelintConfig = {
-  extends: ['stylelint-config-standard', 'stylelint-prettier'],
+  extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-prettier'],
   plugins: [
     'stylelint-file-max-lines',
     'stylelint-high-performance-animation',
     'stylelint-no-unsupported-browser-features',
-    'stylelint-order',
   ],
   rules: {
     'plugin/file-max-lines': 600,
