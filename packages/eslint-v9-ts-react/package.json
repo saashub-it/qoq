@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-react",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Eslint flat config template for TS + React",
   "keywords": [
     "eslint TypeScript + React template",
@@ -42,13 +42,13 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-react": "^1.1.4",
-    "@saashub/qoq-eslint-v9-ts": "^1.1.4",
+    "@saashub/qoq-eslint-v9-js-react": "^1.1.5",
+    "@saashub/qoq-eslint-v9-ts": "^1.1.5",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^1.1.4",
+    "@saashub/qoq-cli": "^1.1.5",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.16",
     "@vitest/coverage-v8": "3.0.9",

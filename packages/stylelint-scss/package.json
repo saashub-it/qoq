@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-scss",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Stylelint config template for SCSS",
   "keywords": [
     "stylelint SCSS template",
@@ -37,12 +37,12 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-stylelint-css": "^1.1.4",
+    "@saashub/qoq-stylelint-css": "^1.1.5",
     "stylelint-config-standard-scss": "14.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^1.1.4",
+    "@saashub/qoq-cli": "^1.1.5",
     "@vitest/coverage-v8": "3.0.9",
     "rimraf": "6.0.1",
     "rollup": "4.36.0",
