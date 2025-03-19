@@ -17,7 +17,7 @@
     "test": "lerna run test"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22",
     "lerna": "8.2.1"
   },
   "engines": {
