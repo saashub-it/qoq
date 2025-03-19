@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -62,7 +62,7 @@
     "vitest": "3.0.9"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.18.0"
   },
   "publishConfig": {
     "access": "public"
