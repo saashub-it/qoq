@@ -2,4 +2,4 @@
 
 import { executeInspector } from '@saashub/qoq-eslint-v9-js/tools';
 
-executeInspector();
+executeInspector(__dirname);

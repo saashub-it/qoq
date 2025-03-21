@@ -14,7 +14,7 @@ export const omitRules = (sourceConfig: EslintConfig, rulesToOmit: string[]): Es
   return newConfig;
 };
 
-export const executeInspector = (): void => {
+export const executeInspector = (dir: string): void => {
   const child = spawn(
     // eslint-disable-next-line sonarjs/no-os-command-from-path
     'npx',
@@ -22,9 +22,9 @@ export const executeInspector = (): void => {
       '-y',
       '@eslint/config-inspector',
       '--config',
-      resolve(__dirname, '..', 'eslint.config.local.js'),
+      resolve(dir, '..', 'eslint.config.local.js'),
       '--basePath',
-      __dirname,
+      dir,
     ],
     { shell: true }
   );

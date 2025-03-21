@@ -15,7 +15,7 @@ export const baseConfig: EslintConfig = merge(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json',
+        projectService: true,
       },
     },
     plugins: {
