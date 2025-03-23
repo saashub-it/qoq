@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-css",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Stylelint config template for CSS",
   "keywords": [
     "stylelint CSS template",
@@ -48,10 +48,10 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^1.1.7",
+    "@saashub/qoq-cli": "^1.1.8",
     "@vitest/coverage-v8": "3.0.9",
     "rimraf": "6.0.1",
-    "rollup": "4.36.0",
+    "rollup": "4.37.0",
     "typescript": "5.8.2",
     "vitest": "3.0.9"
   },
