@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-knip",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Knip configs template",
   "keywords": [
     "Knip template",
@@ -48,7 +48,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@saashub/qoq-cli": "^1.1.9",
+    "@saashub/qoq-cli": "^1.1.10",
     "@types/lodash": "4.17.16",
     "@vitest/coverage-v8": "3.1.1",
     "rimraf": "6.0.1",
