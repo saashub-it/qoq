@@ -3,6 +3,7 @@ import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import merge from 'lodash/merge.js';
 
 import type { ESLint } from 'eslint';
@@ -53,12 +54,14 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
   plugins: {
     react: reactPlugin,
     'react-hooks': fixupPluginRules(reactHooksPlugin as ESLint.Plugin),
+    'react-refresh': reactRefresh,
     'jsx-a11y': jsxA11yPlugin,
   },
   rules: {
     ...reactPlugin.configs.recommended.rules,
     ...reactPlugin.configs['jsx-runtime'].rules,
     ...reactHooksPlugin.configs.recommended.rules,
+    ...reactRefresh.configs.recommended.rules,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jsxA11yPlugin.configs.recommended.rules,
     'import/order': importOrderRule,

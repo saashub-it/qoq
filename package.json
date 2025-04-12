@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^22",
-    "lerna": "8.2.1"
+    "lerna": "8.2.2"
   },
   "engines": {
     "node": ">=18"
