@@ -17,10 +17,10 @@ describe('KnipConfigHandler', () => {
         configType: 'ESM',
         modules: {
           knip: {
-            entry: ['/index.js'],
+            entry: ['/{index,cli,main,root}.{js}'],
             ignore: [],
             ignoreDependencies: ['@saashub/qoq-*'],
-            project: ['/**/*.js'],
+            project: ['/**/*.{js}'],
           },
         },
         srcPath: '',
