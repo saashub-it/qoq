@@ -1,3 +1,4 @@
+import { existsSync, rmSync } from 'fs';
 import c from 'picocolors';
 
 import { executeCommand } from '@/helpers/command';
@@ -66,7 +67,17 @@ export abstract class AbstractExecutor implements IExecutor {
   ): Promise<EExitCode> {
     if (!options.disableCache) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      args.push('--cache', '--cache-location', this.constructor.CACHE_PATH);
+      const cachePath = this.constructor.CACHE_PATH;
+
+      if (!cachePath) {
+        throw new Error('No cache path for executor defined!');
+      }
+
+      args.push('--cache', '--cache-location', cachePath);
+
+      if (options.warmup && existsSync(cachePath)) {
+        rmSync(cachePath);
+      }
     }
 
     return Promise.resolve(EExitCode.OK);
