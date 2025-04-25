@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
