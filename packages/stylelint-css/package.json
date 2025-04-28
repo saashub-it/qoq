@@ -51,7 +51,7 @@
     "@saashub/qoq-cli": "^1.2.2",
     "@vitest/coverage-v8": "3.1.2",
     "rimraf": "6.0.1",
-    "rollup": "4.40.0",
+    "rollup": "4.40.1",
     "typescript": "5.8.3",
     "vitest": "3.1.2"
   },
@@ -64,5 +64,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "9d35baaa8cb4bd35d14eddf9862984da831e7079"
+  "gitHead": "1edc64454abc71aac143d2aa943cbb619245c12b"
 }
