@@ -44,7 +44,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "knip": "5.55.0",
+    "knip": "5.56.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
