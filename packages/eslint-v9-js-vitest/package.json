@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^1.3.3",
-    "eslint-plugin-vitest": "0.5.4",
+    "@vitest/eslint-plugin": "1.2.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {

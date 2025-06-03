@@ -1,5 +1,5 @@
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
-import vitestPlugin from 'eslint-plugin-vitest';
+import vitestPlugin from '@vitest/eslint-plugin';
 import merge from 'lodash/merge.js';
 
 export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {

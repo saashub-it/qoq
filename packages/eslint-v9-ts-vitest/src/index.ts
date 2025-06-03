@@ -15,5 +15,10 @@ export const baseConfig: EslintConfig = merge(
     rules: {
       'sonarjs/no-duplicate-string': 0,
     },
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
   }
 );
