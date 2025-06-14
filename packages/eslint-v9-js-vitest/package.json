@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-vitest",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Eslint flat config template for JS + Vitest",
   "keywords": [
     "eslint JavaScript + Vitest template",
@@ -40,7 +40,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^1.4.1",
+    "@saashub/qoq-eslint-v9-js": "^1.5.0",
     "@vitest/eslint-plugin": "1.2.2",
     "lodash": "4.17.21"
   },

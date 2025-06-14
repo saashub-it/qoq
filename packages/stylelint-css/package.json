@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-css",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Stylelint config template for CSS",
   "keywords": [
     "stylelint CSS template",
