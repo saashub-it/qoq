@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Eslint flat config template for TS",
   "keywords": [
     "eslint TypeScript template",
@@ -40,7 +40,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^1.5.0",
+    "@saashub/qoq-eslint-v9-js": "^1.5.1",
     "eslint-import-resolver-typescript": "4.4.3",
     "lodash": "4.17.21",
     "typescript-eslint": "8.34.0"
