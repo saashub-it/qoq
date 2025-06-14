@@ -1,6 +1,10 @@
 import type { Config } from 'stylelint';
 
-export const baseConfig: Config = {
+export interface StylelintConfig extends Config {
+  // just for sake os TS
+}
+
+export const baseConfig: StylelintConfig = {
   extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-prettier'],
   plugins: [
     'stylelint-file-max-lines',

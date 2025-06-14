@@ -104,7 +104,7 @@ export class EslintExecutor extends AbstractExecutor {
             return collection.map(mapCallback);
           };
 
-          const possibleFiles = (eslintConfig as IModuleEslintConfig[]).reduce(
+          const possibleFiles = (eslintConfig.default as IModuleEslintConfig[]).reduce(
             (acc: { files: string[]; ignores: string[] }[], config) =>
               acc.concat([
                 {
@@ -117,8 +117,9 @@ export class EslintExecutor extends AbstractExecutor {
 
           const shouldLintFile = (file: string) =>
             possibleFiles.some(
-              ({ files, ignores }) =>
-                micromatch.isMatch(file, files) && !micromatch.isMatch(file, ignores)
+              ({ files: filesPatterns, ignores: ignoresPatterns }) =>
+                micromatch.isMatch(file, filesPatterns) &&
+                !micromatch.isMatch(file, ignoresPatterns)
             );
 
           filteredFiles = files.filter((file) => shouldLintFile(file));

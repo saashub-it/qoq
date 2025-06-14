@@ -4,7 +4,7 @@ import { open } from 'fs/promises';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { StylelintConfig } from '../../../../stylelint-css/src/index';
+import { StylelintConfig } from '../../../../stylelint-css/src';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
 
