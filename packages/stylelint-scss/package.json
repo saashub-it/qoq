@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-scss",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Stylelint config template for SCSS",
   "keywords": [
     "stylelint SCSS template",
@@ -35,7 +35,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@saashub/qoq-stylelint-css": "^1.5.1",
+    "@saashub/qoq-stylelint-css": "^1.5.2",
     "stylelint-config-standard-scss": "14.0.0"
   },
   "devDependencies": {
