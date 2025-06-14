@@ -45,14 +45,20 @@ const getHandlerBySequence = (
   return basicConfigHandler;
 };
 
-const getModulesFromConfig = (config: QoqConfig, workspaces?: string[]): IModulesConfig => {
+const getModulesFromConfig = (
+  config: QoqConfig,
+  workspaces: IModulesConfig['workspaces']
+): IModulesConfig => {
   const modulesConfig = { modules: {}, workspaces } as IModulesConfig;
 
   return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
 };
 
-export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesConfig> => {
-  const modulesConfig = { modules: {} } as IModulesConfig;
+export const initConfig = async (
+  workspaces: IModulesConfig['workspaces'],
+  skipWarmup: boolean = false
+): Promise<IModulesConfig> => {
+  const modulesConfig = { modules: {}, workspaces } as IModulesConfig;
   const config = {} as QoqConfig;
 
   await getHandlerBySequence(modulesConfig, config).getPrompts();
@@ -80,7 +86,7 @@ export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesC
 };
 
 export const getConfig = async (
-  workspaces?: string[],
+  workspaces: IModulesConfig['workspaces'],
   skipInit: boolean = false
 ): Promise<IModulesConfig> => {
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
@@ -100,7 +106,7 @@ export const getConfig = async (
       return getModulesFromConfig({} as QoqConfig, workspaces);
     }
 
-    return initConfig(true);
+    return initConfig(workspaces, true);
   }
 
   try {

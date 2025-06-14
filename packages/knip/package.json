@@ -42,7 +42,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "knip": "5.60.2"
+    "knip": "5.61.0"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "3.2.3",

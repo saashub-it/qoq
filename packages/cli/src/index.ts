@@ -22,13 +22,13 @@ cli
   .option('--warmup', 'Create configs for tools without QoQ execution')
   .option('--silent', 'Mute all QoQ messages')
   .action(async (options: IExecuteOptions) => {
+    const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
     const { init, fix, disableCache } = options;
 
     if (init) {
-      return await initConfig();
+      return await initConfig(workspaces);
     }
 
-    const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
     const config = await getConfig(workspaces);
 
     return await execute(config, { ...options, fix: !!fix, disableCache: !!disableCache });

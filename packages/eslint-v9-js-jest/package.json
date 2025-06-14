@@ -41,12 +41,12 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^1.5.0",
-    "eslint-plugin-jest": "28.13.3",
+    "eslint-plugin-jest": "28.13.5",
     "globals": "16.2.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "28.0.3",
+    "@rollup/plugin-commonjs": "28.0.5",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.2",
