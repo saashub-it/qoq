@@ -1,4 +1,4 @@
-import { EslintConfig } from '../../../../eslint-v9-js/src/index';
+import { EslintConfig } from '../../../../eslint-v9-js/src';
 
 import { TPartialBy } from '@/helpers/types';
 

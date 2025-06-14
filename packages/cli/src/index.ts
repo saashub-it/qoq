@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+import { readPackage } from '@npmcli/package-json/lib/read-package';
 import cac from 'cac';
 
+import { PACKAGE_JSON_PATH } from './helpers/constants';
 import { getConfig, initConfig, execute } from './modules';
 import { IExecuteOptions, IExecuteStagedOptions } from './modules/types';
 
@@ -26,7 +28,8 @@ cli
       return await initConfig();
     }
 
-    const config = await getConfig();
+    const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
+    const config = await getConfig(workspaces);
 
     return await execute(config, { ...options, fix: !!fix, disableCache: !!disableCache });
   });
@@ -41,21 +44,16 @@ cli
   .option('--skip-jscpd', 'Skip JSCPD checks')
   .option('--skip-knip', 'Skip Knip checks')
   .option('--skip-eslint', 'Skip Eslint checks')
-  .action(
-    async (
-      // eslint-disable-next-line sonarjs/default-param-last
-      files: string[] = [],
-      options: IExecuteStagedOptions
-    ) => {
-      const config = await getConfig(true);
+  .action(async (files: string[] = [], options: IExecuteStagedOptions) => {
+    const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
+    const config = await getConfig(workspaces, true);
 
-      return await execute(
-        config,
-        { ...options, fix: false, disableCache: !!options.disableCache },
-        files
-      );
-    }
-  );
+    return await execute(
+      config,
+      { ...options, fix: false, disableCache: !!options.disableCache },
+      files
+    );
+  });
 
 cli.help();
 

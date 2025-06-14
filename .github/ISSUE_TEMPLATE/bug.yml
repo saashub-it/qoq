@@ -1,7 +1,7 @@
 name: Bug report
 description: Report a problem you encountered
-title: "[Bug][package-name]: "
-labels: [":bug: Bug"]
+title: '[Bug][package-name]: '
+labels: [':bug: Bug']
 body:
   - type: markdown
     attributes:
@@ -19,7 +19,7 @@ body:
     attributes:
       label: Project Version
       description: Which project versions are affected?
-      placeholder: "1.0, 2.2, 3.5.1"
+      placeholder: '1.0, 2.2, 3.5.1'
     validations:
       required: true
   - type: input
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Platform and OS Version
       description: Which operating systems are affected?
-      placeholder: "Windows 10, macOS 12.3.1, Ubuntu 18.04.5"
+      placeholder: 'Windows 10, macOS 12.3.1, Ubuntu 18.04.5'
     validations:
       required: true
   - type: input
@@ -35,7 +35,7 @@ body:
     attributes:
       label: Existing Issues
       description: Are there any similar existing issues?
-      placeholder: "#42"
+      placeholder: '#42'
     validations:
       required: false
   - type: textarea

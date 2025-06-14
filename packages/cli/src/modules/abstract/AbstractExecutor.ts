@@ -1,11 +1,12 @@
 import { existsSync, rmSync } from 'fs';
+
 import c from 'picocolors';
 
-import { executeCommand } from '@/helpers/command';
-import { EExitCode } from '@/helpers/types';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-
 import { IExecutorOptions, IModulesConfig } from '../types';
+
+import { executeCommand } from '@/helpers/command';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { EExitCode } from '@/helpers/types';
 
 interface IExecutor {
   getName: () => string;
@@ -66,8 +67,7 @@ export abstract class AbstractExecutor implements IExecutor {
     files: string[] = []
   ): Promise<EExitCode> {
     if (!options.disableCache) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const cachePath = this.constructor.CACHE_PATH;
+      const cachePath = this.constructor.CACHE_PATH as string | undefined;
 
       if (!cachePath) {
         throw new Error('No cache path for executor defined!');

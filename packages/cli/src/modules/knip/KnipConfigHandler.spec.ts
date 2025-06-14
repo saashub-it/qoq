@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+
 import { KnipConfigHandler } from './KnipConfigHandler';
+
 import { dummyModulesConfig } from '@/__tests__/common';
 
 describe('KnipConfigHandler', () => {

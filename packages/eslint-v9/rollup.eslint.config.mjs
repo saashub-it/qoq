@@ -9,8 +9,8 @@ const input = {
 const plugins = [
   json(),
   typescript({
-    exclude: ['**/*.spec.{js,ts}', 'types.ts', `${sourceDir}/bin.ts`]
-  })
+    exclude: ['**/*.spec.{js,ts}', 'types.ts', `${sourceDir}/bin.ts`],
+  }),
 ];
 
 export default {

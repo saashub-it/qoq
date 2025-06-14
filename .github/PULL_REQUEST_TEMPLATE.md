@@ -1,7 +1,7 @@
-*Have you read the [Contributing Guidelines](./CONTRIBUTING.md)?*
+_Have you read the [Contributing Guidelines](./CONTRIBUTING.md)?_
 
 Issue #
 
 ## Describe your changes
 
-*Clearly and concisely describe what's in this pull request. Include screenshots, if necessary.*
+_Clearly and concisely describe what's in this pull request. Include screenshots, if necessary._

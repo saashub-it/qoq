@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+
 import { StylelintExecutor } from './StylelintExecutor';
+
 import { dummyModulesConfig } from '@/__tests__/common';
 
 describe('StylelintExecutor', () => {

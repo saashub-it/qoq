@@ -3,12 +3,12 @@ import { readFileSync } from 'fs';
 
 import prompts from 'prompts';
 
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
+import { IModulesConfig } from '../types';
+
 import { DEFAULT_SRC } from '@/helpers/constants';
 import { resolveCwdRelativePath } from '@/helpers/paths';
 import { EConfigType, QoqConfig } from '@/helpers/types';
-
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
 
 export class BasicConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/qoq.config.js');

@@ -1,7 +1,5 @@
 # Quality over Quantity (QoQ)
 
-
-
 **A streamlined suite of tools to format, lint, and analyze any JavaScript/TypeScript project with minimal setup.**
 
 🚀 **Why QoQ?**
@@ -41,11 +39,9 @@ This will generate a `qoq.config.js` file with all necessary configurations.
 
 ### 3️⃣ Run Quality Checks
 
-
 - `qoq --check` – Runs a full code check, typically used in the CI lint step or pre-push hook.
 - `qoq staged` – Checks only staged changes, typically used in the pre-commit hook.
 - `qoq --fix` – Fixes issues where possible, typically triggered manually after hooks or a CI failure to quickly correct problems.
-
 
 ## 🏗 Project Structure
 
@@ -65,5 +61,4 @@ Join us in making QoQ even better! Read our [Contributing Guidelines](https://gi
 
 💡 **QoQ: Focus on writing great code, we handle the rest.**
 
-
-*Feel free to join us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)*
+_Feel free to join us, please read [Contributing Guidelines](https://github.com/saashub-it/qoq/blob/master/.github/CONTRIBUTING.md)_

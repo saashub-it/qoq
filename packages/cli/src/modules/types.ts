@@ -1,14 +1,15 @@
-import { EConfigType } from '@/helpers/types';
-
 import { IModuleEslintConfig } from './eslint/types';
 import { IModuleJscpdConfig } from './jscpd/types';
 import { IModuleKnipConfig } from './knip/types';
 import { IModulePrettierConfig } from './prettier/types';
 import { TModuleStylelintConfig } from './stylelint/types';
 
+import { EConfigType } from '@/helpers/types';
+
 export interface IModulesConfig {
   srcPath: string;
   configType: EConfigType;
+  workspaces?: string[];
   modules: {
     prettier?: IModulePrettierConfig;
     eslint?: IModuleEslintConfig[];

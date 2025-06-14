@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest an idea for this project
-title: "[Feature]: "
-labels: [":1st_place_medal: Enhancement"]
+title: '[Feature]: '
+labels: [':1st_place_medal: Enhancement']
 body:
   - type: markdown
     attributes:

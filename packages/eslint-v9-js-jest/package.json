@@ -28,22 +28,21 @@
       "default": "./lib/index.mjs"
     }
   },
-  "bin": {
-    "@saashub/qoq-eslint-v9-js-jest": "./bin/bin.cjs"
-  },
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
+  "bin": {
+    "@saashub/qoq-eslint-v9-js-jest": "./bin/bin.cjs"
+  },
   "scripts": {
     "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
     "inspect": "node ./bin/bin.cjs",
-    "qoq:check": "qoq --check --skip-knip",
-    "qoq:fix": "qoq --fix --skip-knip",
     "test": "vitest run --coverage"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^1.4.1",
     "eslint-plugin-jest": "28.13.3",
+    "globals": "16.2.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
@@ -51,7 +50,6 @@
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.2",
-    "@saashub/qoq-cli": "^1.4.1",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.17",
     "@vitest/coverage-v8": "3.2.3",

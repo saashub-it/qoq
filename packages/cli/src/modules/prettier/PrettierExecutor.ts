@@ -1,18 +1,19 @@
 import { existsSync } from 'fs';
 import { open } from 'fs/promises';
+
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { getRelativePath, resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
-
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
+import { IExecutorOptions } from '../types';
 
 import { PrettierConfigHandler } from './PrettierConfigHandler';
+
+import { capitalizeFirstLetter } from '@/helpers/common';
+import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { IExecutorOptions } from '../types';
+import { getRelativePath, resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
+import { EExitCode } from '@/helpers/types';
 
 export class PrettierExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');
@@ -87,7 +88,7 @@ export class PrettierExecutor extends AbstractExecutor {
         }
 
         if (existsSync(prettierignorePath)) {
-          args.push(prettierignorePath);
+          args.push(getRelativePath(prettierignorePath));
         }
       }
 

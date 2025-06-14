@@ -2,7 +2,7 @@
 
 ### Contents
 
-- [Opening an Issue](#inbox_tray-opening-an-issue) 
+- [Opening an Issue](#inbox_tray-opening-an-issue)
 - [Feature Requests](#love_letter-feature-requests)
 - [Triaging Issues](#mag-triaging-issues)
 - [Submitting Pull Requests](#repeat-submitting-pull-requests)
@@ -24,7 +24,7 @@ In short, since you are most likely a developer, **provide a ticket that you wou
 
 - **Review the documentation** before opening a new issue.
 
-- **Do not open a duplicate issue!** Search through existing issues to see if your issue has previously been reported. If your issue exists, comment with any additional information you have. You may simply note "I have this problem too", which helps prioritize the most common problems and requests. 
+- **Do not open a duplicate issue!** Search through existing issues to see if your issue has previously been reported. If your issue exists, comment with any additional information you have. You may simply note "I have this problem too", which helps prioritize the most common problems and requests.
 
 - **Prefer using [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/)**, not comments, if you simply want to "+1" an existing issue.
 
@@ -38,7 +38,7 @@ Feature requests are welcome! While we will consider all requests, we cannot gua
 
 - **Do not open a duplicate feature request.** Search for existing feature requests first. If you find your feature (or one very similar) previously requested, comment on that issue.
 
-- **Fully complete the provided issue template.** The feature request template asks for all necessary information for us to begin a productive conversation. 
+- **Fully complete the provided issue template.** The feature request template asks for all necessary information for us to begin a productive conversation.
 
 - Be precise about the proposed outcome of the feature and how it relates to existing features. Include implementation details if possible.
 
@@ -68,9 +68,9 @@ We **love** pull requests! Before [forking the repo](https://help.github.com/en/
 
 For most contributions, after your first pull request is accepted and merged, you will be [invited to the project](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) and given **push access**. :tada:
 
-*Note: All contributions will be licensed under the project's license.*
+_Note: All contributions will be licensed under the project's license._
 
-- **Smaller is better.** Submit **one** pull request per bug fix or feature. A pull request should contain isolated changes pertaining to a single bug fix or feature implementation. **Do not** refactor or reformat code that is unrelated to your change. It is better to **submit many small pull requests** rather than a single large one. Enormous pull requests will take enormous amounts of time to review, or may be rejected altogether. 
+- **Smaller is better.** Submit **one** pull request per bug fix or feature. A pull request should contain isolated changes pertaining to a single bug fix or feature implementation. **Do not** refactor or reformat code that is unrelated to your change. It is better to **submit many small pull requests** rather than a single large one. Enormous pull requests will take enormous amounts of time to review, or may be rejected altogether.
 
 - **Coordinate bigger changes.** For large and non-trivial changes, open an issue to discuss a strategy with the maintainers. Otherwise, you risk doing a lot of work for nothing!
 
@@ -86,7 +86,7 @@ For most contributions, after your first pull request is accepted and merged, yo
 
 - **[Resolve any merge conflicts](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github)** that occur.
 
-- **Promptly address any CI failures**. If your pull request fails to build or pass tests, please push another commit to fix it. 
+- **Promptly address any CI failures**. If your pull request fails to build or pass tests, please push another commit to fix it.
 
 - When writing comments, use properly constructed sentences, including punctuation.
 

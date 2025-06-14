@@ -11,12 +11,18 @@
   "scripts": {
     "build": "lerna run build",
     "publish": "npm run build && npm run test && lerna publish --no-private --force-publish",
-    "qoq:check": "npm run build && lerna run qoq:check",
-    "qoq:fix": "npm run build && lerna run qoq:fix",
+    "qoq:check": "qoq --check",
+    "qoq:fix": "qoq --fix",
     "sort:packages:json": "npx -y sort-package-json 'package.json' 'packages/*/package.json'",
     "test": "lerna run test"
   },
   "devDependencies": {
+    "@saashub/qoq-cli": "^1.4.1",
+    "@saashub/qoq-eslint-v9-ts": "^1.4.1",
+    "@saashub/qoq-eslint-v9-ts-jest": "^1.4.1",
+    "@saashub/qoq-jscpd": "^1.4.1",
+    "@saashub/qoq-knip": "^1.4.1",
+    "@saashub/qoq-prettier-with-json-sort": "^1.4.1",
     "@types/node": "^22",
     "lerna": "8.2.2"
   },

@@ -4,10 +4,6 @@ import { pathToFileURL } from 'url';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { CONFIG_FILE_PATH } from '@/helpers/constants';
-import { formatCode } from '@/helpers/formatCode';
-import { EExitCode, QoqConfig } from '@/helpers/types';
-
 import { AbstractConfigHandler } from './abstract/AbstractConfigHandler';
 import { BasicConfigHandler } from './basic/BasicConfigHandler';
 import { EslintConfigHandler } from './eslint/EslintConfigHandler';
@@ -21,8 +17,12 @@ import { PrettierExecutor } from './prettier/PrettierExecutor';
 import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
 import { StylelintExecutor } from './stylelint/StylelintExecutor';
 import { IExecutorOptions, IModulesConfig } from './types';
+
 import { executeCommand } from '@/helpers/command';
+import { CONFIG_FILE_PATH } from '@/helpers/constants';
+import { formatCode } from '@/helpers/formatCode';
 import { installPackages } from '@/helpers/packages';
+import { EExitCode, QoqConfig } from '@/helpers/types';
 
 const getHandlerBySequence = (
   modulesConfig: IModulesConfig,
@@ -45,8 +45,8 @@ const getHandlerBySequence = (
   return basicConfigHandler;
 };
 
-const getModulesFromConfig = (config: QoqConfig): IModulesConfig => {
-  const modulesConfig = { modules: {} } as IModulesConfig;
+const getModulesFromConfig = (config: QoqConfig, workspaces?: string[]): IModulesConfig => {
+  const modulesConfig = { modules: {}, workspaces } as IModulesConfig;
 
   return getHandlerBySequence(modulesConfig, config).getModulesFromConfig();
 };
@@ -79,7 +79,10 @@ export const initConfig = async (skipWarmup: boolean = false): Promise<IModulesC
   return modulesConfig;
 };
 
-export const getConfig = async (skipInit: boolean = false): Promise<IModulesConfig> => {
+export const getConfig = async (
+  workspaces?: string[],
+  skipInit: boolean = false
+): Promise<IModulesConfig> => {
   if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { config } = await prompts.prompt({
@@ -94,7 +97,7 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
     if (!config) {
       process.stderr.write('Running with defaults\n');
 
-      return getModulesFromConfig({} as QoqConfig);
+      return getModulesFromConfig({} as QoqConfig, workspaces);
     }
 
     return initConfig(true);
@@ -104,11 +107,11 @@ export const getConfig = async (skipInit: boolean = false): Promise<IModulesConf
     const config = await import(pathToFileURL(CONFIG_FILE_PATH).toString());
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return getModulesFromConfig(config.default as QoqConfig);
+    return getModulesFromConfig(config.default as QoqConfig, workspaces);
   } catch {
     process.stderr.write('Running with defaults\n');
 
-    return getModulesFromConfig({} as QoqConfig);
+    return getModulesFromConfig({} as QoqConfig, workspaces);
   }
 };
 

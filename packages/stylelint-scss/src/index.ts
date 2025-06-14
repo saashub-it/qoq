@@ -1,6 +1,8 @@
-import { baseConfig as baseCssConfig, StylelintConfig } from '@saashub/qoq-stylelint-css';
+import { baseConfig as baseCssConfig } from '@saashub/qoq-stylelint-css';
 
-export const baseConfig: StylelintConfig = {
+import type { Config } from 'stylelint';
+
+export const baseConfig: Config = {
   ...baseCssConfig,
   extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order', 'stylelint-prettier'],
   overrides: [

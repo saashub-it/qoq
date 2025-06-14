@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+
 import { JscpdExecutor } from './JscpdExecutor';
+
 import { dummyModulesConfig } from '@/__tests__/common';
 
 describe('JscpdExecutor', () => {

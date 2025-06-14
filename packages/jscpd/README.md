@@ -6,7 +6,6 @@
 
 Tired of setting up [JSCPD](https://www.npmjs.com/package/jscpd) from scratch for every new project? We created a base template to make the process easier.
 
-
 ## Install
 
     npm install @saashub/qoq-jscpd

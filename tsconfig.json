@@ -5,17 +5,17 @@
     "allowUnusedLabels": false,
     "declaration": true,
     "esModuleInterop": true,
-    "target": "ESNext",
     "lib": ["esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "pretty": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "noImplicitAny": false
+    "target": "ESNext"
   },
   "exclude": ["node_modules"]
 }

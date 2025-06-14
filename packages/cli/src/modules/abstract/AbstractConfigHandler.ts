@@ -1,6 +1,6 @@
-import { QoqConfig } from '@/helpers/types';
-
 import { IModulesConfig } from '../types';
+
+import { QoqConfig } from '@/helpers/types';
 
 interface IConfigHandler {
   getPrompts: () => Promise<void>;

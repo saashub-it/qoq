@@ -2,12 +2,12 @@
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
 
-import { omitStartingDotFromPath } from '@/helpers/common';
-import { QoqConfig } from '@/helpers/types';
-
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { getFilesExtensions } from '../helpers';
 import { IModulesConfig } from '../types';
+
+import { omitStartingDotFromPath } from '@/helpers/common';
+import { QoqConfig } from '@/helpers/types';
 
 export class KnipConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_IGNORE = [];

@@ -7,7 +7,6 @@
 
 Tired of setting up [Prettier](https://www.npmjs.com/package/prettier) from scratch for every new project? We created a base template to make the process easier.
 
-
 ## Install
 
     npm install @saashub/qoq-prettier

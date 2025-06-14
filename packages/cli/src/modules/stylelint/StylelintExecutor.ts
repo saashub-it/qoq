@@ -1,25 +1,26 @@
 import { existsSync, writeFileSync } from 'fs';
 import { open } from 'fs/promises';
-import c from 'picocolors';
+
 import micromatch from 'micromatch';
+import c from 'picocolors';
 
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-
+import { StylelintConfig } from '../../../../stylelint-css/src/index';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
-
 import { IExecutorOptions } from '../types';
+
 import { StylelintConfigHandler } from './StylelintConfigHandler';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import {
   EModulesStylelint,
   IModuleStylelintConfigWithPattern,
   IModuleStylelintConfigWithTemplate,
 } from './types';
-import { StylelintConfig } from '../../../../stylelint-css/src/index';
+
+import { capitalizeFirstLetter } from '@/helpers/common';
+import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { formatCode } from '@/helpers/formatCode';
+import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
+import { EConfigType, EExitCode } from '@/helpers/types';
 
 export class StylelintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.stylelintcache');
@@ -111,7 +112,7 @@ export class StylelintExecutor extends AbstractExecutor {
       args.push('-c', StylelintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
-        let filteredFiles = files;
+        let filteredFiles = [...files];
 
         try {
           const ignores: string[] = [];

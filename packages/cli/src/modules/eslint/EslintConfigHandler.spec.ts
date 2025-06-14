@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+
 import { EslintConfigHandler } from './EslintConfigHandler';
+
 import { dummyModulesConfig } from '@/__tests__/common';
 
 describe('EslintConfigHandler', () => {

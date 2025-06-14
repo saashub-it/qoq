@@ -7,6 +7,6 @@ export const commonConfig = {
       exclude: ['**/*.spec.[jt]s', '**/index.[jt]s'],
     },
   },
-}
+};
 
 export default defineConfig(commonConfig);

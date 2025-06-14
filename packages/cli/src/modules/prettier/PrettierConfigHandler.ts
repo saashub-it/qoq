@@ -5,13 +5,13 @@ import c from 'picocolors';
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
 
-import { resolveCwdRelativePath } from '@/helpers/paths';
-import { QoqConfig } from '@/helpers/types';
-
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
 import { EModulesPrettier } from './types';
+
+import { resolveCwdRelativePath } from '@/helpers/paths';
+import { QoqConfig } from '@/helpers/types';
 
 export class PrettierConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/.prettierrc');

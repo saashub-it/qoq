@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+
 import { BasicConfigHandler } from './BasicConfigHandler';
+
 import { dummyModulesConfig } from '@/__tests__/common';
 
 describe('BasicConfigHandler', () => {

@@ -4,10 +4,6 @@ import { existsSync, rmSync, writeFileSync } from 'fs';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCwdRelativePath } from '@/helpers/paths';
-import { EConfigType, QoqConfig } from '@/helpers/types';
-
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
@@ -16,6 +12,10 @@ import {
   IModuleStylelintConfigWithPattern,
   IModuleStylelintConfigWithTemplate,
 } from './types';
+
+import { formatCode } from '@/helpers/formatCode';
+import { resolveCwdRelativePath } from '@/helpers/paths';
+import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class StylelintConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/stylelint.config.js');

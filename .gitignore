@@ -1,14 +1,12 @@
 # dependencies
 **/node_modules
 
-# config
-.npmrc
+# dependencies
+**/coverage
 
-# tsbuildinfo
-**/*.tsbuildinfo
-
-# builds
-lerna.json
+# build
+**/bin
+**/lib
 
 # Logs
 logs

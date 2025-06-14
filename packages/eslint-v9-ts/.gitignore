@@ -1,9 +1,0 @@
-# dependencies
-node_modules
-
-# builds
-lib
-bin
-
-# tests
-coverage

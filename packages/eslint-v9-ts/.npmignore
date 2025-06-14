@@ -8,10 +8,7 @@ coverage
 src
 
 # configs
-qoq.config.js
 rollup.bin.mjs
 rollup.config.mjs
 tsconfig.json
 vitest.config.mjs
-.prettierrc
-eslint.config.js

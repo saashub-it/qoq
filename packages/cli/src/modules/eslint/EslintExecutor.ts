@@ -1,21 +1,22 @@
 import { existsSync, writeFileSync } from 'fs';
-import c from 'picocolors';
-import micromatch from 'micromatch';
-import flattenDeep from 'lodash/flattenDeep';
 import { pathToFileURL } from 'url';
 
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import flattenDeep from 'lodash/flattenDeep';
+import micromatch from 'micromatch';
+import c from 'picocolors';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
+import { IExecutorOptions } from '../types';
 
 import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
-import { IExecutorOptions } from '../types';
+
+import { capitalizeFirstLetter } from '@/helpers/common';
+import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
+import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { formatCode } from '@/helpers/formatCode';
+import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
+import { EConfigType, EExitCode } from '@/helpers/types';
 
 export class EslintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.eslintcache');
@@ -83,7 +84,7 @@ export class EslintExecutor extends AbstractExecutor {
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
-        let filteredFiles = files;
+        let filteredFiles = [...files];
 
         try {
           const eslintConfig = await import(pathToFileURL(configFilePath).toString());
@@ -103,7 +104,7 @@ export class EslintExecutor extends AbstractExecutor {
             return collection.map(mapCallback);
           };
 
-          const possibleFiles = (eslintConfig.default as IModuleEslintConfig[]).reduce(
+          const possibleFiles = (eslintConfig as IModuleEslintConfig[]).reduce(
             (acc: { files: string[]; ignores: string[] }[], config) =>
               acc.concat([
                 {

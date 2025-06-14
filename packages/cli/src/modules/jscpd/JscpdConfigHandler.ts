@@ -2,13 +2,13 @@
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
 
-import { QoqConfig } from '@/helpers/types';
-
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { getFilesExtensions } from '../helpers';
 import { IModulesConfig } from '../types';
 
 import { TJscpdFormat } from './types';
+
+import { QoqConfig } from '@/helpers/types';
 
 export class JscpdConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_THRESHOLD = 2;
