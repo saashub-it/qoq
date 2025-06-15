@@ -3,7 +3,7 @@ import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
 import * as importPlugin from 'eslint-plugin-import';
 import merge from 'lodash/merge.js';
 import tseslint from 'typescript-eslint';
-import * as tsResolver from 'eslint-import-resolver-typescript';
+import {createTypeScriptImportResolver} from 'eslint-import-resolver-typescript';
 
 import type { TSESLint } from '@typescript-eslint/utils';
 
@@ -94,9 +94,9 @@ export const baseConfig: EslintConfig = merge(
       '@typescript-eslint/require-await': 'warn',
     },
     settings: {
-      'import-x/resolver': {
-        resolver: tsResolver,
-      },
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver(),
+      ],
     },
   }
 );

@@ -1,5 +1,5 @@
 import jsRules from '@eslint/js';
-import importPlugin from 'eslint-plugin-import-x';
+import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
 import compatPlugin from 'eslint-plugin-compat';
@@ -91,4 +91,9 @@ export const baseConfig: EslintConfig = {
     ],
     'no-useless-return': 'warn',
   },
+  settings: {
+      'import-x/resolver-next': [
+        createNodeResolver(),
+      ],
+    },
 };
