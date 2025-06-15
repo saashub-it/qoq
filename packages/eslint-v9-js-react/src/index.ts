@@ -1,12 +1,10 @@
-import { fixupPluginRules } from '@eslint/compat';
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
+import compatPlugin from 'eslint-plugin-compat';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import merge from 'lodash/merge.js';
-
-import type { ESLint } from 'eslint';
 
 const noRestrictedImportsRule = merge([], jsBaseConfig.rules['no-restricted-imports'], [
   'warn',
@@ -52,12 +50,14 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     },
   },
   plugins: {
+    compat: compatPlugin,
     react: reactPlugin,
-    'react-hooks': fixupPluginRules(reactHooksPlugin as ESLint.Plugin),
+    'react-hooks': reactHooksPlugin,
     'react-refresh': reactRefresh,
     'jsx-a11y': jsxA11yPlugin,
   },
   rules: {
+    ...compatPlugin.configs['flat/recommended'].rules,
     ...reactPlugin.configs.recommended.rules,
     ...reactPlugin.configs['jsx-runtime'].rules,
     ...reactHooksPlugin.configs.recommended.rules,

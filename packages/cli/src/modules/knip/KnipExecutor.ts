@@ -2,6 +2,7 @@ import { writeFileSync } from 'fs';
 
 import c from 'picocolors';
 
+// eslint-disable-next-line no-restricted-imports
 import { getKnipConfig } from '../../../../knip/src/knipConfig';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
@@ -48,7 +49,7 @@ export class KnipExecutor extends AbstractExecutor {
           formatCode(this.modulesConfig.configType, {}, [], JSON.stringify(configForFile))
         );
       } else {
-        // eslint-disable-next-line sonarjs/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars
         const { entry: srcEntry, project: srcProject, ...rest } = configForFile;
 
         const newConfigForMonorepo = {
@@ -77,7 +78,7 @@ export class KnipExecutor extends AbstractExecutor {
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
-      process.exit(EExitCode.EXCEPTION);
+      return process.exit(EExitCode.EXCEPTION);
     }
   }
 }

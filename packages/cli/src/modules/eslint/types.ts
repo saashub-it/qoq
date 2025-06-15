@@ -1,4 +1,5 @@
-import { EslintConfig } from '../../../../eslint-v9-js/src';
+// eslint-disable-next-line no-restricted-imports
+import type { EslintConfig } from '../../../../eslint-v9-js/src';
 
 import { TPartialBy } from '@/helpers/types';
 

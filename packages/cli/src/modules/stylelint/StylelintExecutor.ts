@@ -1,10 +1,10 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { existsSync, writeFileSync } from 'fs';
 import { open } from 'fs/promises';
 
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { StylelintConfig } from '../../../../stylelint-css/src';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
 
@@ -14,6 +14,9 @@ import {
   IModuleStylelintConfigWithPattern,
   IModuleStylelintConfigWithTemplate,
 } from './types';
+
+// eslint-disable-next-line no-restricted-imports
+import type { StylelintConfig } from '../../../../stylelint-css/src';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
@@ -112,6 +115,7 @@ export class StylelintExecutor extends AbstractExecutor {
       args.push('-c', StylelintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
+        // eslint-disable-next-line sonarjs/no-dead-store
         let filteredFiles = [...files];
 
         try {
@@ -151,7 +155,7 @@ export class StylelintExecutor extends AbstractExecutor {
 
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
-      process.exit(EExitCode.EXCEPTION);
+      return process.exit(EExitCode.EXCEPTION);
     }
   }
 }

@@ -84,6 +84,7 @@ export class EslintExecutor extends AbstractExecutor {
       args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
 
       if (files.length > 0) {
+        // eslint-disable-next-line sonarjs/no-dead-store
         let filteredFiles = [...files];
 
         try {
@@ -104,6 +105,7 @@ export class EslintExecutor extends AbstractExecutor {
             return collection.map(mapCallback);
           };
 
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const possibleFiles = (eslintConfig.default as IModuleEslintConfig[]).reduce(
             (acc: { files: string[]; ignores: string[] }[], config) =>
               acc.concat([
@@ -146,7 +148,7 @@ export class EslintExecutor extends AbstractExecutor {
 
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
-      process.exit(EExitCode.EXCEPTION);
+      return process.exit(EExitCode.EXCEPTION);
     }
   }
 }

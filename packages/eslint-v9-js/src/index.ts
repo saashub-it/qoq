@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import jsRules from '@eslint/js';
 import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
-import compatPlugin from 'eslint-plugin-compat';
 import globals from 'globals';
 
 import type { ESLint, Linter } from 'eslint';
@@ -27,7 +27,6 @@ export const baseConfig: EslintConfig = {
     'import-x': importPlugin,
     prettier: prettierPlugin,
     sonarjs: sonarJsPlugin,
-    compat: compatPlugin,
   },
   rules: {
     ...jsRules.configs.recommended.rules,
@@ -54,7 +53,6 @@ export const baseConfig: EslintConfig = {
     'sonarjs/todo-tag': 0,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
-    ...compatPlugin.configs['flat/recommended'].rules,
     'consistent-return': 'warn',
     curly: ['warn', 'all'],
     eqeqeq: 'warn',

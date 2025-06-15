@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^1.5.4",
+    "browserslist": "latest",
+    "eslint-plugin-compat": "6.0.2",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "5.2.0",

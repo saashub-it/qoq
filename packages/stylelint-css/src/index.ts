@@ -1,5 +1,6 @@
 import type { Config } from 'stylelint';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/naming-convention
 export interface StylelintConfig extends Config {
   // just for sake os TS
 }

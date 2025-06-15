@@ -73,7 +73,7 @@ export class JscpdExecutor extends AbstractExecutor {
     } catch {
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
-      process.exit(EExitCode.EXCEPTION);
+      return process.exit(EExitCode.EXCEPTION);
     }
   }
 }

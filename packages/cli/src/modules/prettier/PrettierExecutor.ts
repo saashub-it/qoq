@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { existsSync } from 'fs';
 import { open } from 'fs/promises';
 
@@ -92,7 +93,7 @@ export class PrettierExecutor extends AbstractExecutor {
 
       process.stderr.write(c.red(`Can't load ${this.getName()} package config!\n`));
 
-      process.exit(EExitCode.EXCEPTION);
+      return process.exit(EExitCode.EXCEPTION);
     }
   }
 }

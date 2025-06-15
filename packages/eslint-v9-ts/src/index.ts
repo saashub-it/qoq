@@ -1,15 +1,15 @@
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
 import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
-import * as importPlugin from 'eslint-plugin-import';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
 import merge from 'lodash/merge.js';
 import tseslint from 'typescript-eslint';
-import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 
 import type { TSESLint } from '@typescript-eslint/utils';
 
 export const baseConfig: EslintConfig = merge(
   {},
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+
   omitRules(jsBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   {
     name: '@saashub/qoq-eslint-v9-ts',
@@ -24,7 +24,7 @@ export const baseConfig: EslintConfig = merge(
     },
     rules: {
       'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
       ...importPlugin.configs.typescript.rules,
       'import-x/no-cycle': 'warn',
       'import-x/no-duplicates': 'warn',
@@ -94,7 +94,7 @@ export const baseConfig: EslintConfig = merge(
       '@typescript-eslint/require-await': 'warn',
     },
     settings: {
-      'import-x/resolver-next': [createTypeScriptImportResolver()],
+      'import-x/resolver-next': [createTypeScriptImportResolver(), createNodeResolver()],
     },
   }
 );
