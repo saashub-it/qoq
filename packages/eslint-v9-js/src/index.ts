@@ -1,8 +1,8 @@
-import { fixupPluginRules } from '@eslint/compat';
 import jsRules from '@eslint/js';
-import * as importPlugin from 'eslint-plugin-import';
+import importPlugin from 'eslint-plugin-import-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
+import compatPlugin from 'eslint-plugin-compat';
 import globals from 'globals';
 
 import type { ESLint, Linter } from 'eslint';
@@ -23,13 +23,14 @@ export const baseConfig: EslintConfig = {
     },
   },
   plugins: {
-    import: fixupPluginRules(importPlugin as ESLint.Plugin),
+    // @ts-ignore
+    'import-x': importPlugin,
     prettier: prettierPlugin,
     sonarjs: sonarJsPlugin,
+    compat: compatPlugin,
   },
   rules: {
     ...jsRules.configs.recommended.rules,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...importPlugin.configs.recommended.rules,
     'import/no-cycle': 'warn',
     'import/no-duplicates': 'warn',
@@ -53,6 +54,7 @@ export const baseConfig: EslintConfig = {
     'sonarjs/todo-tag': 0,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
+    ...compatPlugin.configs['flat/recommended'].rules,
     'consistent-return': 'warn',
     curly: ['warn', 'all'],
     eqeqeq: 'warn',

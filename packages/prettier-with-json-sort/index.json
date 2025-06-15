@@ -1,7 +1,9 @@
 {
-  "jsonRecursiveSort": true,
-  "plugins": ["prettier-plugin-sort-json"],
+  "trailingComma": "es5",
   "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "es5"
+  "plugins": [
+    "prettier-plugin-sort-json"
+  ],
+  "jsonRecursiveSort": true
 }

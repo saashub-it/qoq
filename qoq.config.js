@@ -28,12 +28,7 @@ module.exports = {
       'browserslist',
       'stylelint-*',
       'eslint-plugin-import',
-      '@typescript-eslint/utils',
-      /**
-       * @todo need to fix this, imported but not used
-       */
-      'eslint-plugin-compat',
-      'eslint-import-resolver-typescript',
+      '@typescript-eslint/utils'
     ],
   },
   eslint: [
