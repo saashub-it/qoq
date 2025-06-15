@@ -26,9 +26,9 @@ export const baseConfig: EslintConfig = merge(
       'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       ...importPlugin.configs.typescript.rules,
-      'import/no-cycle': 'warn',
-      'import/no-duplicates': 'warn',
-      'import/no-named-default': 'warn',
+      'import-x/no-cycle': 'warn',
+      'import-x/no-duplicates': 'warn',
+      'import-x/no-named-default': 'warn',
       ...(
         (tseslint.plugin.configs as TSESLint.FlatConfig.SharedConfigs)
           .recommended as TSESLint.FlatConfig.Config

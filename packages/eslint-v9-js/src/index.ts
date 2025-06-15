@@ -32,10 +32,10 @@ export const baseConfig: EslintConfig = {
   rules: {
     ...jsRules.configs.recommended.rules,
     ...importPlugin.configs.recommended.rules,
-    'import/no-cycle': 'warn',
-    'import/no-duplicates': 'warn',
-    'import/no-named-default': 'warn',
-    'import/order': [
+    'import-x/no-cycle': 'warn',
+    'import-x/no-duplicates': 'warn',
+    'import-x/no-named-default': 'warn',
+    'import-x/order': [
       'warn',
       {
         alphabetize: { order: 'asc', caseInsensitive: true },

@@ -28,7 +28,7 @@ const noRestrictedImportsRule = merge([], jsBaseConfig.rules['no-restricted-impo
   },
 ]);
 
-const importOrderRule = merge([], jsBaseConfig.rules['import/order'], [
+const importOrderRule = merge([], jsBaseConfig.rules['import-x/order'], [
   'warn',
   {
     pathGroups: [
@@ -64,7 +64,7 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     ...reactRefresh.configs.recommended.rules,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     ...jsxA11yPlugin.configs.recommended.rules,
-    'import/order': importOrderRule,
+    'import-x/order': importOrderRule,
     'no-restricted-imports': noRestrictedImportsRule,
     'react/no-unused-prop-types': 1,
     'sonarjs/function-return-type': 0,
