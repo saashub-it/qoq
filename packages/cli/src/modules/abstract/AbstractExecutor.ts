@@ -76,7 +76,7 @@ export abstract class AbstractExecutor implements IExecutor {
       args.push('--cache', '--cache-location', cachePath);
 
       if (options.warmup && existsSync(cachePath)) {
-        rmSync(cachePath);
+        rmSync(cachePath, { recursive: true, force: true });
       }
     }
 
