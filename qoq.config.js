@@ -28,7 +28,7 @@ module.exports = {
       'browserslist',
       'stylelint-*',
       'eslint-plugin-import',
-      '@typescript-eslint/utils'
+      '@typescript-eslint/utils',
     ],
   },
   eslint: [
