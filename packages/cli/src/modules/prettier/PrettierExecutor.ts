@@ -12,7 +12,7 @@ import { PrettierConfigHandler } from './PrettierConfigHandler';
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { getRelativePath, resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
+import { resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
 import { EExitCode } from '@/helpers/types';
 
 export class PrettierExecutor extends AbstractExecutor {
@@ -79,18 +79,6 @@ export class PrettierExecutor extends AbstractExecutor {
       }
 
       args.push('--check', ...sources);
-
-      if (existsSync(GITIGNORE_FILE_PATH) || existsSync(prettierignorePath)) {
-        args.push('--ignore-path');
-
-        if (existsSync(GITIGNORE_FILE_PATH)) {
-          args.push(getRelativePath(GITIGNORE_FILE_PATH));
-        }
-
-        if (existsSync(prettierignorePath)) {
-          args.push(getRelativePath(prettierignorePath));
-        }
-      }
 
       if (fix) {
         args.push('--write');

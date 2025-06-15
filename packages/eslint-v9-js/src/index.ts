@@ -92,8 +92,6 @@ export const baseConfig: EslintConfig = {
     'no-useless-return': 'warn',
   },
   settings: {
-      'import-x/resolver-next': [
-        createNodeResolver(),
-      ],
-    },
+    'import-x/resolver-next': [createNodeResolver()],
+  },
 };
