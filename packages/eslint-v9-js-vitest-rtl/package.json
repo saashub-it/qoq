@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-vitest-rtl",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Eslint flat config template for JS + Vitest + RTL",
   "keywords": [
     "eslint JavaScript + Vitest + RTL template",
@@ -39,7 +39,7 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-vitest": "^1.5.4",
+    "@saashub/qoq-eslint-v9-js-vitest": "^1.5.5",
     "eslint-plugin-testing-library": "7.5.3",
     "lodash": "4.17.21"
   },

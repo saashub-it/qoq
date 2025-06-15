@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-jest",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Eslint flat config template for JS + Jest",
   "keywords": [
     "eslint JavaScript + Jest template",
@@ -39,7 +39,7 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js": "^1.5.4",
+    "@saashub/qoq-eslint-v9-js": "^1.5.5",
     "eslint-plugin-jest": "28.13.5",
     "globals": "16.2.0",
     "lodash": "4.17.21"
