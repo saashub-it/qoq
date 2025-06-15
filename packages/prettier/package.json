@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-prettier",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
