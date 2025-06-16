@@ -6,4 +6,7 @@ import merge from 'lodash/merge.js';
 export const baseConfig: EslintConfig = merge({}, jsVitestBaseConfig, {
   ...testingLibrary.configs['flat/react'],
   name: '@saashub/qoq-eslint-v9-js-vitest-rtl',
+  rules: {
+    'testing-library/prefer-screen-queries': 0,
+  },
 });

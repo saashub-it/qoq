@@ -45,12 +45,15 @@ export const baseConfig: EslintConfig = {
     ],
     ...sonarJsPlugin.configs.recommended.rules,
     'sonarjs/no-alphabetical-sort': 0,
-    'sonarjs/no-misused-promises': 0,
     'sonarjs/no-nested-functions': 0,
-    'sonarjs/new-cap': 0,
-    'sonarjs/sonar-max-params': 0,
     'sonarjs/no-misleading-array-reverse': 0,
     'sonarjs/todo-tag': 0,
+    /**
+     * low value, high check complexity, turned off since performance
+     */
+    'sonarjs/deprecation': 0,
+    'sonarjs/no-commented-code': 0,
+    'sonarjs/arguments-order': 0,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
     'consistent-return': 'warn',
