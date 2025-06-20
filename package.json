@@ -25,9 +25,9 @@
     "@saashub/qoq-knip": "latest",
     "@saashub/qoq-prettier-with-json-sort": "latest",
     "@types/node": "^22",
-    "@vitest/coverage-v8": "3.2.3",
+    "@vitest/coverage-v8": "3.2.4",
     "lerna": "8.2.2",
-    "vitest": "3.2.3"
+    "vitest": "3.2.4"
   },
   "engines": {
     "node": ">=18"

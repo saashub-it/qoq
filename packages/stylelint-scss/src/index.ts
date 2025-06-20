@@ -4,6 +4,7 @@ import type { Config } from 'stylelint';
 
 export const baseConfig: Config = {
   ...baseCssConfig,
+  name: '@saashub/qoq-stylelint-scss',
   extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order', 'stylelint-prettier'],
   overrides: [
     {

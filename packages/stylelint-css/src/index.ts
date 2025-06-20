@@ -1,11 +1,13 @@
 import type { Config } from 'stylelint';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface StylelintConfig extends Config {
-  // just for sake os TS
+  name: string;
+  srcPath?: string;
 }
 
 export const baseConfig: StylelintConfig = {
+  name: '@saashub/qoq-stylelint-css',
   extends: ['stylelint-config-standard', 'stylelint-config-clean-order', 'stylelint-prettier'],
   plugins: [
     'stylelint-file-max-lines',
