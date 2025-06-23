@@ -62,7 +62,6 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     ...reactPlugin.configs['jsx-runtime'].rules,
     ...reactHooksPlugin.configs.recommended.rules,
     ...reactRefresh.configs.recommended.rules,
-
     ...jsxA11yPlugin.configs.recommended.rules,
     'import-x/order': importOrderRule,
     'no-restricted-imports': noRestrictedImportsRule,

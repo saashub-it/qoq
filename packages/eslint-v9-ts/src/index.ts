@@ -9,7 +9,6 @@ import type { TSESLint } from '@typescript-eslint/utils';
 
 export const baseConfig: EslintConfig = merge(
   {},
-
   omitRules(jsBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   {
     name: '@saashub/qoq-eslint-v9-ts',
@@ -98,3 +97,11 @@ export const baseConfig: EslintConfig = merge(
     },
   }
 );
+
+export const testConfig: EslintConfig = merge({}, baseConfig, {
+  rules: {
+      '@typescript-eslint/no-unsafe-argument': 0,
+      '@typescript-eslint/no-unsafe-assignment': 0,
+      '@typescript-eslint/no-unsafe-member-access': 0
+    },
+});

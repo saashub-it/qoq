@@ -1,0 +1,14 @@
+# builds
+!lib
+
+# tests
+coverage
+
+# sources
+src
+
+# configs
+rollup.bin.mjs
+rollup.config.mjs
+tsconfig.json
+vitest.config.mjs

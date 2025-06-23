@@ -1,22 +1,22 @@
 {
-  "name": "@saashub/qoq-eslint-v9-js-jest-rtl",
+  "name": "@saashub/qoq-eslint-v9-ts-jest-rtl",
   "version": "1.7.0",
-  "description": "Eslint flat config template for JS + Jest + RTL",
+  "description": "Eslint flat config template for TS + Jest + RTL",
   "keywords": [
-    "eslint JavaScript + Jest + RTL template",
+    "eslint TypeScript + Jest + RTL template",
     "flat config",
     "saashub",
     "qoq",
     "QualityOverQuantity"
   ],
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-jest-rtl",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-ts-jest",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js-jest-rtl"
+    "directory": "packages/eslint-v9-ts-jest"
   },
   "license": "MIT",
   "exports": {
@@ -32,21 +32,18 @@
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "bin": {
-    "@saashub/qoq-eslint-v9-js-jest-rtl": "./bin/bin.cjs"
+    "@saashub/qoq-eslint-v9-ts-jest-rtl": "./bin/bin.cjs"
   },
   "scripts": {
     "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "^1.7.0",
-    "eslint-plugin-testing-library": "7.5.3",
+    "@saashub/qoq-eslint-v9-js-jest-rtl": "^1.7.0",
+    "@saashub/qoq-eslint-v9-ts-jest": "^1.7.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "28.0.6",
-    "@rollup/plugin-json": "6.1.0",
-    "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.3",
     "@types/eslint": "^9",
     "@types/lodash": "4.17.18",
@@ -55,7 +52,8 @@
     "typescript": "5.8.3"
   },
   "peerDependencies": {
-    "eslint": "^9.28.0"
+    "eslint": "^9.28.0",
+    "typescript": ">=4.8.4 <5.9.0"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"

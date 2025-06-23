@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-vitest-rtl": "^1.7.0",
-    "@saashub/qoq-eslint-v9-ts": "^1.7.0",
+    "@saashub/qoq-eslint-v9-ts-vitest": "^1.7.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
