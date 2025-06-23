@@ -11,6 +11,6 @@ export const baseConfig: EslintConfig = merge(
   omitRules(jsVitestRtlBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   tsBaseConfig,
   {
-    name: '@saashub/qoq-eslint-v9-ts-vitest-rtl'
+    name: '@saashub/qoq-eslint-v9-ts-vitest-rtl',
   }
 );

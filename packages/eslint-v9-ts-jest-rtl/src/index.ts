@@ -11,6 +11,6 @@ export const baseConfig: EslintConfig = merge(
   omitRules(jsJestBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
   tsBaseConfig,
   {
-    name: '@saashub/qoq-eslint-v9-ts-jest-rtl'
+    name: '@saashub/qoq-eslint-v9-ts-jest-rtl',
   }
 );

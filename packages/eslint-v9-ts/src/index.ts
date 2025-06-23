@@ -100,8 +100,8 @@ export const baseConfig: EslintConfig = merge(
 
 export const testConfig: EslintConfig = merge({}, baseConfig, {
   rules: {
-      '@typescript-eslint/no-unsafe-argument': 0,
-      '@typescript-eslint/no-unsafe-assignment': 0,
-      '@typescript-eslint/no-unsafe-member-access': 0
-    },
+    '@typescript-eslint/no-unsafe-argument': 0,
+    '@typescript-eslint/no-unsafe-assignment': 0,
+    '@typescript-eslint/no-unsafe-member-access': 0,
+  },
 });
