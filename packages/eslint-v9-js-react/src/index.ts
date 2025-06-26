@@ -40,6 +40,19 @@ const importOrderRule = merge([], jsBaseConfig.rules['import-x/order'], [
   },
 ]);
 
+export const rules = {
+  ...compatPlugin.configs['flat/recommended'].rules,
+  ...reactPlugin.configs.recommended.rules,
+  ...reactPlugin.configs['jsx-runtime'].rules,
+  ...reactHooksPlugin.configs.recommended.rules,
+  ...reactRefresh.configs.recommended.rules,
+  ...jsxA11yPlugin.configs.recommended.rules,
+  'import-x/order': importOrderRule,
+  'no-restricted-imports': noRestrictedImportsRule,
+  'react/no-unused-prop-types': 1,
+  'sonarjs/function-return-type': 0,
+};
+
 export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
   name: '@saashub/qoq-eslint-v9-js-react',
   languageOptions: {
@@ -56,18 +69,7 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
     'react-refresh': reactRefresh,
     'jsx-a11y': jsxA11yPlugin,
   },
-  rules: {
-    ...compatPlugin.configs['flat/recommended'].rules,
-    ...reactPlugin.configs.recommended.rules,
-    ...reactPlugin.configs['jsx-runtime'].rules,
-    ...reactHooksPlugin.configs.recommended.rules,
-    ...reactRefresh.configs.recommended.rules,
-    ...jsxA11yPlugin.configs.recommended.rules,
-    'import-x/order': importOrderRule,
-    'no-restricted-imports': noRestrictedImportsRule,
-    'react/no-unused-prop-types': 1,
-    'sonarjs/function-return-type': 0,
-  },
+  rules,
   settings: {
     react: {
       version: 'detect',

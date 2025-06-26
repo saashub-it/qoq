@@ -3,6 +3,11 @@ import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 import merge from 'lodash/merge.js';
 
+export const rules = {
+  ...jestPlugin.configs.recommended.rules,
+  'sonarjs/no-duplicate-string': 0,
+};
+
 export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
   name: '@saashub/qoq-eslint-v9-js-jest',
   languageOptions: {
@@ -13,8 +18,5 @@ export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
   plugins: {
     jest: jestPlugin,
   },
-  rules: {
-    ...jestPlugin.configs.recommended.rules,
-    'sonarjs/no-duplicate-string': 0,
-  },
+  rules,
 });
