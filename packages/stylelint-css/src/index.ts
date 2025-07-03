@@ -3,7 +3,6 @@ import type { Config } from 'stylelint';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface StylelintConfig extends Config {
   name: string;
-  srcPath?: string;
 }
 
 export const baseConfig: StylelintConfig = {

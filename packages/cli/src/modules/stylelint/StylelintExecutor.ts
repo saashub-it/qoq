@@ -55,26 +55,25 @@ export class StylelintExecutor extends AbstractExecutor {
       throw new TerminateExecutorGracefully();
     }
 
-    const { strict, srcPath: stylelintSrcPath } = stylelint;
-    const basePath = stylelintSrcPath ?? srcPath;
+    const { strict } = stylelint;
     let rest: StylelintConfig;
 
-    if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
+    if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
+      const { pattern, ...other } = <IModuleStylelintConfigWithPattern>stylelint;
+
+      rest = other;
+
+      args.push(`"${pattern}"`);
+    } else if ((<IModuleStylelintConfigWithTemplate>stylelint).template) {
       const { template, ...other } = <IModuleStylelintConfigWithTemplate>stylelint;
 
       rest = other;
 
       if (template === EModulesStylelint.STYLELINT_SCSS) {
-        args.push(`${basePath}/**/*.{css,scss,sass}`);
+        args.push(`${srcPath}/**/*.{css,scss,sass}`);
       } else {
-        args.push(`${basePath}/**/*.css`);
+        args.push(`${srcPath}/**/*.css`);
       }
-    } else if ((<IModuleStylelintConfigWithPattern>stylelint).pattern) {
-      const { pattern, ...other } = <IModuleStylelintConfigWithPattern>stylelint;
-
-      rest = other;
-
-      args.push(`${basePath}/${pattern}`);
     } else {
       throw new Error('Bad config!');
     }
