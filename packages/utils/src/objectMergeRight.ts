@@ -38,8 +38,8 @@ const walk = <T extends TObjectType>(first: T, second: Partial<T>) => {
 
 /**
  * Method merges objects without clonning, right object always have precedence in every key,
- * If key is set to 'undefined' it will be removed from merged object. 
- * 
+ * If key is set to 'undefined' it will be removed from merged object.
+ *
  * @param first input object
  * @param args input objects
  * @returns merged object
