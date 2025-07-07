@@ -13,15 +13,26 @@ const walk = <T extends TObjectType>(first: T, second: Partial<T>) => {
     if (Object.prototype.hasOwnProperty.call(second, key)) {
       const secondValue = second[key];
 
-      acc[key] =
+      if (
         typeof firstValue === 'object' &&
         !Array.isArray(firstValue) &&
         typeof secondValue === 'object' &&
         !Array.isArray(secondValue)
-          ? walk(firstValue as TObjectType, secondValue as TObjectType)
-          : secondValue;
+      ) {
+        acc[key] = walk(firstValue as TObjectType, secondValue as TObjectType);
+      } else {
+        try {
+          acc[key] = structuredClone(secondValue);
+        } catch {
+          acc[key] = secondValue;
+        }
+      }
     } else {
-      acc[key] = firstValue;
+      try {
+        acc[key] = structuredClone(firstValue);
+      } catch {
+        acc[key] = firstValue;
+      }
     }
 
     return acc;
@@ -30,15 +41,20 @@ const walk = <T extends TObjectType>(first: T, second: Partial<T>) => {
   Object.keys(second)
     .filter((key) => !firstObjectKeys.includes(key))
     .forEach((key) => {
-      mergedObject[key] = second[key];
+      try {
+        mergedObject[key] = structuredClone(second[key]);
+      } catch {
+        mergedObject[key] = second[key];
+      }
     });
 
   return mergedObject as T;
 };
 
 /**
- * Method merges objects without clonning, right object always have precedence in every key,
- * If key is set to 'undefined' it will be removed from merged object.
+ * Method merges objects and tries to clone them with `structuredClone`
+ * Object on the right have precedence in every key, and If key is set to 'undefined'
+ * it will be removed from object on the left.
  *
  * @param first input object
  * @param args input objects
