@@ -1,19 +1,6 @@
 import { spawn } from 'child_process';
 import { resolve } from 'path';
 
-import merge from 'lodash/merge.js';
-import omit from 'lodash/omit.js';
-
-import type { EslintConfig } from './index';
-
-export const omitRules = (sourceConfig: EslintConfig, rulesToOmit: string[]): EslintConfig => {
-  const newConfig = merge({}, sourceConfig);
-
-  newConfig.rules = omit(newConfig.rules, rulesToOmit);
-
-  return newConfig;
-};
-
 export const executeInspector = (dir: string): void => {
   const child = spawn(
     // eslint-disable-next-line sonarjs/no-os-command-from-path

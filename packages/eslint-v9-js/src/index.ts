@@ -12,6 +12,11 @@ export interface EslintConfig extends Linter.Config {
   rules: Linter.RulesRecord;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-object-type
+export interface EslintConfigPlugin extends ESLint.Plugin {
+  // just re-export
+}
+
 export const baseConfig: EslintConfig = {
   name: '@saashub/qoq-eslint-v9-js',
   linterOptions: {

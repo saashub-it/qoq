@@ -1,29 +1,40 @@
-import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
-import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
+import {
+  EslintConfig,
+  EslintConfigPlugin,
+  baseConfig as jsBaseConfig,
+} from '@saashub/qoq-eslint-v9-js';
+import { objectMergeRight } from '@saashub/qoq-utils';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
-import merge from 'lodash/merge.js';
 import tseslint from 'typescript-eslint';
 
 import type { TSESLint } from '@typescript-eslint/utils';
 
-export const baseConfig: EslintConfig = merge(
-  {},
-  omitRules(jsBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
+export const baseConfig: EslintConfig = objectMergeRight(
+  jsBaseConfig,
+  {
+    rules: Object.keys(importPlugin.configs.recommended.rules).reduce(
+      (acc: Record<string, undefined>, key) => {
+        acc[key] = undefined;
+
+        return acc;
+      },
+      {}
+    ) as unknown as EslintConfig['rules'],
+  },
   {
     name: '@saashub/qoq-eslint-v9-ts',
     languageOptions: {
-      parser: tseslint.parser,
+      parser: tseslint.parser as Required<EslintConfig>['languageOptions']['parser'],
       parserOptions: {
         projectService: true,
       },
     },
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
+      '@typescript-eslint': tseslint.plugin as unknown as EslintConfigPlugin,
     },
     rules: {
       'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
-
       ...importPlugin.configs.typescript.rules,
       'import-x/no-cycle': 'warn',
       'import-x/no-duplicates': 'warn',
@@ -98,7 +109,7 @@ export const baseConfig: EslintConfig = merge(
   }
 );
 
-export const testConfig: EslintConfig = merge({}, baseConfig, {
+export const testConfig: EslintConfig = objectMergeRight(baseConfig, {
   rules: {
     '@typescript-eslint/no-unsafe-argument': 0,
     '@typescript-eslint/no-unsafe-assignment': 0,

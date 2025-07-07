@@ -40,21 +40,20 @@
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^1.7.4",
+    "@saashub/qoq-utils": "^1.7.4",
     "browserslist": "latest",
     "eslint-plugin-compat": "6.0.2",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "5.2.0",
-    "eslint-plugin-react-refresh": "0.4.20",
-    "lodash": "4.17.21"
+    "eslint-plugin-react-refresh": "0.4.20"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "@types/eslint-plugin-jsx-a11y": "6.10.0",
-    "@types/lodash": "4.17.20",
     "rimraf": "6.0.1",
-    "rollup": "4.44.1",
+    "rollup": "4.44.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

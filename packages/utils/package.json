@@ -1,21 +1,21 @@
 {
-  "name": "@saashub/qoq-stylelint-css",
+  "name": "@saashub/qoq-utils",
   "version": "1.7.4",
-  "description": "Stylelint config template for CSS",
+  "description": "QoQ utils",
   "keywords": [
-    "stylelint CSS template",
+    "QoQ utils",
     "saashub",
     "qoq",
     "QualityOverQuantity"
   ],
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/stylelint-css",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/utils",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/stylelint-css"
+    "directory": "packages/utils"
   },
   "license": "MIT",
   "exports": {
@@ -33,24 +33,10 @@
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent"
   },
-  "dependencies": {
-    "browserslist": "latest",
-    "stylelint": "^16.20.0",
-    "stylelint-config-clean-order": "7.0.0",
-    "stylelint-config-standard": "38.0.0",
-    "stylelint-file-max-lines": "1.0.0",
-    "stylelint-high-performance-animation": "1.11.0",
-    "stylelint-no-unsupported-browser-features": "8.0.4",
-    "stylelint-prettier": "5.0.3"
-  },
   "devDependencies": {
-    "@rollup/plugin-typescript": "12.1.4",
     "rimraf": "6.0.1",
     "rollup": "4.44.2",
     "typescript": "5.8.3"
-  },
-  "peerDependencies": {
-    "stylelint": "^16.20.0"
   },
   "engines": {
     "node": ">=18.18.0"

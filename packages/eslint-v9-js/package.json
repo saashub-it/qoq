@@ -47,21 +47,20 @@
   },
   "dependencies": {
     "@eslint/js": "^9.28.0",
+    "@saashub/qoq-utils": "^1.7.4",
     "eslint": "^9.28.0",
     "eslint-plugin-import-x": "4.16.1",
     "eslint-plugin-prettier": "5.5.1",
     "eslint-plugin-sonarjs": "3.0.4",
-    "globals": "16.3.0",
-    "lodash": "4.17.21"
+    "globals": "16.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.6",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.4",
-    "@types/lodash": "4.17.20",
     "rimraf": "6.0.1",
-    "rollup": "4.44.1",
+    "rollup": "4.44.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

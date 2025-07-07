@@ -41,14 +41,13 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-react": "^1.7.4",
     "@saashub/qoq-eslint-v9-ts": "^1.7.4",
-    "lodash": "4.17.21"
+    "@saashub/qoq-utils": "^1.7.4"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
-    "@types/lodash": "4.17.20",
     "rimraf": "6.0.1",
-    "rollup": "4.44.1",
+    "rollup": "4.44.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

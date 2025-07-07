@@ -1,16 +1,30 @@
 import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
-import { omitRules } from '@saashub/qoq-eslint-v9-js/tools';
 import { baseConfig as jsReactBaseConfig, rules } from '@saashub/qoq-eslint-v9-js-react';
 import { baseConfig as tsBaseConfig } from '@saashub/qoq-eslint-v9-ts';
+import { objectMergeRight } from '@saashub/qoq-utils';
 import importPlugin from 'eslint-plugin-import-x';
-import merge from 'lodash/merge.js';
 
-export const baseConfig: EslintConfig = merge(
-  {},
-  omitRules(jsReactBaseConfig, Object.keys(importPlugin.configs.recommended.rules)),
-  tsBaseConfig,
-  {
-    name: '@saashub/qoq-eslint-v9-ts-react',
-    rules,
-  }
-);
+const { plugins: jsReactBaseConfigPlugins, ...jsReactBaseConfigRest } = jsReactBaseConfig;
+const { plugins: tsBaseConfigPlugins, ...tsBaseConfigRest } = tsBaseConfig;
+
+export const baseConfig: EslintConfig = {
+  ...objectMergeRight(
+    jsReactBaseConfigRest,
+    {
+      rules: Object.keys(importPlugin.configs.recommended.rules).reduce(
+        (acc: Record<string, undefined>, key) => {
+          acc[key] = undefined;
+
+          return acc;
+        },
+        {}
+      ) as unknown as EslintConfig['rules'],
+    },
+    tsBaseConfigRest,
+    {
+      name: '@saashub/qoq-eslint-v9-ts-react',
+      rules,
+    }
+  ),
+  plugins: { ...jsReactBaseConfigPlugins, ...tsBaseConfigPlugins },
+};

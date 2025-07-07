@@ -1,14 +1,15 @@
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
+import { objectMergeRight } from '@saashub/qoq-utils';
 import compatPlugin from 'eslint-plugin-compat';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import merge from 'lodash/merge.js';
 
-const noRestrictedImportsRule = merge([], jsBaseConfig.rules['no-restricted-imports'], [
-  'warn',
+const noRestrictedImportsRule: EslintConfig['rules'][0] = [
+  jsBaseConfig.rules['no-restricted-imports'][0],
   {
+    ...jsBaseConfig.rules['no-restricted-imports'][1],
     paths: [
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       ...jsBaseConfig.rules['no-restricted-imports'][1].paths,
@@ -24,11 +25,12 @@ const noRestrictedImportsRule = merge([], jsBaseConfig.rules['no-restricted-impo
       },
     ],
   },
-]);
+];
 
-const importOrderRule = merge([], jsBaseConfig.rules['import-x/order'], [
-  'warn',
+const importOrderRule: EslintConfig['rules'][0] = [
+  jsBaseConfig.rules['import-x/order'][0],
   {
+    ...jsBaseConfig.rules['import-x/order'][1],
     pathGroups: [
       {
         pattern: 'react*',
@@ -38,9 +40,10 @@ const importOrderRule = merge([], jsBaseConfig.rules['import-x/order'], [
     ],
     pathGroupsExcludedImportTypes: ['react*'],
   },
-]);
+];
 
-export const rules = {
+export const rules: EslintConfig['rules'] = {
+  ...jsBaseConfig.rules,
   ...compatPlugin.configs['flat/recommended'].rules,
   ...reactPlugin.configs.recommended.rules,
   ...reactPlugin.configs['jsx-runtime'].rules,
@@ -53,7 +56,7 @@ export const rules = {
   'sonarjs/function-return-type': 0,
 };
 
-export const baseConfig: EslintConfig = merge({}, jsBaseConfig, {
+export const baseConfig: EslintConfig = objectMergeRight(jsBaseConfig, {
   name: '@saashub/qoq-eslint-v9-js-react',
   languageOptions: {
     parserOptions: {

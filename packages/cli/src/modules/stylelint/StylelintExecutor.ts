@@ -94,7 +94,7 @@ export class StylelintExecutor extends AbstractExecutor {
       );
 
       const imports: Record<string, string> = {
-        lodash: 'lodash',
+        '{ objectMergeRight }': '@saashub/qoq-utils',
       };
 
       const content: string[] = [];
@@ -103,7 +103,7 @@ export class StylelintExecutor extends AbstractExecutor {
         imports[`{ baseConfig }`] = String(
           (<IModuleStylelintConfigWithTemplate>stylelint).template
         );
-        content.push(`const config = lodash.merge({}, baseConfig, ${JSON.stringify(rest)})`);
+        content.push(`const config = objectMergeRight(baseConfig, ${JSON.stringify(rest)})`);
       } else {
         content.push(`const config = ${JSON.stringify(rest)}`);
       }

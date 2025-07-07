@@ -44,7 +44,7 @@ export class EslintExecutor extends AbstractExecutor {
       );
 
       const imports: Record<string, string> = {
-        lodash: 'lodash',
+        '{ objectMergeRight }': '@saashub/qoq-utils',
         '{ includeIgnoreFile }': '@eslint/compat',
       };
 
@@ -60,7 +60,7 @@ export class EslintExecutor extends AbstractExecutor {
             }
 
             acc.push(
-              `const config${index} = [lodash.merge({}, baseConfig${index}, ${JSON.stringify(rest)})]`
+              `const config${index} = [objectMergeRight(baseConfig${index}, ${JSON.stringify(rest)})]`
             );
           } else {
             acc.push(`const config${index} = [${JSON.stringify(rest)}]`);
