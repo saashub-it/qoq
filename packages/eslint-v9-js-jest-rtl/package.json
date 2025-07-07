@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-jest-rtl",
-  "version": "1.7.4",
+  "version": "1.8.0-alpha.0",
   "description": "Eslint flat config template for JS + Jest + RTL",
   "keywords": [
     "eslint JavaScript + Jest + RTL template",
@@ -39,8 +39,8 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "^1.7.4",
-    "@saashub/qoq-utils": "^1.7.4",
+    "@saashub/qoq-eslint-v9-js-jest": "^1.8.0-alpha.0",
+    "@saashub/qoq-utils": "^1.8.0-alpha.0",
     "eslint-plugin-testing-library": "7.5.3"
   },
   "devDependencies": {
