@@ -4,12 +4,12 @@ import { baseConfig as tsBaseConfig } from '@saashub/qoq-eslint-v9-ts-jest';
 import { objectMergeRight } from '@saashub/qoq-utils';
 import importPlugin from 'eslint-plugin-import-x';
 
-const { plugins: jsJestBaseConfigPlugins, ...jsJestBaseConfigRest } = jsJestBaseConfig;
+const { plugins: jsJestRtlBaseConfigPlugins, ...jsJestRtlBaseConfigRest } = jsJestBaseConfig;
 const { plugins: tsBaseConfigPlugins, ...tsBaseConfigRest } = tsBaseConfig;
 
 export const baseConfig: EslintConfig = {
   ...objectMergeRight(
-    jsJestBaseConfigRest,
+    jsJestRtlBaseConfigRest,
     {
       rules: Object.keys(importPlugin.configs.recommended.rules).reduce(
         (acc: Record<string, undefined>, key) => {
@@ -26,5 +26,5 @@ export const baseConfig: EslintConfig = {
       rules,
     }
   ),
-  plugins: { ...jsJestBaseConfigPlugins, ...tsBaseConfigPlugins },
+  plugins: { ...jsJestRtlBaseConfigPlugins, ...tsBaseConfigPlugins },
 };
