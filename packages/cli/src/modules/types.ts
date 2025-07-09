@@ -27,6 +27,7 @@ export interface IExecuteStagedOptions {
   skipEslint?: boolean;
   warmup?: boolean;
   silent?: boolean;
+  configHints?: boolean;
 }
 
 export interface IExecuteOptions extends IExecuteStagedOptions {

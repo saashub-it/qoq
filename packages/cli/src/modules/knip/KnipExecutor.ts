@@ -29,6 +29,12 @@ export class KnipExecutor extends AbstractExecutor {
   }
 
   protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
+    const { configHints } = options;
+
+    if (!configHints) {
+      args.push('--no-config-hints');
+    }
+
     try {
       const {
         srcPath,

@@ -21,6 +21,7 @@ cli
   .option('--skip-eslint', 'Skip Eslint checks')
   .option('--warmup', 'Create configs for tools without QoQ execution')
   .option('--silent', 'Mute all QoQ messages')
+  .option('--config-hints', 'Enable config hints')
   .action(async (options: IExecuteOptions) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
@@ -45,6 +46,7 @@ cli
   .option('--skip-jscpd', 'Skip JSCPD checks')
   .option('--skip-knip', 'Skip Knip checks')
   .option('--skip-eslint', 'Skip Eslint checks')
+  .option('--config-hints', 'Enable config hints')
   .action(async (files: string[] = [], options: IExecuteStagedOptions) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
