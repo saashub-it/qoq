@@ -1,5 +1,5 @@
 import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
-import { baseConfig as jsVitestBaseConfig, rules } from '@saashub/qoq-eslint-v9-js-vitest';
+import { baseConfig as jsVitestBaseConfig, disabledRules } from '@saashub/qoq-eslint-v9-js-vitest';
 import { testConfig as tsTestConfig } from '@saashub/qoq-eslint-v9-ts';
 import { objectMergeRight } from '@saashub/qoq-utils';
 import importPlugin from 'eslint-plugin-import-x';
@@ -23,7 +23,7 @@ export const baseConfig: EslintConfig = {
     tsTestConfigRest,
     {
       name: '@saashub/qoq-eslint-v9-ts-vitest',
-      rules,
+      rules: {...disabledRules},
       settings: {
         vitest: {
           typecheck: true,

@@ -6,21 +6,28 @@ import {
 import { objectMergeRight } from '@saashub/qoq-utils';
 import vitestPlugin from '@vitest/eslint-plugin';
 
-export const rules: EslintConfig['rules'] = {
-  ...vitestPlugin.configs.recommended.rules,
+export const disabledRules: EslintConfig['rules'] = {
   'sonarjs/no-duplicate-string': 0,
   'vitest/expect-expect': 0,
 };
 
-export const baseConfig: EslintConfig = objectMergeRight<EslintConfig>(jsBaseConfig, {
-  name: '@saashub/qoq-eslint-v9-js-vitest',
-  languageOptions: {
-    globals: {
-      ...vitestPlugin.environments.env.globals,
+const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
+
+export const baseConfig: EslintConfig = {
+  ...objectMergeRight(jsBaseConfigRest, {
+    name: '@saashub/qoq-eslint-v9-js-vitest',
+    languageOptions: {
+      globals: {
+        ...vitestPlugin.environments.env.globals,
+      },
     },
-  },
+    rules: {
+      ...vitestPlugin.configs.recommended.rules,
+      ...disabledRules
+    },
+  }),
   plugins: {
+    ...jsBaseConfigPlugins,
     vitest: vitestPlugin as unknown as EslintConfigPlugin,
   },
-  rules,
-});
+};

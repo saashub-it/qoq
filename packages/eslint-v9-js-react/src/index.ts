@@ -42,9 +42,23 @@ const importOrderRule: EslintConfig['rules'][0] = [
   },
 ];
 
-export const rules: EslintConfig['rules'] = {
-  ...jsBaseConfig.rules,
-  ...compatPlugin.configs['flat/recommended'].rules,
+export const disabledRules: EslintConfig['rules'] = {
+  'sonarjs/function-return-type': 0,
+};
+
+const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
+
+export const baseConfig: EslintConfig = {
+  ...objectMergeRight(jsBaseConfigRest, {
+    name: '@saashub/qoq-eslint-v9-js-react',
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    rules: {...compatPlugin.configs['flat/recommended'].rules,
   ...reactPlugin.configs.recommended.rules,
   ...reactPlugin.configs['jsx-runtime'].rules,
   ...reactHooksPlugin.configs.recommended.rules,
@@ -53,29 +67,19 @@ export const rules: EslintConfig['rules'] = {
   'import-x/order': importOrderRule,
   'no-restricted-imports': noRestrictedImportsRule,
   'react/no-unused-prop-types': 1,
-  'sonarjs/function-return-type': 0,
-};
-
-export const baseConfig: EslintConfig = objectMergeRight(jsBaseConfig, {
-  name: '@saashub/qoq-eslint-v9-js-react',
-  languageOptions: {
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
+...disabledRules},
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
-  },
+  }),
   plugins: {
+    ...jsBaseConfigPlugins,
     compat: compatPlugin,
     react: reactPlugin,
     'react-hooks': reactHooksPlugin,
     'react-refresh': reactRefresh,
     'jsx-a11y': jsxA11yPlugin,
   },
-  rules,
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-});
+};
