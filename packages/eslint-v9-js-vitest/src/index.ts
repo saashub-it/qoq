@@ -23,7 +23,7 @@ export const baseConfig: EslintConfig = {
     },
     rules: {
       ...vitestPlugin.configs.recommended.rules,
-      ...disabledRules
+      ...disabledRules,
     },
   }),
   plugins: {

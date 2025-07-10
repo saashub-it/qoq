@@ -23,7 +23,7 @@ export const baseConfig: EslintConfig = {
     tsTestConfigRest,
     {
       name: '@saashub/qoq-eslint-v9-ts-vitest',
-      rules: {...disabledRules},
+      rules: { ...disabledRules },
       settings: {
         vitest: {
           typecheck: true,

@@ -16,7 +16,7 @@ export const baseConfig: EslintConfig = {
     ...jsRtlBaseConfigRest,
     name: '@saashub/qoq-eslint-v9-js-vitest-rtl',
     rules: {
-      ...disabledRules
+      ...disabledRules,
     },
   }),
   plugins: {

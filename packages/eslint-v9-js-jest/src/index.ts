@@ -4,7 +4,7 @@ import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 
 export const disabledRules: EslintConfig['rules'] = {
-'sonarjs/no-duplicate-string': 0,
+  'sonarjs/no-duplicate-string': 0,
 };
 
 const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
@@ -19,7 +19,7 @@ export const baseConfig: EslintConfig = {
     },
     rules: {
       ...jestPlugin.configs.recommended.rules,
-      ...disabledRules
+      ...disabledRules,
     } as EslintConfig['rules'],
   }),
   plugins: {

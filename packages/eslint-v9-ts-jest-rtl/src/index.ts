@@ -23,7 +23,7 @@ export const baseConfig: EslintConfig = {
     tsBaseConfigRest,
     {
       name: '@saashub/qoq-eslint-v9-ts-jest-rtl',
-      rules: {...disabledRules},
+      rules: { ...disabledRules },
     }
   ),
   plugins: { ...jsJestRtlBaseConfigPlugins, ...tsBaseConfigPlugins },

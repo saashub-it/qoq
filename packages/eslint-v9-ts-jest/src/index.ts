@@ -24,7 +24,7 @@ export const baseConfig: EslintConfig = {
     {
       name: '@saashub/qoq-eslint-v9-ts-jest',
       rules: {
-        ...disabledRules
+        ...disabledRules,
       },
     }
   ),
