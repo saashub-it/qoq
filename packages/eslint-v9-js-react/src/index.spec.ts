@@ -1,8 +1,9 @@
 import { ESLint } from 'eslint';
 import { describe, it, expect } from 'vitest';
 
-import { baseConfig } from './index';
 import stats from '../stats/api/payload.json' with { type: 'json' };
+
+import { baseConfig } from './index';
 
 describe('baseConfig', () => {
   it('can constuct Eslint object', () => {
