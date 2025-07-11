@@ -24,7 +24,14 @@ describe('baseConfig', () => {
         return acc;
       }
 
-      return acc.concat(Object.keys(config.rules).filter((rule) => config.rules[rule] !== 0 && config.rules[rule] !== 'off' && deprecatedRules.includes(rule)));
+      return acc.concat(
+        Object.keys(config.rules).filter(
+          (rule) =>
+            config.rules[rule] !== 0 &&
+            config.rules[rule] !== 'off' &&
+            deprecatedRules.includes(rule)
+        )
+      );
     }, []);
 
     expect(configsDeprecatedRules).toStrictEqual([]);
