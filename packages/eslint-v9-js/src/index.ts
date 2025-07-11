@@ -59,6 +59,7 @@ export const baseConfig: EslintConfig = {
     'sonarjs/deprecation': 0,
     'sonarjs/no-commented-code': 0,
     'sonarjs/arguments-order': 0,
+    'sonarjs/updated-loop-counter': 0,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 'warn',
     'consistent-return': 'warn',
