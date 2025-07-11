@@ -7,6 +7,8 @@ coverage
 
 # sources
 src
+stats
+eslint.config.local.bundled_*.cjs
 
 # configs
 rollup.bin.mjs
