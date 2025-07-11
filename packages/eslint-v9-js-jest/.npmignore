@@ -1,11 +1,13 @@
 # builds
 !lib
+!bin
 
 # tests
 coverage
 
 # sources
 src
+stats
 
 # configs
 rollup.bin.mjs

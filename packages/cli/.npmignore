@@ -1,5 +1,6 @@
 # builds
-!bin
+bin/*
+!bin/qoq.cjs
 
 # tests
 coverage
