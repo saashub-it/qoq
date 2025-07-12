@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./bin"
+  },
+  "extends": "../../tsconfig.json",
+  "include": ["./src"]
+}

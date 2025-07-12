@@ -41,7 +41,7 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-jest": "^1.8.3",
     "@saashub/qoq-utils": "^1.8.3",
-    "eslint-plugin-testing-library": "7.5.3"
+    "eslint-plugin-testing-library": "7.5.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.6",
@@ -50,7 +50,7 @@
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "rimraf": "6.0.1",
-    "rollup": "4.44.2",
+    "rollup": "4.45.0",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

@@ -1,0 +1,51 @@
+{
+  "name": "@saashub/check-engine",
+  "version": "1.8.3",
+  "description": "CLI that checks dependencies engine settings and gives You suggestion or errors if needed",
+  "keywords": [
+    "cli",
+    "saashub",
+    "check-engine"
+  ],
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/check-engine",
+  "bugs": {
+    "url": "https://github.com/saashub-it/qoq/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saashub-it/qoq.git",
+    "directory": "packages/check-engine"
+  },
+  "license": "MIT",
+  "main": "./bin/check-engine.cjs",
+  "bin": {
+    "check-engine": "bin/check-engine.cjs"
+  },
+  "scripts": {
+    "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/check-engine.cjs",
+    "dev": "npm run build && node ./bin/check-engine.cjs"
+  },
+  "dependencies": {
+    "cac": "6.7.14",
+    "semver": "7.7.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "28.0.6",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "@types/semver": "7.7.0",
+    "esbuild": "0.25.6",
+    "rimraf": "6.0.1",
+    "rollup": "4.45.0",
+    "rollup-plugin-esbuild": "6.2.1",
+    "type-fest": "4.41.0",
+    "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "1edc64454abc71aac143d2aa943cbb619245c12b"
+}

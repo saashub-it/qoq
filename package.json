@@ -30,6 +30,7 @@
     "config-inspector:eslint-v9-ts-vitest-rtl": "npx -y @eslint/config-inspector build --config=packages/eslint-v9-ts-vitest-rtl/eslint.config.local.js --outDir=packages/eslint-v9-ts-vitest-rtl/stats",
     "test": "npm run pre:test && vitest run",
     "test:execute": "vitest run",
+    "dupa": "cd ./packages/check-engine && npm run build && cd ../../ && check-engine",
     "test:coverage": "npm run pre:test && npm run test -- --coverage"
   },
   "devDependencies": {
