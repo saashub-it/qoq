@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { existsSync, rmSync, writeFileSync, readFileSync } from 'fs';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
@@ -10,7 +11,6 @@ import { IModulesConfig } from '../types';
 
 import { EModulesPrettier } from './types';
 
-import { resolveCwdRelativePath } from '@/helpers/paths';
 import { QoqConfig } from '@/helpers/types';
 
 export class PrettierConfigHandler extends AbstractConfigHandler {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { existsSync, rmSync, writeFileSync } from 'fs';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 
@@ -14,7 +15,6 @@ import {
 } from './types';
 
 import { formatCode } from '@/helpers/formatCode';
-import { resolveCwdRelativePath } from '@/helpers/paths';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class StylelintConfigHandler extends AbstractConfigHandler {

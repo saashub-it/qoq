@@ -2,6 +2,7 @@
 import { existsSync } from 'fs';
 import { open } from 'fs/promises';
 
+import { resolveCwdPath } from '@saashub/qoq-utils';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
@@ -13,7 +14,7 @@ import { PrettierConfigHandler } from './PrettierConfigHandler';
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { resolveCliRelativePath, resolveCwdPath } from '@/helpers/paths';
+import { resolveCliRelativePath } from '@/helpers/paths';
 import { EExitCode } from '@/helpers/types';
 
 export class PrettierExecutor extends AbstractExecutor {

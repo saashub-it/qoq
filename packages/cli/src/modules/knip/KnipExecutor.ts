@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 
+import { getRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
 // eslint-disable-next-line no-restricted-imports
@@ -11,7 +12,7 @@ import { IModuleKnipConfig } from './types';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
-import { getRelativePath, resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
+import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
 import { EConfigType, EExitCode } from '@/helpers/types';
 
 export class KnipExecutor extends AbstractExecutor {

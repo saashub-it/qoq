@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -30,7 +30,7 @@
     "@antfu/install-pkg": "1.0.0",
     "@eslint/compat": "1.3.1",
     "@npmcli/package-json": "6.2.0",
-    "@saashub/qoq-utils": "^1.8.3",
+    "@saashub/qoq-utils": "^1.8.4",
     "cac": "6.7.14",
     "local-pkg": "1.1.1",
     "lodash": "4.17.21",
@@ -47,9 +47,9 @@
     "@types/lodash": "4.17.20",
     "@types/micromatch": "4.0.9",
     "@types/prompts": "2.4.9",
-    "esbuild": "0.25.6",
+    "esbuild": "0.25.8",
     "rimraf": "6.0.1",
-    "rollup": "4.45.0",
+    "rollup": "4.46.2",
     "rollup-plugin-esbuild": "6.2.1",
     "rollup-plugin-typescript-paths": "1.5.0",
     "typescript": "5.8.3",

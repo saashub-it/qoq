@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-knip",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "Knip configs template",
   "keywords": [
     "Knip template",
@@ -41,11 +41,11 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "knip": "5.61.3"
+    "knip": "5.62.0"
   },
   "devDependencies": {
     "rimraf": "6.0.1",
-    "rollup": "4.45.0",
+    "rollup": "4.46.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

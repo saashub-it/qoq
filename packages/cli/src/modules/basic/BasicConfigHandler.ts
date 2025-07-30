@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { readFileSync } from 'fs';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import prompts from 'prompts';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
 import { IModulesConfig } from '../types';
 
 import { DEFAULT_SRC } from '@/helpers/constants';
-import { resolveCwdRelativePath } from '@/helpers/paths';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class BasicConfigHandler extends AbstractConfigHandler {

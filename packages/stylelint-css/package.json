@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-css",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "Stylelint config template for CSS",
   "keywords": [
     "stylelint CSS template",
@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "browserslist": "latest",
-    "stylelint": "^16.20.0",
+    "stylelint": "^16.23.0",
     "stylelint-config-clean-order": "7.0.0",
-    "stylelint-config-standard": "38.0.0",
+    "stylelint-config-standard": "39.0.0",
     "stylelint-file-max-lines": "1.0.0",
     "stylelint-high-performance-animation": "1.11.0",
     "stylelint-no-unsupported-browser-features": "8.0.4",
@@ -46,11 +46,11 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "rimraf": "6.0.1",
-    "rollup": "4.45.0",
+    "rollup": "4.46.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {
-    "stylelint": "^16.20.0"
+    "stylelint": "^16.23.0"
   },
   "engines": {
     "node": ">=18.18.0"

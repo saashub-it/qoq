@@ -1,4 +1,4 @@
-import { resolveCwdPath } from './paths';
+import { resolveCwdPath } from '@saashub/qoq-utils';
 
 export const PACKAGE_JSON_PATH = resolveCwdPath('/package.json');
 export const CONFIG_FILE_PATH = resolveCwdPath('/qoq.config.js');

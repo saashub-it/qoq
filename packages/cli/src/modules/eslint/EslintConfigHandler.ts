@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call, sonarjs/cognitive-complexity */
 import { existsSync, rmSync, writeFileSync } from 'fs';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 
@@ -12,7 +13,6 @@ import { EModulesEslint, IModuleEslintConfig } from './types';
 import { omitStartingDotFromPath } from '@/helpers/common';
 import { formatCode } from '@/helpers/formatCode';
 import { getPackageInfo } from '@/helpers/packages';
-import { resolveCwdRelativePath } from '@/helpers/paths';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class EslintConfigHandler extends AbstractConfigHandler {

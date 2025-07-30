@@ -34,6 +34,7 @@
     "test:coverage": "npm run pre:test && npm run test -- --coverage"
   },
   "devDependencies": {
+    "@saashub/check-engine": "latest",
     "@saashub/qoq-cli": "latest",
     "@saashub/qoq-eslint-v9-ts": "latest",
     "@saashub/qoq-eslint-v9-ts-jest": "latest",

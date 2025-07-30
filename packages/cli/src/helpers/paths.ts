@@ -1,5 +1,7 @@
 import { resolve } from 'path';
 
+import { getRelativePath } from '@saashub/qoq-utils';
+
 // eslint-disable-next-line no-restricted-imports
 import pkg from '../../package.json';
 
@@ -22,10 +24,3 @@ export const resolveCliPackagePath = (path: string): string =>
 
 export const resolveCliRelativePath = (path: string): string =>
   getRelativePath(resolveCliPackagePath(path));
-
-export const getRelativePath = (path: string): string => path.replace(process.cwd(), '.');
-
-export const resolveCwdPath = (path: string): string => resolve(`${process.cwd()}${path}`);
-
-export const resolveCwdRelativePath = (path: string): string =>
-  getRelativePath(resolveCwdPath(path));
