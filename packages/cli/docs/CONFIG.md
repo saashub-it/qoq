@@ -50,7 +50,7 @@ Knip execution can be configured via:
         entry: [...],
         project: [...],
         ignore: [...],
-        ignoreDependencies: [...]
+        ignoreDependencies: [...],
         ignoreBinaries: [...]
     }
 }
