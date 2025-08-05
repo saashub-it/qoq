@@ -12,6 +12,7 @@ import { QoqConfig } from '@/helpers/types';
 export class KnipConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_IGNORE = [];
   static readonly DEFAULT_IGNORE_DEPENDENCIES = ['@saashub/qoq-*'];
+  static readonly DEFAULT_IGNORE_BINARIES = [];
 
   async getPrompts(): Promise<void> {
     const {
@@ -19,11 +20,13 @@ export class KnipConfigHandler extends AbstractConfigHandler {
       knipProject,
       knipIgnore,
       knipIgnoreDependencies,
+      knipIgnoreBinaries,
     }: {
       knipEntry: string[];
       knipProject: string[];
       knipIgnore: string[];
       knipIgnoreDependencies: string[];
+      knipIgnoreBinaries: string[];
     } = await prompts.prompt([
       {
         type: 'list',
@@ -54,6 +57,13 @@ export class KnipConfigHandler extends AbstractConfigHandler {
           'Provide ignoreDependencies (initially autodetected from previous config), space " " separated',
         separator: ' ',
       },
+      {
+        type: 'list',
+        name: 'knipIgnoreBinaries',
+        message:
+          'Provide ignoreBinaries (initially autodetected from previous config), space " " separated',
+        separator: ' ',
+      },
     ]);
 
     this.modulesConfig.modules.knip = {
@@ -61,6 +71,7 @@ export class KnipConfigHandler extends AbstractConfigHandler {
       project: knipProject.filter((entry) => !!entry).map(omitStartingDotFromPath),
       ignore: knipIgnore.filter((entry) => !!entry).map(omitStartingDotFromPath),
       ignoreDependencies: knipIgnoreDependencies.filter((entry) => !!entry),
+      ignoreBinaries: knipIgnoreBinaries.filter((entry) => !!entry),
     };
 
     return super.getPrompts();
@@ -97,6 +108,14 @@ export class KnipConfigHandler extends AbstractConfigHandler {
       this.config.knip.ignoreDependencies = knip.ignoreDependencies;
     }
 
+    if (
+      knip?.ignoreBinaries &&
+      knip.ignoreBinaries.length > 0 &&
+      !isEqual(knip.ignoreBinaries, KnipConfigHandler.DEFAULT_IGNORE_BINARIES)
+    ) {
+      this.config.knip.ignoreBinaries = knip.ignoreBinaries;
+    }
+
     if (Object.keys(this.config.knip).length === 0) {
       delete this.config.knip;
     }
@@ -114,6 +133,9 @@ export class KnipConfigHandler extends AbstractConfigHandler {
       ignoreDependencies: this.config.knip?.ignoreDependencies
         ? [...KnipConfigHandler.DEFAULT_IGNORE_DEPENDENCIES, ...this.config.knip.ignoreDependencies]
         : KnipConfigHandler.DEFAULT_IGNORE_DEPENDENCIES,
+      ignoreBinaries: this.config.knip?.ignoreBinaries
+        ? [...KnipConfigHandler.DEFAULT_IGNORE_BINARIES, ...this.config.knip.ignoreBinaries]
+        : KnipConfigHandler.DEFAULT_IGNORE_BINARIES,
     };
 
     return super.getModulesFromConfig();

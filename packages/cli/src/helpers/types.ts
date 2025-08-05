@@ -32,5 +32,6 @@ export interface QoqConfig {
     project?: string[];
     ignore?: string[];
     ignoreDependencies?: string[];
+    ignoreBinaries?: string[];
   };
 }

@@ -10,6 +10,7 @@ describe('getKnipConfig', () => {
       project: ['.src/**/*.js'],
       ignore: ['package.json'],
       ignoreDependencies: [],
+      ignoreBinaries: [],
     });
   });
 
@@ -21,6 +22,7 @@ describe('getKnipConfig', () => {
       project: [`${srcPath}/**/*.js`],
       ignore: ['package.json'],
       ignoreDependencies: [],
+      ignoreBinaries: [],
     });
   });
 
@@ -32,6 +34,7 @@ describe('getKnipConfig', () => {
       project: ['.src/**/*.js'],
       ignore: ['package.json'],
       ignoreDependencies: [],
+      ignoreBinaries: [],
     });
   });
 
@@ -43,6 +46,7 @@ describe('getKnipConfig', () => {
       project,
       ignore: ['package.json'],
       ignoreDependencies: [],
+      ignoreBinaries: [],
     });
   });
 
@@ -54,6 +58,7 @@ describe('getKnipConfig', () => {
       project: ['.src/**/*.js'],
       ignore,
       ignoreDependencies: [],
+      ignoreBinaries: [],
     });
   });
 
@@ -65,6 +70,7 @@ describe('getKnipConfig', () => {
       project: ['.src/**/*.js'],
       ignore: ['package.json'],
       ignoreDependencies,
+      ignoreBinaries: [],
     });
   });
 
@@ -80,6 +86,7 @@ describe('getKnipConfig', () => {
       project,
       ignore,
       ignoreDependencies,
+      ignoreBinaries: [],
     });
   });
 });

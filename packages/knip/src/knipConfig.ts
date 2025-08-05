@@ -3,16 +3,25 @@ export const getKnipConfig: (
   entry?: string[],
   project?: string[],
   ignore?: string[],
-  ignoreDependencies?: string[]
-) => { entry: string[]; project: string[]; ignore: string[]; ignoreDependencies: string[] } = (
+  ignoreDependencies?: string[],
+  ignoreBinaries?: string[]
+) => {
+  entry: string[];
+  project: string[];
+  ignore: string[];
+  ignoreDependencies: string[];
+  ignoreBinaries: string[];
+} = (
   srcPath = '.src',
   entry = [`${srcPath}/index.js`],
   project = [`${srcPath}/**/*.js`],
   ignore = ['package.json'],
-  ignoreDependencies = []
+  ignoreDependencies = [],
+  ignoreBinaries = []
 ) => ({
   entry,
   project,
   ignore,
   ignoreDependencies,
+  ignoreBinaries,
 });
