@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import jsRules from '@eslint/js';
+import { getPackageInfo } from '@saashub/qoq-utils';
 import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
@@ -16,6 +17,50 @@ export interface EslintConfig extends Linter.Config {
 export interface EslintConfigPlugin extends ESLint.Plugin {
   // just re-export
 }
+
+interface IPath {
+  name: string;
+  importNames?: string[];
+  message: string;
+}
+
+export const getNoRestrictedImportsPaths = (paths: IPath[] = []): IPath[] => {
+  const newPaths: IPath[] = [];
+
+  try {
+    getPackageInfo('lodash');
+
+    const message =
+      "Please use 'es-toolkit/compat' >= 1.39.3 instead, it's smaller and faster + supports tree shaking by default.";
+
+    newPaths.push(
+      {
+        name: 'lodash',
+        message,
+      },
+      {
+        name: 'lodash/fp',
+        message,
+      }
+    );
+  } catch {
+    // nothing to do here
+  }
+
+  try {
+    getPackageInfo('es-toolkit');
+
+    newPaths.push({
+      name: 'es-toolkit/compat',
+      importNames: ['isEqual'],
+      message: "Please use 'react-fast-compare' since it's a lot faster.",
+    });
+  } catch {
+    // nothing to do here
+  }
+
+  return [...newPaths, ...paths];
+};
 
 export const baseConfig: EslintConfig = {
   name: '@saashub/qoq-eslint-v9-js',
@@ -74,20 +119,7 @@ export const baseConfig: EslintConfig = {
     'no-restricted-imports': [
       'warn',
       {
-        paths: [
-          {
-            name: 'lodash',
-            message: 'Please use separate import for all lodash functions instead.',
-          },
-          {
-            name: 'lodash/isEqual',
-            message: "Please use react-fast-compare since it's a lot faster.",
-          },
-          {
-            name: 'lodash/fp/isEqual',
-            message: "Please use react-fast-compare since it's a lot faster.",
-          },
-        ],
+        paths: getNoRestrictedImportsPaths(),
         patterns: [
           {
             group: ['../../*'],

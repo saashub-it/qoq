@@ -1,9 +1,9 @@
 import { resolve } from 'path';
 
+import { getPackageInfo } from '@saashub/qoq-utils';
+
 // eslint-disable-next-line no-restricted-imports
 import pkg from '../../package.json';
-
-import { getPackageInfo } from './packages';
 
 const getCliPackagePath = (): string => {
   try {

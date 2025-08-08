@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
-import flattenDeep from 'lodash/flattenDeep';
+import { flattenDeep } from 'es-toolkit/compat';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
