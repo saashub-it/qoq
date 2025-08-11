@@ -28,7 +28,7 @@ export class KnipExecutor extends AbstractExecutor {
     return ['--exclude', 'enumMembers'];
   }
 
-  protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
+  protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
     const { configHints } = options;
 
     if (!configHints) {

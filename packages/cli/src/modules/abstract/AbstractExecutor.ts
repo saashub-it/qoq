@@ -13,9 +13,9 @@ interface IExecutor {
   run: (options: IExecutorOptions, files?: string[]) => Promise<EExitCode>;
 }
 export abstract class AbstractExecutor implements IExecutor {
-  abstract getName(): string;
-  protected abstract getCommandName(): string;
-  protected abstract getCommandArgs(): string[];
+  protected modulesConfig: IModulesConfig;
+  protected silent: boolean;
+  protected hideTimer: boolean;
 
   constructor(modulesConfig: IModulesConfig, silent: boolean = false, hideTimer: boolean = false) {
     this.modulesConfig = modulesConfig;
@@ -56,10 +56,6 @@ export abstract class AbstractExecutor implements IExecutor {
     }
   }
 
-  protected modulesConfig: IModulesConfig;
-  protected silent: boolean;
-  protected hideTimer: boolean;
-
   protected async prepare(
     args: string[],
     options: IExecutorOptions,
@@ -82,4 +78,9 @@ export abstract class AbstractExecutor implements IExecutor {
 
     return Promise.resolve(EExitCode.OK);
   }
+
+  abstract getName(): string;
+
+  protected abstract getCommandName(): string;
+  protected abstract getCommandArgs(): string[];
 }

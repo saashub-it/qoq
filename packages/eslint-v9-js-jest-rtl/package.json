@@ -41,7 +41,7 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-jest": "^1.8.7",
     "@saashub/qoq-utils": "^1.8.7",
-    "eslint-plugin-testing-library": "7.6.3"
+    "eslint-plugin-testing-library": "7.6.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.6",

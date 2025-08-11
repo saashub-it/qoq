@@ -75,7 +75,7 @@ export class EslintExecutor extends AbstractExecutor {
         ? `[includeIgnoreFile('${GITIGNORE_FILE_PATH.replaceAll('\\', '\\\\')}')]`
         : '[]';
 
-      let exports = `${mergeConfigsInitialArray}${(modules?.eslint ?? [])
+      const exports = `${mergeConfigsInitialArray}${(modules?.eslint ?? [])
         .map((_, index) => `.concat(config${index})`)
         .join('')}`;
 

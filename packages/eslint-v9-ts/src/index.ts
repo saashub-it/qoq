@@ -36,9 +36,9 @@ export const baseConfig: EslintConfig = {
       rules: {
         'no-undef': 0, // from plugin page: "It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check
         ...importPlugin.configs.typescript.rules,
-        'import-x/no-cycle': 'warn',
-        'import-x/no-duplicates': 'warn',
-        'import-x/no-named-default': 'warn',
+        'import-x/no-cycle': 1,
+        'import-x/no-duplicates': 1,
+        'import-x/no-named-default': 1,
         ...(
           (tseslint.plugin.configs as TSESLint.FlatConfig.SharedConfigs)
             .recommended as TSESLint.FlatConfig.Config
@@ -49,8 +49,16 @@ export const baseConfig: EslintConfig = {
           ] as TSESLint.FlatConfig.Config
         ).rules,
         '@typescript-eslint/no-unsafe-assignment': 0, // strange rule, turned off for now
+        'no-empty-function': 0,
+        '@typescript-eslint/no-empty-function': 1,
+        'prefer-destructuring': 0,
+        '@typescript-eslint/prefer-destructuring': 1,
+        'consistent-return': 0,
+        '@typescript-eslint/consistent-return': 1,
+        '@typescript-eslint/default-param-last': 1,
+        '@typescript-eslint/member-ordering': 1,
         '@typescript-eslint/naming-convention': [
-          'warn',
+          1,
           {
             selector: 'interface',
             prefix: ['I'],
@@ -97,11 +105,16 @@ export const baseConfig: EslintConfig = {
             format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
           },
         ],
-        '@typescript-eslint/explicit-module-boundary-types': 'warn',
-        '@typescript-eslint/no-explicit-any': 'warn',
-        '@typescript-eslint/no-misused-promises': ['warn', { checksVoidReturn: false }],
-        '@typescript-eslint/no-unused-vars': ['warn', { args: 'after-used' }],
-        '@typescript-eslint/require-await': 'warn',
+        '@typescript-eslint/explicit-module-boundary-types': 1,
+        '@typescript-eslint/no-misused-promises': [1, { checksVoidReturn: false }],
+        '@typescript-eslint/no-unused-vars': [1, { args: 'after-used' }],
+        '@typescript-eslint/prefer-for-of': 1,
+        '@typescript-eslint/prefer-includes': 1,
+        '@typescript-eslint/prefer-nullish-coalescing': 1, // -> https://typescript-eslint.io/rules/prefer-nullish-coalescing/
+        '@typescript-eslint/prefer-optional-chain': 1,
+        '@typescript-eslint/prefer-readonly': 1,
+        '@typescript-eslint/prefer-string-starts-ends-with': 1,
+        '@typescript-eslint/promise-function-async': 1,
       },
       settings: {
         'import-x/resolver-next': [createTypeScriptImportResolver(), createNodeResolver()],
