@@ -108,7 +108,6 @@ export const baseConfig: EslintConfig = {
     'sonarjs/arguments-order': 0,
     'sonarjs/updated-loop-counter': 0,
     'sonarjs/bool-param-default': 1,
-    'sonarjs/no-redundant-parentheses': 1,
     'sonarjs/prefer-immediate-return': 1,
     ...(prettierPlugin.configs?.recommended as ESLint.Plugin).rules,
     'prettier/prettier': 1,
