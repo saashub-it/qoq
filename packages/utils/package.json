@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-utils",
-  "version": "1.8.4",
+  "version": "1.8.9",
   "description": "QoQ utils",
   "keywords": [
     "QoQ utils",
@@ -33,10 +33,13 @@
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent"
   },
+  "dependencies": {
+    "local-pkg": "1.1.1"
+  },
   "devDependencies": {
     "rimraf": "6.0.1",
     "rollup": "4.46.2",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "engines": {
     "node": ">=18.18.0"

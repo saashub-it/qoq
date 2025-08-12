@@ -29,7 +29,7 @@ export class KnipExecutor extends AbstractExecutor {
     return ['--exclude', 'enumMembers'];
   }
 
-  protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
+  protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
     const { configHints } = options;
 
     if (!configHints) {
@@ -43,12 +43,20 @@ export class KnipExecutor extends AbstractExecutor {
         workspaces,
         modules: { knip },
       } = this.modulesConfig;
-      const { entry, project, ignore, ignoreDependencies } = knip as IModuleKnipConfig;
+      const { entry, project, ignore, ignoreDependencies, ignoreBinaries } =
+        knip as IModuleKnipConfig;
       const configFilePath = resolveCliPackagePath(
         `/bin/knip.config.${configType === EConfigType.ESM ? 'm' : 'c'}js`
       );
 
-      const configForFile = getKnipConfig(srcPath, entry, project, ignore, ignoreDependencies);
+      const configForFile = getKnipConfig(
+        srcPath,
+        entry,
+        project,
+        ignore,
+        ignoreDependencies,
+        ignoreBinaries
+      );
 
       if (!workspaces) {
         writeFileSync(

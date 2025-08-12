@@ -3,4 +3,5 @@ export interface IModuleKnipConfig {
   project: string[];
   ignore: string[];
   ignoreDependencies: string[];
+  ignoreBinaries: string[];
 }

@@ -61,7 +61,7 @@ export class JscpdExecutor extends AbstractExecutor {
     ];
   }
 
-  protected prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
+  protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
     try {
       const { ignore } = this.modulesConfig.modules.jscpd as IModuleJscpdConfig;
 

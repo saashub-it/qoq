@@ -22,6 +22,7 @@ describe('KnipConfigHandler', () => {
             entry: ['/{index,cli,main,root}.{js}'],
             ignore: [],
             ignoreDependencies: ['@saashub/qoq-*'],
+            ignoreBinaries: [],
             project: ['/**/*.{js}'],
           },
         },

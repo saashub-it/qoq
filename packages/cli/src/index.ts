@@ -47,6 +47,7 @@ cli
   .option('--skip-knip', 'Skip Knip checks')
   .option('--skip-eslint', 'Skip Eslint checks')
   .option('--config-hints', 'Enable config hints')
+  // eslint-disable-next-line @typescript-eslint/default-param-last
   .action(async (files: string[] = [], options: IExecuteStagedOptions) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };

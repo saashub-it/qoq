@@ -68,6 +68,10 @@ export const baseConfig: EslintConfig = {
       'import-x/order': importOrderRule,
       'no-restricted-imports': noRestrictedImportsRule,
       'react/no-unused-prop-types': 1,
+      'react/forward-ref-uses-ref': 1,
+      'react/jsx-boolean-value': 1,
+      'react/jsx-fragments': 1,
+      'react/jsx-no-useless-fragment': 1,
       ...disabledRules,
     },
     settings: {

@@ -1,5 +1,1 @@
-export class TerminateExecutorGracefully extends Error {
-  constructor() {
-    super();
-  }
-}
+export class TerminateExecutorGracefully extends Error {}

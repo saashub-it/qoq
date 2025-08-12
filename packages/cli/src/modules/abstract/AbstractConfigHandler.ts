@@ -8,18 +8,24 @@ interface IConfigHandler {
   getModulesFromConfig: () => IModulesConfig;
 }
 export abstract class AbstractConfigHandler implements IConfigHandler {
+  protected modulesConfig: IModulesConfig;
+  protected config: QoqConfig;
+  protected packages: string[] = [];
+  private nextHandler: AbstractConfigHandler;
+
   constructor(modulesConfig: IModulesConfig, config: QoqConfig) {
     this.modulesConfig = modulesConfig;
     this.config = config;
   }
 
-  getPrompts(): Promise<void> {
+  async getPrompts(): Promise<void> {
     if (this.nextHandler) {
       return this.nextHandler.getPrompts();
     }
 
     return Promise.resolve();
   }
+
   getConfigFromModules(): QoqConfig {
     if (this.nextHandler) {
       return this.nextHandler.getConfigFromModules();
@@ -49,9 +55,4 @@ export abstract class AbstractConfigHandler implements IConfigHandler {
 
     return this.packages;
   }
-
-  protected modulesConfig: IModulesConfig;
-  protected config: QoqConfig;
-  private nextHandler: AbstractConfigHandler;
-  protected packages: string[] = [];
 }
