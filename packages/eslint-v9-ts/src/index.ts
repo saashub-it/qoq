@@ -114,7 +114,6 @@ export const baseConfig: EslintConfig = {
         '@typescript-eslint/prefer-optional-chain': 1,
         '@typescript-eslint/prefer-readonly': 1,
         '@typescript-eslint/prefer-string-starts-ends-with': 1,
-        '@typescript-eslint/promise-function-async': 1,
       },
       settings: {
         'import-x/resolver-next': [createTypeScriptImportResolver(), createNodeResolver()],
