@@ -11,7 +11,7 @@ import { QoqConfig } from '@/helpers/types';
 
 export class KnipConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_IGNORE = [];
-  static readonly DEFAULT_IGNORE_DEPENDENCIES = ['@saashub/qoq-*'];
+  static readonly DEFAULT_IGNORE_DEPENDENCIES = ['@saashub/*'];
   static readonly DEFAULT_IGNORE_BINARIES = [];
 
   async getPrompts(): Promise<void> {

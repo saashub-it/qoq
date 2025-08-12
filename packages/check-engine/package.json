@@ -1,7 +1,7 @@
 {
   "name": "@saashub/check-engine",
-  "version": "1.8.3",
-  "description": "CLI that checks dependencies engine settings and gives You suggestion or errors if needed",
+  "version": "1.8.9",
+  "description": "CLI that checks dependencies engines.node settings and gives You suggestion or errors if needed",
   "keywords": [
     "cli",
     "saashub",

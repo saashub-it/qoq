@@ -12,7 +12,7 @@ class JsonParseError extends Error {
   }
 }
 
-export const readJsonSync = <T extends object>(filepath: string) => {
+export const readJsonSync = <T extends object>(filepath: string): T => {
   try {
     const fileContent = readFileSync(filepath, 'utf-8');
 
