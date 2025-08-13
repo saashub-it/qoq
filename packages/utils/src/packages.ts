@@ -1,4 +1,4 @@
-import { isPackageExists, getPackageInfoSync } from 'local-pkg';
+import { isPackageExists, getPackageInfoSync, loadPackageJSONSync } from 'local-pkg';
 
 import type { PackageJson } from 'pkg-types';
 
@@ -21,3 +21,5 @@ export const getPackageInfo = (
 
   return response;
 };
+
+export const getPackageJson = (cwd?: string): PackageJson | null => loadPackageJSONSync(cwd);

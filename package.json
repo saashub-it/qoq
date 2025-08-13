@@ -11,7 +11,9 @@
   "scripts": {
     "build": "lerna run build",
     "postinstall": "qoq --warmup",
-    "publish": "npm run build && run-p check-engine qoq:check test && lerna publish --no-private --force-publish",
+    "husky:pre-push": "npm run build && run-p check:engine qoq:check test",
+    "publish": "npm run husky:pre-push && lerna publish --no-private --force-publish",
+    "check:engine": "check-engine",
     "qoq:check": "qoq --check",
     "qoq:fix": "qoq --fix",
     "sort:packages:json": "npx -y sort-package-json 'package.json' 'packages/*/package.json'",
@@ -47,6 +49,6 @@
     "vitest": "3.2.4"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.9.0"
   }
 }

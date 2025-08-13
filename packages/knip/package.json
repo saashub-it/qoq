@@ -52,7 +52,7 @@
     "knip": "^5"
   },
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=20.9.0"
   },
   "publishConfig": {
     "access": "public"
