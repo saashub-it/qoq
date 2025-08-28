@@ -28,6 +28,7 @@ export interface IExecuteStagedOptions {
   warmup?: boolean;
   silent?: boolean;
   configHints?: boolean;
+  concurrency?: 'off' | 'auto';
 }
 
 export interface IExecuteOptions extends IExecuteStagedOptions {
@@ -38,4 +39,5 @@ export interface IExecuteOptions extends IExecuteStagedOptions {
 export interface IExecutorOptions extends IExecuteStagedOptions {
   fix: boolean;
   disableCache: boolean;
+  concurrency: 'off' | 'auto';
 }

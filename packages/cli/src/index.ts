@@ -22,10 +22,15 @@ cli
   .option('--warmup', 'Create configs for tools without QoQ execution')
   .option('--silent', 'Mute all QoQ messages')
   .option('--config-hints', 'Enable config hints')
+  .option(
+    '--concurrency <type>',
+    'Enable concurent execution for tools if possible. [off | auto]',
+    { default: 'off' }
+  )
   .action(async (options: IExecuteOptions) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
-    const { init, fix, disableCache } = options;
+    const { init, fix, disableCache, concurrency } = options;
 
     if (init) {
       return await initConfig(workspaces);
@@ -33,7 +38,12 @@ cli
 
     const config = await getConfig(workspaces);
 
-    return await execute(config, { ...options, fix: !!fix, disableCache: !!disableCache });
+    return await execute(config, {
+      ...options,
+      fix: !!fix,
+      disableCache: !!disableCache,
+      concurrency: concurrency ?? 'off',
+    });
   });
 
 cli
@@ -47,15 +57,21 @@ cli
   .option('--skip-knip', 'Skip Knip checks')
   .option('--skip-eslint', 'Skip Eslint checks')
   .option('--config-hints', 'Enable config hints')
+  .option(
+    '--concurrency <type>',
+    'Enable concurent execution for tools if possible. [off | auto]',
+    { default: 'off' }
+  )
   // eslint-disable-next-line @typescript-eslint/default-param-last
   .action(async (files: string[] = [], options: IExecuteStagedOptions) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { workspaces } = (await readPackage(PACKAGE_JSON_PATH)) as { workspaces?: string[] };
+    const { disableCache, concurrency } = options;
     const config = await getConfig(workspaces, true);
 
     return await execute(
       config,
-      { ...options, fix: false, disableCache: !!options.disableCache },
+      { ...options, fix: false, disableCache: !!disableCache, concurrency: concurrency ?? 'off' },
       files
     );
   });

@@ -12,7 +12,7 @@ const cli = cac('check-engine');
 
 cli.command('', 'Check Your engines.node config for project').action(async () => {
   const packageJson = getPackageJson();
-  const workspaces = packageJson?.workspaces ?? [];
+  const workspaces = (packageJson?.workspaces as string[]) ?? [];
   const pathsToCheck: string[] = [
     './package.json',
     ...(workspaces ?? []).reduce((acc: string[], current) => {
