@@ -1,7 +1,8 @@
 # General settings
 
 There are two general settings:
-- `srcPath` (default to `./src`) that is used as a fallback to tools execution. 
+
+- `srcPath` (default to `./src`) that is used as a fallback to tools execution.
 - `configPaths` via:
 
 ```js
@@ -14,7 +15,7 @@ There are two general settings:
 }
 ```
 
-where every entry has defaults as above, any override needs to start with leading slash `/` that is translated to `${process.cwd()}/`. 
+where every entry has defaults as above, any override needs to start with leading slash `/` that is translated to `${process.cwd()}/`.
 
 Let's say You execute `qoq --check` in project root path and `Eslint` config is in `configs` dir with name `eslint.config.local.js` oveeride should be then `/configs/eslint.config.local.js`.
 
