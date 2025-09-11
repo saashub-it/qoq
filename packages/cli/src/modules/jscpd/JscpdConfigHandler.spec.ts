@@ -20,6 +20,11 @@ describe('JscpdConfigHandler', () => {
   describe('getModulesFromConfig', () => {
     it('should return the modules from config', () => {
       expect(configHandler.getModulesFromConfig()).toStrictEqual({
+        configPaths: {
+          eslint: './eslint.config.js',
+          prettier: './.prettierrc',
+          stylelint: './stylelint.config.js',
+        },
         configType: 'ESM',
         modules: {
           jscpd: {

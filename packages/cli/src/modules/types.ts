@@ -9,6 +9,11 @@ import { EConfigType } from '@/helpers/types';
 export interface IModulesConfig {
   srcPath: string;
   configType: EConfigType;
+  configPaths: {
+    prettier: string;
+    eslint: string;
+    stylelint: string;
+  };
   workspaces?: string[];
   modules: {
     prettier?: IModulePrettierConfig;

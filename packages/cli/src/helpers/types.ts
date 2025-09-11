@@ -34,4 +34,9 @@ export interface QoqConfig {
     ignoreDependencies?: string[];
     ignoreBinaries?: string[];
   };
+  configPaths?: {
+    prettier?: string;
+    eslint?: string;
+    stylelint?: string;
+  };
 }

@@ -2,14 +2,12 @@
 import { existsSync } from 'fs';
 import { open } from 'fs/promises';
 
-import { resolveCwdPath } from '@saashub/qoq-utils';
+import { resolveCwdPath, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
-
-import { PrettierConfigHandler } from './PrettierConfigHandler';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
@@ -28,7 +26,7 @@ export class PrettierExecutor extends AbstractExecutor {
   }
 
   protected getCommandArgs(): string[] {
-    return ['--config', PrettierConfigHandler.CONFIG_FILE_PATH, '--ignore-unknown'];
+    return ['--ignore-unknown'];
   }
 
   protected async prepare(
@@ -42,7 +40,14 @@ export class PrettierExecutor extends AbstractExecutor {
     }
 
     try {
-      const { srcPath, modules } = this.modulesConfig;
+      const {
+        srcPath,
+        modules,
+        configPaths: { prettier: configPath },
+      } = this.modulesConfig;
+
+      args.push('--config', resolveCwdRelativePath(configPath));
+
       const prettierignorePath = resolveCwdPath('/.prettierignore');
       let sources: string[] = modules?.prettier?.sources ?? [srcPath];
 

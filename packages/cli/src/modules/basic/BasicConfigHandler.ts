@@ -5,6 +5,9 @@ import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import prompts from 'prompts';
 
 import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
+import { EslintConfigHandler } from '../eslint/EslintConfigHandler';
+import { PrettierConfigHandler } from '../prettier/PrettierConfigHandler';
+import { StylelintConfigHandler } from '../stylelint/StylelintConfigHandler';
 import { IModulesConfig } from '../types';
 
 import { DEFAULT_SRC } from '@/helpers/constants';
@@ -40,10 +43,31 @@ export class BasicConfigHandler extends AbstractConfigHandler {
   }
 
   getConfigFromModules(): QoqConfig {
-    const { srcPath } = this.modulesConfig;
+    const {
+      srcPath,
+      configPaths: { eslint, prettier, stylelint },
+    } = this.modulesConfig;
 
     if (srcPath !== DEFAULT_SRC) {
       this.config.srcPath = srcPath;
+    }
+
+    this.config.configPaths = {};
+
+    if (eslint !== EslintConfigHandler.CONFIG_FILE_PATH) {
+      this.config.configPaths.eslint = eslint;
+    }
+
+    if (prettier !== PrettierConfigHandler.CONFIG_FILE_PATH) {
+      this.config.configPaths.prettier = prettier;
+    }
+
+    if (stylelint !== StylelintConfigHandler.CONFIG_FILE_PATH) {
+      this.config.configPaths.stylelint = stylelint;
+    }
+
+    if (Object.keys(this.config.configPaths).length === 0) {
+      delete this.config.configPaths;
     }
 
     return super.getConfigFromModules();
@@ -51,6 +75,11 @@ export class BasicConfigHandler extends AbstractConfigHandler {
 
   getModulesFromConfig(): IModulesConfig {
     this.modulesConfig.srcPath = this.config.srcPath ?? DEFAULT_SRC;
+    this.modulesConfig.configPaths = {
+      eslint: this.config.configPaths?.eslint ?? EslintConfigHandler.CONFIG_FILE_PATH,
+      prettier: this.config.configPaths?.prettier ?? PrettierConfigHandler.CONFIG_FILE_PATH,
+      stylelint: this.config.configPaths?.stylelint ?? StylelintConfigHandler.CONFIG_FILE_PATH,
+    };
 
     try {
       const configFileContent = readFileSync(BasicConfigHandler.CONFIG_FILE_PATH, 'utf-8');

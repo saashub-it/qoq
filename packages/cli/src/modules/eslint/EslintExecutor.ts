@@ -1,6 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import { flattenDeep } from 'es-toolkit/compat';
 import micromatch from 'micromatch';
 import c from 'picocolors';
@@ -8,7 +9,6 @@ import c from 'picocolors';
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
 
-import { EslintConfigHandler } from './EslintConfigHandler';
 import { EModulesEslint, IModuleEslintConfig } from './types';
 
 import { capitalizeFirstLetter } from '@/helpers/common';
@@ -38,7 +38,11 @@ export class EslintExecutor extends AbstractExecutor {
     files: string[] = []
   ): Promise<EExitCode> {
     try {
-      const { configType, modules } = this.modulesConfig;
+      const {
+        configType,
+        modules,
+        configPaths: { eslint: configPath },
+      } = this.modulesConfig;
       const configFilePath = resolveCliPackagePath(
         `/bin/eslint.config.${configType === EConfigType.ESM ? 'm' : 'c'}js`
       );
@@ -81,7 +85,7 @@ export class EslintExecutor extends AbstractExecutor {
 
       writeFileSync(configFilePath, formatCode(configType, imports, content, exports));
 
-      args.push('-c', EslintConfigHandler.CONFIG_FILE_PATH);
+      args.push('-c', resolveCwdRelativePath(configPath));
 
       if (files.length > 0) {
         // eslint-disable-next-line sonarjs/no-dead-store

@@ -2,13 +2,13 @@
 import { existsSync, writeFileSync } from 'fs';
 import { open } from 'fs/promises';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
 import { IExecutorOptions } from '../types';
 
-import { StylelintConfigHandler } from './StylelintConfigHandler';
 import {
   EModulesStylelint,
   IModuleStylelintConfigWithPattern,
@@ -49,6 +49,7 @@ export class StylelintExecutor extends AbstractExecutor {
       srcPath,
       configType,
       modules: { stylelint },
+      configPaths: { stylelint: configPath },
     } = this.modulesConfig;
 
     if (!stylelint) {
@@ -112,7 +113,7 @@ export class StylelintExecutor extends AbstractExecutor {
 
       writeFileSync(configFilePath, formatCode(configType, imports, content, exports));
 
-      args.push('-c', StylelintConfigHandler.CONFIG_FILE_PATH);
+      args.push('-c', resolveCwdRelativePath(configPath));
 
       if (files.length > 0) {
         // eslint-disable-next-line sonarjs/no-dead-store

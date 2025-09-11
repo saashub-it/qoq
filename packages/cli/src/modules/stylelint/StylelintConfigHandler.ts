@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { existsSync, rmSync, writeFileSync } from 'fs';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 
@@ -18,7 +17,7 @@ import { formatCode } from '@/helpers/formatCode';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class StylelintConfigHandler extends AbstractConfigHandler {
-  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/stylelint.config.js');
+  static readonly CONFIG_FILE_PATH = '/stylelint.config.js';
 
   async getPrompts(): Promise<void> {
     const {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call, sonarjs/cognitive-complexity */
 import { existsSync, rmSync, writeFileSync } from 'fs';
 
-import { getPackageInfo, resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { getPackageInfo } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 
@@ -15,7 +15,7 @@ import { formatCode } from '@/helpers/formatCode';
 import { EConfigType, QoqConfig } from '@/helpers/types';
 
 export class EslintConfigHandler extends AbstractConfigHandler {
-  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/eslint.config.js');
+  static readonly CONFIG_FILE_PATH = '/eslint.config.js';
 
   async getPrompts(): Promise<void> {
     if (this.configFileExists()) {

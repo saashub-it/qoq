@@ -10,6 +10,11 @@ describe('BasicConfigHandler', () => {
   describe('getConfigFromModules', () => {
     it('should return the config for modules', () => {
       expect(configHandler.getConfigFromModules()).toStrictEqual({
+        configPaths: {
+          eslint: './eslint.config.js',
+          prettier: './.prettierrc',
+          stylelint: './stylelint.config.js',
+        },
         srcPath: '',
       });
     });
@@ -18,6 +23,11 @@ describe('BasicConfigHandler', () => {
   describe('getModulesFromConfig', () => {
     it('should return the modules from config', () => {
       expect(configHandler.getModulesFromConfig()).toStrictEqual({
+        configPaths: {
+          eslint: './eslint.config.js',
+          prettier: './.prettierrc',
+          stylelint: './stylelint.config.js',
+        },
         configType: 'CJS',
         modules: {},
         srcPath: '',

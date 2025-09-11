@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { existsSync, rmSync, writeFileSync, readFileSync } from 'fs';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
@@ -14,7 +13,7 @@ import { EModulesPrettier } from './types';
 import { QoqConfig } from '@/helpers/types';
 
 export class PrettierConfigHandler extends AbstractConfigHandler {
-  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/.prettierrc');
+  static readonly CONFIG_FILE_PATH = '/.prettierrc';
 
   async getPrompts(): Promise<void> {
     if (this.configFileExists()) {

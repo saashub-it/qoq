@@ -19,7 +19,6 @@ import { StylelintExecutor } from './stylelint/StylelintExecutor';
 import { IExecutorOptions, IModulesConfig } from './types';
 
 import { executeCommand } from '@/helpers/command';
-import { CONFIG_FILE_PATH } from '@/helpers/constants';
 import { formatCode } from '@/helpers/formatCode';
 import { installPackages } from '@/helpers/packages';
 import { EExitCode, QoqConfig } from '@/helpers/types';
@@ -89,7 +88,7 @@ export const getConfig = async (
   workspaces: IModulesConfig['workspaces'],
   skipInit: boolean = false
 ): Promise<IModulesConfig> => {
-  if (!skipInit && !existsSync(CONFIG_FILE_PATH)) {
+  if (!skipInit && !existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -110,7 +109,7 @@ export const getConfig = async (
   }
 
   try {
-    const config = await import(pathToFileURL(CONFIG_FILE_PATH).toString());
+    const config = await import(pathToFileURL(BasicConfigHandler.CONFIG_FILE_PATH).toString());
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return getModulesFromConfig(config.default as QoqConfig, workspaces);

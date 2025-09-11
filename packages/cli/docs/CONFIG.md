@@ -1,6 +1,22 @@
 # General settings
 
-There is one general setting prop - `srcPath` (default to `./src`) that is used as a fallback to tools execution. Most likely You can omit it default is fine or You need tools specific config (there will be no fallback then).
+There are two general settings:
+- `srcPath` (default to `./src`) that is used as a fallback to tools execution. 
+- `configPaths` via:
+
+```js
+{
+    configPaths: {
+        eslint: '/eslint.config.js',
+        prettier: '/.prettierrc',
+        stylelint: '/stylelint.config.js',
+    }
+}
+```
+
+where every entry has defaults as above, any override needs to start with leading slash `/` that is translated to `${process.cwd()}/`. 
+
+Let's say You execute `qoq --check` in project root path and `Eslint` config is in `configs` dir with name `eslint.config.local.js` oveeride should be then `/configs/eslint.config.local.js`.
 
 # Prettier
 
