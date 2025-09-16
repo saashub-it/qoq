@@ -41,13 +41,13 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-vitest": "^1.10.0",
     "@saashub/qoq-utils": "^1.10.0",
-    "eslint-plugin-testing-library": "7.6.8"
+    "eslint-plugin-testing-library": "7.8.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "rimraf": "6.0.1",
-    "rollup": "4.50.1",
+    "rollup": "4.50.2",
     "typescript": "5.9.2"
   },
   "peerDependencies": {
