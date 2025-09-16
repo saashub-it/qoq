@@ -12,7 +12,7 @@
     "build": "lerna run build",
     "postinstall": "qoq --warmup",
     "husky:pre-push": "npm run build && run-p check:engine qoq:check test",
-    "publish": "run-s husky:pre-push publish:lerna",
+    "publish:full": "run-s husky:pre-push publish:lerna",
     "publish:lerna": "lerna publish --no-private --force-publish",
     "check:engine": "check-engine",
     "qoq:check": "qoq --check",
