@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-jest-rtl",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Eslint flat config template for TS + Jest + RTL",
   "keywords": [
     "eslint TypeScript + Jest + RTL template",
@@ -39,9 +39,9 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest-rtl": "^1.10.0",
-    "@saashub/qoq-eslint-v9-ts-jest": "^1.10.0",
-    "@saashub/qoq-utils": "^1.10.0"
+    "@saashub/qoq-eslint-v9-js-jest-rtl": "^1.10.1",
+    "@saashub/qoq-eslint-v9-ts-jest": "^1.10.1",
+    "@saashub/qoq-utils": "^1.10.1"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",

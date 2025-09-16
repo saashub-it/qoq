@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-scss",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Stylelint config template for SCSS",
   "keywords": [
     "stylelint SCSS template",
@@ -34,7 +34,7 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-stylelint-css": "^1.10.0",
+    "@saashub/qoq-stylelint-css": "^1.10.1",
     "stylelint-config-standard-scss": "15.0.1"
   },
   "devDependencies": {
