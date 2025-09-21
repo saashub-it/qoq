@@ -13,13 +13,14 @@
     "postinstall": "qoq --warmup",
     "husky:pre-push": "npm run build && run-p check:engine qoq:check test",
     "publish:full": "run-s husky:pre-push publish:lerna",
-    "publish:lerna": "lerna publish --no-private --force-publish",
+    "publish:lerna": "lerna publish --no-private --force-publish && npm run config-inspector:clean",
     "check:engine": "check-engine",
     "qoq:check": "qoq --check",
     "qoq:fix": "qoq --fix",
     "sort:packages:json": "npx -y sort-package-json 'package.json' 'packages/*/package.json'",
     "pre:test": "npm run config-inspector",
     "config-inspector": "node ./scripts/config-inspector.mjs",
+    "config-inspector:clean": "rimraf -g ./packages/eslint-v9-*/stats/",
     "test": "npm run pre:test && vitest run",
     "test:execute": "vitest run",
     "test:coverage": "npm run pre:test && npm run test -- --coverage"
@@ -36,6 +37,7 @@
     "@vitest/coverage-v8": "3.2.4",
     "lerna": "8.2.4",
     "npm-run-all": "4.1.5",
+    "rimraf": "6.0.1",
     "vitest": "3.2.4"
   },
   "engines": {
