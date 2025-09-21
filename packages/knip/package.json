@@ -37,6 +37,9 @@
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "rimraf ./lib && rollup -c --silent"
   },
@@ -45,7 +48,7 @@
   },
   "devDependencies": {
     "rimraf": "6.0.1",
-    "rollup": "4.50.2",
+    "rollup": "4.52.0",
     "typescript": "5.9.2"
   },
   "peerDependencies": {

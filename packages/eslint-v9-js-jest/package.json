@@ -34,6 +34,11 @@
   "bin": {
     "@saashub/qoq-eslint-v9-js-jest": "./bin/bin.cjs"
   },
+  "files": [
+    "bin",
+    "lib",
+    "eslint.config.local.js"
+  ],
   "scripts": {
     "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
     "inspect": "node ./bin/bin.cjs"
@@ -51,7 +56,7 @@
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "rimraf": "6.0.1",
-    "rollup": "4.50.2",
+    "rollup": "4.52.0",
     "typescript": "5.9.2"
   },
   "peerDependencies": {

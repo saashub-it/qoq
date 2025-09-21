@@ -21,6 +21,9 @@
   "bin": {
     "check-engine": "bin/check-engine.cjs"
   },
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/check-engine.cjs",
     "dev": "npm run build && node ./bin/check-engine.cjs"
@@ -36,11 +39,11 @@
     "@rollup/plugin-node-resolve": "16.0.1",
     "@rollup/plugin-terser": "0.4.4",
     "@types/semver": "7.7.1",
-    "esbuild": "0.25.9",
+    "esbuild": "0.25.10",
     "rimraf": "6.0.1",
-    "rollup": "4.50.2",
+    "rollup": "4.52.0",
     "rollup-plugin-esbuild": "6.2.1",
-    "type-fest": "5.0.0",
+    "type-fest": "5.0.1",
     "typescript": "5.9.2"
   },
   "engines": {
