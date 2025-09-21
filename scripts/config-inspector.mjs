@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 import { parse } from 'node:path';
-import { readdirSync, existsSync } from 'node:fs'
+import { readdirSync, existsSync } from 'node:fs';
 
 const paths = [];
 const getModifiedFiles = async () =>
@@ -21,7 +21,9 @@ const getModifiedFiles = async () =>
 await getModifiedFiles();
 
 const allPackages = readdirSync('./packages').filter((path) => path.startsWith('eslint-v9-'));
-const emptyPackages = allPackages.filter((packageName) => !existsSync(`./packages/${packageName}/stats`));
+const emptyPackages = allPackages.filter(
+  (packageName) => !existsSync(`./packages/${packageName}/stats`)
+);
 
 const packagesToCheck = paths
   .filter((path) => !!path)
