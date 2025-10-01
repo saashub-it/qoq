@@ -47,14 +47,14 @@
     "@saashub/qoq-eslint-v9-js": "^1.10.1",
     "@saashub/qoq-utils": "^1.10.1",
     "eslint-import-resolver-typescript": "4.4.4",
-    "typescript-eslint": "8.44.0"
+    "typescript-eslint": "8.45.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "rimraf": "6.0.1",
-    "rollup": "4.52.0",
-    "typescript": "5.9.2"
+    "rollup": "4.52.3",
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "eslint": "^9.34.0",

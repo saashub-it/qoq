@@ -51,15 +51,15 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "5.2.0",
-    "eslint-plugin-react-refresh": "0.4.20"
+    "eslint-plugin-react-refresh": "0.4.22"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "@types/eslint-plugin-jsx-a11y": "6.10.0",
     "rimraf": "6.0.1",
-    "rollup": "4.52.0",
-    "typescript": "5.9.2"
+    "rollup": "4.52.3",
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "eslint": "^9.34.0"

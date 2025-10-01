@@ -41,10 +41,10 @@
     "@types/semver": "7.7.1",
     "esbuild": "0.25.10",
     "rimraf": "6.0.1",
-    "rollup": "4.52.0",
+    "rollup": "4.52.3",
     "rollup-plugin-esbuild": "6.2.1",
     "type-fest": "5.0.1",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=20.0.9"

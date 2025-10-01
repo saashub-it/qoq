@@ -41,8 +41,8 @@
   },
   "devDependencies": {
     "rimraf": "6.0.1",
-    "rollup": "4.52.0",
-    "typescript": "5.9.2"
+    "rollup": "4.52.3",
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=20.9.0"
