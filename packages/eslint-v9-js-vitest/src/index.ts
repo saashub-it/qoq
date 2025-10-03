@@ -9,6 +9,10 @@ import vitestPlugin from '@vitest/eslint-plugin';
 export const disabledRules: EslintConfig['rules'] = {
   'sonarjs/no-duplicate-string': 0,
   'vitest/expect-expect': 0,
+  /**
+   * @todo need to investigate this one
+   */
+  'vitest/prefer-called-exactly-once-with': 0,
 };
 
 const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
