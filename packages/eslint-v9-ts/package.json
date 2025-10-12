@@ -47,7 +47,7 @@
     "@saashub/qoq-eslint-v9-js": "^1.10.2",
     "@saashub/qoq-utils": "^1.10.2",
     "eslint-import-resolver-typescript": "4.4.4",
-    "typescript-eslint": "8.45.0"
+    "typescript-eslint": "8.46.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
@@ -57,7 +57,7 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "eslint": "^9.34.0",
+    "eslint": "^9.36.0",
     "typescript": ">=4.8.4 <6.0.0"
   },
   "engines": {

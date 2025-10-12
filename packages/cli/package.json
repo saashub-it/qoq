@@ -36,7 +36,7 @@
     "@npmcli/package-json": "7.0.1",
     "@saashub/qoq-utils": "^1.10.2",
     "cac": "6.7.14",
-    "es-toolkit": "1.39.10",
+    "es-toolkit": "1.40.0",
     "micromatch": "4.0.8",
     "picocolors": "1.1.1",
     "prompts": "2.4.2",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.6",
     "@rollup/plugin-json": "6.1.0",
-    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-node-resolve": "16.0.2",
     "@rollup/plugin-terser": "0.4.4",
     "@types/micromatch": "4.0.9",
     "@types/prompts": "2.4.9",

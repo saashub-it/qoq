@@ -11,7 +11,7 @@
   "scripts": {
     "build": "lerna run build",
     "postinstall": "qoq --warmup",
-    "husky:pre-push": "npm run build && run-p check:engine qoq:check test",
+    "husky:pre-push": "run-s build check:engine test qoq:check",
     "publish:full": "run-s husky:pre-push publish:lerna",
     "publish:lerna": "lerna publish --no-private --force-publish && npm run config-inspector:clean",
     "check:engine": "check-engine",

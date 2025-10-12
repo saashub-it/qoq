@@ -38,9 +38,9 @@
   },
   "dependencies": {
     "browserslist": "latest",
-    "stylelint": "^16.23.0",
+    "stylelint": "^16.24.0",
     "stylelint-config-clean-order": "7.0.0",
-    "stylelint-config-standard": "38.0.0",
+    "stylelint-config-standard": "39.0.1",
     "stylelint-file-max-lines": "1.0.0",
     "stylelint-high-performance-animation": "1.11.0",
     "stylelint-no-unsupported-browser-features": "8.0.4",
@@ -53,7 +53,7 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "stylelint": "^16.23.0"
+    "stylelint": "^16.24.0"
   },
   "engines": {
     "node": ">=20.9.0"
