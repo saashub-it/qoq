@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-react-compiler",
-  "version": "1.10.3",
+  "version": "1.11.0",
   "description": "Eslint flat config template for TS + React + React compiler",
   "keywords": [
     "eslint TypeScript + React compiler template",
@@ -44,9 +44,9 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-react-compiler": "^1.10.3",
-    "@saashub/qoq-eslint-v9-ts": "^1.10.3",
-    "@saashub/qoq-utils": "^1.10.3"
+    "@saashub/qoq-eslint-v9-js-react-compiler": "^1.11.0",
+    "@saashub/qoq-eslint-v9-ts": "^1.11.0",
+    "@saashub/qoq-utils": "^1.11.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
