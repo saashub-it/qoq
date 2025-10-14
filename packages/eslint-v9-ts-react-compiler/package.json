@@ -1,22 +1,22 @@
 {
-  "name": "@saashub/qoq-eslint-v9-js-jest-rtl",
+  "name": "@saashub/qoq-eslint-v9-ts-react-compiler",
   "version": "1.10.3",
-  "description": "Eslint flat config template for JS + Jest + RTL",
+  "description": "Eslint flat config template for TS + React + React compiler",
   "keywords": [
-    "eslint JavaScript + Jest + RTL template",
+    "eslint TypeScript + React compiler template",
     "flat config",
     "saashub",
     "qoq",
     "QualityOverQuantity"
   ],
-  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-js-jest-rtl",
+  "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/eslint-v9-ts-react-compiler",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/saashub-it/qoq.git",
-    "directory": "packages/eslint-v9-js-jest-rtl"
+    "directory": "packages/eslint-v9-ts-react-compiler"
   },
   "license": "MIT",
   "exports": {
@@ -32,7 +32,7 @@
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.js",
   "bin": {
-    "@saashub/qoq-eslint-v9-js-jest-rtl": "./bin/bin.cjs"
+    "@saashub/qoq-eslint-v9-ts-react-compiler": "./bin/bin.cjs"
   },
   "files": [
     "bin",
@@ -44,14 +44,11 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-jest": "^1.10.3",
-    "@saashub/qoq-utils": "^1.10.3",
-    "eslint-plugin-testing-library": "7.13.3"
+    "@saashub/qoq-eslint-v9-js-react-compiler": "^1.10.3",
+    "@saashub/qoq-eslint-v9-ts": "^1.10.3",
+    "@saashub/qoq-utils": "^1.10.3"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "28.0.6",
-    "@rollup/plugin-json": "6.1.0",
-    "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.4",
     "@types/eslint": "^9",
     "rimraf": "6.0.1",
@@ -59,7 +56,8 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "eslint": "^9.36.0"
+    "eslint": "^9.36.0",
+    "typescript": ">=4.8.4 <6.0.0"
   },
   "engines": {
     "node": ">=20.9.0"

@@ -46,7 +46,7 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js-vitest": "^1.10.3",
     "@saashub/qoq-utils": "^1.10.3",
-    "eslint-plugin-testing-library": "7.13.1"
+    "eslint-plugin-testing-library": "7.13.3"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.4",
