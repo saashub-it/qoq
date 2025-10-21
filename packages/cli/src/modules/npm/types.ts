@@ -13,3 +13,7 @@ export enum ENpmWarningType {
   MINOR = 'MINOR',
   PATCH = 'PATCH',
 }
+
+export interface IModuleNpmConfig {
+  checkOutdatedEvery: number;
+}

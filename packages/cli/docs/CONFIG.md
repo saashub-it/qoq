@@ -19,6 +19,22 @@ where every entry has defaults as above, any override needs to start with leadin
 
 Let's say You execute `qoq --check` in project root path and `Eslint` config is in `configs` dir with name `eslint.config.local.js` oveeride should be then `/configs/eslint.config.local.js`.
 
+# NPM
+
+NPM dependencies check execution can be configured via:
+
+```js
+{
+    npm: {
+        checkOutdatedEvery: 1
+    }
+}
+```
+
+where:
+
+- `checkOutdatedEvery` is `number` that tells how often should we check dependencies. Defaults to `1` day.
+
 # Prettier
 
 Prettier execution can be configured via:

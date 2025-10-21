@@ -1,6 +1,7 @@
 import { IModuleEslintConfig } from './eslint/types';
 import { IModuleJscpdConfig } from './jscpd/types';
 import { IModuleKnipConfig } from './knip/types';
+import { IModuleNpmConfig } from './npm/types';
 import { IModulePrettierConfig } from './prettier/types';
 import { TModuleStylelintConfig } from './stylelint/types';
 
@@ -16,6 +17,7 @@ export interface IModulesConfig {
   };
   workspaces?: string[];
   modules: {
+    npm?: IModuleNpmConfig;
     prettier?: IModulePrettierConfig;
     eslint?: IModuleEslintConfig[];
     jscpd?: IModuleJscpdConfig;

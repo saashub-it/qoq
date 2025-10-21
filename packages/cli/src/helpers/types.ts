@@ -1,5 +1,6 @@
 import { IModuleEslintConfig } from '@/modules/eslint/types';
 import { TJscpdFormat } from '@/modules/jscpd/types';
+import { IModuleNpmConfig } from '@/modules/npm/types';
 import { IModulePrettierConfig } from '@/modules/prettier/types';
 import { TModuleStylelintConfig } from '@/modules/stylelint/types';
 
@@ -19,6 +20,7 @@ export enum EConfigType {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface QoqConfig {
   srcPath?: string;
+  npm?: IModuleNpmConfig;
   prettier?: IModulePrettierConfig;
   eslint?: IModuleEslintConfig[];
   jscpd?: {

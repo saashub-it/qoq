@@ -12,6 +12,7 @@ import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
 import { JscpdExecutor } from './jscpd/JscpdExecutor';
 import { KnipConfigHandler } from './knip/KnipConfigHandler';
 import { KnipExecutor } from './knip/KnipExecutor';
+import { NpmConfigHandler } from './npm/NpmConfigHandler';
 import { NpmExecutor } from './npm/NpmExecutor';
 import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
@@ -29,6 +30,7 @@ const getHandlerBySequence = (
   config: QoqConfig
 ): AbstractConfigHandler => {
   const basicConfigHandler = new BasicConfigHandler(modulesConfig, config);
+  const npmConfigHandler = new NpmConfigHandler(modulesConfig, config);
   const prettierConfigHandler = new PrettierConfigHandler(modulesConfig, config);
   const eslintConfigHandler = new EslintConfigHandler(modulesConfig, config);
   const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
@@ -36,6 +38,7 @@ const getHandlerBySequence = (
   const stylelintConfigHandler = new StylelintConfigHandler(modulesConfig, config);
 
   basicConfigHandler
+    .setNext(npmConfigHandler)
     .setNext(prettierConfigHandler)
     .setNext(eslintConfigHandler)
     .setNext(jscpdConfigHandler)

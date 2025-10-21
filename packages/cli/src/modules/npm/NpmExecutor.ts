@@ -1,3 +1,5 @@
+import { existsSync, rmSync, statSync, writeFileSync } from 'fs';
+
 import c from 'picocolors';
 import { parse, lt, gt } from 'semver';
 
@@ -6,9 +8,12 @@ import { IExecutorOptions } from '../types';
 
 import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types';
 
+import { resolveCliPackagePath } from '@/helpers/paths';
 import { EExitCode } from '@/helpers/types';
 
 export class NpmExecutor extends AbstractExecutor {
+  static readonly LOCK_PATH = resolveCliPackagePath('/bin/.npm-outdated-lock');
+
   getName(): string {
     return this.getCommandName().toUpperCase();
   }
@@ -16,6 +21,22 @@ export class NpmExecutor extends AbstractExecutor {
   async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode>;
   async run(options: IExecutorOptions, files?: string[], captureOutput?: boolean): Promise<string>;
   async run(options: IExecutorOptions, files?: string[]): Promise<string | EExitCode> {
+    const {
+      modules: { npm },
+    } = this.modulesConfig;
+
+    const checkAfterDays = npm?.checkOutdatedEvery ?? 1;
+
+    if (checkAfterDays > 0 && existsSync(NpmExecutor.LOCK_PATH)) {
+      const { birthtime } = statSync(NpmExecutor.LOCK_PATH);
+
+      if (new Date() < new Date(birthtime.getTime() + 86400000)) {
+        return EExitCode.OK;
+      }
+
+      rmSync(NpmExecutor.LOCK_PATH);
+    }
+
     process.stdout.write(c.green(`\nChecking npm packages:\n`));
 
     const result = await super.run(options, files, true);
@@ -97,6 +118,8 @@ export class NpmExecutor extends AbstractExecutor {
         process.stdout.write(`${packageName}\n`);
       });
     }
+
+    writeFileSync(NpmExecutor.LOCK_PATH, '');
 
     return EExitCode.OK;
   }
