@@ -12,6 +12,7 @@ import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
 import { JscpdExecutor } from './jscpd/JscpdExecutor';
 import { KnipConfigHandler } from './knip/KnipConfigHandler';
 import { KnipExecutor } from './knip/KnipExecutor';
+import { NpmExecutor } from './npm/NpmExecutor';
 import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
 import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
@@ -125,12 +126,13 @@ export const execute = async (
   options: IExecutorOptions,
   files?: string[]
 ): Promise<void> => {
-  const { silent, warmup, skipPrettier, skipJscpd, skipKnip, skipEslint } = options;
+  const { silent, warmup, skipNpm, skipPrettier, skipJscpd, skipKnip, skipEslint } = options;
   const hideMessages = !!silent || !!warmup;
 
   const consoleTimeName = `Total execution time:`;
   console.time(c.italic(c.gray(consoleTimeName)));
 
+  const npmExecutor = new NpmExecutor(modulesConfig, true);
   const prettierExecutor = new PrettierExecutor(modulesConfig, hideMessages);
   const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
   const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
@@ -138,12 +140,17 @@ export const execute = async (
   const stylelintExecutor = new StylelintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
+    [npmExecutor.getName()]: EExitCode.OK,
     [prettierExecutor.getName()]: EExitCode.OK,
     [jscpdExecutor.getName()]: EExitCode.OK,
     [knipExecutor.getName()]: EExitCode.OK,
     [eslintExecutor.getName()]: EExitCode.OK,
     [stylelintExecutor.getName()]: EExitCode.OK,
   };
+
+  if (!skipNpm) {
+    responses[npmExecutor.getName()] = await npmExecutor.run(options, files);
+  }
 
   if (!skipPrettier) {
     responses[prettierExecutor.getName()] = await prettierExecutor.run(options, files);

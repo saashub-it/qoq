@@ -26,6 +26,7 @@ export interface IModulesConfig {
 
 export interface IExecuteStagedOptions {
   disableCache?: boolean;
+  skipNpm?: boolean;
   skipPrettier?: boolean;
   skipJscpd?: boolean;
   skipKnip?: boolean;
@@ -33,6 +34,7 @@ export interface IExecuteStagedOptions {
   warmup?: boolean;
   silent?: boolean;
   configHints?: boolean;
+  production?: boolean;
   concurrency?: 'off' | 'auto';
 }
 

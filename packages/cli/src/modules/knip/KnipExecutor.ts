@@ -30,10 +30,14 @@ export class KnipExecutor extends AbstractExecutor {
   }
 
   protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
-    const { configHints } = options;
+    const { configHints, production } = options;
 
     if (!configHints) {
       args.push('--no-config-hints');
+    }
+
+    if (production) {
+      args.push('--production');
     }
 
     try {

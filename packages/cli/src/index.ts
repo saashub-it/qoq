@@ -15,6 +15,7 @@ cli
   .option('--check', 'Perform QoQ quality checks')
   .option('--fix', 'Apply fixes to QoQ check findings where possible')
   .option('--disable-cache', 'Disable cache to all tools')
+  .option('--skip-npm', 'Skip NPM checks')
   .option('--skip-prettier', 'Skip Prettier checks')
   .option('--skip-jscpd', 'Skip JSCPD checks')
   .option('--skip-knip', 'Skip Knip checks')
@@ -22,6 +23,7 @@ cli
   .option('--warmup', 'Create configs for tools without QoQ execution')
   .option('--silent', 'Mute all QoQ messages')
   .option('--config-hints', 'Enable config hints')
+  .option('--production', 'Run tools in production mode')
   .option(
     '--concurrency <type>',
     'Enable concurent execution for tools if possible. [off | auto]',
@@ -52,6 +54,7 @@ cli
     'Perform QoQ quality checks but only on filelist, usefull for eg `lint-staged` config'
   )
   .option('--disable-cache', 'Disable cache to all tools')
+  .option('--skip-npm', 'Skip NPM checks')
   .option('--skip-prettier', 'Skip Prettier checks')
   .option('--skip-jscpd', 'Skip JSCPD checks')
   .option('--skip-knip', 'Skip Knip checks')
