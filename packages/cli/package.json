@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-cli",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "CLI that handles formatting, linting and testing Your JS/TS code",
   "keywords": [
     "cli",
@@ -34,7 +34,7 @@
     "@antfu/install-pkg": "1.0.0",
     "@eslint/compat": "1.4.0",
     "@npmcli/package-json": "7.0.1",
-    "@saashub/qoq-utils": "^1.12.0",
+    "@saashub/qoq-utils": "^1.12.1",
     "cac": "6.7.14",
     "es-toolkit": "1.40.0",
     "micromatch": "4.0.8",
