@@ -25,9 +25,9 @@ NPM dependencies check execution can be configured via:
 
 ```js
 {
-    npm: {
-        checkOutdatedEvery: 1
-    }
+  npm: {
+    checkOutdatedEvery: 1;
+  }
 }
 ```
 

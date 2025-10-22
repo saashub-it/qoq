@@ -21,6 +21,10 @@ export class NpmExecutor extends AbstractExecutor {
   async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode>;
   async run(options: IExecutorOptions, files?: string[], captureOutput?: boolean): Promise<string>;
   async run(options: IExecutorOptions, files?: string[]): Promise<string | EExitCode> {
+    if (options.warmup) {
+      return EExitCode.OK;
+    }
+
     const {
       modules: { npm },
     } = this.modulesConfig;
@@ -88,6 +92,10 @@ export class NpmExecutor extends AbstractExecutor {
         [ENpmWarningType.PATCH]: [],
       } as Record<ENpmWarningType, string[]>
     );
+
+    if (!Object.values(npmDictionary).some((warning) => warning.length > 0)) {
+      process.stdout.write(c.green(`\nAll dependencies are in latest version :)\n`));
+    }
 
     if (npmDictionary[ENpmWarningType.MAJOR].length > 0) {
       process.stdout.write(
