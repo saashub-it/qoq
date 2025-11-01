@@ -1,8 +1,4 @@
-import {
-  EslintConfig,
-  EslintConfigPlugin,
-  baseConfig as jsBaseConfig,
-} from '@saashub/qoq-eslint-v9-js';
+import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
 import { objectMergeRight } from '@saashub/qoq-utils';
 import vitestPlugin from '@vitest/eslint-plugin';
 
@@ -32,6 +28,6 @@ export const baseConfig: EslintConfig = {
   }),
   plugins: {
     ...jsBaseConfigPlugins,
-    vitest: vitestPlugin as unknown as EslintConfigPlugin,
+    vitest: vitestPlugin,
   },
 };
