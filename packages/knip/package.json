@@ -44,12 +44,12 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "knip": "5.66.4"
+    "knip": "5.69.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",
     "rimraf": "6.1.0",
-    "rollup": "4.52.5",
+    "rollup": "4.53.2",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

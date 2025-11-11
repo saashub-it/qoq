@@ -51,7 +51,7 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.38.0",
     "@saashub/qoq-utils": "^1.12.2",
     "eslint": "^9.38.0",
     "eslint-plugin-import-x": "4.16.1",
@@ -65,7 +65,7 @@
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.3.0",
     "rimraf": "6.1.0",
-    "rollup": "4.52.5",
+    "rollup": "4.53.2",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
