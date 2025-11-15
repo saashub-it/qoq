@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-ts-jest-rtl",
-  "version": "2.0.0",
+  "version": "1.12.3",
   "description": "Eslint flat config template for TS + Jest + RTL",
   "keywords": [
     "eslint TypeScript + Jest + RTL template",

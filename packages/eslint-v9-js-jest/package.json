@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-jest",
-  "version": "2.0.0",
+  "version": "1.12.3",
   "description": "Eslint flat config template for JS + Jest",
   "keywords": [
     "eslint JavaScript + Jest template",
