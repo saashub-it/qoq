@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-react-compiler",
-  "version": "1.12.3",
+  "version": "2.0.0",
   "description": "Eslint flat config template for JS + React + React compiler",
   "keywords": [
     "eslint JavaScript + React compiler template",
