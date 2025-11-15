@@ -17,7 +17,7 @@
     "jscpd": "4.0.5"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.9.0"
   },
   "publishConfig": {
     "access": "public"
