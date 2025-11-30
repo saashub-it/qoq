@@ -39,7 +39,7 @@
   "dependencies": {
     "browserslist": "latest",
     "stylelint": "^16.25.0",
-    "stylelint-config-clean-order": "7.0.0",
+    "stylelint-config-clean-order": "8.0.0",
     "stylelint-config-standard": "39.0.1",
     "stylelint-file-max-lines": "1.0.0",
     "stylelint-high-performance-animation": "1.11.0",
@@ -48,8 +48,8 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",
-    "rimraf": "6.1.0",
-    "rollup": "4.53.2",
+    "rimraf": "6.1.2",
+    "rollup": "4.53.3",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

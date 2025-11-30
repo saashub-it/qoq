@@ -95,9 +95,7 @@ export class EslintExecutor extends AbstractExecutor {
           const eslintConfig = await import(pathToFileURL(configFilePath).toString());
           const mapCallback = (entry: string) =>
             entry.startsWith('**') || entry.startsWith('./') ? entry : `**/${entry}`;
-          const prepareCollection = (
-            patterns: IModuleEslintConfig['files'] | IModuleEslintConfig['ignores']
-          ) => {
+          const prepareCollection = (patterns: string[] | undefined) => {
             let collection: string[];
 
             if (patterns) {
@@ -114,7 +112,7 @@ export class EslintExecutor extends AbstractExecutor {
             (acc: { files: string[]; ignores: string[] }[], config) =>
               acc.concat([
                 {
-                  files: prepareCollection(config.files),
+                  files: prepareCollection(config.files as string[] | undefined),
                   ignores: prepareCollection(config.ignores),
                 },
               ]),
