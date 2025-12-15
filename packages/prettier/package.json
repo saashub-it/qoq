@@ -31,7 +31,7 @@
     "build": "rimraf ./index.json && node ./src/index.js"
   },
   "dependencies": {
-    "prettier": "3.7.3"
+    "prettier": "3.7.4"
   },
   "devDependencies": {
     "rimraf": "6.1.2"
