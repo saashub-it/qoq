@@ -1,3 +1,4 @@
+/* eslint-disable vitest/no-unneeded-async-expect-function */
 import stylelint from 'stylelint';
 import { describe, it, expect } from 'vitest';
 

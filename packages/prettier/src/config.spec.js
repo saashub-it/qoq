@@ -1,3 +1,4 @@
+/* eslint-disable vitest/no-unneeded-async-expect-function */
 import { check } from 'prettier';
 import { describe, test, expect } from 'vitest';
 
