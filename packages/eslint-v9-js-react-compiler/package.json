@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-eslint-v9-js-react-compiler",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Eslint flat config template for JS + React + React compiler",
   "keywords": [
     "eslint JavaScript + React compiler template",
@@ -44,8 +44,8 @@
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
-    "@saashub/qoq-eslint-v9-js-react": "^2.0.2",
-    "@saashub/qoq-utils": "^2.0.2",
+    "@saashub/qoq-eslint-v9-js-react": "^2.0.3",
+    "@saashub/qoq-utils": "^2.0.3",
     "eslint-plugin-react-hooks": "7.0.1"
   },
   "devDependencies": {
