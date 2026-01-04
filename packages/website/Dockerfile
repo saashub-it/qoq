@@ -8,3 +8,5 @@ RUN npm run build
 FROM scratch
 COPY --from=build /usr/src/app/build /build
 ENTRYPOINT ["/"]
+
+# use it via `docker build --output=. . ` to produce build files
