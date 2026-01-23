@@ -47,7 +47,7 @@
     "@saashub/qoq-eslint-v9-js": "^2.0.3",
     "@saashub/qoq-utils": "^2.0.3",
     "browserslist": "latest",
-    "eslint-plugin-compat": "6.0.2",
+    "eslint-plugin-compat": "6.1.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
@@ -58,7 +58,7 @@
     "@types/eslint": "^9",
     "@types/eslint-plugin-jsx-a11y": "6.10.1",
     "rimraf": "6.1.2",
-    "rollup": "4.54.0",
+    "rollup": "4.56.0",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
