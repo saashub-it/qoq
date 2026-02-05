@@ -14,6 +14,7 @@ module.exports = {
       '**/vitest.config.mjs',
       'eslint.config.js',
       'qoq.config.js',
+      'packages/cli/src/types.ts',
     ],
     ignoreDependencies: [
       // build specific

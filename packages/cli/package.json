@@ -19,29 +19,32 @@
   },
   "license": "MIT",
   "main": "./bin/qoq.cjs",
+  "types": "./bin/types.d.ts",
   "bin": {
     "qoq": "bin/qoq.cjs"
   },
   "files": [
     "bin/qoq.cjs",
+    "bin/types.d.ts",
     "docs"
   ],
   "scripts": {
-    "build": "rimraf ./bin && rollup -c --silent && chmod +x ./bin/qoq.cjs",
+    "build": "rimraf ./bin && rollup -c rollup.bin.mjs --silent && rollup -c rollup.config.mjs --silent",
     "dev": "npm run build && node ./bin/qoq.cjs"
   },
   "dependencies": {
     "@antfu/install-pkg": "1.0.0",
-    "@eslint/compat": "2.0.1",
+    "@eslint/compat": "2.0.2",
     "@npmcli/package-json": "7.0.4",
     "@saashub/qoq-utils": "^2.0.4",
     "cac": "6.7.14",
+    "cosmiconfig": "9.0.0",
     "es-toolkit": "1.44.0",
     "micromatch": "4.0.8",
     "picocolors": "1.1.1",
     "prompts": "2.4.2",
     "react-fast-compare": "3.2.2",
-    "semver": "7.7.3"
+    "semver": "7.7.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "29.0.0",
@@ -53,10 +56,11 @@
     "esbuild": "0.27.2",
     "rimraf": "6.1.2",
     "rollup": "4.56.0",
+    "rollup-plugin-dts": "6.3.0",
     "rollup-plugin-esbuild": "6.2.1",
     "rollup-plugin-typescript-paths": "1.5.0",
     "typescript": "5.9.3",
-    "vite-tsconfig-paths": "6.0.4"
+    "vite-tsconfig-paths": "6.0.5"
   },
   "engines": {
     "node": ">=22.9.0"

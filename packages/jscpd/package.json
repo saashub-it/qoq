@@ -14,7 +14,7 @@
   "type": "module",
   "main": "./index.json",
   "dependencies": {
-    "jscpd": "4.0.7"
+    "jscpd": "4.0.8"
   },
   "engines": {
     "node": ">=22.9.0"

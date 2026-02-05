@@ -1,6 +1,7 @@
 import { existsSync, rmSync, writeFileSync } from 'fs';
-import { pathToFileURL } from 'url';
 
+import { resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { cosmiconfig } from 'cosmiconfig';
 import c from 'picocolors';
 import prompts from 'prompts';
 
@@ -24,6 +25,8 @@ import { executeCommand } from '@/helpers/command';
 import { formatCode } from '@/helpers/formatCode';
 import { installPackages } from '@/helpers/packages';
 import { EExitCode, QoqConfig } from '@/helpers/types';
+
+const moduleName = 'qoq';
 
 const getHandlerBySequence = (
   modulesConfig: IModulesConfig,
@@ -66,14 +69,22 @@ export const initConfig = async (
 
   await getHandlerBySequence(modulesConfig, config).getPrompts();
 
-  if (existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
-    rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
-  }
+  [
+    `${moduleName}.config.js`,
+    `${moduleName}.config.ts`,
+    `${moduleName}.config.mjs`,
+    `${moduleName}.config.cjs`,
+  ].forEach((filename) => {
+    const filepath = resolveCwdRelativePath(`/${filename}`);
+    if (existsSync(filepath)) {
+      rmSync(filepath);
+    }
+  });
 
   const configFromModules = getHandlerBySequence(modulesConfig, config).getConfigFromModules();
 
   writeFileSync(
-    BasicConfigHandler.CONFIG_FILE_PATH,
+    resolveCwdRelativePath(`/${moduleName}.config.js`),
     formatCode(modulesConfig.configType, {}, [], JSON.stringify(configFromModules))
   );
 
@@ -92,7 +103,17 @@ export const getConfig = async (
   workspaces: IModulesConfig['workspaces'],
   skipInit: boolean = false
 ): Promise<IModulesConfig> => {
-  if (!skipInit && !existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
+  const qoqConfig = await cosmiconfig(moduleName, {
+    searchStrategy: 'project',
+    searchPlaces: [
+      `${moduleName}.config.js`,
+      `${moduleName}.config.ts`,
+      `${moduleName}.config.mjs`,
+      `${moduleName}.config.cjs`,
+    ],
+  }).search();
+
+  if (!skipInit && !qoqConfig) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -112,16 +133,7 @@ export const getConfig = async (
     return initConfig(workspaces, true);
   }
 
-  try {
-    const config = await import(pathToFileURL(BasicConfigHandler.CONFIG_FILE_PATH).toString());
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return getModulesFromConfig(config.default as QoqConfig, workspaces);
-  } catch {
-    process.stderr.write('Running with defaults\n');
-
-    return getModulesFromConfig({} as QoqConfig, workspaces);
-  }
+  return getModulesFromConfig(qoqConfig?.config as QoqConfig, workspaces);
 };
 
 export const execute = async (

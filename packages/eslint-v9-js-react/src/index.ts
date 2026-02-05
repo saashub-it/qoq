@@ -4,7 +4,7 @@ import compatPlugin from 'eslint-plugin-compat';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
+import { reactRefresh } from 'eslint-plugin-react-refresh';
 
 const noRestrictedImportsRule: EslintConfig['rules'][0] = [
   jsBaseConfig.rules['no-restricted-imports'][0],
@@ -63,7 +63,7 @@ export const baseConfig: EslintConfig = {
       ...reactPlugin.configs.recommended.rules,
       ...reactPlugin.configs['jsx-runtime'].rules,
       ...reactHooksPlugin.configs.recommended.rules,
-      ...reactRefresh.configs.recommended.rules,
+      ...reactRefresh.configs.recommended().rules,
       ...jsxA11yPlugin.configs.recommended.rules,
       'import-x/order': importOrderRule,
       'no-restricted-imports': noRestrictedImportsRule,
@@ -85,7 +85,7 @@ export const baseConfig: EslintConfig = {
     compat: compatPlugin,
     react: reactPlugin,
     'react-hooks': reactHooksPlugin,
-    'react-refresh': reactRefresh,
+    'react-refresh': reactRefresh.plugin,
     'jsx-a11y': jsxA11yPlugin,
   },
 };

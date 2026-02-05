@@ -30,7 +30,7 @@
   },
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
-  "types": "./lib/index.d.js",
+  "types": "./lib/index.d.ts",
   "bin": {
     "@saashub/qoq-eslint-v9-ts-vitest": "./bin/bin.cjs"
   },
