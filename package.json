@@ -8,10 +8,11 @@
   "workspaces": [
     "packages/*"
   ],
+  "type": "module",
   "scripts": {
     "build": "lerna run build",
     "check:engine": "check-engine",
-    "config-inspector": "node ./scripts/config-inspector.mjs",
+    "config-inspector": "node ./scripts/config-inspector.js",
     "config-inspector:clean": "rimraf -g ./packages/eslint-v9-*/stats/",
     "husky:pre-push": "run-s build check:engine test qoq:check",
     "postinstall": "qoq --warmup",

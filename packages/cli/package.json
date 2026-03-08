@@ -30,11 +30,11 @@
     "docs"
   ],
   "scripts": {
-    "build": "rimraf ./bin && rollup -c rollup.bin.mjs --silent && rollup -c rollup.config.mjs --silent",
+    "build": "rimraf ./bin && rollup -c rollup.bin.js --silent && rollup -c rollup.config.js --silent",
     "dev": "npm run build && node ./bin/qoq.js"
   },
   "dependencies": {
-    "@antfu/install-pkg": "1.0.0",
+    "@antfu/install-pkg": "1.1.0",
     "@eslint/compat": "2.0.3",
     "@npmcli/package-json": "7.0.5",
     "@saashub/qoq-utils": "^2.2.0",

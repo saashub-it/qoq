@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { builtinModules } from 'module';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import { binPlugins } from '../bin/rollupPlugins.mjs';
+import { binPlugins } from '../bin/rollupPlugins.js';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 

@@ -18,6 +18,7 @@
     "directory": "packages/utils"
   },
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",

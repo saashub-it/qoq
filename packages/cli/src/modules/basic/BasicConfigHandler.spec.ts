@@ -28,7 +28,7 @@ describe('BasicConfigHandler', () => {
           prettier: './.prettierrc',
           stylelint: './stylelint.config.js',
         },
-        configType: 'CJS',
+        configType: 'ESM',
         modules: {},
         srcPath: '',
       });

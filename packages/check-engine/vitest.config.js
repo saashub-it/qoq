@@ -1,3 +1,3 @@
-import { commonConfig } from '../../vitest.config.mjs';
+import { commonConfig } from '../../vitest.config.js';
 
 export default commonConfig;

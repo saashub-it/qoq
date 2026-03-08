@@ -19,6 +19,7 @@
     "directory": "packages/eslint-v9-js-react"
   },
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -32,7 +33,7 @@
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
   "bin": {
-    "@saashub/qoq-eslint-v9-js-react": "./bin/bin.cjs"
+    "@saashub/qoq-eslint-v9-js-react": "./bin/bin.js"
   },
   "files": [
     "bin",
@@ -40,18 +41,18 @@
     "eslint.config.local.js"
   ],
   "scripts": {
-    "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
+    "build": "rimraf ./lib && rollup -c rollup.config.js --silent && rimraf ./bin && rollup -c rollup.bin.js --silent",
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^2.2.0",
     "@saashub/qoq-utils": "^2.2.0",
     "browserslist": "latest",
-    "eslint-plugin-compat": "6.1.0",
+    "eslint-plugin-compat": "7.0.1",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-react-refresh": "0.5.0"
+    "eslint-plugin-react-refresh": "0.5.2"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",

@@ -9,6 +9,8 @@
 **/lib
 **/stats
 
+!packages/bin
+
 # Logs
 logs
 *.log

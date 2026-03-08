@@ -19,6 +19,7 @@
     "directory": "packages/eslint-v9-js-jest"
   },
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -32,7 +33,7 @@
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
   "bin": {
-    "@saashub/qoq-eslint-v9-js-jest": "./bin/bin.cjs"
+    "@saashub/qoq-eslint-v9-js-jest": "./bin/bin.js"
   },
   "files": [
     "bin",
@@ -40,13 +41,13 @@
     "eslint.config.local.js"
   ],
   "scripts": {
-    "build": "rimraf ./lib && rollup -c rollup.config.mjs --silent && rimraf ./bin && rollup -c rollup.bin.mjs --silent",
+    "build": "rimraf ./lib && rollup -c rollup.config.js --silent && rimraf ./bin && rollup -c rollup.bin.js --silent",
     "inspect": "node ./bin/bin.cjs"
   },
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^2.2.0",
     "@saashub/qoq-utils": "^2.2.0",
-    "eslint-plugin-jest": "29.14.0",
+    "eslint-plugin-jest": "29.15.0",
     "globals": "17.4.0"
   },
   "devDependencies": {

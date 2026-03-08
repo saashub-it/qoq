@@ -1,5 +1,5 @@
-const path = require('path');
+import { resolve } from 'path';
 
-const config = require(path.resolve(__dirname, 'lib/index.cjs'));
+const { baseConfig } = await import(resolve(__dirname, 'lib/index.mjs'))
 
-module.exports = config.baseConfig;
+export default baseConfig;

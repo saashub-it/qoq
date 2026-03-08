@@ -18,6 +18,7 @@
     "directory": "packages/stylelint-scss"
   },
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
