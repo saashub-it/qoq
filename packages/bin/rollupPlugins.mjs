@@ -7,7 +7,7 @@ export const binPlugins = [
   json(),
   commonjs(),
   esbuild({
-    target: 'node18',
+    target: 'node20',
   }),
   terser()
 ];

@@ -26,8 +26,7 @@ export default {
   output: [
     {
       dir: outputDir,
-      format: 'cjs',
-      entryFileNames: '[name].cjs',
+      entryFileNames: '[name].js',
     },
   ],
 };
