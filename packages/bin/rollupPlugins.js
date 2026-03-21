@@ -9,5 +9,5 @@ export const binPlugins = [
   esbuild({
     target: 'node22',
   }),
-  terser()
+  terser(),
 ];

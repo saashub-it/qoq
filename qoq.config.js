@@ -10,8 +10,8 @@ export default {
     project: './src/**/*.{js,ts}',
     ignore: [
       '**/bin.ts',
-      '**/rollup.*.mjs',
-      '**/vitest.config.mjs',
+      '**/rollup.*.js',
+      '**/vitest.config.js',
       'eslint.config.js',
       'qoq.config.js',
       'packages/cli/src/types.ts',

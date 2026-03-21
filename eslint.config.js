@@ -1,3 +1,3 @@
-const config = require('@saashub/qoq-cli/bin/eslint.config.cjs');
+import config from '@saashub/qoq-cli/bin/eslint.config.mjs';
 
-module.exports = config;
+export default config;

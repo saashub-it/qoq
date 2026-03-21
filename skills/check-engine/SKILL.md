@@ -1,6 +1,6 @@
 ---
 name: check-engine
-description: Check minimum required `node` versions based on `package.json` dependencies. For monorepo checks all discovered packages based on `workspaces` recursively. 
+description: Check minimum required `node` versions based on `package.json` dependencies. For monorepo checks all discovered packages based on `workspaces` recursively.
 compatibility: Requires access to the internet for `node` LTS discovery
 user-invocable: true
 ---
@@ -9,7 +9,7 @@ user-invocable: true
 
 Check minimum security supported `node` LTS based on `https://nodejs.org/download/release/index.json`.
 
-Determine project minimum required `node` version (or versions if project has `workspaces`) by running: 
+Determine project minimum required `node` version (or versions if project has `workspaces`) by running:
 
 ```bash
 npx @saashub/check-engine

@@ -1,12 +1,13 @@
 ---
 name: check-packages
-description: Check npm packages for possible updates, suggest compatibile updates, warn about major tech debt. 
+description: Check npm packages for possible updates, suggest compatibile updates, warn about major tech debt.
 user-invocable: true
 ---
 
 ## MANDATORY PREPARATION
 
 Check outdated packages by running:
+
 ```bash
 npm outdated
 ```
@@ -17,7 +18,7 @@ Propose solution that updates any outdated packages to latest version.
 
 **IMPORTANT**: Preffer strict versions in `package.json`.
 
-### Minor and patch updates 
+### Minor and patch updates
 
 1. Suggest bumping all minor and patch changes in packages in one bulk.
 2. If any changes will be made open a PR with description `chore: packages bump`
@@ -37,7 +38,7 @@ For every package separately use changelog / docs as a context. Prepare a migrat
    - What components use changed functionalities?
 3. **Propose changes**:
    - Use **minimum** code required new version to run.
-   - Adjust test if they exsist. 
+   - Adjust test if they exsist.
 
 **IMPORTANT**: Avoid bumping packages that requires engines (based on `package.json`) incompatible with current environment.
 
