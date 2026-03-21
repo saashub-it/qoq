@@ -19,3 +19,5 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 eslint.config.local.bundled_*.cjs
+
+packages/**/skills
