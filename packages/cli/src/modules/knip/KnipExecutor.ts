@@ -30,7 +30,7 @@ export class KnipExecutor extends AbstractExecutor {
   }
 
   protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
-    const { configHints, production } = options;
+    const { configHints, production, fix } = options;
 
     if (!configHints) {
       args.push('--no-config-hints');
@@ -38,6 +38,10 @@ export class KnipExecutor extends AbstractExecutor {
 
     if (production) {
       args.push('--production');
+    }
+
+    if (fix) {
+      args.push('--fix');
     }
 
     try {

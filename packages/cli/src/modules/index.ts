@@ -42,10 +42,10 @@ const getHandlerBySequence = (
 
   basicConfigHandler
     .setNext(npmConfigHandler)
+    .setNext(knipConfigHandler)
     .setNext(prettierConfigHandler)
     .setNext(eslintConfigHandler)
     .setNext(jscpdConfigHandler)
-    .setNext(knipConfigHandler)
     .setNext(stylelintConfigHandler);
 
   return basicConfigHandler;
@@ -148,17 +148,17 @@ export const execute = async (
   console.time(c.italic(c.gray(consoleTimeName)));
 
   const npmExecutor = new NpmExecutor(modulesConfig, true);
+  const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
   const prettierExecutor = new PrettierExecutor(modulesConfig, hideMessages);
   const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
-  const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
   const eslintExecutor = new EslintExecutor(modulesConfig, hideMessages);
   const stylelintExecutor = new StylelintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
     [npmExecutor.getName()]: EExitCode.OK,
+    [knipExecutor.getName()]: EExitCode.OK,
     [prettierExecutor.getName()]: EExitCode.OK,
     [jscpdExecutor.getName()]: EExitCode.OK,
-    [knipExecutor.getName()]: EExitCode.OK,
     [eslintExecutor.getName()]: EExitCode.OK,
     [stylelintExecutor.getName()]: EExitCode.OK,
   };
@@ -167,16 +167,16 @@ export const execute = async (
     responses[npmExecutor.getName()] = await npmExecutor.run(options, files);
   }
 
+  if (!skipKnip) {
+    responses[knipExecutor.getName()] = await knipExecutor.run(options, files);
+  }
+
   if (!skipPrettier) {
     responses[prettierExecutor.getName()] = await prettierExecutor.run(options, files);
   }
 
   if (!skipJscpd) {
     responses[jscpdExecutor.getName()] = await jscpdExecutor.run(options, files);
-  }
-
-  if (!skipKnip) {
-    responses[knipExecutor.getName()] = await knipExecutor.run(options, files);
   }
 
   if (!skipEslint) {
