@@ -143,10 +143,6 @@ export const execute = async (
 ): Promise<void> => {
   const { silent, warmup, skipNpm, skipPrettier, skipJscpd, skipKnip, skipEslint } = options;
 
-  if (warmup) {
-    await executeCommand('npx', ['skills', 'add', './skills/qoq', '-y']);
-  }
-
   const hideMessages = !!silent || !!warmup;
 
   const consoleTimeName = `Total execution time:`;

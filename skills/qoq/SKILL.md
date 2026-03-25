@@ -1,6 +1,6 @@
 ---
 name: qoq
-description: Format and lint project using `qoq-cli`.
+description: Format and lint project using `@saashub/qoq-cli`.
 args:
   - name: check
     description: Report mode without providing any fixes (default)
