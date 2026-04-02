@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { EExitCode, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import { flattenDeep } from 'es-toolkit/compat';
 import micromatch from 'micromatch';
 import c from 'picocolors';
@@ -16,7 +16,7 @@ import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 import { formatCode } from '@/helpers/formatCode';
 import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+import { EConfigType } from '@/helpers/types';
 
 export class EslintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.eslintcache');

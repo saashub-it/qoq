@@ -1,5 +1,6 @@
 import { existsSync, rmSync, statSync, writeFileSync } from 'fs';
 
+import { EExitCode } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import { parse, lt, gt } from 'semver';
 
@@ -9,7 +10,6 @@ import { IExecutorOptions } from '../types';
 import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types';
 
 import { resolveCliPackagePath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
 
 export class NpmExecutor extends AbstractExecutor {
   static readonly LOCK_PATH = resolveCliPackagePath('/bin/.npm-outdated-lock');

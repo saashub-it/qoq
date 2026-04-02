@@ -30,6 +30,8 @@ export default {
       'stylelint-*',
       'eslint-plugin-import-x',
       '@typescript-eslint/utils',
+      '@textlint/*',
+      'textlint*',
     ],
   },
   eslint: [
@@ -54,4 +56,7 @@ export default {
       ignores: [],
     },
   ],
+  skillslint: {
+    path: '/skills',
+  },
 };

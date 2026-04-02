@@ -2,7 +2,7 @@
 import { existsSync } from 'fs';
 import { open } from 'fs/promises';
 
-import { resolveCwdPath, resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { EExitCode, resolveCwdPath, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
@@ -13,7 +13,6 @@ import { capitalizeFirstLetter } from '@/helpers/common';
 import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
 import { resolveCliRelativePath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
 
 export class PrettierExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');

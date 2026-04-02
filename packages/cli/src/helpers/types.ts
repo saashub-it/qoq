@@ -2,15 +2,10 @@ import { IModuleEslintConfig } from '@/modules/eslint/types';
 import { TJscpdFormat } from '@/modules/jscpd/types';
 import { IModuleNpmConfig } from '@/modules/npm/types';
 import { IModulePrettierConfig } from '@/modules/prettier/types';
+import { IModuleSkillslintConfig } from '@/modules/skillslint/types';
 import { TModuleStylelintConfig } from '@/modules/stylelint/types';
 
 export type TPartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-
-export enum EExitCode {
-  OK = 0,
-  ERROR = 1,
-  EXCEPTION = 2,
-}
 
 export enum EConfigType {
   CJS = 'CJS',
@@ -29,6 +24,7 @@ export interface QoqConfig {
     ignore?: string[];
   };
   stylelint?: TModuleStylelintConfig;
+  skillslint?: IModuleSkillslintConfig;
   knip?: {
     entry?: string[];
     project?: string[];

@@ -1,6 +1,6 @@
 import { existsSync, rmSync, writeFileSync } from 'fs';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { EExitCode, executeCommand, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import { cosmiconfig } from 'cosmiconfig';
 import c from 'picocolors';
 import prompts from 'prompts';
@@ -17,14 +17,15 @@ import { NpmConfigHandler } from './npm/NpmConfigHandler';
 import { NpmExecutor } from './npm/NpmExecutor';
 import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
 import { PrettierExecutor } from './prettier/PrettierExecutor';
+import { SkillslintConfigHandler } from './skillslint/SkillslintConfigHandler';
+import { SkillslintExecutor } from './skillslint/SkillslintExecutor';
 import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
 import { StylelintExecutor } from './stylelint/StylelintExecutor';
 import { IExecutorOptions, IModulesConfig } from './types';
 
-import { executeCommand } from '@/helpers/command';
 import { formatCode } from '@/helpers/formatCode';
 import { installPackages } from '@/helpers/packages';
-import { EExitCode, QoqConfig } from '@/helpers/types';
+import { QoqConfig } from '@/helpers/types';
 
 const moduleName = 'qoq';
 
@@ -39,6 +40,7 @@ const getHandlerBySequence = (
   const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
   const knipConfigHandler = new KnipConfigHandler(modulesConfig, config);
   const stylelintConfigHandler = new StylelintConfigHandler(modulesConfig, config);
+  const skillslintConfigHandler = new SkillslintConfigHandler(modulesConfig, config);
 
   basicConfigHandler
     .setNext(npmConfigHandler)
@@ -46,7 +48,8 @@ const getHandlerBySequence = (
     .setNext(prettierConfigHandler)
     .setNext(eslintConfigHandler)
     .setNext(jscpdConfigHandler)
-    .setNext(stylelintConfigHandler);
+    .setNext(stylelintConfigHandler)
+    .setNext(skillslintConfigHandler);
 
   return basicConfigHandler;
 };
@@ -154,6 +157,7 @@ export const execute = async (
   const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
   const eslintExecutor = new EslintExecutor(modulesConfig, hideMessages);
   const stylelintExecutor = new StylelintExecutor(modulesConfig, hideMessages);
+  const skillslintExecutor = new SkillslintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
     [npmExecutor.getName()]: EExitCode.OK,
@@ -162,6 +166,7 @@ export const execute = async (
     [jscpdExecutor.getName()]: EExitCode.OK,
     [eslintExecutor.getName()]: EExitCode.OK,
     [stylelintExecutor.getName()]: EExitCode.OK,
+    [skillslintExecutor.getName()]: EExitCode.OK,
   };
 
   if (!skipNpm) {
@@ -186,6 +191,10 @@ export const execute = async (
 
   if (modulesConfig.modules.stylelint) {
     responses[stylelintExecutor.getName()] = await stylelintExecutor.run(options, files);
+  }
+
+  if (modulesConfig.modules.skillslint) {
+    responses[skillslintExecutor.getName()] = await skillslintExecutor.run(options, files);
   }
 
   Object.keys(responses)

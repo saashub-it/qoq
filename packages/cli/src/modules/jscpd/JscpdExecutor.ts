@@ -1,6 +1,6 @@
 import { readdirSync } from 'fs';
 
-import { getRelativePath, resolveCwdPath } from '@saashub/qoq-utils';
+import { EExitCode, getRelativePath, resolveCwdPath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
 import { AbstractExecutor } from '../abstract/AbstractExecutor';
@@ -8,8 +8,6 @@ import { IExecutorOptions } from '../types';
 
 import { JscpdConfigHandler } from './JscpdConfigHandler';
 import { IModuleJscpdConfig } from './types';
-
-import { EExitCode } from '@/helpers/types';
 
 export class JscpdExecutor extends AbstractExecutor {
   getName(): string {

@@ -3,6 +3,7 @@ import { IModuleJscpdConfig } from './jscpd/types';
 import { IModuleKnipConfig } from './knip/types';
 import { IModuleNpmConfig } from './npm/types';
 import { IModulePrettierConfig } from './prettier/types';
+import { IModuleSkillslintConfig } from './skillslint/types';
 import { TModuleStylelintConfig } from './stylelint/types';
 
 import { EConfigType } from '@/helpers/types';
@@ -23,6 +24,7 @@ export interface IModulesConfig {
     jscpd?: IModuleJscpdConfig;
     knip?: IModuleKnipConfig;
     stylelint?: TModuleStylelintConfig;
+    skillslint?: IModuleSkillslintConfig;
   };
 }
 

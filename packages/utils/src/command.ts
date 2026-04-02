@@ -1,7 +1,11 @@
 /* eslint-disable no-redeclare */
 import { spawn } from 'child_process';
 
-import { EExitCode } from './types';
+export enum EExitCode {
+  OK = 0,
+  ERROR = 1,
+  EXCEPTION = 2,
+}
 
 export async function executeCommand(command: string, args?: string[]): Promise<EExitCode>;
 export async function executeCommand(

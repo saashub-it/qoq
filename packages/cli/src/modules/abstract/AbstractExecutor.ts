@@ -1,12 +1,11 @@
 import { existsSync, rmSync } from 'fs';
 
+import { EExitCode, executeCommand } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
 import { IExecutorOptions, IModulesConfig } from '../types';
 
-import { executeCommand } from '@/helpers/command';
 import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { EExitCode } from '@/helpers/types';
 
 interface IExecutor {
   getName: () => string;

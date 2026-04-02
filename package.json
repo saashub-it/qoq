@@ -34,6 +34,7 @@
     "@saashub/qoq-jscpd": "latest",
     "@saashub/qoq-knip": "latest",
     "@saashub/qoq-prettier-with-json-sort": "latest",
+    "@saashub/skillslint": "latest",
     "@types/node": "^22",
     "@vitest/coverage-v8": "4.1.2",
     "lerna": "9.0.7",
