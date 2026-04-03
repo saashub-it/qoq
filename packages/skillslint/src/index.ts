@@ -12,21 +12,20 @@ import { IExecuteOptions, IThreshold } from './types';
 
 const BAR_WIDTH = 25;
 const DEFAULT_PATH = 'skills';
-const DEFAULT_IGNORED = ['skills-creator'];
 const DEFAULT_THRESHOLD = 70;
 
 const cli = cac('skillslint');
 
 cli
   .command('', 'Linter for agents skills')
-  .option('--fix', 'Try to fix')
-  .option('--path <path>', 'Lint path', { default: DEFAULT_IGNORED })
-  .option('--ignored [ignored]', 'Ignored skills', { default: DEFAULT_PATH })
+  .option('-p,--path <path>', 'Lint path', { default: DEFAULT_PATH })
   .option(
-    '--threshold <threshold>',
-    'Same as --overall, will take effect only of other threshold options are not configured',
+    '-t, --threshold <threshold>',
+    'Same as --overall 70, will take effect only if no other threshold options are configured',
     { default: DEFAULT_THRESHOLD }
   )
+  .option('-f,--fix', 'Try to fix findings')
+  .option('-i,--ignored [ignored]', 'Ignored skills')
   .option('--overall <threshold>', 'Overall required threshold')
   .option('--structure <threshold>', 'Structure required threshold')
   .option('--clarity <threshold>', 'Clarity required threshold')
@@ -84,7 +83,7 @@ cli
     }
 
     const skills = readdirSync(resolveCwdRelativePath(path), { withFileTypes: true })
-      .filter((e) => e.isDirectory() && !(ignored ?? DEFAULT_IGNORED).includes(e.name))
+      .filter((e) => e.isDirectory() && !(ignored ?? []).includes(e.name))
       .map(({ name }) => name);
     const checks = await Promise.all(
       skills.map((name) => assessQuality(`${resolveCwdRelativePath(path)}/${name}`))

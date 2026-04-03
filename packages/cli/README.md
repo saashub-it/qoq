@@ -74,7 +74,7 @@ We're not adding it to the package on purpose. Often 3rd party libraries with `p
 
 Needs to export an CommonJS or ESM [configuration object](./docs/CONFIG.md).
 
-## Avaliable options
+## Available options
 
 CLI has its own documentation just run `qoq -help` or `qoq -h`.
 

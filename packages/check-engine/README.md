@@ -5,7 +5,7 @@
 
 ## Rationale
 
-## Avaliable options
+## Available options
 
 CLI has its own documentation just run `check-engine -help` or `check-engine -h`.
 
