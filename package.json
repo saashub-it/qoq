@@ -21,6 +21,7 @@
     "publish:lerna": "lerna publish --no-private --force-publish && npm run config-inspector:clean",
     "qoq:check": "qoq --check",
     "qoq:fix": "qoq --fix",
+    "dupa": "tsc --init",
     "sort:packages:json": "npx -y sort-package-json 'package.json' 'packages/*/package.json'",
     "test": "npm run pre:test && vitest run",
     "test:coverage": "npm run pre:test && npm run test -- --coverage",
