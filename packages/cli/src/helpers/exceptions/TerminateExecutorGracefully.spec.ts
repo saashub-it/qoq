@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { TerminateExecutorGracefully } from './TerminateExecutorGracefully';
+import { TerminateExecutorGracefully } from './TerminateExecutorGracefully.ts';
 
 describe('TerminateExecutorGracefully', () => {
   it('should be an instance of Error', () => {

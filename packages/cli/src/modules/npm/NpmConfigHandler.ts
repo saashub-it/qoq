@@ -2,10 +2,9 @@
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
-
-import { QoqConfig } from '@/helpers/types';
+import { QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
 export class NpmConfigHandler extends AbstractConfigHandler {
   async getPrompts(): Promise<void> {

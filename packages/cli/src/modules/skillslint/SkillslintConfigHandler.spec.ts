@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { SkillslintConfigHandler } from './SkillslintConfigHandler';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { SkillslintConfigHandler } from './SkillslintConfigHandler.ts';
 
 describe('SkillslintConfigHandler', () => {
   const configHandler = new SkillslintConfigHandler(dummyModulesConfig, {});

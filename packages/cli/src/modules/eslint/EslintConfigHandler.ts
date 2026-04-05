@@ -5,14 +5,13 @@ import { getPackageInfo } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
+import { omitStartingDotFromPath } from '../../helpers/common.ts';
+import { formatCode } from '../../helpers/formatCode.ts';
+import { EConfigType, QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
-import { EModulesEslint, IModuleEslintConfig } from './types';
-
-import { omitStartingDotFromPath } from '@/helpers/common';
-import { formatCode } from '@/helpers/formatCode';
-import { EConfigType, QoqConfig } from '@/helpers/types';
+import { EModulesEslint, IModuleEslintConfig } from './types.ts';
 
 export class EslintConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = '/eslint.config.js';

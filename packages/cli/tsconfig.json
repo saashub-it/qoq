@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "./bin",
     "paths": {
-      "@/*": ["./src/*"]
+      "__tests__/*": ["./src/__tests__/*"]
     }
   },
   "extends": "../../tsconfig.json",

@@ -4,12 +4,11 @@ import { EExitCode } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import { parse, lt, gt } from 'semver';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { resolveCliPackagePath } from '../../helpers/paths.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
-import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types';
-
-import { resolveCliPackagePath } from '@/helpers/paths';
+import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types.ts';
 
 export class NpmExecutor extends AbstractExecutor {
   static readonly LOCK_PATH = resolveCliPackagePath('/bin/.npm-outdated-lock');

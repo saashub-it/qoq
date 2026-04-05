@@ -5,8 +5,8 @@ import { existsSync, readdirSync } from 'node:fs';
 import { getPackageJson, getRelativePath, resolveCwdPath } from '@saashub/qoq-utils';
 import cac from 'cac';
 
-import { checkEngine } from './helpers/checkEngine';
-import { fetchNodeInfo } from './helpers/fetchNodeInfo';
+import { checkEngine } from './helpers/checkEngine.ts';
+import { fetchNodeInfo } from './helpers/fetchNodeInfo.ts';
 
 const cli = cac('check-engine');
 

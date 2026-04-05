@@ -1,9 +1,8 @@
 import { describe, it, expect } from 'vitest';
 
-import { EModulesEslint } from './eslint/types';
-import { configUsesTs, configUsesReact, getFilesExtensions } from './helpers';
-
-import type { IModulesConfig } from './types';
+import { EModulesEslint } from './eslint/types.ts';
+import { configUsesTs, configUsesReact, getFilesExtensions } from './helpers.ts';
+import { IModulesConfig } from './types.ts';
 
 describe('helpers', () => {
   describe('configUsesTs', () => {

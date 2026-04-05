@@ -1,7 +1,6 @@
-// eslint-disable-next-line no-restricted-imports
-import type { EslintConfig } from '../../../../eslint-v9-js/src';
+import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
 
-import { TPartialBy } from '@/helpers/types';
+import { TPartialBy } from '../../helpers/types.ts';
 
 export enum EModulesEslint {
   ESLINT_V9_JS = '@saashub/qoq-eslint-v9-js',

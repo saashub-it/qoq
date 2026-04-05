@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-restricted-imports
-import type { StylelintConfig } from '../../../../stylelint-css/src';
+import { StylelintConfig } from '../../../../stylelint-css/src';
 
 export enum EModulesStylelint {
   STYLELINT_CSS = '@saashub/qoq-stylelint-css',

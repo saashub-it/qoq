@@ -3,9 +3,8 @@ import { existsSync, rmSync } from 'fs';
 import { EExitCode, executeCommand } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
-import { IExecutorOptions, IModulesConfig } from '../types';
-
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { TerminateExecutorGracefully } from '../../helpers/exceptions/TerminateExecutorGracefully.ts';
+import { IExecutorOptions, IModulesConfig } from '../types.ts';
 
 interface IExecutor {
   getName: () => string;

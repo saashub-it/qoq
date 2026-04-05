@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { KnipConfigHandler } from './KnipConfigHandler';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { KnipConfigHandler } from './KnipConfigHandler.ts';
 
 describe('KnipConfigHandler', () => {
   const configHandler = new KnipConfigHandler(dummyModulesConfig, {});

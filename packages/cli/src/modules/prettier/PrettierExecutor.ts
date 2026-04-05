@@ -6,13 +6,12 @@ import { EExitCode, resolveCwdPath, resolveCwdRelativePath } from '@saashub/qoq-
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
-
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { resolveCliRelativePath } from '@/helpers/paths';
+import { capitalizeFirstLetter } from '../../helpers/common.ts';
+import { GITIGNORE_FILE_PATH } from '../../helpers/constants.ts';
+import { TerminateExecutorGracefully } from '../../helpers/exceptions/TerminateExecutorGracefully.ts';
+import { resolveCliRelativePath } from '../../helpers/paths.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
 export class PrettierExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.prettiercache');

@@ -5,27 +5,27 @@ import { cosmiconfig } from 'cosmiconfig';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from './abstract/AbstractConfigHandler';
-import { BasicConfigHandler } from './basic/BasicConfigHandler';
-import { EslintConfigHandler } from './eslint/EslintConfigHandler';
-import { EslintExecutor } from './eslint/EslintExecutor';
-import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
-import { JscpdExecutor } from './jscpd/JscpdExecutor';
-import { KnipConfigHandler } from './knip/KnipConfigHandler';
-import { KnipExecutor } from './knip/KnipExecutor';
-import { NpmConfigHandler } from './npm/NpmConfigHandler';
-import { NpmExecutor } from './npm/NpmExecutor';
-import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
-import { PrettierExecutor } from './prettier/PrettierExecutor';
-import { SkillslintConfigHandler } from './skillslint/SkillslintConfigHandler';
-import { SkillslintExecutor } from './skillslint/SkillslintExecutor';
-import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
-import { StylelintExecutor } from './stylelint/StylelintExecutor';
-import { IExecutorOptions, IModulesConfig } from './types';
+import { formatCode } from '../helpers/formatCode.ts';
+import { installPackages } from '../helpers/packages.ts';
+import { QoqConfig } from '../helpers/types.ts';
 
-import { formatCode } from '@/helpers/formatCode';
-import { installPackages } from '@/helpers/packages';
-import { QoqConfig } from '@/helpers/types';
+import { AbstractConfigHandler } from './abstract/AbstractConfigHandler.ts';
+import { BasicConfigHandler } from './basic/BasicConfigHandler.ts';
+import { EslintConfigHandler } from './eslint/EslintConfigHandler.ts';
+import { EslintExecutor } from './eslint/EslintExecutor.ts';
+import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler.ts';
+import { JscpdExecutor } from './jscpd/JscpdExecutor.ts';
+import { KnipConfigHandler } from './knip/KnipConfigHandler.ts';
+import { KnipExecutor } from './knip/KnipExecutor.ts';
+import { NpmConfigHandler } from './npm/NpmConfigHandler.ts';
+import { NpmExecutor } from './npm/NpmExecutor.ts';
+import { PrettierConfigHandler } from './prettier/PrettierConfigHandler.ts';
+import { PrettierExecutor } from './prettier/PrettierExecutor.ts';
+import { SkillslintConfigHandler } from './skillslint/SkillslintConfigHandler.ts';
+import { SkillslintExecutor } from './skillslint/SkillslintExecutor.ts';
+import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler.ts';
+import { StylelintExecutor } from './stylelint/StylelintExecutor.ts';
+import { IExecutorOptions, IModulesConfig } from './types.ts';
 
 const moduleName = 'qoq';
 

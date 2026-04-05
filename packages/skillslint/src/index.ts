@@ -7,8 +7,9 @@ import { assessQuality, formatScoreBar, getScoreColor } from 'agent-skills-cli';
 import cac from 'cac';
 import c from 'picocolors';
 
-import { resolveCliRelativePath } from './helpers/paths';
-import { IExecuteOptions, IThreshold } from './types';
+import { resolveCliRelativePath } from './helpers/paths.ts';
+
+import type { IExecuteOptions, IThreshold } from './types.ts';
 
 const BAR_WIDTH = 25;
 const DEFAULT_PATH = 'skills';

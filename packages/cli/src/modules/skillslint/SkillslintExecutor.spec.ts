@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { SkillslintExecutor } from './SkillslintExecutor';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { SkillslintExecutor } from './SkillslintExecutor.ts';
 
 describe('SkillslintExecutor', () => {
   const executor = new SkillslintExecutor(dummyModulesConfig);

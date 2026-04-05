@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { NpmConfigHandler } from './NpmConfigHandler';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { NpmConfigHandler } from './NpmConfigHandler.ts';
 
 describe('NpmConfigHandler', () => {
   const configHandler = new NpmConfigHandler(dummyModulesConfig, {});

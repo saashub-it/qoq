@@ -2,8 +2,8 @@
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
 export class SkillslintConfigHandler extends AbstractConfigHandler {
   static readonly DEFAULT_SKILLS_PATH = '/skills';

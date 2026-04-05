@@ -1,11 +1,10 @@
 import { EExitCode } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
-
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
+import { capitalizeFirstLetter } from '../../helpers/common.ts';
+import { TerminateExecutorGracefully } from '../../helpers/exceptions/TerminateExecutorGracefully.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
 export class SkillslintExecutor extends AbstractExecutor {
   getName(): string {

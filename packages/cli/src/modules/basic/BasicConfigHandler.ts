@@ -4,14 +4,13 @@ import { readFileSync, existsSync } from 'fs';
 import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { EslintConfigHandler } from '../eslint/EslintConfigHandler';
-import { PrettierConfigHandler } from '../prettier/PrettierConfigHandler';
-import { StylelintConfigHandler } from '../stylelint/StylelintConfigHandler';
-import { IModulesConfig } from '../types';
-
-import { DEFAULT_SRC } from '@/helpers/constants';
-import { EConfigType, QoqConfig } from '@/helpers/types';
+import { DEFAULT_SRC } from '../../helpers/constants.ts';
+import { EConfigType, QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { EslintConfigHandler } from '../eslint/EslintConfigHandler.ts';
+import { PrettierConfigHandler } from '../prettier/PrettierConfigHandler.ts';
+import { StylelintConfigHandler } from '../stylelint/StylelintConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
 export class BasicConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_DIR = resolveCwdRelativePath('/');

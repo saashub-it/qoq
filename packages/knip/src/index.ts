@@ -1,5 +1,6 @@
 import { getKnipConfig } from './knipConfig';
 
+export { getKnipConfig };
 export const jsConfig = getKnipConfig();
 export const jsReactConfig = getKnipConfig('.src', ['.src/index.jsx'], ['.src/**/*.{js,jsx}']);
 export const tsConfig = getKnipConfig(

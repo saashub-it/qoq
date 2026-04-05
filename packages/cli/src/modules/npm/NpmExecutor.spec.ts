@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { NpmExecutor } from './NpmExecutor';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { NpmExecutor } from './NpmExecutor.ts';
 
 describe('NpmExecutor', () => {
   const executor = new NpmExecutor(dummyModulesConfig);

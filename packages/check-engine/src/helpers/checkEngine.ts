@@ -3,7 +3,7 @@ import { getPackageInfo } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import { valid, SemVer, validRange, Range } from 'semver';
 
-import { readJsonSync } from './readJson';
+import { readJsonSync } from './readJson.ts';
 
 import type { PackageJson } from 'type-fest';
 

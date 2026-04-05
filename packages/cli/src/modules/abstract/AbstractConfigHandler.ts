@@ -1,6 +1,5 @@
-import { IModulesConfig } from '../types';
-
-import { QoqConfig } from '@/helpers/types';
+import { QoqConfig } from '../../helpers/types.ts';
+import { IModulesConfig } from '../types.ts';
 
 interface IConfigHandler {
   getPrompts: () => Promise<void>;

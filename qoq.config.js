@@ -1,3 +1,14 @@
+import { getNoRestrictedImportsPaths } from '@saashub/qoq-eslint-v9-js';
+
+const rules = {
+  'no-restricted-imports': [
+    1,
+    {
+      paths: getNoRestrictedImportsPaths(),
+    },
+  ],
+};
+
 export default {
   prettier: {
     sources: ['.'],
@@ -39,21 +50,25 @@ export default {
       template: '@saashub/qoq-eslint-v9-ts',
       files: ['packages/**/src/**/*.ts'],
       ignores: ['**/*.spec.ts'],
+      rules,
     },
     {
       template: '@saashub/qoq-eslint-v9-js',
       files: ['packages/**/src/**/*.js'],
       ignores: ['**/*.spec.js'],
+      rules,
     },
     {
       template: '@saashub/qoq-eslint-v9-ts-vitest',
       files: ['packages/**/src/**/*.spec.ts'],
       ignores: [],
+      rules,
     },
     {
       template: '@saashub/qoq-eslint-v9-js-vitest',
       files: ['packages/**/src/**/*.spec.js'],
       ignores: [],
+      rules,
     },
   ],
   skillslint: {

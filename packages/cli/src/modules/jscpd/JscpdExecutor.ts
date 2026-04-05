@@ -3,11 +3,11 @@ import { readdirSync } from 'fs';
 import { EExitCode, getRelativePath, resolveCwdPath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
-import { JscpdConfigHandler } from './JscpdConfigHandler';
-import { IModuleJscpdConfig } from './types';
+import { JscpdConfigHandler } from './JscpdConfigHandler.ts';
+import { IModuleJscpdConfig } from './types.ts';
 
 export class JscpdExecutor extends AbstractExecutor {
   getName(): string {
