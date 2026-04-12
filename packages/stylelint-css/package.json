@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "browserslist": "latest",
-    "stylelint": "^17.5.0",
+    "stylelint": "^17.7.0",
     "stylelint-config-clean-order": "8.0.1",
     "stylelint-config-standard": "40.0.0",
     "stylelint-file-max-lines": "1.0.0",
@@ -51,7 +51,7 @@
     "typescript": "6.0.2"
   },
   "peerDependencies": {
-    "stylelint": "^17.5.0"
+    "stylelint": "^17.7.0"
   },
   "engines": {
     "node": ">=22.13.0"

@@ -12,7 +12,7 @@ import { resolveCliRelativePath } from './helpers/paths.ts';
 import type { IExecuteOptions, IThreshold } from './types.ts';
 
 const BAR_WIDTH = 25;
-const DEFAULT_PATH = 'skills';
+const DEFAULT_PATH = './skills';
 const DEFAULT_THRESHOLD = 70;
 
 const cli = cac('skillslint');
@@ -45,7 +45,7 @@ cli
       ignored,
     } = options;
 
-    const path = optionsPath ?? DEFAULT_PATH;
+    const path = `/${optionsPath ?? DEFAULT_PATH}`;
     const threshold: IThreshold = {};
 
     if (overall) {

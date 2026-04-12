@@ -44,7 +44,7 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^3.1.1",
     "@saashub/qoq-utils": "^3.1.1",
-    "@vitest/eslint-plugin": "1.6.14"
+    "@vitest/eslint-plugin": "1.6.15"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",

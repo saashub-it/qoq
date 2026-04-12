@@ -1,3 +1,4 @@
+import { CommonSpawnOptions } from 'child_process';
 import { existsSync, rmSync } from 'fs';
 
 import { EExitCode, executeCommand } from '@saashub/qoq-utils';
@@ -21,11 +22,21 @@ export abstract class AbstractExecutor implements IExecutor {
     this.hideTimer = hideTimer;
   }
 
-  async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode>;
-  async run(options: IExecutorOptions, files?: string[], captureOutput?: boolean): Promise<string>;
   async run(
     options: IExecutorOptions,
     files?: string[],
+    stdio?: CommonSpawnOptions['stdio']
+  ): Promise<EExitCode>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio?: CommonSpawnOptions['stdio'],
+    captureOutput?: boolean
+  ): Promise<string>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio: CommonSpawnOptions['stdio'] = 'inherit',
     captureOutput: boolean = false
   ): Promise<string | EExitCode> {
     const consoleTimeName = `${this.getName()} execution time:`;
@@ -44,7 +55,7 @@ export abstract class AbstractExecutor implements IExecutor {
         return EExitCode.OK;
       }
 
-      return await executeCommand(this.getCommandName(), args, captureOutput);
+      return await executeCommand(this.getCommandName(), args, stdio, captureOutput);
     } catch (e) {
       if (!(e instanceof TerminateExecutorGracefully)) {
         process.stderr.write('Unknown error!\n');

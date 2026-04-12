@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import jsRules from '@eslint/js';
 import { getPackageInfo } from '@saashub/qoq-utils';
+import fileProgressPlugin from 'eslint-plugin-file-progress';
 import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import sonarJsPlugin from 'eslint-plugin-sonarjs';
@@ -77,8 +78,10 @@ export const baseConfig: EslintConfig = {
     'import-x': importPlugin,
     prettier: prettierPlugin,
     sonarjs: sonarJsPlugin,
+    progress: fileProgressPlugin,
   },
   rules: {
+    'progress/activate': 1,
     ...jsRules.configs.recommended.rules,
     ...importPlugin.configs.recommended.rules,
     'import-x/no-cycle': 1,

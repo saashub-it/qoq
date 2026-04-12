@@ -52,10 +52,11 @@
     "@eslint/js": "^10.0.1",
     "@saashub/qoq-utils": "^3.1.1",
     "eslint": "^10.2.0",
+    "eslint-plugin-file-progress": "4.0.0",
     "eslint-plugin-import-x": "4.16.2",
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-sonarjs": "4.0.2",
-    "globals": "17.4.0"
+    "globals": "17.5.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "29.0.2",

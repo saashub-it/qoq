@@ -6,7 +6,7 @@ import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
 import { IModulesConfig } from '../types.ts';
 
 export class SkillslintConfigHandler extends AbstractConfigHandler {
-  static readonly DEFAULT_SKILLS_PATH = '/skills';
+  static readonly DEFAULT_SKILLS_PATH = './skills';
 
   async getPrompts(): Promise<void> {
     const {

@@ -170,7 +170,7 @@ export const execute = async (
   };
 
   if (!skipNpm) {
-    responses[npmExecutor.getName()] = await npmExecutor.run(options, files);
+    responses[npmExecutor.getName()] = await npmExecutor.run(options, files, 'pipe');
   }
 
   if (!skipKnip) {

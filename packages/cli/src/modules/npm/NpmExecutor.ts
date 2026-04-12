@@ -1,3 +1,4 @@
+import { CommonSpawnOptions } from 'child_process';
 import { existsSync, rmSync, statSync, writeFileSync } from 'fs';
 
 import { EExitCode } from '@saashub/qoq-utils';
@@ -17,9 +18,23 @@ export class NpmExecutor extends AbstractExecutor {
     return this.getCommandName().toUpperCase();
   }
 
-  async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode>;
-  async run(options: IExecutorOptions, files?: string[], captureOutput?: boolean): Promise<string>;
-  async run(options: IExecutorOptions, files?: string[]): Promise<string | EExitCode> {
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio?: CommonSpawnOptions['stdio']
+  ): Promise<EExitCode>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio?: CommonSpawnOptions['stdio'],
+    captureOutput?: boolean
+  ): Promise<string>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio: CommonSpawnOptions['stdio'] = 'pipe',
+    captureOutput: boolean = true
+  ): Promise<string | EExitCode> {
     if (options.warmup) {
       return EExitCode.OK;
     }
@@ -42,7 +57,7 @@ export class NpmExecutor extends AbstractExecutor {
 
     process.stdout.write(c.green(`\nChecking npm packages:\n`));
 
-    const result = await super.run(options, files, true);
+    const result = await super.run(options, files, stdio, captureOutput);
     const jsonResult = JSON.parse(result) as TNpmOutdatedOutput;
 
     const npmDictionary = Object.keys(jsonResult).reduce(

@@ -72,6 +72,6 @@ export default {
     },
   ],
   skillslint: {
-    path: '/skills',
+    path: './skills',
   },
 };
