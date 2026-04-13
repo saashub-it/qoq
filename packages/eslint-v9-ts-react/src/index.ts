@@ -1,3 +1,4 @@
+import reactPlugin from '@eslint-react/eslint-plugin';
 import { EslintConfig } from '@saashub/qoq-eslint-v9-js';
 import { baseConfig as jsReactBaseConfig, disabledRules } from '@saashub/qoq-eslint-v9-js-react';
 import { baseConfig as tsBaseConfig } from '@saashub/qoq-eslint-v9-ts';
@@ -23,7 +24,7 @@ export const baseConfig: EslintConfig = {
     tsBaseConfigRest,
     {
       name: '@saashub/qoq-eslint-v9-ts-react',
-      rules: { ...disabledRules },
+      rules: { ...disabledRules, ...(reactPlugin.configs['recommended-typescript'].rules ?? {}) },
     }
   ),
   plugins: { ...jsReactBaseConfigPlugins, ...tsBaseConfigPlugins },
