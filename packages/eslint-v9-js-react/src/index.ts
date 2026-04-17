@@ -43,6 +43,19 @@ const importOrderRule: EslintConfig['rules'][0] = [
 
 export const disabledRules: EslintConfig['rules'] = {
   'sonarjs/function-return-type': 0,
+  '@stylistic/indent': 0,
+  '@stylistic/operator-linebreak': 0,
+  '@stylistic/comma-dangle': 0,
+  '@stylistic/arrow-parens': 0,
+  '@stylistic/semi': 0,
+  '@stylistic/brace-style': 0,
+  '@stylistic/member-delimiter-style': 0,
+  '@stylistic/quotes': 0,
+  '@stylistic/multiline-ternary': 0,
+  '@stylistic/jsx-one-expression-per-line': 0,
+  '@stylistic/indent-binary-ops': 0,
+  '@stylistic/jsx-curly-newline': 0,
+  '@stylistic/quote-props': 0,
 };
 
 const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
