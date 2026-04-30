@@ -9,7 +9,7 @@ import { resolveCliPackagePath } from '../../helpers/paths.ts';
 import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
 import { IExecutorOptions } from '../types.ts';
 
-import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types.ts';
+import { ENpmWarningType, TNpmOutdatedOutput } from './types.ts';
 
 export class NpmExecutor extends AbstractExecutor {
   static readonly LOCK_PATH = resolveCliPackagePath('/bin/.npm-outdated-lock');
@@ -77,7 +77,7 @@ export class NpmExecutor extends AbstractExecutor {
 
               return newInfo;
             },
-            { current: '', latest: '0.0.0' } as INpmOutdatedOutputEntry
+            { current: '', latest: '0.0.0' }
           );
         }
 

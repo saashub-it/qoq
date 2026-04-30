@@ -130,7 +130,7 @@ export const getConfig = async (
     if (!config) {
       process.stderr.write('Running with defaults\n');
 
-      return getModulesFromConfig({} as QoqConfig, workspaces);
+      return getModulesFromConfig({}, workspaces);
     }
 
     return initConfig(workspaces, true);

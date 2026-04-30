@@ -1,8 +1,4 @@
-import {
-  EslintConfig,
-  EslintConfigPlugin,
-  baseConfig as jsBaseConfig,
-} from '@saashub/qoq-eslint-v9-js';
+import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
 import { objectMergeRight } from '@saashub/qoq-utils';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import importPlugin, { createNodeResolver } from 'eslint-plugin-import-x';
@@ -28,7 +24,7 @@ export const baseConfig: EslintConfig = {
     {
       name: '@saashub/qoq-eslint-v9-ts',
       languageOptions: {
-        parser: tseslint.parser as Required<EslintConfig>['languageOptions']['parser'],
+        parser: tseslint.parser,
         parserOptions: {
           projectService: true,
         },
@@ -122,7 +118,7 @@ export const baseConfig: EslintConfig = {
   ),
   plugins: {
     ...jsBaseConfigPlugins,
-    '@typescript-eslint': tseslint.plugin as unknown as EslintConfigPlugin,
+    '@typescript-eslint': tseslint.plugin,
   },
 };
 
