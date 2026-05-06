@@ -3,7 +3,6 @@ import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9
 import { objectMergeRight } from '@saashub/qoq-utils';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 import compatPlugin from 'eslint-plugin-compat';
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 
 const noRestrictedImportsRule: EslintConfig['rules'][0] = [
   jsBaseConfig.rules['no-restricted-imports'][0],
@@ -74,7 +73,6 @@ export const baseConfig: EslintConfig = {
       ...compatPlugin.configs['flat/recommended'].rules,
       ...reactPlugin.configs.recommended.rules,
       ...stylisticPlugin.configs.recommended.rules,
-      ...jsxA11yPlugin.configs.recommended.rules,
       'import-x/order': importOrderRule,
       'no-restricted-imports': noRestrictedImportsRule,
       ...disabledRules,
@@ -90,6 +88,5 @@ export const baseConfig: EslintConfig = {
     compat: compatPlugin,
     '@stylistic': stylisticPlugin,
     '@eslint-react': reactPlugin,
-    'jsx-a11y': jsxA11yPlugin,
   },
 };
