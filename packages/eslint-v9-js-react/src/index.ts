@@ -1,10 +1,8 @@
+import reactPlugin from '@eslint-react/eslint-plugin';
 import { EslintConfig, baseConfig as jsBaseConfig } from '@saashub/qoq-eslint-v9-js';
 import { objectMergeRight } from '@saashub/qoq-utils';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 import compatPlugin from 'eslint-plugin-compat';
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 
 const noRestrictedImportsRule: EslintConfig['rules'][0] = [
   jsBaseConfig.rules['no-restricted-imports'][0],
@@ -44,6 +42,19 @@ const importOrderRule: EslintConfig['rules'][0] = [
 
 export const disabledRules: EslintConfig['rules'] = {
   'sonarjs/function-return-type': 0,
+  '@stylistic/indent': 0,
+  '@stylistic/operator-linebreak': 0,
+  '@stylistic/comma-dangle': 0,
+  '@stylistic/arrow-parens': 0,
+  '@stylistic/semi': 0,
+  '@stylistic/brace-style': 0,
+  '@stylistic/member-delimiter-style': 0,
+  '@stylistic/quotes': 0,
+  '@stylistic/multiline-ternary': 0,
+  '@stylistic/jsx-one-expression-per-line': 0,
+  '@stylistic/indent-binary-ops': 0,
+  '@stylistic/jsx-curly-newline': 0,
+  '@stylistic/quote-props': 0,
 };
 
 const { plugins: jsBaseConfigPlugins, ...jsBaseConfigRest } = jsBaseConfig;
@@ -61,17 +72,9 @@ export const baseConfig: EslintConfig = {
     rules: {
       ...compatPlugin.configs['flat/recommended'].rules,
       ...reactPlugin.configs.recommended.rules,
-      ...reactPlugin.configs['jsx-runtime'].rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      ...reactRefresh.configs.recommended.rules,
-      ...jsxA11yPlugin.configs.recommended.rules,
+      ...stylisticPlugin.configs.recommended.rules,
       'import-x/order': importOrderRule,
       'no-restricted-imports': noRestrictedImportsRule,
-      'react/no-unused-prop-types': 1,
-      'react/forward-ref-uses-ref': 1,
-      'react/jsx-boolean-value': 1,
-      'react/jsx-fragments': 1,
-      'react/jsx-no-useless-fragment': 1,
       ...disabledRules,
     },
     settings: {
@@ -83,9 +86,7 @@ export const baseConfig: EslintConfig = {
   plugins: {
     ...jsBaseConfigPlugins,
     compat: compatPlugin,
-    react: reactPlugin,
-    'react-hooks': reactHooksPlugin,
-    'react-refresh': reactRefresh,
-    'jsx-a11y': jsxA11yPlugin,
+    '@stylistic': stylisticPlugin,
+    '@eslint-react': reactPlugin,
   },
 };

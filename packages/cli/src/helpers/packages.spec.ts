@@ -2,7 +2,7 @@ import { installPackage } from '@antfu/install-pkg';
 import c from 'picocolors';
 import { describe, it, expect, vi } from 'vitest';
 
-import { installPackages } from './packages';
+import { installPackages } from './packages.ts';
 
 vi.mock('@antfu/install-pkg', () => ({
   installPackage: vi.fn(),

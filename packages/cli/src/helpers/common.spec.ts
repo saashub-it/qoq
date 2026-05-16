@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { capitalizeFirstLetter, omitStartingDotFromPath } from './common';
+import { capitalizeFirstLetter, omitStartingDotFromPath } from './common.ts';
 
 describe('capitalizeFirstLetter', () => {
   it.each([

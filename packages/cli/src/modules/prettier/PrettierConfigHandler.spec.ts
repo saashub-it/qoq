@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { PrettierConfigHandler } from './PrettierConfigHandler';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { PrettierConfigHandler } from './PrettierConfigHandler.ts';
 
 describe('PrettierConfigHandler', () => {
   const configHandler = new PrettierConfigHandler(dummyModulesConfig, {});

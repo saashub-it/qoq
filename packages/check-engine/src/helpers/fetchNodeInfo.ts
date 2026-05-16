@@ -1,6 +1,6 @@
 import { major } from 'semver';
 
-import { readJsonSync } from './readJson';
+import { readJsonSync } from './readJson.ts';
 
 interface IDataRow {
   version: string;
@@ -34,11 +34,7 @@ export const fetchNodeInfo = async (
   }
 
   const ltsDictionary = data.reduce((acc: Record<number, string>, current: IDataRow) => {
-    const majorVersion = major(current.version);
-
-    if (!acc[majorVersion]) {
-      acc[majorVersion] = current.version;
-    }
+    acc[major(current.version)] ??= current.version;
 
     return acc;
   }, {});

@@ -1,22 +1,21 @@
 import { existsSync, writeFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { EExitCode, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import { flattenDeep } from 'es-toolkit/compat';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { capitalizeFirstLetter } from '../../helpers/common.ts';
+import { GITIGNORE_FILE_PATH } from '../../helpers/constants.ts';
+import { TerminateExecutorGracefully } from '../../helpers/exceptions/TerminateExecutorGracefully.ts';
+import { formatCode } from '../../helpers/formatCode.ts';
+import { resolveCliPackagePath, resolveCliRelativePath } from '../../helpers/paths.ts';
+import { EConfigType } from '../../helpers/types.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
-import { EModulesEslint, IModuleEslintConfig } from './types';
-
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+import { EModulesEslint, IModuleEslintConfig } from './types.ts';
 
 export class EslintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.eslintcache');

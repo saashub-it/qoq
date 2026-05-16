@@ -1,4 +1,4 @@
-import { EConfigType } from '@/helpers/types';
+import { EConfigType } from '../helpers/types.ts';
 
 export const dummyModulesConfig = {
   srcPath: '',

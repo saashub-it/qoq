@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-stylelint-scss",
-  "version": "2.0.3",
+  "version": "3.2.4",
   "description": "Stylelint config template for SCSS",
   "keywords": [
     "stylelint SCSS template",
@@ -21,15 +21,13 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "module": "./lib/index.mjs",
       "import": "./lib/index.mjs",
-      "require": "./lib/index.cjs",
-      "default": "./lib/index.mjs"
+      "require": "./lib/index.cjs"
     }
   },
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
-  "types": "./lib/index.d.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib"
   ],
@@ -37,20 +35,20 @@
     "build": "rimraf ./lib && rollup -c --silent"
   },
   "dependencies": {
-    "@saashub/qoq-stylelint-css": "^2.0.3",
-    "stylelint-config-standard-scss": "16.0.0"
+    "@saashub/qoq-stylelint-css": "^3.2.4",
+    "stylelint-config-standard-scss": "17.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",
-    "rimraf": "6.1.2",
-    "rollup": "4.54.0",
-    "typescript": "5.9.3"
+    "rimraf": "6.1.3",
+    "rollup": "4.60.4",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
-    "stylelint": "^16.25.0"
+    "stylelint": "^17.10.0"
   },
   "engines": {
-    "node": ">=22.9.0"
+    "node": ">=22.13.0"
   },
   "publishConfig": {
     "access": "public"

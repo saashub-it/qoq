@@ -1,15 +1,15 @@
+import { CommonSpawnOptions } from 'child_process';
 import { existsSync, rmSync, statSync, writeFileSync } from 'fs';
 
+import { EExitCode } from '@saashub/qoq-utils';
 import c from 'picocolors';
 import { parse, lt, gt } from 'semver';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { resolveCliPackagePath } from '../../helpers/paths.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
-import { ENpmWarningType, INpmOutdatedOutputEntry, TNpmOutdatedOutput } from './types';
-
-import { resolveCliPackagePath } from '@/helpers/paths';
-import { EExitCode } from '@/helpers/types';
+import { ENpmWarningType, TNpmOutdatedOutput } from './types.ts';
 
 export class NpmExecutor extends AbstractExecutor {
   static readonly LOCK_PATH = resolveCliPackagePath('/bin/.npm-outdated-lock');
@@ -18,9 +18,23 @@ export class NpmExecutor extends AbstractExecutor {
     return this.getCommandName().toUpperCase();
   }
 
-  async run(options: IExecutorOptions, files?: string[]): Promise<EExitCode>;
-  async run(options: IExecutorOptions, files?: string[], captureOutput?: boolean): Promise<string>;
-  async run(options: IExecutorOptions, files?: string[]): Promise<string | EExitCode> {
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio?: CommonSpawnOptions['stdio']
+  ): Promise<EExitCode>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio?: CommonSpawnOptions['stdio'],
+    captureOutput?: boolean
+  ): Promise<string>;
+  async run(
+    options: IExecutorOptions,
+    files?: string[],
+    stdio: CommonSpawnOptions['stdio'] = 'pipe',
+    captureOutput: boolean = true
+  ): Promise<string | EExitCode> {
     if (options.warmup) {
       return EExitCode.OK;
     }
@@ -43,7 +57,7 @@ export class NpmExecutor extends AbstractExecutor {
 
     process.stdout.write(c.green(`\nChecking npm packages:\n`));
 
-    const result = await super.run(options, files, true);
+    const result = await super.run(options, files, stdio, captureOutput);
     const jsonResult = JSON.parse(result) as TNpmOutdatedOutput;
 
     const npmDictionary = Object.keys(jsonResult).reduce(
@@ -63,7 +77,7 @@ export class NpmExecutor extends AbstractExecutor {
 
               return newInfo;
             },
-            { current: '', latest: '0.0.0' } as INpmOutdatedOutputEntry
+            { current: '', latest: '0.0.0' }
           );
         }
 

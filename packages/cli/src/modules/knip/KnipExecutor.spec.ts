@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { KnipExecutor } from './KnipExecutor';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { KnipExecutor } from './KnipExecutor.ts';
 
 describe('KnipExecutor', () => {
   const executor = new KnipExecutor(dummyModulesConfig);

@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
+    "types": ["node"],
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
     "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["esnext"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noImplicitAny": false,
+    "module": "nodenext",
     "noImplicitReturns": true,
-    "pretty": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext"
-  },
-  "exclude": ["node_modules"]
+    "target": "es2023"
+  }
 }

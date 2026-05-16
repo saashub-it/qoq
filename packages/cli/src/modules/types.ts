@@ -1,11 +1,12 @@
-import { IModuleEslintConfig } from './eslint/types';
-import { IModuleJscpdConfig } from './jscpd/types';
-import { IModuleKnipConfig } from './knip/types';
-import { IModuleNpmConfig } from './npm/types';
-import { IModulePrettierConfig } from './prettier/types';
-import { TModuleStylelintConfig } from './stylelint/types';
+import { EConfigType } from '../helpers/types.ts';
 
-import { EConfigType } from '@/helpers/types';
+import { IModuleEslintConfig } from './eslint/types.ts';
+import { IModuleJscpdConfig } from './jscpd/types.ts';
+import { IModuleKnipConfig } from './knip/types.ts';
+import { IModuleNpmConfig } from './npm/types.ts';
+import { IModulePrettierConfig } from './prettier/types.ts';
+import { IModuleSkillslintConfig } from './skillslint/types.ts';
+import { TModuleStylelintConfig } from './stylelint/types.ts';
 
 export interface IModulesConfig {
   srcPath: string;
@@ -23,6 +24,7 @@ export interface IModulesConfig {
     jscpd?: IModuleJscpdConfig;
     knip?: IModuleKnipConfig;
     stylelint?: TModuleStylelintConfig;
+    skillslint?: IModuleSkillslintConfig;
   };
 }
 

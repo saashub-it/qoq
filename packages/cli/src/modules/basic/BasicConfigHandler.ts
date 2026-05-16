@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 
 import { resolveCwdRelativePath } from '@saashub/qoq-utils';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { EslintConfigHandler } from '../eslint/EslintConfigHandler';
-import { PrettierConfigHandler } from '../prettier/PrettierConfigHandler';
-import { StylelintConfigHandler } from '../stylelint/StylelintConfigHandler';
-import { IModulesConfig } from '../types';
-
-import { DEFAULT_SRC } from '@/helpers/constants';
-import { EConfigType, QoqConfig } from '@/helpers/types';
+import { DEFAULT_SRC } from '../../helpers/constants.ts';
+import { EConfigType, QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { EslintConfigHandler } from '../eslint/EslintConfigHandler.ts';
+import { PrettierConfigHandler } from '../prettier/PrettierConfigHandler.ts';
+import { StylelintConfigHandler } from '../stylelint/StylelintConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
 export class BasicConfigHandler extends AbstractConfigHandler {
-  static readonly CONFIG_FILE_PATH = resolveCwdRelativePath('/qoq.config.js');
+  static readonly CONFIG_FILE_DIR = resolveCwdRelativePath('/');
 
   async getPrompts(): Promise<void> {
     const { srcPath, configType }: { srcPath: string; configType: EConfigType } =
@@ -82,7 +81,13 @@ export class BasicConfigHandler extends AbstractConfigHandler {
     };
 
     try {
-      const configFileContent = readFileSync(BasicConfigHandler.CONFIG_FILE_PATH, 'utf-8');
+      if (existsSync(resolveCwdRelativePath('/qoq.config.cjs'))) {
+        this.modulesConfig.configType = EConfigType.CJS;
+
+        return super.getModulesFromConfig();
+      }
+
+      const configFileContent = readFileSync(resolveCwdRelativePath('/qoq.config.js'), 'utf-8');
 
       this.modulesConfig.configType =
         configFileContent.includes('module.exports-') ||

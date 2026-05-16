@@ -1,8 +1,7 @@
+import { dummyModulesConfig } from '__tests__/common.ts';
 import { describe, it, expect } from 'vitest';
 
-import { JscpdExecutor } from './JscpdExecutor';
-
-import { dummyModulesConfig } from '@/__tests__/common';
+import { JscpdExecutor } from './JscpdExecutor.ts';
 
 describe('JscpdExecutor', () => {
   const executor = new JscpdExecutor(dummyModulesConfig);

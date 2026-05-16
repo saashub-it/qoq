@@ -4,17 +4,16 @@ import { existsSync, rmSync, writeFileSync } from 'fs';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
+import { formatCode } from '../../helpers/formatCode.ts';
+import { EConfigType, QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
 import {
   EModulesStylelint,
-  IModuleStylelintConfigWithPattern,
-  IModuleStylelintConfigWithTemplate,
-} from './types';
-
-import { formatCode } from '@/helpers/formatCode';
-import { EConfigType, QoqConfig } from '@/helpers/types';
+  type IModuleStylelintConfigWithPattern,
+  type IModuleStylelintConfigWithTemplate,
+} from './types.ts';
 
 export class StylelintConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = '/stylelint.config.js';

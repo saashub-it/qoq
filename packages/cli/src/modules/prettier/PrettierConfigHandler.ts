@@ -5,12 +5,11 @@ import c from 'picocolors';
 import prompts from 'prompts';
 import isEqual from 'react-fast-compare';
 
-import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler';
-import { IModulesConfig } from '../types';
+import { QoqConfig } from '../../helpers/types.ts';
+import { AbstractConfigHandler } from '../abstract/AbstractConfigHandler.ts';
+import { IModulesConfig } from '../types.ts';
 
-import { EModulesPrettier } from './types';
-
-import { QoqConfig } from '@/helpers/types';
+import { EModulesPrettier } from './types.ts';
 
 export class PrettierConfigHandler extends AbstractConfigHandler {
   static readonly CONFIG_FILE_PATH = '/.prettierrc';

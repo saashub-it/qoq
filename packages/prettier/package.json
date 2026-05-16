@@ -1,6 +1,6 @@
 {
   "name": "@saashub/qoq-prettier",
-  "version": "2.0.3",
+  "version": "3.2.4",
   "homepage": "https://github.com/saashub-it/qoq/tree/master/packages/prettier",
   "bugs": {
     "url": "https://github.com/saashub-it/qoq/issues"
@@ -11,7 +11,6 @@
     "directory": "packages/prettier"
   },
   "license": "MIT",
-  "type": "module",
   "exports": {
     ".": {
       "default": "./index.json"
@@ -31,16 +30,16 @@
     "build": "rimraf ./index.json && node ./src/index.js"
   },
   "dependencies": {
-    "prettier": "3.7.4"
+    "prettier": "3.8.3"
   },
   "devDependencies": {
-    "rimraf": "6.1.2"
+    "rimraf": "6.1.3"
   },
   "peerDependencies": {
     "prettier": "^3"
   },
   "engines": {
-    "node": ">=22.9.0"
+    "node": ">=22.13.0"
   },
   "publishConfig": {
     "access": "public"

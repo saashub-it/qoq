@@ -1,4 +1,4 @@
-export interface INpmOutdatedOutputEntry {
+interface INpmOutdatedOutputEntry {
   current: string;
   latest: string;
 }

@@ -1,29 +1,33 @@
 import { existsSync, rmSync, writeFileSync } from 'fs';
-import { pathToFileURL } from 'url';
 
+import { EExitCode, executeCommand, resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { cosmiconfig } from 'cosmiconfig';
 import c from 'picocolors';
 import prompts from 'prompts';
 
-import { AbstractConfigHandler } from './abstract/AbstractConfigHandler';
-import { BasicConfigHandler } from './basic/BasicConfigHandler';
-import { EslintConfigHandler } from './eslint/EslintConfigHandler';
-import { EslintExecutor } from './eslint/EslintExecutor';
-import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler';
-import { JscpdExecutor } from './jscpd/JscpdExecutor';
-import { KnipConfigHandler } from './knip/KnipConfigHandler';
-import { KnipExecutor } from './knip/KnipExecutor';
-import { NpmConfigHandler } from './npm/NpmConfigHandler';
-import { NpmExecutor } from './npm/NpmExecutor';
-import { PrettierConfigHandler } from './prettier/PrettierConfigHandler';
-import { PrettierExecutor } from './prettier/PrettierExecutor';
-import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler';
-import { StylelintExecutor } from './stylelint/StylelintExecutor';
-import { IExecutorOptions, IModulesConfig } from './types';
+import { formatCode } from '../helpers/formatCode.ts';
+import { installPackages } from '../helpers/packages.ts';
+import { QoqConfig } from '../helpers/types.ts';
 
-import { executeCommand } from '@/helpers/command';
-import { formatCode } from '@/helpers/formatCode';
-import { installPackages } from '@/helpers/packages';
-import { EExitCode, QoqConfig } from '@/helpers/types';
+import { AbstractConfigHandler } from './abstract/AbstractConfigHandler.ts';
+import { BasicConfigHandler } from './basic/BasicConfigHandler.ts';
+import { EslintConfigHandler } from './eslint/EslintConfigHandler.ts';
+import { EslintExecutor } from './eslint/EslintExecutor.ts';
+import { JscpdConfigHandler } from './jscpd/JscpdConfigHandler.ts';
+import { JscpdExecutor } from './jscpd/JscpdExecutor.ts';
+import { KnipConfigHandler } from './knip/KnipConfigHandler.ts';
+import { KnipExecutor } from './knip/KnipExecutor.ts';
+import { NpmConfigHandler } from './npm/NpmConfigHandler.ts';
+import { NpmExecutor } from './npm/NpmExecutor.ts';
+import { PrettierConfigHandler } from './prettier/PrettierConfigHandler.ts';
+import { PrettierExecutor } from './prettier/PrettierExecutor.ts';
+import { SkillslintConfigHandler } from './skillslint/SkillslintConfigHandler.ts';
+import { SkillslintExecutor } from './skillslint/SkillslintExecutor.ts';
+import { StylelintConfigHandler } from './stylelint/StylelintConfigHandler.ts';
+import { StylelintExecutor } from './stylelint/StylelintExecutor.ts';
+import { IExecutorOptions, IModulesConfig } from './types.ts';
+
+const moduleName = 'qoq';
 
 const getHandlerBySequence = (
   modulesConfig: IModulesConfig,
@@ -36,14 +40,16 @@ const getHandlerBySequence = (
   const jscpdConfigHandler = new JscpdConfigHandler(modulesConfig, config);
   const knipConfigHandler = new KnipConfigHandler(modulesConfig, config);
   const stylelintConfigHandler = new StylelintConfigHandler(modulesConfig, config);
+  const skillslintConfigHandler = new SkillslintConfigHandler(modulesConfig, config);
 
   basicConfigHandler
     .setNext(npmConfigHandler)
+    .setNext(knipConfigHandler)
     .setNext(prettierConfigHandler)
     .setNext(eslintConfigHandler)
     .setNext(jscpdConfigHandler)
-    .setNext(knipConfigHandler)
-    .setNext(stylelintConfigHandler);
+    .setNext(stylelintConfigHandler)
+    .setNext(skillslintConfigHandler);
 
   return basicConfigHandler;
 };
@@ -66,14 +72,22 @@ export const initConfig = async (
 
   await getHandlerBySequence(modulesConfig, config).getPrompts();
 
-  if (existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
-    rmSync(BasicConfigHandler.CONFIG_FILE_PATH);
-  }
+  [
+    `${moduleName}.config.js`,
+    `${moduleName}.config.ts`,
+    `${moduleName}.config.mjs`,
+    `${moduleName}.config.cjs`,
+  ].forEach((filename) => {
+    const filepath = resolveCwdRelativePath(`/${filename}`);
+    if (existsSync(filepath)) {
+      rmSync(filepath);
+    }
+  });
 
   const configFromModules = getHandlerBySequence(modulesConfig, config).getConfigFromModules();
 
   writeFileSync(
-    BasicConfigHandler.CONFIG_FILE_PATH,
+    resolveCwdRelativePath(`/${moduleName}.config.js`),
     formatCode(modulesConfig.configType, {}, [], JSON.stringify(configFromModules))
   );
 
@@ -92,7 +106,17 @@ export const getConfig = async (
   workspaces: IModulesConfig['workspaces'],
   skipInit: boolean = false
 ): Promise<IModulesConfig> => {
-  if (!skipInit && !existsSync(BasicConfigHandler.CONFIG_FILE_PATH)) {
+  const qoqConfig = await cosmiconfig(moduleName, {
+    searchStrategy: 'project',
+    searchPlaces: [
+      `${moduleName}.config.js`,
+      `${moduleName}.config.ts`,
+      `${moduleName}.config.mjs`,
+      `${moduleName}.config.cjs`,
+    ],
+  }).search();
+
+  if (!skipInit && !qoqConfig) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const { config } = await prompts.prompt({
       type: 'toggle',
@@ -106,22 +130,13 @@ export const getConfig = async (
     if (!config) {
       process.stderr.write('Running with defaults\n');
 
-      return getModulesFromConfig({} as QoqConfig, workspaces);
+      return getModulesFromConfig({}, workspaces);
     }
 
     return initConfig(workspaces, true);
   }
 
-  try {
-    const config = await import(pathToFileURL(BasicConfigHandler.CONFIG_FILE_PATH).toString());
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return getModulesFromConfig(config.default as QoqConfig, workspaces);
-  } catch {
-    process.stderr.write('Running with defaults\n');
-
-    return getModulesFromConfig({} as QoqConfig, workspaces);
-  }
+  return getModulesFromConfig(qoqConfig?.config as QoqConfig, workspaces);
 };
 
 export const execute = async (
@@ -130,29 +145,36 @@ export const execute = async (
   files?: string[]
 ): Promise<void> => {
   const { silent, warmup, skipNpm, skipPrettier, skipJscpd, skipKnip, skipEslint } = options;
+
   const hideMessages = !!silent || !!warmup;
 
   const consoleTimeName = `Total execution time:`;
   console.time(c.italic(c.gray(consoleTimeName)));
 
   const npmExecutor = new NpmExecutor(modulesConfig, true);
+  const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
   const prettierExecutor = new PrettierExecutor(modulesConfig, hideMessages);
   const jscpdExecutor = new JscpdExecutor(modulesConfig, hideMessages, true);
-  const knipExecutor = new KnipExecutor(modulesConfig, hideMessages);
   const eslintExecutor = new EslintExecutor(modulesConfig, hideMessages);
   const stylelintExecutor = new StylelintExecutor(modulesConfig, hideMessages);
+  const skillslintExecutor = new SkillslintExecutor(modulesConfig, hideMessages);
 
   const responses: Record<string, EExitCode> = {
     [npmExecutor.getName()]: EExitCode.OK,
+    [knipExecutor.getName()]: EExitCode.OK,
     [prettierExecutor.getName()]: EExitCode.OK,
     [jscpdExecutor.getName()]: EExitCode.OK,
-    [knipExecutor.getName()]: EExitCode.OK,
     [eslintExecutor.getName()]: EExitCode.OK,
     [stylelintExecutor.getName()]: EExitCode.OK,
+    [skillslintExecutor.getName()]: EExitCode.OK,
   };
 
   if (!skipNpm) {
-    responses[npmExecutor.getName()] = await npmExecutor.run(options, files);
+    responses[npmExecutor.getName()] = await npmExecutor.run(options, files, 'pipe');
+  }
+
+  if (!skipKnip) {
+    responses[knipExecutor.getName()] = await knipExecutor.run(options, files);
   }
 
   if (!skipPrettier) {
@@ -163,16 +185,16 @@ export const execute = async (
     responses[jscpdExecutor.getName()] = await jscpdExecutor.run(options, files);
   }
 
-  if (!skipKnip) {
-    responses[knipExecutor.getName()] = await knipExecutor.run(options, files);
-  }
-
   if (!skipEslint) {
     responses[eslintExecutor.getName()] = await eslintExecutor.run(options, files);
   }
 
   if (modulesConfig.modules.stylelint) {
     responses[stylelintExecutor.getName()] = await stylelintExecutor.run(options, files);
+  }
+
+  if (modulesConfig.modules.skillslint) {
+    responses[skillslintExecutor.getName()] = await skillslintExecutor.run(options, files);
   }
 
   Object.keys(responses)

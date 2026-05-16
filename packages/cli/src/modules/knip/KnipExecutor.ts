@@ -1,19 +1,17 @@
 import { writeFileSync } from 'fs';
 
-import { getRelativePath } from '@saashub/qoq-utils';
+import { getKnipConfig } from '@saashub/qoq-knip';
+import { EExitCode, getRelativePath } from '@saashub/qoq-utils';
 import c from 'picocolors';
 
-// eslint-disable-next-line no-restricted-imports
-import { getKnipConfig } from '../../../../knip/src/knipConfig';
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { capitalizeFirstLetter } from '../../helpers/common.ts';
+import { formatCode } from '../../helpers/formatCode.ts';
+import { resolveCliPackagePath, resolveCliRelativePath } from '../../helpers/paths.ts';
+import { EConfigType } from '../../helpers/types.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
-import { IModuleKnipConfig } from './types';
-
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+import { IModuleKnipConfig } from './types.ts';
 
 export class KnipExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.knipcache');
@@ -30,7 +28,7 @@ export class KnipExecutor extends AbstractExecutor {
   }
 
   protected async prepare(args: string[], options: IExecutorOptions): Promise<EExitCode> {
-    const { configHints, production } = options;
+    const { configHints, production, fix } = options;
 
     if (!configHints) {
       args.push('--no-config-hints');
@@ -38,6 +36,10 @@ export class KnipExecutor extends AbstractExecutor {
 
     if (production) {
       args.push('--production');
+    }
+
+    if (fix) {
+      args.push('--fix');
     }
 
     try {

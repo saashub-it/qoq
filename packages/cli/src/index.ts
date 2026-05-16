@@ -3,9 +3,9 @@
 import { readPackage } from '@npmcli/package-json/lib/read-package';
 import cac from 'cac';
 
-import { PACKAGE_JSON_PATH } from './helpers/constants';
-import { getConfig, initConfig, execute } from './modules';
-import { IExecuteOptions, IExecuteStagedOptions } from './modules/types';
+import { PACKAGE_JSON_PATH } from './helpers/constants.ts';
+import { getConfig, initConfig, execute } from './modules/index.ts';
+import { IExecuteOptions, IExecuteStagedOptions } from './modules/types.ts';
 
 const cli = cac('qoq');
 

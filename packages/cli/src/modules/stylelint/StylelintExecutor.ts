@@ -2,28 +2,25 @@
 import { existsSync, writeFileSync } from 'fs';
 import { open } from 'fs/promises';
 
-import { resolveCwdRelativePath } from '@saashub/qoq-utils';
+import { StylelintConfig } from '@saashub/qoq-stylelint-css';
+import { EExitCode, resolveCwdRelativePath } from '@saashub/qoq-utils';
 import micromatch from 'micromatch';
 import c from 'picocolors';
 
-import { AbstractExecutor } from '../abstract/AbstractExecutor';
-import { IExecutorOptions } from '../types';
+import { capitalizeFirstLetter } from '../../helpers/common.ts';
+import { GITIGNORE_FILE_PATH } from '../../helpers/constants.ts';
+import { TerminateExecutorGracefully } from '../../helpers/exceptions/TerminateExecutorGracefully.ts';
+import { formatCode } from '../../helpers/formatCode.ts';
+import { resolveCliPackagePath, resolveCliRelativePath } from '../../helpers/paths.ts';
+import { EConfigType } from '../../helpers/types.ts';
+import { AbstractExecutor } from '../abstract/AbstractExecutor.ts';
+import { IExecutorOptions } from '../types.ts';
 
 import {
   EModulesStylelint,
-  IModuleStylelintConfigWithPattern,
-  IModuleStylelintConfigWithTemplate,
-} from './types';
-
-// eslint-disable-next-line no-restricted-imports
-import type { StylelintConfig } from '../../../../stylelint-css/src';
-
-import { capitalizeFirstLetter } from '@/helpers/common';
-import { GITIGNORE_FILE_PATH } from '@/helpers/constants';
-import { TerminateExecutorGracefully } from '@/helpers/exceptions/TerminateExecutorGracefully';
-import { formatCode } from '@/helpers/formatCode';
-import { resolveCliPackagePath, resolveCliRelativePath } from '@/helpers/paths';
-import { EConfigType, EExitCode } from '@/helpers/types';
+  type IModuleStylelintConfigWithPattern,
+  type IModuleStylelintConfigWithTemplate,
+} from './types.ts';
 
 export class StylelintExecutor extends AbstractExecutor {
   static readonly CACHE_PATH = resolveCliRelativePath('/bin/.stylelintcache');
