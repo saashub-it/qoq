@@ -13,7 +13,7 @@
   "license": "MIT",
   "main": "./index.json",
   "dependencies": {
-    "jscpd": "4.0.9"
+    "jscpd": "4.2.2"
   },
   "engines": {
     "node": ">=22.13.0"

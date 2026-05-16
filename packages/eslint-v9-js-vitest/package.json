@@ -44,12 +44,12 @@
   "dependencies": {
     "@saashub/qoq-eslint-v9-js": "^3.2.3",
     "@saashub/qoq-utils": "^3.2.3",
-    "@vitest/eslint-plugin": "1.6.16"
+    "@vitest/eslint-plugin": "1.6.17"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "12.3.0",
     "rimraf": "6.1.3",
-    "rollup": "4.60.3",
+    "rollup": "4.60.4",
     "typescript": "6.0.3"
   },
   "peerDependencies": {
