@@ -15,28 +15,23 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and used to get your
-        website up and running quickly.
+        Our configuration wizard will detect Your project settings and setup all things for You,
+        including packages installation.
       </>
     ),
   },
   {
     title: 'Focus on What Matters',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your
-        docs into the <code>docs</code> directory.
-      </>
-    ),
+    description: <>Leave quality checks to us, focus on implementation.</>,
   },
   {
-    title: 'Powered by React',
+    title: 'Flexible and extendable',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while
-        reusing the same header and footer.
+        All our configs can be modified or serve as a base to extends from, You can use them
+        standalone in particular tools or via our CLI.
       </>
     ),
   },
