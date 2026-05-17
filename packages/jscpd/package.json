@@ -16,7 +16,7 @@
     "jscpd": "4.2.2"
   },
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.13.1"
   },
   "publishConfig": {
     "access": "public"

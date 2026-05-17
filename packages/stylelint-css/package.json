@@ -54,7 +54,7 @@
     "stylelint": "^17.10.0"
   },
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.13.1"
   },
   "publishConfig": {
     "access": "public"
